@@ -12,8 +12,6 @@ window.addEventListener('scroll', function() {
 /*--------FUNCION PARA ALTERNAR EL BOTON TOGLE MENU--------*/
 // ---- ELEMENTOS DEL DOM ----
 document.addEventListener('DOMContentLoaded', function () {
-  feather.replace(); // Esto reemplaza <i data-feather> por SVGs
-
   const toggler = document.querySelector('.navbar-toggler');
   const navLinks = document.querySelector('.navbar-links');
   const navbarAnchors = document.querySelectorAll('.navbar-links a');

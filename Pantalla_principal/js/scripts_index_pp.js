@@ -5,7 +5,18 @@ function cargarContenido(pagina) {
       const contenido = document.getElementById("contenido-principal");
       contenido.innerHTML = data;
 
-      feather.replace(); // Iconos
+      /*contenido.addEventListener("scroll", () => {
+        const footer =  contenido.querySelector(".footer-oculto");
+        if (!footer) return;
+
+        const alFinal = contenido.scrollTop + contenido.clientHeight >= contenido.scrollHeight - 10;
+    
+        if (alFinal) {
+          footer.classList.add("footer-visible");
+        } else {
+          footer.classList.remove("footer-visible");
+        }
+      });*/
 
       // Fondo por página
       contenido.style.backgroundColor = (pagina === "pp_recetas.html") ? "#007848" : "#F6FFFE";

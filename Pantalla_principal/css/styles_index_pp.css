@@ -1,7 +1,6 @@
 * {
   /*outline: 1px solid rgb(208, 223, 8);*/
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   box-sizing: border-box;
 }
 
@@ -16,26 +15,29 @@ body, html {
   padding-left: 220px; /* espacio para la sidebar */
 }
 
+/* Contenido */
+.contenido {
+  flex: 1; padding: 25px; width: 100%;
+  background-color: #F6FFFE;
+  overflow-y: auto;
+}
+
+
 .logo-isotipo {
   width: 50px;
-  margin-bottom: 30px;
-  margin-top: 20px;
+  margin-bottom: 30px; margin-top: 20px;
   color: #E99A3C;
 }
 
 /* SIDEBAR / MENU LATERAL */
 /* Sidebar */
 .sidebar {
-  background-color: #154734;
-  color: #F6FFFE;
-  width: 226px;
-  min-width: 220px;
-  height: 100vh;
   position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
+  background-color: #154734; color: #F6FFFE;
+  width: 226px; min-width: 220px;
+  height: 100vh;
+  top: 0; left: 0;
+  display: flex; flex-direction: column;
   align-items: center;
   z-index: 1000;
 }
@@ -43,9 +45,7 @@ body, html {
 .nav-links {
   list-style: none;
   width: 100%;
-  padding: 10px;
-  margin: 0;
-  gap: 12px;
+  padding: 10px; margin: 0; gap: 12px;
 }
 
 .nav-item {
@@ -64,44 +64,36 @@ body, html {
 
 /* Mantener el estilo visual */
 .nav-item:hover {
-  background-color: #007848;
-  color: #F6FFFE;
+  background-color: #007848; color: #F6FFFE;
 }
 
 /* Para items con submenú: el trigger ocupa todo */
 .nav-item.has-submenu .nav-trigger {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: flex; flex: 1;
+  align-items: center; gap: 12px;
   padding: 3px 12px 3px 12px; /*top right bottom left*/
   width: 100%;
   height: 100%;
-  flex: 1;
   box-sizing: border-box;
   /*background-color: red; pruebas*/
-
 }
 
 /* Para items SIN submenú, mantiene el estilo original */
 .nav-item:not(.has-submenu) {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px;
-  box-sizing: border-box;
+  display: flex; box-sizing: border-box;
+  align-items: center; gap: 12px;
+  padding: 10px;  
 }
 
 /* --- HOVER --- */
 .nav-item:hover {
-  background-color: #007848;
-  color: #F6FFFE;
+  background-color: #007848; color: #F6FFFE;
 }
 
 /* --- ACTIVE ITEM --- */
 .nav-item.active,
 .nav-trigger.active {
-  background-color: #F6FFFE;
-  color: #007848;
+  background-color: #F6FFFE; color: #007848;
   font-weight: bold;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -112,18 +104,18 @@ body, html {
 .nav-item.highlight::before {
   content: '';
   position: absolute;
-  left: 5px; /*LINEA MENU*/
-  top: -10%;
   width: 6px;
-  height: 80%;
+  left: 5px; /*LINEA MENU*/
+  bottom: 50%;
+  transform: translateY(50%);
+  height: 100%;
   background-color: orange;
   border-radius: 4px;
 }
 
 /* Línea naranja animada para submenús */
 .submenu li::before {
-  content: '';
-  position: absolute;
+  content: ''; position: absolute;
   left: -20px;
   top: 50%;
   transform: translateY(-50%);
@@ -135,7 +127,7 @@ body, html {
   transition: all 0.4s ease;
 }
 
-/* Cuando está activo: animamos a cuadro a la derecha */
+/* Cuando está activo: animamos a cuadro a la derecha  en los subtemas*/
 .submenu li.highlight::before {
   left: -10px;
   right: 10px;
@@ -147,7 +139,6 @@ body, html {
   transform: translateY(-50%);
 }
 
-
 /* Línea naranja específicamente para los que tienen submenús */
 .nav-item.has-submenu.highlight::before,
 .nav-item.active::before {
@@ -157,15 +148,12 @@ body, html {
 
 /* --- SUBMENÚ --- */
 .has-submenu {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  display: flex; flex-direction: column; align-items: stretch;
 }
 
 /* Submenús ocultos por defecto */
 .submenu {
-  display: none;
-  flex-direction: column;
+  display: none; flex-direction: column;
   width: 100%;
   padding-left: 30px;
   margin-top: 2px;
@@ -174,8 +162,7 @@ body, html {
 
 .submenu li{
   position: relative;
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   cursor: pointer;
   gap: 10px;
   margin: 5px 0 5px 0; /*top right bottom left*/
@@ -202,9 +189,7 @@ body, html {
 .cerrar-sesion {
   margin-top: auto;
   padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: flex; align-items: center; gap: 12px;
   cursor: pointer;
   color: #F6FFFE;
   transition: background-color 0.3s ease;
@@ -215,11 +200,3 @@ body, html {
   border-radius: 8px;
 }
 
-/* Contenido */
-.contenido {
-  flex: 1;
-  background-color: #F6FFFE;
-  padding: 40px;
-  overflow-y: auto;
-  width: 100%;
-}

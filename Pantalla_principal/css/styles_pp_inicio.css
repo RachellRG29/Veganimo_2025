@@ -6,3 +6,286 @@ body, html {
 .contenido::after{
     background-color: #007848;
 }
+
+.lbl_bienvenida_vg{
+  font-family: 'Gloock', Verdana;
+  font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
+}
+
+.lbl_user_bienvenida{
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+/*-------------------------------------------------------------------------------------------------*/
+/*INICIAR PLAN*/
+.iniciar_plan{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 20px 0; /*top-right-bottom-left*/
+}
+
+.tarjeta_inic_plan{
+  --background: linear-gradient(to left, #007848 0%, #154734 100%);
+  width: 90%;
+  height: 400px;
+  padding: 10px;
+  border-radius: 01rem;
+  overflow: visible;
+  background: #007848;
+  background: var(--background);
+  position: relative;
+  z-index: 1;
+} 
+ .tarjeta-inic-plan::after {
+  position: absolute;
+  content: "";
+  top: 40px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  transform: scale(0.9);
+  filter: blur(30px);
+  background: #154734;
+  transition: opacity 0.5s;
+ }
+
+.contenido_tarj_plan{
+  --color: #F6FFFE;
+  background: var(--color); color: #1A1C1C;
+  width: 100%; height: 100%;
+  overflow: visible;
+  border-radius: 0.6rem;
+  display: flex; flex-direction: column;
+  gap: 20px;
+  align-items: center ; /*alineados centro*/
+}
+
+.tarjeta_inic_plan:hover::after {
+  opacity: 0;
+}
+
+/*img*/
+.circulo_plan{
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
+  margin-top: 1.5rem;
+}
+.img_tarj_plan{
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  align-self: center;
+  top: 1rem;
+  object-fit: cover; 
+}
+/*titulo*/
+.titulo_tarj_plan{
+  color: #1A1C1C;
+
+}
+/*descripcion tarjeta para iniciar plan*/
+.descripcion_tarj_plan{
+  text-wrap: pretty;  font-size: 1.1rem;
+  color: #1A1C1C;
+}
+/*Boton para iniciar plan*/
+.btn_iniciar_plan{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #E99A3C;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.ph-caret-right{
+  color: #E99A3C;
+  border: 1px solid #1A1C1C; background: #1A1C1C;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_iniciar_plan:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.btn_iniciar_plan:hover .ph-caret-right {
+  transform: translate(4px);
+}
+
+.btn_iniciar_plan:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.btn_iniciar_plan::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+/*-------------------------------------------------------------------------------------------------*/
+
+ /* Grid container */
+ .grid-container-recomendaciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /*Ancho minimo de la tarjeta*/
+  margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
+  gap: 2rem;
+  justify-items: center;
+  box-sizing: border-box;
+}
+
+/*RECETAS RECOMENDADAS*/
+
+/* Tarjeta base */
+.tarjeta-receta {
+  position: relative;
+  background-color: #007848;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  padding-top: 80px; /* espacio para el círculo */
+  box-sizing: border-box;
+  overflow: visible;
+  margin-top: 40px;  
+}
+
+/* Círculo contenedor */
+.circulo-img {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: #E99A3C;
+  border: 4px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  padding: 4px;
+  z-index: 2;
+  margin: auto auto 0.5rem auto; /* centrado horizontal */
+  display: block; /* importante margin auto */
+
+}
+
+/* Imagen dentro del círculo */
+.img-plato {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+    
+}
+
+/* Contenido de la tarjeta */
+.body-tarjeta {
+  padding: 40px 20px 30px 20px;
+  text-align: center;
+}
+
+.title-tarjeta {
+  color: #F6FFFE;
+  font-family: 'Gloock', verdana;
+  font-weight: 400;
+  font-size: 25px;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.descripcion-tarjeta {
+  color: #ffffffd4;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.estrellas_vot {
+  display: flex;
+  color: #F6FFFE;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding-bottom: 20px;
+  gap: 40px;
+}
+
+.star{
+  transform: rotate(45deg);
+}
+
+.datos-receta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.tiempo-receta, .dificultad-receta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #F6FFFE;
+  font-size: 14px;
+}
+
+.grupo_tiempo, .grupo_dif {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 6px 2px 4px 2px; /*top-right-bottom-left*/
+}
+
+.linea-datos {
+  width: 1px;
+  height: 50px;
+  background-color: #fff;
+}
+
+.lbl_tiempo_receta, .lbl_dificultad {
+  margin: 0;
+}

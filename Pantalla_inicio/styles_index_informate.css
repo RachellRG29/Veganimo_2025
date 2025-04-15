@@ -20,12 +20,10 @@
   }
 
   .grid-informate {
-    display: grid;
+    display: grid; justify-items: center;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta*/
     margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
-    gap: 1rem;
-    justify-items: center;
-    box-sizing: border-box;
+    gap: 1rem; box-sizing: border-box;
   }
 
   .tarjeta-informate{
@@ -33,11 +31,9 @@
     background-color: #007848;
     border-radius: 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 360px;
+    width: 100%; max-width: 360px;
     height: auto;
-    box-sizing: border-box;
-    overflow: hidden;
+    box-sizing: border-box; overflow: hidden;
   }
 
   .card-img-informate {
@@ -57,10 +53,7 @@
 
   .title-tarjeta-inf {
     color: #F6FFFE;
-    font-family: 'Gloock', verdana;
-    font-weight: 400;
-    font-size: 25px;
-    letter-spacing: 1.5px;
+    font-family: 'Gloock', verdana; font-weight: 400; font-size: 25px; letter-spacing: 1.5px;
     margin-bottom: 10px;
   }
   
@@ -92,22 +85,20 @@
   --color-background: #E99A3C;
   --color-outline: #E99A3C80;
   --color-shadow: #00000080;
-  cursor: pointer;
+  
 }
 
 .btn-content-inf {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   padding: 5px 30px;
   text-decoration: none;
-  font-family: 'Comfortaa', Verdana;
-  font-weight: 400;
-  font-size: 24px;
+  font-family: 'Comfortaa', Verdana; font-weight: 400; font-size: 24px;
   color: var(--color-text);
   background: var(--color-background);
   transition: 1s;
   border-radius: 100px;
   box-shadow: 0 0 0.2em 0 var(--color-background);
+  cursor: pointer;
 }
 
 .btn-content-inf:hover, .btn-content-inf:focus {

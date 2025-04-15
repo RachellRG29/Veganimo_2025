@@ -22,11 +22,10 @@
 
  /* Grid container */
 .grid-container {
-  display: grid;
+  display: grid; justify-items: center;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta*/
   margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
   gap: 1rem;
-  justify-items: center;
   box-sizing: border-box;
 }
 
@@ -36,12 +35,10 @@
   background-color: #007848;
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  max-width: 360px;
+  width: 100%; max-width: 360px;
   height: auto;
   padding-top: 80px; /* espacio para el círculo */
-  box-sizing: border-box;
-  overflow: visible;
+  box-sizing: border-box; overflow: visible;
   margin-top: 40px;  
 }
 
@@ -57,8 +54,7 @@
   background-color: #E99A3C;
   border: 4px solid white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  padding: 4px;
+  overflow: hidden; padding: 4px;
   z-index: 2;
   margin: auto auto 0.5rem auto; /* centrado horizontal */
   display: block; /* importante margin auto */
@@ -69,10 +65,8 @@
 .img-plato {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-    
+  object-fit: contain;   
 }
-
 
 /* Contenido de la tarjeta */
 .body-tarjeta {
@@ -82,10 +76,7 @@
 
 .title-tarjeta {
   color: #F6FFFE;
-  font-family: 'Gloock', verdana;
-  font-weight: 400;
-  font-size: 25px;
-  letter-spacing: 1.5px;
+  font-family: 'Gloock', verdana; font-weight: 400; font-size: 25px; letter-spacing: 1.5px;
   margin-bottom: 10px;
 }
 
@@ -96,36 +87,29 @@
 }
 
 .estrellas_vot {
-  display: flex;
+  display: flex; justify-content: center;
   color: #F6FFFE;
-  justify-content: center;
-  margin-bottom: 1rem;
-  padding-bottom: 20px;
+  margin-bottom: 1rem; padding-bottom: 20px;
   gap: 40px;
 }
 
 .star{
-  transform: rotate(45deg);
+  transform: rotate(50deg);
 }
 
 .datos-receta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex; justify-content: space-between; align-items: center;
   gap: 10px;
 }
 
 .tiempo-receta, .dificultad-receta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex; flex-direction: column; align-items: center;
   color: #F6FFFE;
   font-size: 14px;
 }
 
 .grupo_tiempo, .grupo_dif {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   gap: 1rem;
   margin: 6px 2px 4px 2px; /*top-right-bottom-left*/
 }
@@ -140,7 +124,6 @@
   margin: 0;
 }
 
-
 /*Ver mas recetas*/
 .btn-ver-mas-recetas {
   display: flex;
@@ -149,22 +132,20 @@
   --color-background: #E99A3C;
   --color-outline: #E99A3C80;
   --color-shadow: #00000080;
-  cursor: pointer;
+ /* background: red;*/
 }
 
 .btn-content {
-  display: flex;
-  align-items: center;
+  display: flex;  align-items: center;
   padding: 5px 30px;
   text-decoration: none;
-  font-family: 'Comfortaa', Verdana;
-  font-weight: 400;
-  font-size: 24px;
+  font-family: 'Comfortaa', Verdana; font-weight: 400; font-size: 24px;
   color: var(--color-text);
   background: var(--color-background);
   transition: 1s;
   border-radius: 100px;
   box-shadow: 0 0 0.2em 0 var(--color-background);
+  cursor: pointer;
 }
 
 .btn-content:hover, .btn-content:focus {
