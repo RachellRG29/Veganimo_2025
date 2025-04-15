@@ -1,0 +1,8 @@
+body, html {
+    font-family: 'Comfortaa', Verdana;
+    height: 100%;
+  }
+
+.contenido::after{
+    background-color: #007848;
+}
