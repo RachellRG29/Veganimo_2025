@@ -1,5 +1,5 @@
 body {
-    font-family: 'Comfortaa';
+  font-family: 'Comfortaa','Verdana';
   }
   
   /* Fondo degradado  */
@@ -158,8 +158,8 @@ body {
   /* Estilo del logo/isotipo */
   .logo {
     max-height: 60px;
-    width: auto;
+    width: 50px;
+    fill: #154734;
   }
-  
   
   

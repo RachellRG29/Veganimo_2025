@@ -1,5 +1,5 @@
 body {
-    font-family: 'Comfortaa';
+  font-family: 'Comfortaa','Verdana';
   }
   
   /* efectos generales */
@@ -25,6 +25,7 @@ body {
   /* Texto de Verificar Correo */
   .form-title {
     font-family: 'Gloock';
+    font-weight: 400;
     color: #154734;
     margin-bottom: 10px;
   }
@@ -114,8 +115,8 @@ body {
   
   .logo {
     max-height: 60px;
-    width: auto;
-    
+    width: 50px;
+    fill: #154734;
   }
   
   /* Texto de Ingrese el código */

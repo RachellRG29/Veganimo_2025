@@ -16,7 +16,7 @@ eeire-black: #1A1C1C
 
     /*Cuerpo de la pagina*/
     body {
-        font-family: 'Comfortaa','verdana';
+        font-family: 'Comfortaa','Verdana';
         background-size: cover;
         overflow-x: hidden; /* Oculta el desplazamiento horizontal */
     }
