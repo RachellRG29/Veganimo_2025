@@ -1,0 +1,165 @@
+body {
+    font-family: 'Comfortaa';
+  }
+  
+  /* Fondo degradado  */
+  .custom-bg {
+    background: linear-gradient(to right, #33AD7F, #154734);
+  }
+  
+  /* Contenedor principal */
+  .container {
+    position: relative;
+    min-height: 100vh;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Tarjeta del formulario */
+  .custom-form-card {
+    background-color: #F6FFFE;
+    width: 850px;
+    max-width: 800px;
+    padding: 50px;
+    height: 561px;
+    z-index: 2;
+    left: -100px;
+  }
+  
+  /* Título del formulario */
+  .form-title {
+    font-family: 'Gloock';
+    color: #154734;
+    margin-bottom: 10px;
+  }
+  
+  /* Línea decorativa debajo del título */
+  .separator {
+    width: 150px;
+    height: 1px;
+    background-color: #E99A3C;
+    border-radius: 2px;
+    margin: 0 auto 20px auto;
+    display: block;
+  }
+  
+  /* Etiqueta del formulario */
+  .form-label {
+    padding-left: 15%;
+  }
+  
+  /* Estilo general de inputs */
+  .input-border {
+    border: 1.9px solid #007848;
+    width: 70%;
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    border-radius: 10px;
+  }
+  
+  /* Input enfocado */
+  .input-border:focus {
+    border-color: #007848;
+    box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
+  }
+  
+  /* Icono de ojo  */
+  .eye-icon {
+    color: #E99A3C;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  /* Botón y efectos */
+  button {
+    padding: 9.5px 20px;
+    border: 0;
+    border-radius: 20px;
+    background-color: #E99A3C;
+    color: #000000;
+    font-family: 'Comfortaa';
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+  }
+  
+  button:hover {
+    background-color: #E99A3C;
+    box-shadow: 0 0 20px #19d80050;
+    transform: scale(1.1);
+  }
+  
+  button:active {
+    background-color: #E99A3C;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+  
+  /* Imagen de la derecha */
+  .login-image {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 430px;
+    height: 561px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Icono del ojo dentro del input */
+  .password-toggle {
+    position: absolute;
+    top: 77%;
+    transform: translateY(-50%);
+    right: 17%;
+    cursor: pointer;
+  }
+  
+  /* Botón   */
+  .submit-btn {
+    background-color: #E99A3C;
+    color: #000000;
+    margin-top: 20px;
+    border-radius: 15px;
+  }
+  
+  .submit-btn:hover {
+    background-color: #000000;
+  }
+  
+  /* Estilos de texto */
+  .text-muted {
+    color: #000000 !important;
+    margin-top: 24px;
+  }
+  
+  .text-center.mt-3 {
+    margin-top: 50px;
+    color: #000000 !important;
+  }
+  
+  .text-decoration-none {
+    text-decoration: none !important;
+  }
+  
+  /* Contenedor del logo/isotipo */
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  /* Estilo del logo/isotipo */
+  .logo {
+    max-height: 60px;
+    width: auto;
+  }
+  
+  
+  
