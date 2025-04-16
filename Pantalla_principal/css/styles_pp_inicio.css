@@ -10,12 +10,46 @@ body, html {
 .lbl_bienvenida_vg{
   font-family: 'Gloock', Verdana;
   font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
+  color: #F6FFFE;
 }
 
 .lbl_user_bienvenida{
   margin-top: 10px;
   font-size: 18px;
+  color: #F6FFFE;
 }
+
+/*Perfil usuario esquina superior derecha*/
+.perfil_user{
+  position: absolute;
+  right: 2.5rem;
+  top: 1rem;
+  padding: 2px 30px;
+  background-color: #E99A3C;
+  display: flex;
+  gap: 10px;
+  border-radius: 0.5rem;
+  align-items: center;
+  z-index: 1000;
+}
+
+.circulo_perfil{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.img_perfil{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+
+}
+
+/*.lbl_nombre_user{
+
+}*/
 
 /*-------------------------------------------------------------------------------------------------*/
 /*INICIAR PLAN*/
@@ -27,13 +61,12 @@ body, html {
 }
 
 .tarjeta_inic_plan{
-  --background: linear-gradient(to left, #007848 0%, #154734 100%);
+  --background: #154734;
   width: 90%;
   height: 400px;
-  padding: 10px;
+  padding: 14px;
   border-radius: 01rem;
   overflow: visible;
-  background: #007848;
   background: var(--background);
   position: relative;
   z-index: 1;
@@ -104,9 +137,7 @@ body, html {
   padding-inline: 1.25rem;
   background-color: #E99A3C;
   border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   color: #1A1C1C;
   gap: 10px;
   font-weight: bold; font-family: 'Comfortaa', Verdana;
@@ -138,10 +169,8 @@ body, html {
 }
 
 .btn_iniciar_plan::before {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 100%;
+  content: ""; position: absolute;
+  width: 100px; height: 100%;
   background-image: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0) 30%,
@@ -168,15 +197,28 @@ body, html {
 }
 
 /*-------------------------------------------------------------------------------------------------*/
+/*CONTENEDOR DE LAS RECOMENDACIONES*/
+.contenedor_recomendaciones{
+  background: #F6FFFE;
+  border-radius: 20px;
+  width: 90%;
+  margin: 0 auto; /*centrado importante*/
+  padding-bottom: 0.1rem;
+}
 
  /* Grid container */
  .grid-container-recomendaciones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /*Ancho minimo de la tarjeta*/
+  display: grid; justify-items: center;
+  /*grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); Ancho minimo de la tarjeta*/
+  grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
   margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
   gap: 2rem;
-  justify-items: center;
-  box-sizing: border-box;
+}
+
+.lbl_recomendaciones{
+  margin: 20px 20px; /* Márgenes superior e inferior */
+  padding-top: 1.2rem;
+  color: #1A1C1C;
 }
 
 /*RECETAS RECOMENDADAS*/

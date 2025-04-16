@@ -19,7 +19,8 @@ function cargarContenido(pagina) {
       });*/
 
       // Fondo por página
-      contenido.style.backgroundColor = (pagina === "pp_recetas.html") ? "#007848" : "#F6FFFE";
+      contenido.style.backgroundColor = (pagina === "pp_inicio.html", "pp_mi_plan.html","pp_recetas.html") 
+      ? "#007848" : "#F6FFFE";
     });
 }
 
