@@ -1,60 +1,61 @@
 function cargarContenido(pagina) {
-  fetch(`/Pantalla_principal/contenidos/${pagina}`)
-    .then(res => res.text())
+  return fetch(`/Pantalla_principal/contenidos/${pagina}`)
+    .then(res => {
+      if (!res.ok) throw new Error('Error de red');
+      return res.text();
+    })
     .then(data => {
-      const contenido = document.getElementById("contenido-principal");
-      contenido.innerHTML = data;
+      document.getElementById("contenido-principal").innerHTML = data;
+      
+      // Fondo verde para páginas específicas
+      const paginasVerdes = ["pp_inicio.html", "pp_mi_plan.html"];
+      document.getElementById("contenido-principal").style.backgroundColor = 
+        paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
+      
+      return true;
+    })
+    .catch(error => console.error('Error:', error));
+}
 
-      /*contenido.addEventListener("scroll", () => {
-        const footer =  contenido.querySelector(".footer-oculto");
-        if (!footer) return;
-
-        const alFinal = contenido.scrollTop + contenido.clientHeight >= contenido.scrollHeight - 10;
-    
-        if (alFinal) {
-          footer.classList.add("footer-visible");
-        } else {
-          footer.classList.remove("footer-visible");
-        }
-      });*/
-
-      // Fondo por página
-      contenido.style.backgroundColor = (pagina === "pp_inicio.html", "pp_mi_plan.html","pp_recetas.html") 
-      ? "#007848" : "#F6FFFE";
-    });
+function scrollToSection(sectionName) {
+  const section = document.querySelector(`.${sectionName}`);
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll(".nav-item[data-page]");
+  const navItems = document.querySelectorAll(".nav-item");
   const subItems = document.querySelectorAll(".submenu li");
   const itemsConSubmenu = document.querySelectorAll(".has-submenu");
 
-  // Abrir/Cerrar submenús al hacer clic en el trigger
+  // Función para seleccionar un item
+  const selectItem = (item) => {
+    navItems.forEach(i => i.classList.remove("active", "highlight"));
+    subItems.forEach(i => i.classList.remove("active", "highlight"));
+    item.classList.add("active", "highlight");
+  };
+
+  // Manejar clicks en items con submenú
   itemsConSubmenu.forEach(item => {
     const trigger = item.querySelector(".nav-trigger");
+    const menuText = trigger.querySelector("span");
+    const arrow = trigger.querySelector(".ph-caret-down");
 
-    trigger.addEventListener("click", (e) => {
+    // Click en el texto/icono del menú (cargar contenido)
+    menuText.closest('div').addEventListener("click", (e) => {
+      if (e.target !== arrow) { // Evitar que se active al clickear la flecha
+        selectItem(item);
+        if (item.hasAttribute("data-page")) {
+          cargarContenido(item.getAttribute("data-page"));
+        }
+      }
+    });
+
+    // Click en la flecha (toggle submenú)
+    arrow.addEventListener("click", (e) => {
       e.stopPropagation();
-
-      const isOpen = item.classList.contains("open-submenu");
-
-      // Reset
-      navItems.forEach(i => i.classList.remove("active", "highlight"));
-      subItems.forEach(i => i.classList.remove("active", "highlight"));
-      itemsConSubmenu.forEach(i => i.classList.remove("open-submenu"));
-
-      item.classList.add("active", "highlight");
-
-      // Si no estaba abierto, lo abrimos
-      if (!isOpen) {
-        item.classList.add("open-submenu");
-      }
-
-      // Cargar contenido si tiene página
-      const page = item.getAttribute("data-page");
-      if (page) {
-        cargarContenido(page);
-      }
+      item.classList.toggle("open-submenu");
     });
   });
 
@@ -62,120 +63,36 @@ document.addEventListener("DOMContentLoaded", () => {
   subItems.forEach(subItem => {
     subItem.addEventListener("click", (e) => {
       e.stopPropagation();
-
-      navItems.forEach(i => i.classList.remove("active", "highlight"));
-      subItems.forEach(i => i.classList.remove("active", "highlight"));
-
-      const parentItem = subItem.closest(".nav-item");
-      parentItem.classList.add("active", "highlight", "open-submenu");
+      const parentItem = subItem.closest(".has-submenu");
+      
+      selectItem(parentItem);
       subItem.classList.add("active", "highlight");
+      parentItem.classList.add("open-submenu");
 
-      const page = subItem.getAttribute("data-page");
-      if (page) {
-        cargarContenido(page);
+      const page = parentItem.getAttribute("data-page");
+      const sectionName = subItem.getAttribute("data-name");
+
+      if (page === "pp_informate.html" && sectionName) {
+        scrollToSection(sectionName);
+      } else if (subItem.hasAttribute("data-page")) {
+        cargarContenido(subItem.getAttribute("data-page"));
       }
     });
   });
 
-  // Click en ítems normales
+  // Click en items sin submenú
   navItems.forEach(item => {
     if (!item.classList.contains("has-submenu")) {
-      item.addEventListener("click", (e) => {
-        e.stopPropagation();
-
-        navItems.forEach(i => i.classList.remove("active", "highlight"));
-        subItems.forEach(i => i.classList.remove("active", "highlight"));
+      item.addEventListener("click", () => {
         itemsConSubmenu.forEach(i => i.classList.remove("open-submenu"));
-
-        item.classList.add("active", "highlight");
-
-        const page = item.getAttribute("data-page");
-        if (page) {
-          cargarContenido(page);
+        selectItem(item);
+        if (item.hasAttribute("data-page")) {
+          cargarContenido(item.getAttribute("data-page"));
         }
       });
     }
   });
 
-  // Cargar página por defecto
+  // Cargar página inicial
   cargarContenido("pp_inicio.html");
 });
-
-
-
-
-/*
-function cargarContenido(pagina) {
-  fetch(`/Pantalla_principal/contenidos/${pagina}`)
-    .then(res => res.text())
-    .then(data => {
-      const contenido = document.getElementById("contenido-principal");
-      contenido.innerHTML = data;
-
-      // Cambiar color de fondo según la página
-      if (pagina === "pp_recetas.html") {
-        contenido.style.backgroundColor = "#007848";
-      } else {
-        contenido.style.backgroundColor = "#F6FFFE";
-      }
-    });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const navItems = document.querySelectorAll(".nav-item[data-page]");
-  const subItems = document.querySelectorAll(".submenu li");
-
-  // Evento para ítems principales
-  navItems.forEach(item => {
-    item.addEventListener("click", () => {
-      // Limpiar activos y líneas
-      navItems.forEach(i => i.classList.remove("active", "highlight"));
-      subItems.forEach(i => i.classList.remove("active", "highlight"));
-      document.querySelectorAll(".has-submenu").forEach(i => i.classList.remove("open-submenu"));
-
-      // Activar actual
-      item.classList.add("active", "highlight");
-
-      // Cargar contenido si tiene página
-      const page = item.getAttribute("data-page");
-      if (page) {
-        cargarContenido(page);
-      }
-    });
-  });
-
-  // Evento para subitems
-  subItems.forEach(subItem => {
-    subItem.addEventListener("click", (e) => {
-      e.stopPropagation();
-
-      // Limpiar anteriores
-      navItems.forEach(i => i.classList.remove("highlight"));
-      subItems.forEach(i => i.classList.remove("active", "highlight"));
-      document.querySelectorAll(".has-submenu").forEach(i => i.classList.remove("open-submenu"));
-
-      // Activar padre con fondo blanco
-      const parentItem = subItem.closest(".nav-item");
-      if (parentItem && parentItem.classList.contains("has-submenu")) {
-        parentItem.classList.add("active");
-        parentItem.classList.remove("highlight");
-        parentItem.classList.add("open-submenu");
-      }
-
-      // Activar submenú con línea naranja
-      subItem.classList.add("active", "highlight");
-
-      // Cargar contenido
-      const page = subItem.getAttribute("data-page");
-      if (page) {
-        cargarContenido(page);
-      }
-    });
-  });
-
-  // Cargar página por defecto
-  cargarContenido("pp_inicio.html");
-});
-
-
-*/

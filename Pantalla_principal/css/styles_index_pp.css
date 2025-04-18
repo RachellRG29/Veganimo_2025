@@ -1,3 +1,4 @@
+/*    PANTALLA PRINCIPAL - ESTILOS GENERALES  */
 * {
   /*outline: 1px solid rgb(208, 223, 8);*/
   margin: 0; padding: 0;
@@ -40,6 +41,17 @@ body, html {
   display: flex; flex-direction: column;
   align-items: center;
   z-index: 1000;
+}
+
+/* icono arrow de la barra lateral */
+.ph-caret-down {
+  font-size: 24px;
+  right: 0.70rem;
+  display: flex;
+  position: absolute;
+  transition: transform 0.3s ease;
+  margin-left: auto; /* Empuja el icono a la derecha */
+  transition: transform 0.3s ease;
 }
 
 .nav-links {
@@ -121,7 +133,7 @@ body, html {
   transform: translateY(-50%);
   width: 6px;
   height: 20px;
-  background-color: orange;
+  background-color: #FFD65A;
   border-radius: 4px; 
   opacity: 0;
   transition: all 0.4s ease;
@@ -172,6 +184,11 @@ body, html {
  /* background-color: purple;pruebas*/
 }
 
+/*Open menu*/
+/* Rotación cuando el submenú está abierto */
+.has-submenu.open-submenu .ph-caret-down  {
+  transform: rotate(180deg);
+}
 
 .has-submenu.open-submenu .submenu {
   display: flex;

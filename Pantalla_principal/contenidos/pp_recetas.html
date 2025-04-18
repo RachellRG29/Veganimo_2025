@@ -1,5 +1,175 @@
 <!-- pp_recetas.html -->
-<section>
-    <h1>Recetas de Veganimo 🌱</h1>
-    <p>Este es el contenido de la página de recetas.</p>
-  </section>
+<section class="section_recetas_pp">
+
+    <!-- Contenedor de la barra de busqueda -->
+    <div class="busqueda-conteiner">
+      <div class="busqueda-recetas">
+        <!-- Contenedor de barra busqueda y busqueda por categoria -->
+        <div class="input-busq-recetas">
+          <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
+          <i class="ph ph-magnifying-glass"></i>
+        </div>
+    
+        <div class="input-busq-categoria">
+          <select name="categoria" id="categoria-recetas">
+            <option value="" disabled selected>Seleccionar categoría</option>
+            <option value="transicionista">Transicionista</option>
+            <option value="vegetariano">Vegetariano</option>
+            <option value="vegano">Vegano</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- codigo user en css: /Pagina_Principal/css/styles_pp_inicio.css -->
+      <div class="perfil_user">
+        <h2 class="lbl_nombre_user">User</h2> 
+        <div class="circulo_perfil">
+            <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
+    <!-- GRID DE LA TARJETAS/contenedor en cuadriculas -->
+    <div class="grid-container-recetas">
+
+      <!-- Diseño de tarjeta de receta -->
+      <div class="tarjeta-receta">
+        <div class="circulo-img">
+          <img src="../Images/img_plato_sf_p1.png" alt="" class="img-plato">
+        </div>
+        <div class="body-tarjeta">
+          <h2 class="title-tarjeta">Ensalada de vegetales</h2>
+          <p class="descripcion-tarjeta">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <!-- Estrellas -->
+          <div class="estrellas_vot">
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+          </div>
+          <!-- Datos receta/ tiempo & dificultad  -->
+          <div class="datos-receta">
+              <!-- Tiempo de preparacion -->
+            <div class="tiempo-receta">
+              <p>Tiempo de preparación</p>
+              <div class="grupo_tiempo">                              
+                <i class="ph ph-timer" style="font-size: 24px;"></i>
+                <p class="lbl_tiempo_receta">30 min</p>
+              </div>
+            </div>
+            <div class="linea-datos"></div>
+            <!-- Dificultad de la receta -->
+            <div class="dificultad-receta">
+              <p>Dificultad</p>
+              <div class="grupo_dif">
+                <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                <p class="lbl_dificultad">Fácil</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Diseño de tarjeta de receta -->
+      <div class="tarjeta-receta">
+        <div class="circulo-img">
+          <img src="../Images/img_plato_sf_p2.png" alt="" class="img-plato">
+        </div>
+        <div class="body-tarjeta">
+          <h2 class="title-tarjeta">Ensalada de vegetales</h2>
+          <p class="descripcion-tarjeta">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <!-- Estrellas -->
+          <div class="estrellas_vot">
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+          </div>
+          <!-- Datos receta/ tiempo & dificultad  -->
+          <div class="datos-receta">
+              <!-- Tiempo de preparacion -->
+            <div class="tiempo-receta">
+              <p>Tiempo de preparación</p>
+              <div class="grupo_tiempo">
+                <i class="ph ph-timer" style="font-size: 24px;"></i>
+                <p class="lbl_tiempo_receta">30 min</p>
+              </div>
+            </div>
+            <div class="linea-datos"></div>
+            <!-- Dificultad de la receta -->
+            <div class="dificultad-receta">
+              <p>Dificultad</p>
+              <div class="grupo_dif">
+                <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                <p class="lbl_dificultad">Fácil</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Diseño de tarjeta de receta -->
+      <div class="tarjeta-receta">
+        <div class="circulo-img">
+          <img src="../Images/img_plato_sf_p3.png" alt="" class="img-plato">
+        </div>
+        <div class="body-tarjeta">
+          <h2 class="title-tarjeta">Ensalada de vegetales</h2>
+          <p class="descripcion-tarjeta">
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <!-- Estrellas -->
+          <div class="estrellas_vot">
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+            <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
+          </div>
+          <!-- Datos receta/ tiempo & dificultad  -->
+          <div class="datos-receta">
+              <!-- Tiempo de preparacion -->
+            <div class="tiempo-receta">
+              <p>Tiempo de preparación</p>
+              <div class="grupo_tiempo">
+                <i class="ph ph-timer" style="font-size: 24px;"></i>
+                <p class="lbl_tiempo_receta">30 min</p>
+              </div>
+            </div>
+            <div class="linea-datos"></div>
+            <!-- Dificultad de la receta -->
+            <div class="dificultad-receta">
+              <p>Dificultad</p>
+              <div class="grupo_dif">
+                <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                <p class="lbl_dificultad">Fácil</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+
+      
+  </div> <!-- fin de grid-container -->
+
+    
+</section>
