@@ -1,0 +1,180 @@
+body {
+    font-family: 'Comfortaa','Verdana';
+  }
+  
+  /*  Fondo degradado  */
+  .custom-bg {
+    background: linear-gradient(to right, #33AD7F, #154734);
+  }
+  
+  /* Contenedor principal */
+  .container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 35px;
+    min-height: calc(100vh - 70px);
+  }
+  
+  /* Tarjeta del formulario */
+  .custom-form-card {
+    background-color: #F6FFFE;
+    width: 890px;
+    max-width: 850px;
+    padding: 50px;
+    height: auto;
+    z-index: 2;
+    left: -100px;
+  }
+  
+  /* Texto de Crea tu cuenta */
+  .form-title {
+    font-family: 'Gloock';
+    color: #154734;
+    margin-bottom: 10px;
+  }
+  
+  /* Línea decorativa  */
+  .separator {
+    width: 195px;
+    height: 1px;
+    background-color: #E99A3C;
+    border-radius: 2px;
+    margin: 0 auto 20px auto;
+    display: block;
+  }
+  
+  /* Nombre de los inputs del formulario */
+  .form-label {
+    padding-left: 20%;
+  }
+  
+  /* Estilos de inputs */
+  .input-border {
+    border: 1.9px solid #007848;
+    width: 60%;
+    display: block;
+    margin: 10px auto;
+    padding: 8px;
+    border-radius: 10px;
+  }
+  
+  /* Input enfocado */
+  .input-border:focus {
+    border-color: #007848;
+    box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
+  }
+  
+  /* Estilos para los íconos de ojo */
+  .password-toggle-inside {
+    position: absolute;
+    top: 54%;
+    left: 75%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #E99A3C;
+    font-size: 1.2rem;
+  }
+  
+  /* Contenedor de los inputs con íconos de ojo */
+  .input-group-container input {
+    padding-right: 2.5rem !important;
+  }
+  
+  /* Botón Registrar y efectos */
+  button {
+    padding: 8.5px 40px;
+    border: 0;
+    border-radius: 15px;
+    background-color: #E99A3C;
+    color: #000000;
+    font-family: 'Comfortaa';
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    margin-top: 4px;
+  }
+  
+  button:hover {
+    background-color: #E99A3C;
+    box-shadow: 0 0 20px #19d80050;
+    transform: scale(1.1);
+  }
+  
+  button:active {
+    background-color: #E99A3C;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+  
+  /* Imagen de la derecha */
+  .login-image {
+    position: absolute;
+    right: -53px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 387px;
+    height: 815px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+  
+  /* Estilos de texto ¿Tienes cuenta? Inicia sesión  */
+  .text-muted {
+    color: #000000 !important;
+    margin-top: 24px;
+  }
+  
+  .text-center.mt-3 {
+    margin-top: 50px;
+    color: #000000 !important;
+  }
+  
+  .text-decoration-none {
+    text-decoration: none !important;
+  }
+  
+  
+  /* Contenedor del logo/isotipo */
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  /* Estilo del logo/isotipo */
+  .logo {
+    max-height: 60px;
+    width: 50px;
+    fill: #154734;
+  }
+  
+    
+  /* Lista desplegable para input Género */
+  .custom-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"%3E%3Cpath fill="none" stroke="%23007848" stroke-width="1" d="M1 1l4 4 4-4"%3E%3C/path%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    padding-right: 30px; /* Ajuste para dejar espacio a la flecha */
+  }
+  
+  /* Estilo lista desplegable input Género */
+  .custom-select:focus {
+    border-color: #04442b;
+    box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
+  }
+  
+  
+  
+   
+  
+  
+  
+  
