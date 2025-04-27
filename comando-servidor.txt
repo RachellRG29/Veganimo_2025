@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+//Comando para activar servidor con firebase !importante
+se pega dentro: PS C:\Users\cindy\.git\Veganimo_2025> no necesitan entrar en ninguna carpeta
+
+firebase deploy --only hosting
+
+
+
+--------------------------------------------------------------------------------
+//Prueba de servidor en local - solo para pruebas
+firebase serve
+http://localhost:5000
+
+
+//iniciar emuladores solo para pruebas
+firebase emulators:start --only hosting

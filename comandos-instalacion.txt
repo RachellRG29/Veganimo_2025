@@ -1,0 +1,6 @@
+//Ejecuten estos comandos porfavor
+
+//para instalar el firebase
+npm install firebase
+
+//

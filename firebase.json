@@ -1,0 +1,31 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "/index.html",
+        "destination": "/Pantalla_inicio/index.html"
+      },
+      {
+        "source": "/index_pantalla_principal",  
+        "destination": "/Pantalla_principal/index_pantalla_principal.html"  
+      },
+      {
+        "source": "/register",  
+        "destination": "/Register/register.html"  
+      },
+      {
+        "source": "/login",  
+        "destination": "/Login/login.html" 
+      },
+      {
+        "source": "/verificacion",  
+        "destination": "/Verificacion_correo/verificacion.html" 
+      }
+    ],
+    "cleanUrls": true,  
+    "trailingSlash": false  
+  }
+}
+

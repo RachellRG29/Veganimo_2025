@@ -1,5 +1,2 @@
 # Firebase keys
-server/keys/*
 node_modules/
-.env
-*.log
