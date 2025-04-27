@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------
 //Comando para activar servidor con firebase !importante
-se pega dentro: PS C:\Users\cindy\.git\Veganimo_2025> no necesitan entrar en ninguna carpeta
+se pega dentro: PS C:\Users\su_usuario\.git\Veganimo_2025> no necesitan entrar en ninguna carpeta
 
 firebase deploy --only hosting
 

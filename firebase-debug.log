@@ -1,0 +1,47 @@
+[debug] [2025-04-27T19:45:41.482Z] ----------------------------------------------------------------------
+[debug] [2025-04-27T19:45:41.495Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\cindy\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2025-04-27T19:45:41.497Z] CLI Version:   14.2.1
+[debug] [2025-04-27T19:45:41.497Z] Platform:      win32
+[debug] [2025-04-27T19:45:41.498Z] Node Version:  v22.14.0
+[debug] [2025-04-27T19:45:41.499Z] Time:          Sun Apr 27 2025 13:45:41 GMT-0600 (hora estándar central)
+[debug] [2025-04-27T19:45:41.500Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-04-27T19:45:43.115Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-04-27T19:45:43.117Z] > authorizing via signed-in user (veganimo2025@gmail.com)
+[debug] [2025-04-27T19:45:43.118Z] [iam] checking project veganimo2025-fc2b9 for permissions ["firebase.projects.get"]
+[debug] [2025-04-27T19:45:43.125Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:43.126Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:43.131Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9:testIamPermissions [none]
+[debug] [2025-04-27T19:45:43.131Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9:testIamPermissions x-goog-quota-user=projects/veganimo2025-fc2b9
+[debug] [2025-04-27T19:45:43.132Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-04-27T19:45:43.433Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9:testIamPermissions 200
+[debug] [2025-04-27T19:45:43.433Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-04-27T19:45:43.435Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:43.435Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:43.435Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9 [none]
+[debug] [2025-04-27T19:45:43.569Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9 200
+[debug] [2025-04-27T19:45:43.570Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/veganimo2025-fc2b9 {"projectNumber":"979861226632","projectId":"veganimo2025-fc2b9","lifecycleState":"ACTIVE","name":"Veganimo2025","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-04-27T13:11:26.651992Z"}
+[info] 
+[info] === Serving from 'C:\Users\cindy\.git\Veganimo_2025'...
+[info] 
+[debug] [2025-04-27T19:45:43.586Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:43.586Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:43.588Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/veganimo2025-fc2b9/sites 
+[debug] [2025-04-27T19:45:44.465Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/veganimo2025-fc2b9/sites 200
+[debug] [2025-04-27T19:45:44.465Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/veganimo2025-fc2b9/sites {"sites":[{"name":"projects/veganimo2025-fc2b9/sites/veganimo2025-fc2b9","defaultUrl":"https://veganimo2025-fc2b9.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2025-04-27T19:45:44.466Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:44.467Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:44.467Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/veganimo2025-fc2b9/webApps/-/config [none]
+[debug] [2025-04-27T19:45:44.908Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/veganimo2025-fc2b9/webApps/-/config 200
+[debug] [2025-04-27T19:45:44.909Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/veganimo2025-fc2b9/webApps/-/config {"projectId":"veganimo2025-fc2b9","storageBucket":"veganimo2025-fc2b9.firebasestorage.app","apiKey":"AIzaSyBmRVZL7FCOC82ziaOlAmhvekiWWncmy0g","authDomain":"veganimo2025-fc2b9.firebaseapp.com","messagingSenderId":"979861226632"}
+[debug] [2025-04-27T19:45:44.933Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:44.934Z] Checked if tokens are valid: true, expires at: 1745786241658
+[debug] [2025-04-27T19:45:44.937Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/veganimo2025-fc2b9 [none]
+[debug] [2025-04-27T19:45:45.201Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/veganimo2025-fc2b9 200
+[debug] [2025-04-27T19:45:45.201Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/veganimo2025-fc2b9 {"projectId":"veganimo2025-fc2b9","projectNumber":"979861226632","displayName":"Veganimo2025","name":"projects/veganimo2025-fc2b9","resources":{"hostingSite":"veganimo2025-fc2b9"},"state":"ACTIVE","etag":"1_f426337a-0b9d-4ab9-9652-fe3f6c33be74"}
+[info] i  hosting[veganimo2025-fc2b9]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting[veganimo2025-fc2b9]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: ::1 - - [27/Apr/2025:19:45:52 +0000] "GET /register HTTP/1.1" 304 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [27/Apr/2025:19:45:52 +0000] \"GET /register HTTP/1.1\" 304 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [27/Apr/2025:19:45:52 +0000] "GET /Register/register.js HTTP/1.1" 200 - "http://localhost:5000/register" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [27/Apr/2025:19:45:52 +0000] \"GET /Register/register.js HTTP/1.1\" 200 - \"http://localhost:5000/register\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [27/Apr/2025:19:45:56 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [27/Apr/2025:19:45:56 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}
+[info] i  hosting: ::1 - - [27/Apr/2025:19:46:04 +0000] "GET /Pantalla_principal/js/scripts_index_pp.js HTTP/1.1" 200 - "http://localhost:5000/index_pantalla_principal?seccion=informate" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"::1 - - [27/Apr/2025:19:46:04 +0000] \"GET /Pantalla_principal/js/scripts_index_pp.js HTTP/1.1\" 200 - \"http://localhost:5000/index_pantalla_principal?seccion=informate\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36\""}}

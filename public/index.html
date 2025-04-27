@@ -9,11 +9,13 @@
     <!-- Iconos de Phosphor -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/phosphor.css">
 
-
     <link rel="stylesheet" href="styles_index.css">
     <link rel="stylesheet" href="Pantalla_inicio/styles_index_inicio.css">
     <link rel="stylesheet" href="Pantalla_inicio/styles_index_recetas.css">
     <link rel="stylesheet" href="Pantalla_inicio/styles_index_informate.css">
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
@@ -427,5 +429,27 @@
     <script src="https://unpkg.com/phosphor-icons"></script>
     <script src="Pantalla_inicio/scripts_index_inicio.js"></script>
 </body>
+
+<script>
+    document.querySelector('.btn-iniciar-sesion').addEventListener('click', () => {
+    window.location.href = '/login';
+  });
+
+  document.querySelector('.btn-registrar').addEventListener('click', () => {
+    window.location.href = '/register';
+  });
+
+  document.querySelector('.btn-explorar').addEventListener('click', () => {
+    window.location.href = '/index_pantalla_principal';
+  });
+
+  document.querySelector('.btn-ver-mas-recetas').addEventListener('click', () => {
+    window.location.href = '/index_pantalla_principal?seccion=recetas';  // 👈 importante
+  });
+
+  document.querySelector('.btn-ver-mas-informate').addEventListener('click', () => {
+    window.location.href = '/index_pantalla_principal?seccion=informate'; // 👈 importante
+  });
+</script>
 
 </html>
