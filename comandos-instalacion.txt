@@ -1,6 +1,15 @@
 //Ejecuten estos comandos porfavor
 
+//CUENTA
+veganimo2025@gmail.com
+Veganimo.web.2025
+
 //para instalar el firebase
 npm install firebase
 
-//
+//ya instalado firebase en node_modules van a entrar en la carpeta 
+node_modules
+@firebase/auth-compat/dist/firebase-auth.js(este es el archivo que se va a renombrar para evitar conflictos), el nuevo nombre sera firebase-auth--.js(solo se le agrega --)
+//ingresar el comando en la terminal= npm install -g firebase-tools
+//despues del comando anterior pegen este= firebase login 
+(les pedira contestar una pregunta le dan "Y") (SE LOGEAN CON LA CUENTA DE EQUIPO VEGANIMO)
