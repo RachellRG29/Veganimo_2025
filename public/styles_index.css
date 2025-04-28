@@ -29,21 +29,9 @@ eeire-black: #1A1C1C
         --eeire-black: #1A1C1C;
     }
 
-    /*SCROLL-BAR*/
-    ::-webkit-scrollbar{
-        width: 12px;
-    }
-    
-    ::-webkit-scrollbar-track{
-        background-color: transparent;
-        border-radius: 6px;
-    }
-    
-    ::-webkit-scrollbar-thumb{
-        background-color: #eb4d03;
-        border-radius: 8px;
-    }
-  
+  /* SCROLLBAR - diseñar mas adelante */
+
+
     /*------------------------------------------------------------------------------------*/
   /*CONTENIDO - SECTIONS */
   .wrapper,

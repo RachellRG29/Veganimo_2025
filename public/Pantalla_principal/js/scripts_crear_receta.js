@@ -96,7 +96,6 @@ window.addEventListener('DOMContentLoaded', function() {
   const imgContainer = document.getElementById('img-container-receta');
   const inputFile = document.getElementById('input-imagen-receta');
   const imgPreview = document.getElementById('preview-imagen-receta');
-  const icono = imgContainer.querySelector('.icono-placeholder');
 
   imgContainer.addEventListener('click', function() {
     inputFile.click();  // Abre el selector de archivos
