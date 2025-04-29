@@ -1,6 +1,12 @@
-let contadorIngredientes = 2; //empieza en 2 por q ya hay ingrediente 1
-let contadorPasos = 2; // Empieza en 2 porque ya hay paso 1 
+// =========================
+// VARIABLES GLOBALES
+// =========================
+let contadorIngredientes = 2;
+let contadorPasos = 2;
 
+// =========================
+// FUNCIONES DE INTERFAZ
+// =========================
 function cambiarColorIcono() {
   const icon = document.getElementById('icon-dificultad');
   const valor = document.getElementById('select-dificultad').value;
@@ -25,12 +31,8 @@ function agregarPaso() {
   const pasoItem = document.createElement("div");
   pasoItem.className = "paso-item";
 
-  // Crear contenedor de imagen para paso
   const pasoImagen = document.createElement("div");
   pasoImagen.className = "paso-imagen-small";
-  pasoImagen.onclick = function() {
-    inputFilePaso.click();
-  };
 
   const icono = document.createElement("i");
   icono.className = "ph ph-image icono-placeholder";
@@ -44,8 +46,9 @@ function agregarPaso() {
   inputFilePaso.accept = "image/*";
   inputFilePaso.style.display = "none";
   inputFilePaso.className = "input-paso-img";
-  
-  inputFilePaso.onchange = function() {
+
+  pasoImagen.onclick = () => inputFilePaso.click();
+  inputFilePaso.onchange = function () {
     mostrarPreviewPaso(this, imgPreview);
   };
 
@@ -68,7 +71,7 @@ function mostrarPreviewReceta(input, imgElement) {
   const file = input.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       imgElement.src = e.target.result;
       imgElement.style.display = "block";
       const icono = imgElement.parentElement.querySelector('.icono-placeholder');
@@ -82,7 +85,7 @@ function mostrarPreviewPaso(input, imgElement) {
   const file = input.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = function (e) {
       imgElement.src = e.target.result;
       imgElement.style.display = "block";
       const icono = imgElement.parentElement.querySelector('.icono-placeholder');
@@ -92,25 +95,23 @@ function mostrarPreviewPaso(input, imgElement) {
   }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-  const imgContainer = document.getElementById('img-container-receta');
-  const inputFile = document.getElementById('input-imagen-receta');
-  const imgPreview = document.getElementById('preview-imagen-receta');
-
-  imgContainer.addEventListener('click', function() {
-    inputFile.click();  // Abre el selector de archivos
-  });
-
-  inputFile.addEventListener('change', function() {
-    const file = inputFile.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        imgPreview.src = e.target.result;
-        imgPreview.style.display = 'block';
-        if (icono) icono.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
+// =========================
+// EVENTOS AL CARGAR
+// =========================
+document.addEventListener('DOMContentLoaded', () => {
+    const inputFile = document.getElementById('input-imagen-receta');
+    const imgPreview = document.getElementById('preview-imagen-receta');
+  
+    if (inputFile && imgPreview) {
+      inputFile.addEventListener('change', function () {
+        mostrarPreviewReceta(this, imgPreview);
+      });
     }
+  
+    const checkFirebase = setInterval(() => {
+      if (firebase.apps.length && window.db) {
+        clearInterval(checkFirebase);
+       // initFormularioReceta();
+      }
+    }, 100);
   });
-});

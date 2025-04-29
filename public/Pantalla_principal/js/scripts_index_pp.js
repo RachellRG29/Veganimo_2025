@@ -1,20 +1,27 @@
 function cargarContenido(pagina) {
+  console.log("📥 Solicitando:", `/Pantalla_principal/contenidos/${pagina}`);
+  
   return fetch(`/Pantalla_principal/contenidos/${pagina}`)
     .then(res => {
-      if (!res.ok) throw new Error('Error de red');
+      if (!res.ok) {
+        console.error("❌ Error al cargar:", res.status);
+        throw new Error('Error de red');
+      }
       return res.text();
     })
     .then(data => {
+      console.log("✅ Contenido recibido");
       document.getElementById("contenido-principal").innerHTML = data;
-      
+
       const paginasVerdes = ["pp_inicio.html", "pp_mi_plan.html"];
       document.getElementById("contenido-principal").style.backgroundColor = 
         paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
 
       return true;
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('⚠️ Error al cargar contenido:', error));
 }
+
 
 function scrollToSection(sectionName) {
   const section = document.querySelector(`.${sectionName}`);

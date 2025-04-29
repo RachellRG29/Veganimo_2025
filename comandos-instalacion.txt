@@ -7,6 +7,12 @@ Veganimo.web.2025
 //para instalar el firebase
 npm install firebase
 
+//instalar
+npm install -g firebase-tools
+gcloud auth login
+
+
+
 //ya instalado firebase en node_modules van a entrar en la carpeta 
 node_modules
 @firebase/auth-compat/dist/firebase-auth.js(este es el archivo que se va a renombrar para evitar conflictos), el nuevo nombre sera firebase-auth--.js(solo se le agrega --)

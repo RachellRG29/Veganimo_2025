@@ -7,10 +7,10 @@ firebase deploy --only hosting
 
 
 --------------------------------------------------------------------------------
-//Prueba de servidor en local - solo para pruebas
+//Prueba de servidor en local - solo para pruebas: //aparecera en este puerto: http://localhost:5000
+
 firebase serve
 
-http://localhost:5000
 
 
 //iniciar emuladores solo para pruebas
