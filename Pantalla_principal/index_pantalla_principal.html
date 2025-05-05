@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Gloock y Comfortaa fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet">
+
     <!-- Iconos de Phosphor -->
-  
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/phosphor.css">
 
     <!-- Estilos de las pantallas -->
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_index_pp.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_inicio.css">
+    <link rel="stylesheet" href="/Pantalla_principal/css/style_mi_plan.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_recetas.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_informate.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_crear_recetas.css">
 
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-storage-compat.js"></script>
 
-    <!-- Contenidos / pantallas del menu -->
-    <link rel="stylesheet" href="/Pantalla_principal/contenidos/pp_inicio.html">
-    <link rel="stylesheet" href="/Pantalla_principal/contenidos/pp_recetas.html">
-    <link rel="stylesheet" href="/Pantalla_principal/contenidos/pp_informate.html">
+    <!-- Script de tu app -->
+    <script src="veganimo-app.js"></script>
+
 
     <link rel="website icon" href="/Images/Icono_veganimo.svg">
 
@@ -93,9 +97,10 @@
           <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
         </li>
 
-        <li class="nav-item" data-page="pp_crear_recetas.html">
+        <li class="nav-item" data-custom="crear-recetas">
           <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear Recetas</span>
         </li>
+        
       
       </ul>
       
@@ -109,15 +114,79 @@
     <main class="contenido" id="contenido-principal">
       <!-- Aquí se cargará el contenido desde pp_inicio.html, etc -->
 
-
     </main>
     
   </div>
 
-  <script src="https://unpkg.com/phosphor-icons"></script>
-  <script src="/Pantalla_principal/js/scripts_index_pp.js"></script>
-  <script src="/Pantalla_principal/js/scripts_crear_receta.js"></script>
+  <!-- FOOTER -->
+  <footer id="footer-pp">
+    <div class="ListFooter">
+    <!-- Columna izquierda: Logo y descripción -->
+    <div class="logoarea">
+        <div class="logo-container">
+        <img class="logoFooter" src="Images/isotipo_veganimo.svg" alt="Logo Vegánimo" style="width: 40px;" ondragstart="return false;">
+        </div>
+        <p class="nosotros">
+        Somos una empresa que crea dietas y recetas con la finalidad de mejorar la salud y el veganismo.
+        </p>
+    </div>
+
+    <!-- Columna derecha: Afiliados -->
+    <div class="afiliados">
+        <h2>Afiliados</h2>
+        <ul role="list">
+        <li>Jane Doe</li>
+        <li>Jenny Flores</li>
+        </ul>
+    </div>
+    </div>
+
+    <!-- Línea divisoria -->
+    <div class="lineafooter"></div>
+
+    <!-- Área de copyright -->
+    <div class="area-copy">
+    <p class="copyFooter">&copy; Derechos reservados por Vegánimo</p>
+    </div>
+  </footer>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
+
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <script src="../Pantalla_principal/js/scripts_index_pp.js"></script>   <!-- No quitar -->
+
+  <script src="../Pantalla_principal/js/crear_receta.js"></script>
+  <script src="../Pantalla_principal/js/validacion_receta.js"></script>
+
+  
+
 </body>
 
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // Lógica para cargar contenido de los items normales
+  const contenido = document.getElementById("contenido-principal");
+
+  // Crear Recetas manual
+  const crearRecetasBtn = document.querySelector('[data-custom="crear-recetas"]');
+  if (crearRecetasBtn) {
+    crearRecetasBtn.addEventListener("click", () => {
+      fetch("/Pantalla_principal/contenidos/pp_crear_recetas.html")
+        .then(res => res.text())
+        .then(data => {
+          contenido.innerHTML = data;
+        })
+        .catch(err => {
+          console.error("Error cargando Crear Recetas:", err);
+        });
+    });
+  }
+});
+
+</script>
+
+

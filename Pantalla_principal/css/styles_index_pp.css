@@ -5,41 +5,47 @@
   box-sizing: border-box;
 }
 
-body, html {
+body , html{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: 'Comfortaa', Verdana;
-  height: 100%;
 }
 
 .container {
+  flex: 1;
   display: flex;
-  height: 100vh;
-  padding-left: 220px; /* espacio para la sidebar */
 }
 
 /* Contenido */
 .contenido {
-  flex: 1; padding: 25px; width: 100%;
+  flex: 1;
+  padding: 25px;
   background-color: #F6FFFE;
-  overflow-y: auto;
+  min-height: 100vh;
 }
 
 
 .logo-isotipo {
   width: 50px;
-  margin-bottom: 30px; margin-top: 20px;
+  display: flex;
   color: #E99A3C;
+  margin: 25px auto;
 }
 
 /* SIDEBAR / MENU LATERAL */
 /* Sidebar */
 .sidebar {
-  position: fixed;
-  background-color: #154734; color: #F6FFFE;
-  width: 226px; min-width: 220px;
-  height: 100vh;
-  top: 0; left: 0;
-  display: flex; flex-direction: column;
-  align-items: center;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: auto;
+  min-height: 100vh;
+  width: 220px;
+  background-color: #154734;
+  color: #F6FFFE;
+  display: flex;
+  flex-direction: column;
   z-index: 1000;
 }
 
@@ -217,3 +223,84 @@ body, html {
   border-radius: 8px;
 }
 
+/*---------------Footer de la pantalla principal------------------------------------------------------------*/
+/*FOOTER*/
+/* FOOTER para pantalla principal */
+#footer-pp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #E99A3C;
+  color: #1A1C1C;
+  font-family: 'Comfortaa','Verdana';
+  padding: 20px 40px;
+  padding-left: 220px; /* Alineado con la sidebar */
+  box-sizing: border-box;
+  margin-top: auto;
+  right: 0;
+  left: 0;
+}
+
+#footer-pp .ListFooter {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+#footer-pp .logoarea {
+  flex: 1;
+  min-width: 200px;
+  text-align: left;
+}
+
+#footer-pp .logo-container {
+  margin-bottom: 10px;
+}
+
+#footer-pp .logoFooter {
+  margin: 0 auto;
+  margin-bottom: 1vw;
+  display: block;
+}
+
+#footer-pp .nosotros {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+#footer-pp .afiliados {
+  flex: 1;
+  min-width: 150px;
+}
+
+#footer-pp .afiliados h2 {
+  margin-bottom: 10px;
+}
+
+#footer-pp .afiliados ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+#footer-pp .afiliados li {
+  margin-bottom: 5px;
+}
+
+#footer-pp .lineafooter {
+  width: 100%;
+  height: 1px;
+  background-color: #1A1C1C;
+  margin: 20px 0;
+}
+
+#footer-pp .area-copy {
+  text-align: center;
+  width: 100%;
+}
+
+#footer-pp .copyFooter {
+  font-size: 0.8rem;
+}

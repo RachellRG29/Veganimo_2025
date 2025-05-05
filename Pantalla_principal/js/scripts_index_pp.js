@@ -1,21 +1,27 @@
 function cargarContenido(pagina) {
+  console.log("📥 Solicitando:", `/Pantalla_principal/contenidos/${pagina}`);
+  
   return fetch(`/Pantalla_principal/contenidos/${pagina}`)
     .then(res => {
-      if (!res.ok) throw new Error('Error de red');
+      if (!res.ok) {
+        console.error("❌ Error al cargar:", res.status);
+        throw new Error('Error de red');
+      }
       return res.text();
     })
     .then(data => {
+      console.log("✅ Contenido recibido");
       document.getElementById("contenido-principal").innerHTML = data;
-      
-      // Fondo verde para páginas específicas
+
       const paginasVerdes = ["pp_inicio.html", "pp_mi_plan.html"];
       document.getElementById("contenido-principal").style.backgroundColor = 
         paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
-      
+
       return true;
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('⚠️ Error al cargar contenido:', error));
 }
+
 
 function scrollToSection(sectionName) {
   const section = document.querySelector(`.${sectionName}`);
@@ -29,22 +35,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const subItems = document.querySelectorAll(".submenu li");
   const itemsConSubmenu = document.querySelectorAll(".has-submenu");
 
-  // Función para seleccionar un item
   const selectItem = (item) => {
     navItems.forEach(i => i.classList.remove("active", "highlight"));
     subItems.forEach(i => i.classList.remove("active", "highlight"));
     item.classList.add("active", "highlight");
   };
 
-  // Manejar clicks en items con submenú
   itemsConSubmenu.forEach(item => {
     const trigger = item.querySelector(".nav-trigger");
     const menuText = trigger.querySelector("span");
     const arrow = trigger.querySelector(".ph-caret-down");
 
-    // Click en el texto/icono del menú (cargar contenido)
     menuText.closest('div').addEventListener("click", (e) => {
-      if (e.target !== arrow) { // Evitar que se active al clickear la flecha
+      if (e.target !== arrow) {
         selectItem(item);
         if (item.hasAttribute("data-page")) {
           cargarContenido(item.getAttribute("data-page"));
@@ -52,19 +55,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Click en la flecha (toggle submenú)
     arrow.addEventListener("click", (e) => {
       e.stopPropagation();
       item.classList.toggle("open-submenu");
     });
   });
 
-  // Click en subitems
   subItems.forEach(subItem => {
     subItem.addEventListener("click", (e) => {
       e.stopPropagation();
       const parentItem = subItem.closest(".has-submenu");
-      
+
       selectItem(parentItem);
       subItem.classList.add("active", "highlight");
       parentItem.classList.add("open-submenu");
@@ -80,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Click en items sin submenú
   navItems.forEach(item => {
     if (!item.classList.contains("has-submenu")) {
       item.addEventListener("click", () => {
@@ -93,6 +93,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Cargar página inicial
-  cargarContenido("pp_inicio.html");
+  // 🚀 Código nuevo para leer parámetros y cargar sección automáticamente
+  const params = new URLSearchParams(window.location.search);
+  const seccion = params.get('seccion');
+
+  if (seccion === 'recetas') {
+    const recetasItem = [...document.querySelectorAll('.nav-item')].find(item => 
+      item.innerText.trim() === 'Recetas'
+    );
+    if (recetasItem) {
+      recetasItem.click();
+    } else {
+      cargarContenido("pp_inicio.html");
+    }
+  } else if (seccion === 'informate') {
+    const informateItem = [...document.querySelectorAll('.nav-item')].find(item => 
+      item.innerText.trim() === 'Infórmate'
+    );
+    if (informateItem) {
+      const textoTrigger = informateItem.querySelector('.nav-trigger span');
+      if (textoTrigger) {
+        textoTrigger.click();
+      } else {
+        cargarContenido("pp_inicio.html");
+      }
+    } else {
+      cargarContenido("pp_inicio.html");
+    }
+  } else {
+    cargarContenido("pp_inicio.html");
+  }
 });
