@@ -23,7 +23,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- JS personalizado -->
-  <script src="/Register/register.js" defer></script>
+  <script src="/Register/registro.php" defer></script>
 
   <!-- FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
@@ -61,7 +61,7 @@
       <div class="separator mx-auto mb-4"></div>
 
       <!--  FORMULARIO DE REGISTRO-USUARIOS -->
-      <form id="registerForm" method="post" action="" novalidate>
+      <form action="registro.php" method="POST">
         <!--  Nombre completo -->
         <div class="mb-3">
           <label for="fullname" class="form-label">Nombre completo:</label>
@@ -108,7 +108,7 @@
         <div class="mb-4 position-relative input-group-container">
           <label for="confirm-password" class="form-label">Confirmar contraseña:</label>
           <div class="position-relative">
-            <input type="password" id="confirm-password" name="confirm-password" class="form-control input-border" placeholder="Confirme su contraseña" />
+            <input type="password" id="comfirm-password" name="password" class="form-control input-border" placeholder="Confirme su contraseña" />
             <span class="password-toggle-inside" onclick="toggleVisibility('confirm-password', this)">
               <i class="fas fa-eye"></i>
             </span>
