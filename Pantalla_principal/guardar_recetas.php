@@ -25,6 +25,20 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
+// Procesar la imagen del paso
+$imagenPaso = '';
+if (isset($_FILES['imagen-paso']) && $_FILES['imagen-paso']['error'] === UPLOAD_ERR_OK) {
+    $directorioDestino = __DIR__ . '/../uploads/';
+    $nombreArchivoPaso = uniqid('paso_') . '_' . basename($_FILES['imagen-paso']['name']);
+    $rutaDestinoPaso = $directorioDestino . $nombreArchivoPaso;
+
+    if (move_uploaded_file($_FILES['imagen-paso']['tmp_name'], $rutaDestinoPaso)) {
+        $imagenPaso = '/uploads/' . $nombreArchivoPaso;
+    } else {
+        die("❌ Error al subir la imagen del paso.");
+    }
+}
+
 // Validar campos obligatorios
 if (empty($nombreReceta) || empty($descripcion) || empty($tiempo) || empty($dificultad)) {
     die("❌ Faltan datos esenciales del formulario.");
@@ -39,6 +53,7 @@ $documento = [
     'ingredientes' => $ingredientes,
     'pasos' => $pasos,
     'imagen' => $imagenReceta,
+    'imagen_paso' => $imagenPaso,
     'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
 ];
 
