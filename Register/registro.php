@@ -1,11 +1,5 @@
 <?php
-// Datos de acceso a tu cuenta de MongoDB Atlas
-
-
-// Conexión a MongoDB Atlas con la URI correcta
-$cliente = new MongoDB\Driver\Manager(
-    "mongodb+srv://$usuario:$contrasena@cluster0.n8op7pt.mongodb.net/?retryWrites=true&w=majority"
-);
+require_once __DIR__ . '/../misc/db_config.php';
 
 // Capturar datos del formulario
 $fullname = $_POST['fullname'] ?? '';

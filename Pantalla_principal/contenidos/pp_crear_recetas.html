@@ -37,7 +37,7 @@
             <div class="linea-cr"></div>
           </div>
       
-          <form id="form-receta" class="form-receta">
+          <form id="form-receta" class="form-receta" action="guardar_recetas.php" method="POST" enctype="multipart/form-data">
             <div class="zona-principal">
               <div class="zona-izquierda">
                 <div class="mb-3">
@@ -100,7 +100,7 @@
             </div>
             <div class="zona-ingredientes">
               <div id="lista-ingredientes" class="lista-dinamica">
-                <input type="text" class="form-control input-border" placeholder="Ingrediente 1">
+                <input type="text" class="form-control input-border" name="ingredientes" placeholder="Ingrediente 1">
               </div>
               <button type="button" onclick="agregarIngrediente()" class="btn-agregar btn-agregar-ingrediente">Añadir más</button>
             </div>
@@ -118,7 +118,7 @@
                     <img class="img-preview" style="display:none;">
                     <input type="file" accept="image/*" class="input-paso-img" style="display:none;" onchange="mostrarPreviewPaso(this, this.previousElementSibling)">
                   </div>
-                  <input type="text" class="form-control input-border paso-input" placeholder="Paso 1">
+                  <input type="text" name="pasos" class="form-control input-border paso-input" placeholder="Paso 1">
                 </div>
               </div>
               <button type="button" onclick="agregarPaso()" class="btn-agregar btn-agregar-paso">Añadir más</button>
@@ -126,7 +126,7 @@
           
             <!-- Botón de Guardar -->
             <div class="boton-crear-receta">
-              <button type="button" class="btn-crear-receta">Guardar receta</button>
+              <button type="submit" class="btn-crear-receta">Guardar receta</button>
 
             </div>
           </form>
