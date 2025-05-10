@@ -32,6 +32,10 @@
   
   <script src="veganimo-app.js"></script>
 
+  <!-- Alertify -->
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  
+
 </head>
 <body class="custom-bg d-flex min-vh-100 px-3">
 
@@ -62,58 +66,380 @@
 
       <!--  FORMULARIO DE REGISTRO-USUARIOS -->
       <form action="registro.php" method="POST">
-        <!--  Nombre completo -->
-        <div class="mb-3">
-          <label for="fullname" class="form-label">Nombre completo:</label>
-          <input type="text" name="fullname" id="fullname" class="form-control input-border" placeholder="Ingrese su nombre completo" />
-        </div>
+<!-- Nombre completo -->
+<div class="mb-3">
+  <label for="fullname" class="form-label">Nombre completo:</label>
+  <input type="text" name="fullname" id="fullname" class="form-control input-border"
+         pattern="[a-zA-Z]{3,}[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*"
+         placeholder="Ingrese su nombre completo"
+         title="Por favor ingrese correctamente sus datos, solo se permiten letras"
+         required />
+  <div id="fullname-message" class="form-text mt-1">Solo se permiten letras y espacios.</div>
+</div>
 
-        <!-- Fecha de nacimiento -->
-        <div class="d-flex justify-content-center gap-3">
+<script>
+  const fullnameInput = document.getElementById('fullname');
+  const fullnameMessage = document.getElementById('fullname-message');
+  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+
+  fullnameInput.addEventListener('input', function () {
+    const value = this.value.trim();
+
+    if (regex.test(value)) {
+      fullnameMessage.textContent = 'Datos correctos ✅';
+      fullnameMessage.className = 'form-text mt-1 text-success';
+      this.classList.add('is-valid');
+      this.classList.remove('is-invalid');
+    } else {
+      fullnameMessage.textContent = 'Ingrese solo letras';
+      fullnameMessage.className = 'form-text mt-1 text-danger';
+      this.classList.add('is-invalid');
+      this.classList.remove('is-valid');
+    }
+  });
+
+  fullnameInput.addEventListener('keydown', function (e) {
+    const char = e.key;
+
+    // Permitir teclas de control y navegación
+    if (
+      e.ctrlKey || e.metaKey ||
+      ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(char)
+    ) return;
+
+    const currentValue = fullnameInput.value;
+
+    // Bloquear espacio si hay menos de 3 letras
+    if (char === ' ' && currentValue.length < 3) {
+      e.preventDefault();
+      return;
+    }
+
+    // Bloquear todo lo que no sea letra o espacio
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/.test(char)) {
+      e.preventDefault();
+    }
+  });
+
+  // Evitar pegar texto con caracteres no permitidos
+  fullnameInput.addEventListener('paste', function (e) {
+    const pasted = e.clipboardData.getData('text');
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(pasted)) {
+      e.preventDefault();
+      fullnameMessage.textContent = 'No se permiten números ni signos al pegar';
+      fullnameMessage.className = 'form-text mt-1 text-danger';
+    }
+  });
+</script>
+
+
+
+
+<!-- Fecha de nacimiento -->
+<div class="d-flex justify-content-center gap-3">
+  <div class="mb-3 flex-fill">
+    <label for="birthdate" class="form-label" id="fechana">Fecha de nacimiento:</label>
+    <input type="date" name="birthdate" id="birthdate" class="form-control input-border"
+           min="1925-01-01" max="2007-12-31" required />
+    <div id="birthdate-message" class="form-text mt-1">Debe estar entre el año 1925 y 2007.</div>
+  </div>
+
+ <script>
+  const birthdateInput = document.getElementById('birthdate');
+  const messageDiv = document.getElementById('birthdate-message');
+
+  birthdateInput.addEventListener('input', function () {
+    const value = this.value;
+    const inputDate = new Date(value);
+    const today = new Date();
+
+    if (!value) {
+      messageDiv.textContent = 'Debe ingresar una fecha de nacimiento.';
+      messageDiv.className = 'form-text mt-1 text-danger';
+      this.classList.remove('is-valid', 'is-invalid');
+      return;
+    }
+
+    // Calcular la edad exacta
+    const age = today.getFullYear() - inputDate.getFullYear();
+    const monthDiff = today.getMonth() - inputDate.getMonth();
+    const dayDiff = today.getDate() - inputDate.getDate();
+    let is18 = false;
+
+    if (
+      age > 18 ||
+      (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)))
+    ) {
+      is18 = true;
+    }
+
+    // Validaciones
+    const minDate = new Date('1925-01-01');
+    if (inputDate < minDate) {
+      messageDiv.textContent = 'La fecha no puede ser menor a 1925.';
+      messageDiv.className = 'form-text mt-1 text-danger';
+      this.classList.remove('is-valid');
+      this.classList.add('is-invalid');
+    } else if (!is18) {
+      messageDiv.textContent = 'Debe tener al menos 18 años para registrarse.';
+      messageDiv.className = 'form-text mt-1 text-danger';
+      this.classList.remove('is-valid');
+      this.classList.add('is-invalid');
+    } else {
+      messageDiv.textContent = 'Fecha válida. Todo está correcto ✅';
+      messageDiv.className = 'form-text mt-1 text-success';
+      this.classList.remove('is-invalid');
+      this.classList.add('is-valid');
+    }
+  });
+
+  // Evita mostrar el borde rojo al cargar
+  window.addEventListener('DOMContentLoaded', () => {
+    birthdateInput.classList.remove('is-invalid', 'is-valid');
+  });
+</script>
+
+          <!-- Género -->
           <div class="mb-3 flex-fill">
-            <label for="birthdate" class="form-label">Fecha de nacimiento:</label>
-            <input type="date" name="birthdate" id="birthdate" class="form-control input-border" />
+          <label for="gender" class="form-label">Género:</label>
+           <select name="gender" id="gender" class="form-control input-border custom-select" required>
+           <option value="" disabled selected>Seleccionar</option>
+           <option value="Femenino">Femenino</option>
+         <option value="Masculino">Masculino</option>
+         </select>
+        </div>
           </div>
-          
-          <!-- Género -->
-          <div class="mb-3 flex-fill">
-            <label for="gender" class="form-label">Género:</label>
-            <select name="gender" id="gender" class="form-control input-border custom-select">
-              <option value="" disabled selected>Seleccionar</option>
-              <option value="Femenino">Femenino</option>
-              <option value="Masculino">Masculino</option>
-            </select>
-          </div>
-          
-          </div>
+
+          <script>
+  const genderSelect = document.getElementById('gender');
+  const genderMessage = document.getElementById('gender-message');
+  const form = document.getElementById('registroForm');
+
+  // Al cargar, limpiar estilos
+  window.addEventListener('DOMContentLoaded', () => {
+    genderSelect.classList.remove('is-valid', 'is-invalid');
+    genderMessage.style.display = 'none';
+  });
+
+  // Validar al seleccionar una opción
+  genderSelect.addEventListener('change', function () {
+    if (this.value !== "") {
+      this.classList.remove('is-invalid');
+      this.classList.add('is-valid');
+      genderMessage.textContent = 'Selección válida ✅';
+      genderMessage.className = 'form-text mt-1 text-success';
+      genderMessage.style.display = 'block';
+    }
+  });
+
+  // Validar al enviar el formulario
+  form.addEventListener('submit', function (e) {
+    let valid = true;
+
+    // Validación del género
+    if (genderSelect.value === "") {
+      genderSelect.classList.remove('is-valid');
+      genderSelect.classList.add('is-invalid');
+      genderMessage.textContent = 'Debe seleccionar un género.';
+      genderMessage.className = 'form-text mt-1 text-danger';
+      genderMessage.style.display = 'block';
+      valid = false;
+    }
+
+    // Cancelar envío si algo no es válido
+    if (!valid) {
+      e.preventDefault();
+    }
+  });
+</script>
         
-          <!-- Correo -->
-        <div class="mb-3">
-          <label for="email" class="form-label">Correo:</label>
-          <input type="email" name="email" id="email" class="form-control input-border" placeholder="Ingrese su correo" />
-        </div>
+<!-- Correo -->
+<div class="mb-3">
+  <label for="email" class="form-label">Correo:</label>
+  <input type="email" name="email" id="email" class="form-control input-border" placeholder="Ingrese su correo" required />
+  <div id="email-message" class="form-text mt-1">Ingrese un correo válido (ejemplo@gmail.com)</div>
+</div>
 
-        <!-- Contraseña -->
-        <div class="mb-4 position-relative input-group-container">
-          <label for="password" class="form-label">Contraseña:</label>
-          <div class="position-relative">
-            <input type="password" id="password" class="form-control input-border" placeholder="Ingrese su contraseña" />
-            <span class="password-toggle-inside" onclick="toggleVisibility('password', this)">
-              <i class="fas fa-eye"></i>
-            </span>
-          </div>
-        </div>
+<script>
+  const emailInput = document.getElementById('email');
+  const emailMessage = document.getElementById('email-message');
+  // Expresión regular para correos con extensiones válidas y dominio completo
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|ugb\.edu\.sv|co\.sv|co\.uk|co\.nz|tv|me|int|io|info|us|sg|ca|au)\b$/;
 
-        <!-- Confirmar contraseña -->
-        <div class="mb-4 position-relative input-group-container">
-          <label for="confirm-password" class="form-label">Confirmar contraseña:</label>
-          <div class="position-relative">
-            <input type="password" id="comfirm-password" name="password" class="form-control input-border" placeholder="Confirme su contraseña" />
-            <span class="password-toggle-inside" onclick="toggleVisibility('confirm-password', this)">
-              <i class="fas fa-eye"></i>
-            </span>
-          </div>
-        </div>
+  emailInput.addEventListener('keydown', function (e) {
+    // Prevenir el espacio
+    if (e.key === ' ') {
+      e.preventDefault();
+    }
+  });
+
+  emailInput.addEventListener('input', function () {
+    const value = this.value;
+
+    if (emailRegex.test(value)) {
+      emailMessage.textContent = 'Correo válido ✅';
+      emailMessage.className = 'form-text mt-1 text-success';
+      this.classList.add('is-valid');
+      this.classList.remove('is-invalid');
+    } else {
+      emailMessage.textContent = 'Ingrese un correo válido (ejemplo@gmail.com)';
+      emailMessage.className = 'form-text mt-1 text-danger';
+      this.classList.add('is-invalid');
+      this.classList.remove('is-valid');
+    }
+  });
+</script>
+
+
+
+
+<!-- Contraseña -->
+<div class="mb-3">
+  <label for="password" class="form-label">Contraseña:</label>
+  <div class="position-relative">
+    <input type="password" id="password" name="password"
+           class="form-control input-border"
+           placeholder="Ingrese su contraseña" required />
+    <span class="password-toggle-inside" onclick="toggleVisibility('password', this)">
+      <i class="fas fa-eye"></i>
+    </span>
+  </div>
+  <div id="password-message" class="form-text mt-1">
+    <ul class="mb-0">
+      <li id="req-length">Al menos 6 caracteres <span id="check-length" style="display:none; color:green;">✔️</span></li>
+      <li id="req-uppercase">Debe tener al menos una mayúscula <span id="check-uppercase" style="display:none; color:green;">✔️</span></li>
+      <li id="req-number">Debe tener al menos un número <span id="check-number" style="display:none; color:green;">✔️</span></li>
+      <li id="req-symbol">Debe tener al menos un signo (!@#$%^.,&*) <span id="check-symbol" style="display:none; color:green;">✔️</span></li>
+      <li id="req-space">No debe tener espacios <span id="check-space" style="display:none; color:green;">✔️</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Confirmar contraseña -->
+<div class="mb-3">
+  <label for="confirm-password" class="form-label">Confirmar contraseña:</label>
+  <div class="position-relative">
+    <input type="password" id="confirm-password" name="confirm-password"
+           class="form-control input-border"
+           placeholder="Confirme su contraseña" required />
+    <span class="password-toggle-inside" onclick="toggleVisibility('confirm-password', this)">
+      <i class="fas fa-eye"></i>
+    </span>
+  </div>
+  <div id="match-message" class="form-text mt-1"></div>
+</div>
+
+<script>
+  function toggleVisibility(id, icon) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      input.type = "password";
+      icon.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+  }
+
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirm-password');
+  const matchMessage = document.getElementById('match-message');
+
+  const reqLength = document.getElementById('req-length');
+  const reqUppercase = document.getElementById('req-uppercase');
+  const reqNumber = document.getElementById('req-number');
+  const reqSymbol = document.getElementById('req-symbol');
+  const reqSpace = document.getElementById('req-space');
+
+  const checkLength = document.getElementById('check-length');
+  const checkUppercase = document.getElementById('check-uppercase');
+  const checkNumber = document.getElementById('check-number');
+  const checkSymbol = document.getElementById('check-symbol');
+  const checkSpace = document.getElementById('check-space');
+
+  // Bloquear espacios
+  passwordInput.addEventListener('keydown', function (e) {
+    if (e.key === ' ') {
+      e.preventDefault();
+    }
+  });
+
+  confirmPasswordInput.addEventListener('keydown', function (e) {
+    if (e.key === ' ') {
+      e.preventDefault();
+    }
+  });
+
+  // Verificar todas las validaciones de la contraseña
+  function allValidationsPassed() {
+    const value = passwordInput.value;
+    return (
+      value.length >= 6 &&
+      /[A-Z]/.test(value) &&
+      /\d/.test(value) &&
+      /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value) &&
+      !/\s/.test(value)
+    );
+  }
+
+  // Actualizar mensaje y color de validación
+  function updateItem(element, isValid, text, checkIcon) {
+    element.textContent = text;
+    element.className = isValid ? 'text-success' : 'text-danger';
+    checkIcon.style.display = isValid ? 'inline' : 'none'; // Mostrar el cheque cuando sea válido
+  }
+
+  // Verificar si la contraseña y la confirmación coinciden
+  function checkPasswordMatch() {
+    const password = passwordInput.value;
+    const confirm = confirmPasswordInput.value;
+
+    if (confirm === '') {
+      matchMessage.textContent = '';
+      confirmPasswordInput.style.borderColor = '';
+    } else if (password === confirm && allValidationsPassed()) {
+      matchMessage.textContent = 'Las contraseñas coinciden';
+      matchMessage.className = 'form-text mt-1 text-success';
+      confirmPasswordInput.style.borderColor = 'green';
+    } else {
+      matchMessage.textContent = 'Las contraseñas no coinciden';
+      matchMessage.className = 'form-text mt-1 text-danger';
+      confirmPasswordInput.style.borderColor = '';
+    }
+  }
+
+  // Escuchar cambios en la contraseña
+  passwordInput.addEventListener('input', function () {
+    const value = this.value;
+
+    // Actualizar las validaciones
+    updateItem(reqLength, value.length >= 6, 'Al menos 6 caracteres', checkLength);
+    updateItem(reqUppercase, /[A-Z]/.test(value), 'Debe tener al menos una mayúscula', checkUppercase);
+    updateItem(reqNumber, /\d/.test(value), 'Debe tener al menos un número', checkNumber);
+    updateItem(
+      reqSymbol,
+      /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value),
+      'Debe tener al menos un signo (!@#$%^&*()[]{};:,.<>?\\| etc.)',
+      checkSymbol
+    );
+    updateItem(reqSpace, !/\s/.test(value), 'No debe tener espacios', checkSpace);
+
+    // Actualizar el borde del input de la contraseña
+    if (allValidationsPassed()) {
+      passwordInput.style.borderColor = 'green';
+    } else {
+      passwordInput.style.borderColor = '';
+    }
+
+    checkPasswordMatch();
+  });
+
+  // Escuchar cambios en la confirmación de la contraseña
+  confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+</script>
+
+
+
 
 
         <div class="text-center">
@@ -149,7 +475,13 @@
       icon.classList.toggle('fa-eye-slash', isPassword);
       icon.classList.toggle('fa-eye', !isPassword);
     }
+     
+    
+    
+    
   </script>
+  
+  <script src="register.js"></script>
 
 </body>
 </html>

@@ -19,8 +19,8 @@ body {
   /* Tarjeta del formulario */
   .custom-form-card {
     background-color: #F6FFFE;
-    width: 890px;
-    max-width: 850px;
+    width: 800px;
+    max-width: 800px;
     padding: 50px;
     height: auto;
     z-index: 2;
@@ -47,23 +47,37 @@ body {
   /* Nombre de los inputs del formulario */
   .form-label {
     padding-left: 20%;
+
   }
+
+
+
   
-  /* Estilos de inputs */
   .input-border {
-    border: 1.9px solid #007848;
+    border-color: #ced4da; /* gris claro inicial */
+    box-shadow: none;
     width: 60%;
     display: block;
     margin: 10px auto;
     padding: 8px;
     border-radius: 10px;
+    outline: none;
   }
   
-  /* Input enfocado */
+  /* NO mostrar nada al hacer clic */
   .input-border:focus {
-    border-color: #007848;
-    box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
+    border-color: #ced4da !important;
+    box-shadow: none;
   }
+  
+
+  
+
+  
+
+  
+  
+
   
   /* Estilos para los íconos de ojo */
   .password-toggle-inside {
@@ -171,10 +185,51 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
   }
   
+  #letras{
+    margin-left: 165px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 12px;
+    
+  }
+
+ 
   
-  
+   #fechana{
+    margin-left: 75px;
    
+  }
   
   
-  
-  
+  #birthdate{
+
+    width: 180px;
+    margin-right: 20px;
+    margin-left:155px;
+  }
+
+  #gender{
+    width: 180px;
+    margin-left: 0px;
+    margin-right: 155px;
+  }
+
+  #birthdate-message{
+    margin-left: 155px;
+  }
+
+  #fullname-message{
+    margin-left: 155px;
+  }
+
+  #email-message{
+    margin-left: 155px;
+  }
+
+  #password-message{
+    margin-left: 155px;
+  }
+
+ #match-message{
+    margin-left: 155px;
+  }
