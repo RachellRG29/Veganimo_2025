@@ -150,8 +150,6 @@
 
   birthdateInput.addEventListener('input', function () {
     const value = this.value;
-    const inputDate = new Date(value);
-    const today = new Date();
 
     if (!value) {
       messageDiv.textContent = 'Debe ingresar una fecha de nacimiento.';
@@ -160,27 +158,29 @@
       return;
     }
 
-    // Calcular la edad exacta
-    const age = today.getFullYear() - inputDate.getFullYear();
-    const monthDiff = today.getMonth() - inputDate.getMonth();
-    const dayDiff = today.getDate() - inputDate.getDate();
-    let is18 = false;
-
-    if (
-      age > 18 ||
-      (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)))
-    ) {
-      is18 = true;
-    }
+    // Parsear la fecha de forma segura (local)
+    const [year, month, day] = value.split('-').map(Number);
+    const inputDate = new Date(year, month - 1, day); // Fecha local
+    const today = new Date();
 
     // Validaciones
-    const minDate = new Date('1925-01-01');
+    const minDate = new Date(1925, 0, 1); // 1925-01-01
     if (inputDate < minDate) {
       messageDiv.textContent = 'La fecha no puede ser menor a 1925.';
       messageDiv.className = 'form-text mt-1 text-danger';
       this.classList.remove('is-valid');
       this.classList.add('is-invalid');
-    } else if (!is18) {
+      return;
+    }
+
+    // Calcular si tiene al menos 18 años exactos
+    let is18 = false;
+    const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+    if (inputDate <= eighteenYearsAgo) {
+      is18 = true;
+    }
+
+    if (!is18) {
       messageDiv.textContent = 'Debe tener al menos 18 años para registrarse.';
       messageDiv.className = 'form-text mt-1 text-danger';
       this.classList.remove('is-valid');
@@ -198,6 +198,7 @@
     birthdateInput.classList.remove('is-invalid', 'is-valid');
   });
 </script>
+
 
           <!-- Género -->
           <div class="mb-3 flex-fill">
