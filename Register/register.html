@@ -70,64 +70,116 @@
 <div class="mb-3">
   <label for="fullname" class="form-label">Nombre completo:</label>
   <input type="text" name="fullname" id="fullname" class="form-control input-border"
-         pattern="[a-zA-Z]{3,}[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*"
          placeholder="Ingrese su nombre completo"
-         title="Por favor ingrese correctamente sus datos, solo se permiten letras"
-         required />
-  <div id="fullname-message" class="form-text mt-1">Solo se permiten letras y espacios.</div>
+         title="Por favor ingrese correctamente sus datos, solo se permiten letras" required />
+  <div id="fullname-message" class="form-text mt-1">Solo se permiten letras y un espacio entre palabras.</div>
 </div>
 
 <script>
   const fullnameInput = document.getElementById('fullname');
   const fullnameMessage = document.getElementById('fullname-message');
-  const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{3,}$/;
+  const registerBtn = document.getElementById('registerBtn');
+ 
 
+  // Expresión regular: al menos dos palabras, cada una con 3+ letras, separadas por UN solo espacio
+  const regex = /^([a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,})(\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,})+$/;
+
+  // Función para validar el nombre completo
+  function validateFullname(value) {
+    value = value.trim().replace(/\s{2,}/g, ' '); // Remover espacios múltiples
+    fullnameInput.value = value; // Actualizar valor del input
+    return regex.test(value); // Comprobar con el regex
+  }
+
+  // Validar el input mientras se escribe
   fullnameInput.addEventListener('input', function () {
-    const value = this.value.trim();
+    const cleanedValue = this.value.trim().replace(/\s{2,}/g, ' ');
+    this.value = cleanedValue;
 
-    if (regex.test(value)) {
+    // Validación de vacío o formato incorrecto
+    if (cleanedValue === "") {
+      fullnameMessage.textContent = 'Este campo es obligatorio.';
+      fullnameMessage.className = 'form-text mt-1 text-danger';
+      this.classList.add('is-invalid');
+      this.classList.remove('is-valid');
+      registerBtn.disabled = true;
+    } else if (validateFullname(cleanedValue)) {
       fullnameMessage.textContent = 'Datos correctos ✅';
       fullnameMessage.className = 'form-text mt-1 text-success';
       this.classList.add('is-valid');
       this.classList.remove('is-invalid');
+      registerBtn.disabled = false;
     } else {
-      fullnameMessage.textContent = 'Ingrese solo letras';
+      fullnameMessage.textContent = 'Ingrese nombre y apellido, mínimo 3 letras cada uno, sin espacios múltiples.';
       fullnameMessage.className = 'form-text mt-1 text-danger';
       this.classList.add('is-invalid');
       this.classList.remove('is-valid');
+      registerBtn.disabled = true;
     }
   });
 
+  // Prevenir espacios consecutivos y asegurarnos de que cada palabra tenga al menos 3 letras
   fullnameInput.addEventListener('keydown', function (e) {
     const char = e.key;
 
-    // Permitir teclas de control y navegación
     if (
       e.ctrlKey || e.metaKey ||
       ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(char)
     ) return;
 
-    const currentValue = fullnameInput.value;
+    if (char === ' ') {
+      e.preventDefault(); // evitamos el espacio por defecto
 
-    // Bloquear espacio si hay menos de 3 letras
-    if (char === ' ' && currentValue.length < 3) {
-      e.preventDefault();
+      // Esperamos al siguiente tick para obtener el valor actualizado
+      setTimeout(() => {
+        const value = fullnameInput.value.trim().replace(/\s{2,}/g, ' ');
+        const parts = value.split(' ');
+        const lastPart = parts[parts.length - 1] || '';
+
+        // Si última palabra tiene al menos 3 letras, agregamos espacio
+        if (lastPart.length >= 3) {
+          fullnameInput.value = value + ' ';
+        }
+      }, 0);
+
       return;
     }
 
-    // Bloquear todo lo que no sea letra o espacio
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/.test(char)) {
+    // Solo permitir letras
+    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]$/.test(char)) {
       e.preventDefault();
     }
   });
 
-  // Evitar pegar texto con caracteres no permitidos
+  // Validar pegado de texto
   fullnameInput.addEventListener('paste', function (e) {
     const pasted = e.clipboardData.getData('text');
+
     if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(pasted)) {
       e.preventDefault();
-      fullnameMessage.textContent = 'No se permiten números ni signos al pegar';
+      fullnameMessage.textContent = 'No se permiten números ni signos al pegar.';
       fullnameMessage.className = 'form-text mt-1 text-danger';
+      registerBtn.disabled = true;
+      return;
+    }
+
+    const cleaned = pasted.trim().replace(/\s{2,}/g, ' ');
+    if (!validateFullname(cleaned)) {
+      e.preventDefault();
+      fullnameMessage.textContent = 'Pegado inválido. Asegúrese de que haya al menos dos palabras de 3 letras.';
+      fullnameMessage.className = 'form-text mt-1 text-danger';
+      registerBtn.disabled = true;
+    }
+  });
+
+  // Validar el formulario antes de enviarlo
+  form.addEventListener('submit', function (e) {
+    const value = fullnameInput.value.trim().replace(/\s{2,}/g, ' ');
+    if (!validateFullname(value)) {
+      e.preventDefault();
+      fullnameMessage.textContent = 'Complete correctamente su nombre completo.';
+      fullnameMessage.className = 'form-text mt-1 text-danger';
+      registerBtn.disabled = true;
     }
   });
 </script>
@@ -150,6 +202,8 @@
 
   birthdateInput.addEventListener('input', function () {
     const value = this.value;
+    const inputDate = new Date(value);
+    const today = new Date();
 
     if (!value) {
       messageDiv.textContent = 'Debe ingresar una fecha de nacimiento.';
@@ -158,29 +212,27 @@
       return;
     }
 
-    // Parsear la fecha de forma segura (local)
-    const [year, month, day] = value.split('-').map(Number);
-    const inputDate = new Date(year, month - 1, day); // Fecha local
-    const today = new Date();
+    // Calcular la edad exacta
+    const age = today.getFullYear() - inputDate.getFullYear();
+    const monthDiff = today.getMonth() - inputDate.getMonth();
+    const dayDiff = today.getDate() - inputDate.getDate();
+    let is18 = false;
+
+    if (
+      age > 18 ||
+      (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)))
+    ) {
+      is18 = true;
+    }
 
     // Validaciones
-    const minDate = new Date(1925, 0, 1); // 1925-01-01
+    const minDate = new Date('1925-01-01');
     if (inputDate < minDate) {
       messageDiv.textContent = 'La fecha no puede ser menor a 1925.';
       messageDiv.className = 'form-text mt-1 text-danger';
       this.classList.remove('is-valid');
       this.classList.add('is-invalid');
-      return;
-    }
-
-    // Calcular si tiene al menos 18 años exactos
-    let is18 = false;
-    const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
-    if (inputDate <= eighteenYearsAgo) {
-      is18 = true;
-    }
-
-    if (!is18) {
+    } else if (!is18) {
       messageDiv.textContent = 'Debe tener al menos 18 años para registrarse.';
       messageDiv.className = 'form-text mt-1 text-danger';
       this.classList.remove('is-valid');
@@ -198,7 +250,6 @@
     birthdateInput.classList.remove('is-invalid', 'is-valid');
   });
 </script>
-
 
           <!-- Género -->
           <div class="mb-3 flex-fill">
