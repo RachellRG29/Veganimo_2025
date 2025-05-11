@@ -125,11 +125,11 @@ body {
   /* Imagen de la derecha */
   .login-image {
     position: absolute;
-    right: -53px;
-    top: 50%;
+    right: 48px;
+    top: 85%;
     transform: translateY(-50%);
-    width: 387px;
-    height: 815px;
+    width: 427px;
+    height: 1020px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     object-fit: cover;
