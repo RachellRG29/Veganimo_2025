@@ -21,6 +21,7 @@ function agregarIngrediente() {
   const input = document.createElement("input");
   input.type = "text";
   input.className = "form-control input-border";
+  input.name = "ingredientes[]";
   input.placeholder = `Ingrediente ${contadorIngredientes++}`;
   lista.appendChild(input);
 }
@@ -44,6 +45,7 @@ function agregarPaso() {
   const inputFilePaso = document.createElement("input");
   inputFilePaso.type = "file";
   inputFilePaso.accept = "image/*";
+  inputFilePaso.name = "imagen-paso[]";
   inputFilePaso.style.display = "none";
   inputFilePaso.className = "input-paso-img";
 
@@ -58,6 +60,7 @@ function agregarPaso() {
 
   const inputPaso = document.createElement("input");
   inputPaso.type = "text";
+  inputPaso.name = "pasos[]";
   inputPaso.className = "form-control input-border paso-input";
   inputPaso.placeholder = `Paso ${contadorPasos++}`;
 

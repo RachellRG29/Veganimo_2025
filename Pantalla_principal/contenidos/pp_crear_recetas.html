@@ -100,7 +100,7 @@
             </div>
             <div class="zona-ingredientes">
               <div id="lista-ingredientes" class="lista-dinamica">
-                <input type="text" class="form-control input-border" name="ingredientes" placeholder="Ingrediente 1">
+                <input type="text" class="form-control input-border" name="ingredientes[]" placeholder="Ingrediente 1">
               </div>
               <button type="button" onclick="agregarIngrediente()" class="btn-agregar btn-agregar-ingrediente">Añadir más</button>
             </div>
@@ -116,9 +116,9 @@
                   <div class="paso-imagen-small" onclick="this.querySelector('input').click()">
                     <i class="ph ph-image icono-placeholder"></i>
                     <img class="img-preview" style="display:none;">
-                    <input type="file" accept="image/*" name="imagen-paso" class="input-paso-img" style="display:none;" onchange="mostrarPreviewPaso(this, this.previousElementSibling)">
+                    <input type="file" accept="image/*" name="imagen-paso[]" class="input-paso-img" style="display:none;" onchange="mostrarPreviewPaso(this, this.previousElementSibling)" multiple>
                   </div>
-                  <input type="text" name="pasos" class="form-control input-border paso-input" placeholder="Paso 1">
+                  <input type="text" name="pasos[]" class="form-control input-border paso-input" placeholder="Paso 1">
                 </div>
               </div>
               <button type="button" onclick="agregarPaso()" class="btn-agregar btn-agregar-paso">Añadir más</button>
@@ -135,4 +135,3 @@
         </div>
       
       </section>
-

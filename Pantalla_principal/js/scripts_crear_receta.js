@@ -14,6 +14,7 @@ function agregarIngrediente() {
   const lista = document.getElementById("lista-ingredientes");
   const input = document.createElement("input");
   input.type = "text";
+  input.name = "ingredientes[]";
   input.className = "form-control input-border";
   input.placeholder = `Ingrediente ${contadorIngredientes++}`;
   lista.appendChild(input);
@@ -44,7 +45,8 @@ function agregarPaso() {
   inputFilePaso.accept = "image/*";
   inputFilePaso.style.display = "none";
   inputFilePaso.className = "input-paso-img";
-  
+  inputFilePaso.name = "imagen-paso[]";  // Asegúrate de añadir el 'name' para que se guarde correctamente
+
   inputFilePaso.onchange = function() {
     mostrarPreviewPaso(this, imgPreview);
   };
@@ -55,6 +57,7 @@ function agregarPaso() {
 
   const inputPaso = document.createElement("input");
   inputPaso.type = "text";
+  inputPaso.name = "pasos[]";
   inputPaso.className = "form-control input-border paso-input";
   inputPaso.placeholder = `Paso ${contadorPasos++}`;
 
@@ -63,6 +66,7 @@ function agregarPaso() {
 
   lista.appendChild(pasoItem);
 }
+
 
 function mostrarPreviewReceta(input, imgElement) {
   const file = input.files[0];

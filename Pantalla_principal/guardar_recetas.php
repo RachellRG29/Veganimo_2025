@@ -25,17 +25,26 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-// Procesar la imagen del paso
-$imagenPaso = '';
-if (isset($_FILES['imagen-paso']) && $_FILES['imagen-paso']['error'] === UPLOAD_ERR_OK) {
+// Procesar las imágenes del paso
+$imagenesPasos = [];  // Para almacenar las imágenes de los pasos
+if (isset($_FILES['imagen-paso']) && is_array($_FILES['imagen-paso']['tmp_name'])) {
     $directorioDestino = __DIR__ . '/../uploads/';
-    $nombreArchivoPaso = uniqid('paso_') . '_' . basename($_FILES['imagen-paso']['name']);
-    $rutaDestinoPaso = $directorioDestino . $nombreArchivoPaso;
+    $contador = 0;
 
-    if (move_uploaded_file($_FILES['imagen-paso']['tmp_name'], $rutaDestinoPaso)) {
-        $imagenPaso = '/uploads/' . $nombreArchivoPaso;
-    } else {
-        die("❌ Error al subir la imagen del paso.");
+    // Recorrer todos los archivos en el array de imágenes de los pasos
+    foreach ($_FILES['imagen-paso']['tmp_name'] as $key => $tmp_name) {
+        if ($_FILES['imagen-paso']['error'][$key] === UPLOAD_ERR_OK) {
+            $nombreArchivoPaso = uniqid('paso_') . '_' . $contador . '_' . basename($_FILES['imagen-paso']['name'][$key]);
+            $rutaDestinoPaso = $directorioDestino . $nombreArchivoPaso;
+
+            if (move_uploaded_file($tmp_name, $rutaDestinoPaso)) {
+                // Guardar el path de la imagen en el array
+                $imagenesPasos[] = '/uploads/' . $nombreArchivoPaso;
+            } else {
+                die("❌ Error al subir una de las imágenes del paso.");
+            }
+            $contador++;
+        }
     }
 }
 
@@ -53,7 +62,7 @@ $documento = [
     'ingredientes' => $ingredientes,
     'pasos' => $pasos,
     'imagen' => $imagenReceta,
-    'imagen_paso' => $imagenPaso,
+    'imagenes_pasos' => $imagenesPasos,  // Aquí guardamos todas las imágenes de los pasos
     'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
 ];
 
