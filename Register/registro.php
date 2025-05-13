@@ -1,40 +1,39 @@
 <?php
-require_once __DIR__ . '/../misc/db_config.php';
+session_start();
+require_once __DIR__ . '/../misc/phpmailer_config.php';
 
-// Capturar datos del formulario
 $fullname = $_POST['fullname'] ?? '';
 $birthdate = $_POST['birthdate'] ?? '';
 $gender = $_POST['gender'] ?? '';
 $email = $_POST['email'] ?? '';
 $password = $_POST['password'] ?? '';
 
-// Validar que se hayan recibido todos los datos
 if (empty($fullname) || empty($birthdate) || empty($gender) || empty($email) || empty($password)) {
     die("❌ Faltan datos del formulario.");
 }
 
-// Documento a insertar
-$documento = [
+$verificationCode = rand(1000, 9999);
+
+// Guardar en la sesión
+$_SESSION['verification_code'] = $verificationCode;
+$_SESSION['user_data'] = [
     'fullname' => $fullname,
     'birthdate' => $birthdate,
     'gender' => $gender,
     'email' => $email,
-    'password' => password_hash($password, PASSWORD_DEFAULT),  // Hasheo de la contraseña
-    'created_at' => new MongoDB\BSON\UTCDateTime()
+    'password' => password_hash($password, PASSWORD_DEFAULT),
+    'created_at' => new MongoDB\BSON\UTCDateTime(),
+    'verified' => false,
 ];
 
-// Preparar la inserción
-$bulk = new MongoDB\Driver\BulkWrite;
-$bulk->insert($documento);
+// Enviar el código por correo
+$resultadoCorreo = enviarCodigoVerificacion($email, $verificationCode);
 
-// Cambiar la base de datos y colección
-$baseDatos = 'Veganimo';
-$coleccion = 'Usuarios';
-
-try {
-    $cliente->executeBulkWrite("$baseDatos.$coleccion", $bulk);
-    echo "✅ Datos guardados exitosamente.";
-} catch (MongoDB\Driver\Exception\Exception $e) {
-    echo "❌ Error al guardar: " . $e->getMessage();
+if ($resultadoCorreo === true) {
+    header("Location: ../Verificacion_correo/verificacion.html");
+    exit;
+} else {
+    echo $resultadoCorreo;
 }
+
 ?>
