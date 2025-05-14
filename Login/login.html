@@ -19,11 +19,8 @@
 
   <link rel="website icon" href="../Images/Icono_veganimo.svg">
 
-  <!-- FIREBASE -->
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
-  
-  <script src="veganimo-app.js"></script>
+  <!-- PHP personalizado -->
+  <script src="/Login/login.php" defer></script>
   
 </head>
 <body class="custom-bg d-flex min-vh-100 px-3">
@@ -52,27 +49,25 @@
       <h2 class="form-title text-center mb-2">Inicio de sesión</h2>
       <div class="separator mx-auto mb-4"></div>
 
-      <form>
-        <div class="mb-3">
-          <label for="email" class="form-label">Correo:</label>
-          <input type="email" id="email" class="form-control input-border" placeholder="Ingrese su correo" />
-        </div>
-        <div class="mb-4 position-relative">
-          <label for="password" class="form-label">Contraseña:</label>
-          <input type="password" id="password" class="form-control input-border" placeholder="Ingrese su contraseña" />
-          <span class="password-toggle">
-            <i class="fas fa-eye eye-icon"></i>
-          
-          
-          </span>
-        </div>
-        <div class="text-center">
-        <button>
-         Iniciar sesión
-        </button>
-
-        </div>
-      </form>
+<!-- En el formulario, agrega ID y elemento para mensajes -->
+<form id="loginForm">
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo:</label>
+    <input type="email" id="email" name="email" class="form-control input-border" placeholder="Ingrese su correo" required />
+  </div>
+  <div class="mb-4 position-relative">
+    <label for="password" class="form-label">Contraseña:</label>
+    <input type="password" id="password" name="password" class="form-control input-border" placeholder="Ingrese su contraseña" required />
+    <span class="password-toggle">
+      <i class="fas fa-eye eye-icon"></i>
+    </span>
+  </div>
+  <!-- Agrega este div para mostrar mensajes -->
+  <div id="login-message" class="mb-3 text-center"></div>
+  <div class="text-center">
+    <button type="submit">Iniciar sesión</button>
+  </div>
+</form>
 
       <div class="text-center mt-3">
         <a href="#" class="text-muted small d-block text-decoration-none">¿Has olvidado tu contraseña?</a>
@@ -108,6 +103,65 @@
         toggleIcon.classList.toggle('fa-eye', !isPasswordVisible);      
       });
     </script>
+
+<script>
+ // Elimina los scripts existentes y reemplaza con este:
+document.addEventListener('DOMContentLoaded', function() {
+  // Configuración del toggle de contraseña
+  const passwordInput = document.getElementById('password');
+  const toggleIcon = document.querySelector('.eye-icon');
+  
+  toggleIcon.addEventListener('click', () => {
+    const isPasswordVisible = passwordInput.type === 'text';
+    passwordInput.type = isPasswordVisible ? 'password' : 'text';
+    toggleIcon.classList.toggle('fa-eye-slash', isPasswordVisible); 
+    toggleIcon.classList.toggle('fa-eye', !isPasswordVisible);
+  });
+
+  // Manejo del formulario de login
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const messageDiv = document.getElementById('login-message');
+
+    // Validación básica en el cliente
+    if (!email || !password) {
+      messageDiv.textContent = '⚠️ Por favor completa todos los campos';
+      messageDiv.className = 'mb-3 text-center text-danger';
+      return;
+    }
+
+    try {
+      const response = await fetch('login.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+      });
+
+      const result = await response.json();
+      
+      // Mostrar mensaje al usuario
+      messageDiv.textContent = result.message;
+      messageDiv.className = `mb-3 text-center ${result.success ? 'text-success' : 'text-danger'}`;
+
+      // Redirigir si es exitoso
+      if (result.success) {
+        setTimeout(() => {
+          window.location.href = "/Pantalla_principal/index_pantalla_principal.html"; 
+        }, 1500);
+      }
+    } catch (error) {
+      messageDiv.textContent = '❌ Error de conexión con el servidor';
+      messageDiv.className = 'mb-3 text-center text-danger';
+      console.error('Error:', error);
+    }
+  });
+});
+  </script>
     
   
 </body>

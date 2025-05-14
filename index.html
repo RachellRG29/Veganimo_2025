@@ -16,13 +16,7 @@
 
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- FIREBASE -->
-    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
-    
-    <script src="veganimo-app.js"></script>
-    
+   
     <link rel="website icon" href="Images/Icono_veganimo.svg">
 
     <!-- Nombre sitio  -->
@@ -70,6 +64,8 @@
             </div>
         </nav>
     </header>
+
+    
 
     <!-- Secciones -->
     <div class="wrapper">
@@ -432,23 +428,23 @@
 
 <script>
     document.querySelector('.btn-iniciar-sesion').addEventListener('click', () => {
-    window.location.href = '/login';
+    window.location.href = '/Login/login.html';
   });
 
   document.querySelector('.btn-registrar').addEventListener('click', () => {
-    window.location.href = '/register';
+    window.location.href = '/Register/register.html';
   });
 
   document.querySelector('.btn-explorar').addEventListener('click', () => {
-    window.location.href = '/index_pantalla_principal';
+    window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
   });
 
   document.querySelector('.btn-ver-mas-recetas').addEventListener('click', () => {
-    window.location.href = '/index_pantalla_principal?seccion=recetas';  // 👈 importante
+    window.location.href = '/Pantalla_principal/index_pantalla_principal.html?seccion=recetas';  // 👈 importante
   });
 
   document.querySelector('.btn-ver-mas-informate').addEventListener('click', () => {
-    window.location.href = '/index_pantalla_principal?seccion=informate'; // 👈 importante
+    window.location.href = '/Pantalla_principal/index_pantalla_principal.html?seccion=informate'; // 👈 importante
   });
 </script>
 

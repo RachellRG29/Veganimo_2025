@@ -16,10 +16,8 @@ $_SESSION['verification_code'] = $nuevoCodigo;
 $resultado = enviarCodigoVerificacion($email, $nuevoCodigo);
 
 if ($resultado === true) {
-    // Redirige a verificacion.html con un mensaje de éxito (opcional con query string)
-    header("Location: /Verificacion_correo/verificacion.html?reenviado=1");
-    exit;
+    echo "1"; // Éxito
 } else {
-    // Muestra el error directamente
-    echo $resultado;
+    echo $resultado; // Mensaje de error
 }
+?>
