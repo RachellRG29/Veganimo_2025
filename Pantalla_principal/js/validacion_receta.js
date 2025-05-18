@@ -101,7 +101,7 @@ function mostrarPreviewPaso(input, imgElement) {
 // =========================
 // EVENTOS AL CARGAR
 // =========================
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
     const inputFile = document.getElementById('input-imagen-receta');
     const imgPreview = document.getElementById('preview-imagen-receta');
   
@@ -117,4 +117,4 @@ document.addEventListener('DOMContentLoaded', () => {
        // initFormularioReceta();
       }
     }, 100);
-  });
+  });*/

@@ -27,13 +27,13 @@
 
 
 </head>
-<body class="custom-bg d-flex min-vh-100 px-3">
+<body class="custom-bg min-vh-100 px-3">
 
   <!-- Contenedor general -->
-  <div class="container position-relative d-flex align-items-center">
+  <div class="container-fluid d-flex justify-content-center align-items-center px-0">
 
     <!-- Card del formulario -->
-    <div class="card shadow-lg rounded-4 overflow-hidden custom-form-card p-4">
+    <div class="card shadow-lg rounded-4 custom-form-card p-4 mx-2">
       <div class="text-center mb-4">
         <div class="logo-container">
           <div class="img-fluid logo" alt="isotipo">
@@ -146,15 +146,65 @@
       <div class="text-center mt-3">
         <a href="/Login/login.html" class="text-muted small text-decoration-none">¿Tienes cuenta? Inicia sesión</a>
       </div>
-      </div>
     </div>
 
     <!-- Imagen derecha -->
-    <img src="https://images.pexels.com/photos/31199411/pexels-photo-31199411/free-photo-of-ensalada-de-aguacate-fresco-y-rucula-en-una-mesa-rustica.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" 
-         alt="Imagen" 
-         class="img-fluid login-image d-none d-md-block" />
+    <div class="login-image-container ms-3 d-none d-lg-block">
+      <img class="login-image" 
+          src="https://images.pexels.com/photos/31199411/pexels-photo-31199411/free-photo-of-ensalada-de-aguacate-fresco-y-rucula-en-una-mesa-rustica.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" 
+          alt="Imagen de comida saludable">
+    </div>
+
 
   </div>
+
+  <?php if (isAdmin()): ?>
+    <!-- Sección de la tabla de usuarios segun administrador -->
+    <div data-admin-only>
+      <!-- Sección de la tabla de usuarios -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-xxl-10 col-12 px-4 pb-5">
+          <div class="card shadow-lg">
+            <div class="card-header bg-dark text-white text-center">
+                <h5 class="mb-0">Usuarios Registrados</h5>
+              </div>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6 position-relative mx-auto">
+                <i class="fas fa-search position-absolute" style="top: 50%; left: 15px; transform: translateY(-50%); color: #888;"></i>
+                <input type="text" id="busquedaUsuarios" class="form-control ps-4" placeholder="Buscar por nombre, email o género...">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark text-center">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Género</th>
+                    <th>Fecha Registro</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tablaUsuarios">
+                  <tr>
+                    <td colspan="7" class="text-center">Cargando usuarios...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif; ?>
+
+  <!-- Bootstrap JS y dependencias -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
 
   
 <!-- Bootstrap JS -->
@@ -175,7 +225,13 @@
   </script>
 
   <script src="/Register/register_validacion.js"></script>
-  <script src="/Register/register.js"></script>
+
+  <!-- Solo cargar estos scripts si es admin -->
+  <?php if (isAdmin()): ?>
+    <script src="/Register/usuarios.js"></script>
+  <?php endif; ?>
+
+  <!-- <script src="/Register/register.js"></script> -->
   
 
 </body>

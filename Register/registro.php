@@ -1,7 +1,12 @@
 <?php
-require_once __DIR__ . '/../misc/db_config.php';
-require_once __DIR__ . '/../misc/phpmailer_config.php';
+require_once __DIR__ . '/../misc/db_config.php'; // Configuración de la base de datos
+require_once __DIR__ . '/../misc/phpmailer_config.php'; // Configuración de PHPMailer
 session_start();
+
+if (strpos($_SERVER['REQUEST_URI'], 'usuarios.php') !== false) {
+    require_once __DIR__ . '/../misc/auth_functions.php';
+    checkAdminAccess();
+}
 
 // Verificar si es una solicitud de verificación
 if (isset($_POST['verification_code'])) {
@@ -10,13 +15,13 @@ if (isset($_POST['verification_code'])) {
     if (!isset($_SESSION['verification_code'], $_SESSION['user_data'])) {
         echo json_encode([
             "success" => false,
-            "message" => "❌ No hay sesión de verificación activa"
+            "message" => "No hay sesión de verificación activa",
+            "icon" => "error"
         ]);
         exit;
     }
 
     if ($codigoIngresado == $_SESSION['verification_code']) {
-        // Guardar en la base de datos
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->insert($_SESSION['user_data']);
 
@@ -25,39 +30,52 @@ if (isset($_POST['verification_code'])) {
             session_destroy();
             echo json_encode([
                 "success" => true,
-                "message" => "✅ Cuenta verificada y creada correctamente"
+                "message" => "Cuenta verificada y creada correctamente",
+                "icon" => "success",
+                "redirect" => "/Login/login.html"
             ]);
         } catch (MongoDB\Driver\Exception\Exception $e) {
             echo json_encode([
                 "success" => false,
-                "message" => "❌ Error al guardar en la base de datos"
+                "message" => "Error al guardar en la base de datos",
+                "icon" => "error"
             ]);
         }
     } else {
         echo json_encode([
             "success" => false,
-            "message" => "❌ Código de verificación incorrecto"
+            "message" => "Código de verificación incorrecto",
+            "icon" => "error"
         ]);
     }
     exit;
 }
 
-// Proceso normal de registro (envío de código)
-$fullname = $_POST['fullname'] ?? '';
-$birthdate = $_POST['birthdate'] ?? '';
-$gender = $_POST['gender'] ?? '';
-$email = $_POST['email'] ?? '';
-$password = $_POST['password'] ?? '';
+// Validación de campos
+$requiredFields = ['fullname', 'birthdate', 'gender', 'email', 'password', 'confirm-password'];
+foreach ($requiredFields as $field) {
+    if (empty($_POST[$field])) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Faltan datos del formulario",
+            "icon" => "warning"
+        ]);
+        exit;
+    }
+}
 
-if (empty($fullname) || empty($birthdate) || empty($gender) || empty($email) || empty($password)) {
+// Validar que las contraseñas coincidan
+if ($_POST['password'] !== $_POST['confirm-password']) {
     echo json_encode([
         "success" => false,
-        "message" => "⚠️ Faltan datos del formulario"
+        "message" => "Las contraseñas no coinciden",
+        "icon" => "error"
     ]);
     exit;
 }
 
-// Verificar si el correo ya existe
+// Validación de email existente
+$email = $_POST['email'];
 $filtro = ['email' => $email];
 $query = new MongoDB\Driver\Query($filtro, ['limit' => 1]);
 $cursor = $cliente->executeQuery('Veganimo.Usuarios', $query);
@@ -65,43 +83,45 @@ $cursor = $cliente->executeQuery('Veganimo.Usuarios', $query);
 if (count($cursor->toArray()) > 0) {
     echo json_encode([
         "success" => false,
-        "message" => "❌ Este correo ya está registrado"
+        "message" => "Este correo ya está registrado",
+        "icon" => "error"
     ]);
     exit;
 }
 
-// Preparar datos del usuario
-$userData = [
-    'fullname' => $fullname,
-    'birthdate' => $birthdate,
-    'gender' => $gender,
-    'email' => $email,
-    'password' => password_hash($password, PASSWORD_DEFAULT),
-    'created_at' => new MongoDB\BSON\UTCDateTime(),
-    'verified' => false
-];
-
-// Generar código de verificación
+// Generar código y guardar en sesión
 $verificationCode = rand(1000, 9999);
-
-// Guardar en sesión
-$_SESSION['user_data'] = $userData;
+$_SESSION['user_data'] = [
+    'fullname' => $_POST['fullname'],
+    'birthdate' => $_POST['birthdate'],
+    'gender' => $_POST['gender'],
+    'email' => $email,
+    'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
+    'created_at' => new MongoDB\BSON\UTCDateTime(),
+    'verified' => false,
+    'role' => 'user'
+];
 $_SESSION['verification_code'] = $verificationCode;
-$_SESSION['verification_email'] = $email;
 
 // Enviar correo
-$resultado = enviarCodigoVerificacion($email, $verificationCode);
-
-if ($resultado === true) {
-    echo json_encode([
-        "success" => true,
-        "message" => "📧 Código de verificación enviado a tu correo",
-        "redirect" => "/Verificacion_correo/verificacion.html"
-    ]);
-} else {
+try {
+    $mailResult = enviarCodigoVerificacion($email, $verificationCode);
+    
+    if ($mailResult === true) {
+        echo json_encode([
+            "success" => true,
+            "message" => "Código de verificación enviado a tu correo. Serás redirigido para validarlo",
+            "icon" => "success",
+            "redirect" => "/Verificacion_correo/verificacion.html"
+        ]);
+    } else {
+        throw new Exception("Error al enviar el correo: " . $mailResult);
+    }
+} catch (Exception $e) {
     echo json_encode([
         "success" => false,
-        "message" => "❌ Error al enviar el código de verificación"
+        "message" => "Error al enviar el código de verificación: " . $e->getMessage(),
+        "icon" => "error"
     ]);
 }
 ?>

@@ -1,275 +1,305 @@
-// Función para ejecutar cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
-  // Obtener elementos del DOM
+  // Elementos del formulario
   const form = document.getElementById('formRegistro');
   const fullnameInput = document.getElementById('fullname');
-  const fullnameMessage = document.getElementById('fullname-message');
-  const registerBtn = document.getElementById('registerBtn');
   const birthdateInput = document.getElementById('birthdate');
-  const birthdateMessage = document.getElementById('birthdate-message');
   const genderSelect = document.getElementById('gender');
-  const genderMessage = document.getElementById('gender-message');
   const emailInput = document.getElementById('email');
-  const emailMessage = document.getElementById('email-message');
   const passwordInput = document.getElementById('password');
   const confirmPasswordInput = document.getElementById('confirm-password');
-  const matchMessage = document.getElementById('match-message');
+  const registerBtn = document.querySelector('.registerBtn');
 
-  /* --------------------------- VALIDACIÓN DEL NOMBRE COMPLETO -------------------------------------- */
-  const regex = /^([a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,})(\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,})+$/;
+  // Expresiones regulares para validación
+const nameRegex = /^([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*\s([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(\s(de|De))?\s([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)$/;
 
-  function validateFullname(value) {
-    value = value.trim().replace(/\s{2,}/g, ' ');
-    fullnameInput.value = value;
-    return regex.test(value);
-  }
-
-  fullnameInput.addEventListener('input', function() {
-    const cleanedValue = this.value.trim().replace(/\s{2,}/g, ' ');
-    this.value = cleanedValue;
-
-    if (cleanedValue === "") {
-      fullnameMessage.textContent = 'Este campo es obligatorio.';
-      fullnameMessage.className = 'form-text mt-1 text-danger';
-      this.classList.add('is-invalid');
-      this.classList.remove('is-valid');
-    } else if (validateFullname(cleanedValue)) {
-      fullnameMessage.textContent = 'Datos correctos ✅';
-      fullnameMessage.className = 'form-text mt-1 text-success';
-      this.classList.add('is-valid');
-      this.classList.remove('is-invalid');
-    } else {
-      fullnameMessage.textContent = 'Ingrese nombre y apellido, mínimo 3 letras cada uno, sin espacios múltiples.';
-      fullnameMessage.className = 'form-text mt-1 text-danger';
-      this.classList.add('is-invalid');
-      this.classList.remove('is-valid');
-    }
-    updateSubmitButton();
-  });
-
-  fullnameInput.addEventListener('keydown', function(e) {
-    const char = e.key;
-    if (e.ctrlKey || e.metaKey || ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(char)) return;
-
-    if (char === ' ') {
-      e.preventDefault();
-      setTimeout(() => {
-        const value = fullnameInput.value.trim().replace(/\s{2,}/g, ' ');
-        const parts = value.split(' ');
-        const lastPart = parts[parts.length - 1] || '';
-        if (lastPart.length >= 3) {
-          fullnameInput.value = value + ' ';
-        }
-      }, 0);
-      return;
-    }
-
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ]$/.test(char)) {
-      e.preventDefault();
-    }
-  });
-
-  fullnameInput.addEventListener('paste', function(e) {
-    const pasted = e.clipboardData.getData('text');
-    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(pasted)) {
-      e.preventDefault();
-      fullnameMessage.textContent = 'No se permiten números ni signos al pegar.';
-      fullnameMessage.className = 'form-text mt-1 text-danger';
-      return;
-    }
-
-    const cleaned = pasted.trim().replace(/\s{2,}/g, ' ');
-    if (!validateFullname(cleaned)) {
-      e.preventDefault();
-      fullnameMessage.textContent = 'Pegado inválido. Asegúrese de que haya al menos dos palabras de 3 letras.';
-      fullnameMessage.className = 'form-text mt-1 text-danger';
-    }
-  });
-
-  /* ----------------- FUNCIONES DE FECHA DE NACIMIENTO ----------------------- */
-  birthdateInput.addEventListener('input', function() {
-    const value = this.value;
-    const inputDate = new Date(value);
-    const today = new Date();
-
-    if (!value) {
-      birthdateMessage.textContent = 'Debe ingresar una fecha de nacimiento.';
-      birthdateMessage.className = 'form-text mt-1 text-danger';
-      this.classList.remove('is-valid', 'is-invalid');
-      return;
-    }
-
-    const age = today.getFullYear() - inputDate.getFullYear();
-    const monthDiff = today.getMonth() - inputDate.getMonth();
-    const dayDiff = today.getDate() - inputDate.getDate();
-    let is18 = age > 18 || (age === 18 && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)));
-
-    const minDate = new Date('1925-01-01');
-    if (inputDate < minDate) {
-      birthdateMessage.textContent = 'La fecha no puede ser menor a 1925.';
-      birthdateMessage.className = 'form-text mt-1 text-danger';
-      this.classList.remove('is-valid');
-      this.classList.add('is-invalid');
-    } else if (!is18) {
-      birthdateMessage.textContent = 'Debe tener al menos 18 años para registrarse.';
-      birthdateMessage.className = 'form-text mt-1 text-danger';
-      this.classList.remove('is-valid');
-      this.classList.add('is-invalid');
-    } else {
-      birthdateMessage.textContent = 'Fecha válida. Todo está correcto ✅';
-      birthdateMessage.className = 'form-text mt-1 text-success';
-      this.classList.remove('is-invalid');
-      this.classList.add('is-valid');
-    }
-    updateSubmitButton();
-  });
-
-  /* ----------------- VALIDACIÓN DEL GÉNERO ----------------------- */
-  genderSelect.addEventListener('change', function() {
-    if (this.value !== "") {
-      this.classList.remove('is-invalid');
-      this.classList.add('is-valid');
-      genderMessage.textContent = 'Selección válida ✅';
-      genderMessage.className = 'form-text mt-1 text-success';
-      genderMessage.style.display = 'block';
-    } else {
-      this.classList.remove('is-valid');
-      this.classList.add('is-invalid');
-      genderMessage.textContent = 'Debe seleccionar un género.';
-      genderMessage.className = 'form-text mt-1 text-danger';
-    }
-    updateSubmitButton();
-  });
-
-  /* --------------------------- FUNCIONES DE CORREO -------------------------------------- */
   const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|hotmail\.com|outlook\.com|ugb\.edu\.sv|co\.sv|co\.uk|co\.nz|tv|me|int|io|info|us|sg|ca|au)\b$/;
 
-  emailInput.addEventListener('keydown', function(e) {
-    if (e.key === ' ') {
-      e.preventDefault();
-    }
-  });
+  // Estado de validación
+  const validationState = {
+    fullname: false,
+    birthdate: false,
+    gender: false,
+    email: false,
+    password: false,
+    confirmPassword: false
+  };
 
-  emailInput.addEventListener('input', function() {
-    const value = this.value;
-    if (emailRegex.test(value)) {
-      emailMessage.textContent = 'Correo válido ✅';
-      emailMessage.className = 'form-text mt-1 text-success';
-      this.classList.add('is-valid');
-      this.classList.remove('is-invalid');
+  /* ------------------------------- FUNCIONES DE VALIDACIÓN --------------------------------------------------- */
+
+// ---------------------- NOMBRE COMPLETO ----------------------
+function validateFullname() {
+  const value = fullnameInput.value.trim();
+  const isValid = nameRegex.test(value);
+  validationState.fullname = isValid;
+
+  if (value === "") {
+    showFieldError(fullnameInput, 'Este campo es obligatorio');
+  } else if (!isValid) {
+    showFieldError(fullnameInput, 'Nombre inválido. Debe tener entre 3 y 5 palabras, cada una iniciando con mayúscula. ' +
+      'Si usas "de" o "De", debe ir solo entre el primer y segundo apellido, para indicar unión matrimonial.');
+  } else {
+    showFieldSuccess(fullnameInput);
+
+    // Comentario aparte si escribió "de" o "De" en el lugar correcto
+    const hasDe = /\s(de|De)\s/.test(value);
+    if (hasDe) {
+      // Aquí puedes mostrar el comentario donde prefieras, por ejemplo:
+      console.log('Nota: "de" o "De" se usa para indicar unión matrimonial entre apellidos.');
+      
     } else {
-      emailMessage.textContent = 'Ingrese un correo válido (ejemplo@gmail.com)';
-      emailMessage.className = 'form-text mt-1 text-danger';
-      this.classList.add('is-invalid');
-      this.classList.remove('is-valid');
+      // Limpiar mensaje si no tiene "de" o "De"
+      // document.getElementById('commentFullname').textContent = '';
     }
-    updateSubmitButton();
-  });
+  }
+  return isValid;
+}
 
-  /* ----------------- FUNCIONES DE CONTRASEÑA Y CONFIRMAR CONTRASEÑA ----------------------- */
-  const reqLength = document.getElementById('req-length');
-  const reqUppercase = document.getElementById('req-uppercase');
-  const reqNumber = document.getElementById('req-number');
-  const reqSymbol = document.getElementById('req-symbol');
-  const reqSpace = document.getElementById('req-space');
+  /* ----------------------   CUMPLEAÑOS ---------------------- */
+  function validateBirthdate() {
+    const value = birthdateInput.value;
+    if (!value) {
+      showFieldError(birthdateInput, 'Debe ingresar una fecha');
+      validationState.birthdate = false;
+      return false;
+    }
 
-  const checkLength = document.getElementById('check-length');
-  const checkUppercase = document.getElementById('check-uppercase');
-  const checkNumber = document.getElementById('check-number');
-  const checkSymbol = document.getElementById('check-symbol');
-  const checkSpace = document.getElementById('check-space');
+    const inputDate = new Date(value);
+    const minDate = new Date('1925-01-01');
+    const maxDate = new Date('2007-12-31');
+    const today = new Date();
+    
+    let age = today.getFullYear() - inputDate.getFullYear();
+    const monthDiff = today.getMonth() - inputDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < inputDate.getDate())) {
+      age--;
+    }
 
-  function allValidationsPassed() {
+    let isValid = true;
+    let errorMessage = '';
+
+    if (inputDate < minDate) {
+      errorMessage = 'Fecha no puede ser menor a 1925';
+      isValid = false;
+    } else if (inputDate > maxDate) {
+      errorMessage = 'Fecha no puede ser mayor a 2007';
+      isValid = false;
+    } else if (age < 18) {
+      errorMessage = 'Debe tener al menos 18 años';
+      isValid = false;
+    }
+
+    validationState.birthdate = isValid;
+    
+    if (!isValid) {
+      showFieldError(birthdateInput, errorMessage);
+    } else {
+      showFieldSuccess(birthdateInput);
+    }
+    return isValid;
+  }
+
+  /* ----------------------   GENERO ---------------------- */
+  function validateGender() {
+    const isValid = genderSelect.value !== "";
+    validationState.gender = isValid;
+    
+    if (!isValid) {
+      showFieldError(genderSelect, 'Seleccione un género');
+    } else {
+      showFieldSuccess(genderSelect);
+    }
+    return isValid;
+  }
+
+  /* ----------------------   CORREO ---------------------- */
+  function validateEmail() {
+    const value = emailInput.value.trim();
+    const isValid = emailRegex.test(value);
+    validationState.email = isValid;
+    
+    if (value === "") {
+      showFieldError(emailInput, 'Este campo es obligatorio');
+    } else if (!isValid) {
+      showFieldError(emailInput, 'Correo electrónico inválido');
+    } else {
+      showFieldSuccess(emailInput);
+    }
+    return isValid;
+  }
+
+  /* ----------------------   CONTRASEÑA ---------------------- */
+  function validatePassword() {
     const value = passwordInput.value;
-    return (
-      value.length >= 6 &&
-      /[A-Z]/.test(value) &&
-      /\d/.test(value) &&
-      /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value) &&
-      !/\s/.test(value)
-    );
-  }
-
-  function updateItem(element, isValid, text, checkIcon) {
-    element.textContent = text;
-    element.className = isValid ? 'text-success' : 'text-danger';
-    checkIcon.style.display = isValid ? 'inline' : 'none';
-  }
-
-  function checkPasswordMatch() {
-    const password = passwordInput.value;
-    const confirm = confirmPasswordInput.value;
-
-    if (confirm === '') {
-      matchMessage.textContent = '';
-      confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
-    } else if (password === confirm && allValidationsPassed()) {
-      matchMessage.textContent = 'Las contraseñas coinciden';
-      matchMessage.className = 'form-text mt-1 text-success';
-      confirmPasswordInput.classList.add('is-valid');
-      confirmPasswordInput.classList.remove('is-invalid');
+    const hasLength = value.length >= 6;
+    const hasUpper = /[A-Z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasSymbol = /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value);
+    const hasNoSpace = !/\s/.test(value);
+    
+    const isValid = hasLength && hasUpper && hasNumber && hasSymbol && hasNoSpace;
+    validationState.password = isValid;
+    
+    if (!isValid) {
+      showFieldError(passwordInput, 'La contraseña no cumple los requisitos');
     } else {
-      matchMessage.textContent = 'Las contraseñas no coinciden';
-      matchMessage.className = 'form-text mt-1 text-danger';
-      confirmPasswordInput.classList.add('is-invalid');
-      confirmPasswordInput.classList.remove('is-valid');
+      showFieldSuccess(passwordInput);
     }
-    updateSubmitButton();
+    return isValid;
   }
 
-  passwordInput.addEventListener('keydown', function(e) {
-    if (e.key === ' ') {
-      e.preventDefault();
-    }
-  });
+  /* ----------------------   VALIDAR CONTRASEÑA ---------------------- */  
+function validateConfirmPassword() {
+  const password = passwordInput.value;
+  const confirm = confirmPasswordInput.value;
+  const messageElement = document.getElementById('match-message');
+  const isValid = password === confirm && password !== "";
+  validationState.confirmPassword = isValid;
 
-  confirmPasswordInput.addEventListener('keydown', function(e) {
-    if (e.key === ' ') {
-      e.preventDefault();
+  if (confirm === "") {
+    clearFieldValidation(confirmPasswordInput);
+    if (messageElement) messageElement.textContent = '';
+  } else if (!isValid) {
+    showFieldError(confirmPasswordInput, ''); // limpiamos el mensaje asociado al input
+    if (messageElement) {
+      messageElement.textContent = 'Las contraseñas no coinciden';
+      messageElement.classList.add('text-danger');
+      messageElement.classList.remove('text-success');
     }
-  });
+  } else {
+    showFieldSuccess(confirmPasswordInput);
+    if (messageElement) {
+      messageElement.textContent = 'Las contraseñas coinciden ✅';
+      messageElement.classList.add('text-success');
+      messageElement.classList.remove('text-danger');
+    }
+  }
+  return isValid;
+}
 
+
+  /* ---------------------- FUNCIONES AUXILIARES ---------------------- */
+
+  function showFieldError(element, message) {
+    element.classList.add('is-invalid');
+    element.classList.remove('is-valid');
+    const messageElement = document.getElementById(`${element.id}-message`);
+    if (messageElement) {
+      messageElement.textContent = message;
+      messageElement.classList.add('text-danger');
+      messageElement.classList.remove('text-success');
+    }
+  }
+
+  function showFieldSuccess(element) {
+    element.classList.add('is-valid');
+    element.classList.remove('is-invalid');
+    const messageElement = document.getElementById(`${element.id}-message`);
+    if (messageElement) {
+      messageElement.textContent = 'Campo válido ✅';
+      messageElement.classList.add('text-success');
+      messageElement.classList.remove('text-danger');
+    }
+  }
+
+  function clearFieldValidation(element) {
+    element.classList.remove('is-valid', 'is-invalid');
+    const messageElement = document.getElementById(`${element.id}-message`);
+    if (messageElement) {
+      messageElement.textContent = '';
+      messageElement.classList.remove('text-danger', 'text-success');
+    }
+  }
+
+  function validateAllFields() {
+    validateFullname();
+    validateBirthdate();
+    validateGender();
+    validateEmail();
+    validatePassword();
+    validateConfirmPassword();
+    
+    return Object.values(validationState).every(valid => valid);
+  }
+
+  function showFormError(message) {
+    Swal.fire({
+      toast: true,
+      position: 'bottom-end',
+      icon: 'error',
+      title: message,
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true
+    });
+  }
+
+  /* ---------------------- EVENT LISTENERS ---------------------- */
+
+  // Eventos de validación en tiempo real
+  fullnameInput.addEventListener('input', validateFullname);
+  birthdateInput.addEventListener('change', validateBirthdate);
+  genderSelect.addEventListener('change', validateGender);
+  emailInput.addEventListener('input', validateEmail);
   passwordInput.addEventListener('input', function() {
-    const value = this.value;
-    updateItem(reqLength, value.length >= 6, 'Al menos 6 caracteres', checkLength);
-    updateItem(reqUppercase, /[A-Z]/.test(value), 'Debe tener al menos una mayúscula', checkUppercase);
-    updateItem(reqNumber, /\d/.test(value), 'Debe tener al menos un número', checkNumber);
-    updateItem(reqSymbol, /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value), 'Debe tener al menos un signo (!@#$%^&*()[]{};:,.<>?\\| etc.)', checkSymbol);
-    updateItem(reqSpace, !/\s/.test(value), 'No debe tener espacios', checkSpace);
-    checkPasswordMatch();
+    validatePassword();
+    validateConfirmPassword();
   });
+  confirmPasswordInput.addEventListener('input', validateConfirmPassword);
 
-  confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+  // Manejar envío del formulario
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Validar todos los campos
+    const isFormValid = validateAllFields();
+    
+    if (!isFormValid) {
+      showFormError('Por favor complete todos los campos correctamente');
+      return;
+    }
 
-  /* ----------------- VALIDACIÓN GENERAL DEL FORMULARIO ----------------------- */
-  function isFormValid() {
-    return (
-      validateFullname(fullnameInput.value.trim()) &&
-      birthdateInput.value &&
-      genderSelect.value !== "" &&
-      emailRegex.test(emailInput.value) &&
-      allValidationsPassed() &&
-      passwordInput.value === confirmPasswordInput.value
-    );
-  }
+    // Mostrar carga mientras se procesa
+    Swal.fire({
+      title: 'Procesando registro...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
-  function updateSubmitButton() {
-    registerBtn.disabled = !isFormValid();
-  }
-
-  form.addEventListener('submit', function(e) {
-    if (!isFormValid()) {
-      e.preventDefault();
-      // Forzar validación visual de todos los campos
-      fullnameInput.dispatchEvent(new Event('input'));
-      birthdateInput.dispatchEvent(new Event('input'));
-      genderSelect.dispatchEvent(new Event('change'));
-      emailInput.dispatchEvent(new Event('input'));
-      passwordInput.dispatchEvent(new Event('input'));
-      confirmPasswordInput.dispatchEvent(new Event('input'));
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("registro.php", {
+        method: "POST",
+        body: formData
+      });
+      
+      const data = await response.json();
+      
+      Swal.close();
+      
+      if (data.success) {
+        Swal.fire({
+          toast: true,
+          position: 'bottom-end',
+          icon: 'success',
+          title: data.message,
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true
+        });
+        
+        if (data.redirect) {
+          setTimeout(() => {
+            window.location.href = data.redirect;
+          }, 3000);
+        }
+      } else {
+        showFormError(data.message || 'Error en el registro');
+      }
+    } catch (error) {
+      Swal.close();
+      showFormError('Error de conexión con el servidor');
     }
   });
-
-  // Inicializar validaciones
-  updateSubmitButton();
 });

@@ -21,10 +21,10 @@ body, html {
 
 /*Perfil usuario esquina superior derecha*/
 .perfil_user{
-  position: absolute;
+  position: fixed; /*para q no se mueva*/
   right: 2.5rem;
   top: 1rem;
-  padding: 2px 30px;
+  padding: 2px 20px;
   background-color: #E99A3C;
   display: flex;
   gap: 10px;
@@ -34,8 +34,8 @@ body, html {
 }
 
 .circulo_perfil{
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   position: relative;
   left: 10px;
@@ -48,9 +48,10 @@ body, html {
   border-radius: 50%;
 }
 
-/*.lbl_nombre_user{
-
-}*/
+.lbl_nombre_user{
+  font-family: 'Comfortaa', Verdana;
+  font-size: 20px;
+}
 
 /*-------------------------------------------------------------------------------------------------*/
 /*INICIAR PLAN*/

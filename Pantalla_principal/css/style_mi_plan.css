@@ -23,39 +23,6 @@ body, html {
   color: #F6FFFE;
 }
 
-/*Perfil usuario esquina superior derecha*/
-.perfil_user{
-  position: absolute;
-  right: 2.5rem;
-  top: 1rem;
-  padding: 2px 30px;
-  background-color: #E99A3C;
-  display: flex;
-  gap: 10px;
-  border-radius: 0.5rem;
-  align-items: center;
-  z-index: 1000;
-}
-
-.circulo_perfil{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  position: relative;
-  left: 10px;
-}
-
-.img_perfil{
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  border-radius: 50%;
-}
-
-/*.lbl_nombre_user{
-
-}*/
-
 /*-------------------------------------------------------------------------------------------------*/
 /*INICIAR PLAN*/
 .plan_transicionista{

@@ -1,3 +1,5 @@
+/*NO SE OCUPA */
+
 let contadorIngredientes = 2; //empieza en 2 por q ya hay ingrediente 1
 let contadorPasos = 2; // Empieza en 2 porque ya hay paso 1 
 

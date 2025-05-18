@@ -17,12 +17,6 @@
   <!--  CSS personalizado -->
   <link rel="stylesheet" href="/Verificacion_correo/verificacion.css" />
   <link rel="website icon" href="../Images/Icono_veganimo.svg">
-
-  <!-- FIREBASE -->
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
-  
-  <script src="veganimo-app.js"></script>
   
 </head>
 <body class="custom-bg d-flex min-vh-100 px-3">
@@ -105,32 +99,30 @@
     });
   </script>
 
-  <!-- Añadir esto antes del cierre del body -->
+ 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+// Configuración global de SweetAlert
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('form');
   const inputs = document.querySelectorAll('.input');
   
-  // Manejar el avance automático entre inputs
-  inputs.forEach((input, index) => {
-    input.addEventListener('input', () => {
-      if (input.value.length === 1 && index < inputs.length - 1) {
-        inputs[index + 1].focus();
-      }
-    });
-
-    input.addEventListener('keydown', (e) => {
-      if (e.key === "Backspace" && input.value === '' && index > 0) {
-        inputs[index - 1].focus();
-      }
-    });
-  });
-
-  // Manejar el envío del formulario
+  // Manejo de inputs de código...
+  
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const codigo = Array.from(inputs).map(input => input.value).join('');
     
     fetch('/Register/registro.php', {
@@ -143,56 +135,47 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        Swal.fire({
-          icon: 'success',
-          title: data.message,
-          showConfirmButton: false,
-          timer: 1500
+        Toast.fire({
+          icon: data.icon || 'success',
+          title: data.message
         }).then(() => {
-          window.location.href = "/Login/login.html";
+          if (data.redirect) {
+            window.location.href = data.redirect;
+          }
         });
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: data.message,
-          showConfirmButton: true
+        Toast.fire({
+          icon: data.icon || 'error',
+          title: data.message
         });
       }
     })
-    .catch(error => {
-      Swal.fire({
+    .catch(() => {
+      Toast.fire({
         icon: 'error',
-        title: '❌ Error de conexión',
-        text: 'No se pudo verificar el código'
+        title: 'Error de conexión con el servidor'
       });
     });
   });
 
-  // Manejar reenvío de código
+  // Reenviar código
   document.querySelector('a[href="#"]').addEventListener('click', function(e) {
     e.preventDefault();
-    
     fetch('/Verificacion_correo/reenviar_codigo.php')
-    .then(response => response.text())
-    .then(result => {
-      if (result === '1') {
-        Swal.fire({
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        Toast.fire({
           icon: 'success',
-          title: '📧 Código reenviado',
-          text: 'Se ha enviado un nuevo código a tu correo',
-          timer: 2000
+          title: 'Nuevo código enviado a tu correo'
         });
       } else {
-        Swal.fire({
+        Toast.fire({
           icon: 'error',
-          title: '❌ Error',
-          text: result
+          title: data.message || 'Error al reenviar código'
         });
       }
     });
   });
 });
 </script>
-  
-</body>
-</html>

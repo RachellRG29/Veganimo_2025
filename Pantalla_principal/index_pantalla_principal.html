@@ -88,11 +88,11 @@
           <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
         </li>
 
-        <li class="nav-item" data-custom="crear-recetas">
+        <li class="nav-item" data-custom="crear-recetas" data-admin-only>
           <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear Recetas</span>
         </li>
         
-      
+     
       </ul>
       
 
@@ -115,7 +115,7 @@
     <!-- Columna izquierda: Logo y descripción -->
     <div class="logoarea">
         <div class="logo-container">
-        <img class="logoFooter" src="Images/isotipo_veganimo.svg" alt="Logo Vegánimo" style="width: 40px;" ondragstart="return false;">
+        <img class="logoFooter" src="/Images/isotipo_veganimo.svg" alt="Logo Vegánimo" style="width: 40px;" ondragstart="return false;">
         </div>
         <p class="nosotros">
         Somos una empresa que crea dietas y recetas con la finalidad de mejorar la salud y el veganismo.
@@ -147,12 +147,10 @@
 
   <script src="https://unpkg.com/phosphor-icons"></script>
   <script src="../Pantalla_principal/js/scripts_index_pp.js"></script>   <!-- No quitar -->
-
-  <script src="../Pantalla_principal/js/crear_receta.js"></script>
   <script src="../Pantalla_principal/js/validacion_receta.js"></script>
-
   
-
+  <!-- <script src="../Pantalla_principal/js/crear_receta.js"></script> no se ocupa pero dejarlo comentado-->
+  
 </body>
 
 </html>
@@ -179,5 +177,6 @@
 });
 
 </script>
+
 
 
