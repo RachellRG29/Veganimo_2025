@@ -1,13 +1,14 @@
-      <!-- pp_crear_recetas.html -->
 
-      <section class="section_crear_recetas">
+     <!-- pp_crear_recetas.html -->
+ 
+  <section class="section_crear_recetas">
 
         <!-- Contenedor de la barra de busqueda -->
         <div class="busqueda-conteiner">
             <div class="busqueda-recetas">
                 <!-- Contenedor de barra busqueda y busqueda por categoria -->
                 <div class="input-busq-recetas">
-                <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
+                <input type="text" id="busquedaRecetas" placeholder="Buscar recetas..." class="input_busqueda">
                 <i class="ph ph-magnifying-glass"></i>
                 </div>
             
@@ -133,5 +134,41 @@
           
 
         </div>
+
+ <!-- Tabla de recetas -->
+    <div class="contenedor-tabla-recetas">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white border-bottom-0">
+                <h2 class="mb-0">Recetas almacenadas</h2>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Ingredientes</th>
+                                <th>Pasos</th>
+                                <th>Tiempo</th>
+                                <th>Dificultad</th>
+                                <th>Fecha</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaRecetas">
+                            <tr>
+                                <td colspan="8" class="text-center py-4">Cargando recetas...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
       
-      </section>
+  </section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/Pantalla_principal/js/recetas.js"></script>
+

@@ -106,11 +106,34 @@
 
   
  /* Grid container */
- .grid-container-recetas {
+ /*.grid-container-recetas {
     display: grid; justify-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta*/
-    margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta
+    margin: 4rem 5px 4rem 5px; /*top-right-bottom-left
     gap: 1rem;
     box-sizing: border-box;
   }
+*/
 
+
+/*Importante para el diseño*/
+.grid-container-recetas {
+  display: flex;
+  flex-wrap: wrap; /*Importante para la busqueda*/
+  justify-content: center; /*Centrar horizontalmente*/
+  margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta*/
+  gap: 2rem;
+}
+
+.receta-destacada {
+  border: 2px solid #E99A3C;
+  box-shadow: 0 0 0 4px rgba(233, 154, 60, 0.3);
+  animation: destacar 0.5s ease;
+}
+
+@keyframes destacar {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}

@@ -1,123 +1,123 @@
-/*NO SE OCUPA */
+// validaciones
+document.getElementById("form-receta").addEventListener("submit", function (e) {
+  let valid = true;
+  const nombre = document.getElementById("name-receta");
+  const descripcion = document.getElementById("description-receta");
+  const tiempo = document.getElementById("time-receta");
+  const dificultad = document.getElementById("select-dificultad");
+  const imagen = document.getElementById("input-imagen-receta");
+  const ingredientes = document.getElementsByName("ingredientes[]");
+  const pasos = document.getElementsByName("pasos[]");
 
-let contadorIngredientes = 2; //empieza en 2 por q ya hay ingrediente 1
-let contadorPasos = 2; // Empieza en 2 porque ya hay paso 1 
+  // Expresiones regulares
+  const regexNombre = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+  const regexDescripcion = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,]+$/;
+  const regexTiempo = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s]+$/;
+  const regexGeneral = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,]+$/;
 
-function cambiarColorIcono() {
-  const icon = document.getElementById('icon-dificultad');
-  const valor = document.getElementById('select-dificultad').value;
-
-  if (valor === "Alta") icon.style.color = "red";
-  else if (valor === "Media") icon.style.color = "orange";
-  else icon.style.color = "green";
-}
-
-function agregarIngrediente() {
-  const lista = document.getElementById("lista-ingredientes");
-  const input = document.createElement("input");
-  input.type = "text";
-  input.name = "ingredientes[]";
-  input.className = "form-control input-border";
-  input.placeholder = `Ingrediente ${contadorIngredientes++}`;
-  lista.appendChild(input);
-}
-
-function agregarPaso() {
-  const lista = document.getElementById("lista-pasos");
-
-  const pasoItem = document.createElement("div");
-  pasoItem.className = "paso-item";
-
-  // Crear contenedor de imagen para paso
-  const pasoImagen = document.createElement("div");
-  pasoImagen.className = "paso-imagen-small";
-  pasoImagen.onclick = function() {
-    inputFilePaso.click();
-  };
-
-  const icono = document.createElement("i");
-  icono.className = "ph ph-image icono-placeholder";
-
-  const imgPreview = document.createElement("img");
-  imgPreview.className = "img-preview";
-  imgPreview.style.display = "none";
-
-  const inputFilePaso = document.createElement("input");
-  inputFilePaso.type = "file";
-  inputFilePaso.accept = "image/*";
-  inputFilePaso.style.display = "none";
-  inputFilePaso.className = "input-paso-img";
-  inputFilePaso.name = "imagen-paso[]";  // Asegúrate de añadir el 'name' para que se guarde correctamente
-
-  inputFilePaso.onchange = function() {
-    mostrarPreviewPaso(this, imgPreview);
-  };
-
-  pasoImagen.appendChild(icono);
-  pasoImagen.appendChild(imgPreview);
-  pasoImagen.appendChild(inputFilePaso);
-
-  const inputPaso = document.createElement("input");
-  inputPaso.type = "text";
-  inputPaso.name = "pasos[]";
-  inputPaso.className = "form-control input-border paso-input";
-  inputPaso.placeholder = `Paso ${contadorPasos++}`;
-
-  pasoItem.appendChild(pasoImagen);
-  pasoItem.appendChild(inputPaso);
-
-  lista.appendChild(pasoItem);
-}
-
-
-function mostrarPreviewReceta(input, imgElement) {
-  const file = input.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      imgElement.src = e.target.result;
-      imgElement.style.display = "block";
-      const icono = imgElement.parentElement.querySelector('.icono-placeholder');
-      if (icono) icono.style.display = "none";
-    };
-    reader.readAsDataURL(file);
+  // Validación nombre
+  if (!nombre.value.trim()) {
+    alert("Falta el nombre de la receta.");
+    nombre.focus();
+    nombre.style.border = "2px solid red";
+    valid = false;
+  } else if (!regexNombre.test(nombre.value.trim())) {
+    alert("El nombre solo puede contener letras y espacios.");
+    nombre.focus();
+    nombre.style.border = "2px solid red";
+    valid = false;
+  } else {
+    nombre.style.border = "";
   }
-}
 
-function mostrarPreviewPaso(input, imgElement) {
-  const file = input.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      imgElement.src = e.target.result;
-      imgElement.style.display = "block";
-      const icono = imgElement.parentElement.querySelector('.icono-placeholder');
-      if (icono) icono.style.display = "none";
-    };
-    reader.readAsDataURL(file);
+  // Validación descripción
+  if (!descripcion.value.trim()) {
+    alert("Falta la descripción de la receta.");
+    descripcion.focus();
+    descripcion.style.border = "2px solid red";
+    valid = false;
+  } else if (!regexDescripcion.test(descripcion.value.trim())) {
+    alert("La descripción solo puede contener letras, números, tildes, espacios y puntos.");
+    descripcion.focus();
+    descripcion.style.border = "2px solid red";
+    valid = false;
+  } else {
+    descripcion.style.border = "";
   }
-}
 
-window.addEventListener('DOMContentLoaded', function() {
-  const imgContainer = document.getElementById('img-container-receta');
-  const inputFile = document.getElementById('input-imagen-receta');
-  const imgPreview = document.getElementById('preview-imagen-receta');
-  const icono = imgContainer.querySelector('.icono-placeholder');
+  // Validación tiempo
+  if (!tiempo.value.trim()) {
+    alert("Falta el tiempo de preparación.");
+    tiempo.focus();
+    tiempo.style.border = "2px solid red";
+    valid = false;
+  } else if (!regexTiempo.test(tiempo.value.trim())) {
+    alert("El tiempo solo puede contener letras, números, tildes y espacios.");
+    tiempo.focus();
+    tiempo.style.border = "2px solid red";
+    valid = false;
+  } else {
+    tiempo.style.border = "";
+  }
 
-  imgContainer.addEventListener('click', function() {
-    inputFile.click();  // Abre el selector de archivos
-  });
+  // Validación dificultad
+  if (!dificultad.value) {
+    alert("Debe seleccionar una dificultad.");
+    dificultad.focus();
+    dificultad.style.border = "2px solid red";
+    valid = false;
+  } else {
+    dificultad.style.border = "";
+  }
 
-  inputFile.addEventListener('change', function() {
-    const file = inputFile.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        imgPreview.src = e.target.result;
-        imgPreview.style.display = 'block';
-        if (icono) icono.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
+  // Validación imagen
+  if (!imagen.value) {
+    alert("Debe seleccionar una imagen para la receta.");
+    imagen.focus();
+    valid = false;
+  }
+
+  // Validación ingredientes
+  for (let i = 0; i < ingredientes.length; i++) {
+    const ing = ingredientes[i];
+    if (!ing.value.trim()) {
+      alert(`Falta el ingrediente ${i + 1}.`);
+      ing.focus();
+      ing.style.border = "2px solid red";
+      valid = false;
+      break;
+    } else if (!regexGeneral.test(ing.value.trim())) {
+      alert(`Ingrediente ${i + 1} no válido. Solo letras, números, tildes y puntos.`);
+      ing.focus();
+      ing.style.border = "2px solid red";
+      valid = false;
+      break;
+    } else {
+      ing.style.border = "";
     }
-  });
+  }
+
+  // Validación pasos
+  for (let i = 0; i < pasos.length; i++) {
+    const paso = pasos[i];
+    if (!paso.value.trim()) {
+      alert(`Falta el paso ${i + 1}.`);
+      paso.focus();
+      paso.style.border = "2px solid red";
+      valid = false;
+      break;
+    } else if (!regexGeneral.test(paso.value.trim())) {
+      alert(`Paso ${i + 1} no válido. Solo letras, números, tildes y puntos.`);
+      paso.focus();
+      paso.style.border = "2px solid red";
+      valid = false;
+      break;
+    } else {
+      paso.style.border = "";
+    }
+  }
+
+  if (!valid) {
+    e.preventDefault();
+  }
 });
