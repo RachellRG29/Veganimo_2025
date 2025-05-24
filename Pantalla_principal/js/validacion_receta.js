@@ -70,18 +70,85 @@ function agregarPaso() {
   lista.appendChild(pasoItem);
 }
 
+/* Modal para recortar la imagen */
+let cropper;
 function mostrarPreviewReceta(input, imgElement) {
   const file = input.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      imgElement.src = e.target.result;
-      imgElement.style.display = "block";
-      const icono = imgElement.parentElement.querySelector('.icono-placeholder');
-      if (icono) icono.style.display = "none";
-    };
-    reader.readAsDataURL(file);
-  }
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    // Mostrar modal de SweetAlert2 con Cropper
+    Swal.fire({
+      title: 'Recortar imagen',
+      html: `
+        <div style="width: 100%; max-height: 60vh; margin: 0 auto;">
+          <img id="imagen-modal" src="${e.target.result}" style="max-width: 100%;">
+        </div>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Aplicar',
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        // Inicializar Cropper en el modal
+        const image = document.getElementById('imagen-modal');
+        cropper = new Cropper(image, {
+          aspectRatio: 1, // Forma circular
+          viewMode: 1,
+          autoCrop: true,
+        });
+      },
+      preConfirm: () => {
+        // Obtener imagen recortada al hacer clic en "Aplicar"
+        const canvas = cropper.getCroppedCanvas({
+          width: 300,
+          height: 300,
+          fillColor: '#fff', // Fondo blanco
+        });
+        return canvas.toDataURL('image/png'); // Retorna la imagen recortada
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Mostrar imagen recortada en el preview
+        imgElement.src = result.value;
+        imgElement.style.display = 'block';
+        imgElement.style.borderRadius = '50%'; // Forma circular
+        document.querySelector('.icono-placeholder').style.display = 'none';
+      } else {
+        // Si cancela, limpia el input
+        input.value = '';
+      }
+    });
+  };
+  reader.readAsDataURL(file);
+}
+
+// Función para agregar un botón "Aplicar recorte"
+function agregarBotonAplicar() {
+  // Eliminar botón anterior si existe
+  const botonAnterior = document.getElementById("boton-aplicar-recorte");
+  if (botonAnterior) botonAnterior.remove();
+
+  // Crear botón nuevo
+  const boton = document.createElement("button");
+  boton.id = "boton-aplicar-recorte";
+  boton.textContent = "Aplicar recorte";
+  boton.className = "btn-aplicar-recorte"; // Añade estilos en CSS
+  boton.onclick = function () {
+    // Obtener imagen recortada y actualizar el preview
+    const canvas = cropper.getCroppedCanvas({
+      width: 300,  // Tamaño final (ajústalo)
+      height: 300,
+      fillColor: "#fff", // Fondo blanco para bordes transparentes
+    });
+    document.getElementById("preview-imagen-receta").src = canvas.toDataURL("image/png");
+    
+    // Ocultar el botón después de aplicar
+    boton.style.display = "none";
+  };
+
+  // Añadir botón al contenedor de la imagen
+  document.querySelector(".imagen-receta").appendChild(boton);
 }
 
 function mostrarPreviewPaso(input, imgElement) {
@@ -97,24 +164,3 @@ function mostrarPreviewPaso(input, imgElement) {
     reader.readAsDataURL(file);
   }
 }
-
-// =========================
-// EVENTOS AL CARGAR
-// =========================
-/*document.addEventListener('DOMContentLoaded', () => {
-    const inputFile = document.getElementById('input-imagen-receta');
-    const imgPreview = document.getElementById('preview-imagen-receta');
-  
-    if (inputFile && imgPreview) {
-      inputFile.addEventListener('change', function () {
-        mostrarPreviewReceta(this, imgPreview);
-      });
-    }
-  
-    const checkFirebase = setInterval(() => {
-      if (firebase.apps.length && window.db) {
-        clearInterval(checkFirebase);
-       // initFormularioReceta();
-      }
-    }, 100);
-  });*/
