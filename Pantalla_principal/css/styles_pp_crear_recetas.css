@@ -170,7 +170,6 @@
   max-height: 400px; /* altura máxima */
   min-height: 200px; /* altura mínima */
   border: 2px dashed #007848;
-  border-radius: 12px;
   background-color: #f2fef9;
   display: flex;
   justify-content: center;
@@ -189,7 +188,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;  /* Imagen circular */
   display: none;
 }
 

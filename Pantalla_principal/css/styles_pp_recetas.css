@@ -1,5 +1,9 @@
  /*     RECETAS     */
 
+/* *{
+  outline: 1px solid red; 
+}*/
+
  .section_recetas_pp{
     margin-top: 80px; /* Igual a la altura del contenedor fijo */
  }
@@ -10,8 +14,8 @@
 .busqueda-conteiner {
     position: fixed;
     top: 0;
-    left: 230px;   padding-left: 32px;
-    right: 1rem; /*no toque el espacio de la sidebar*/
+    left: 220px;   
+    right: 0; /*no toque el espacio de la sidebar*/
     height: 80px;
     display: flex;
     justify-content: space-between;
@@ -34,8 +38,10 @@
     display: flex;
     align-items: center;
     padding-left: 15px;
+    margin-left: 30px;
     border-radius: 25px;
-    background: #ffffff;
+    background: #F6FFFE;
+    border: 1px solid #E99A3C;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     height: 45px;
     width: 320px;
