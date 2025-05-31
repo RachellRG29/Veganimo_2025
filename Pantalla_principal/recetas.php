@@ -5,26 +5,31 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
 try {
-    $query = new MongoDB\Driver\Query([]);
+    // Ordenar por fecha de creación descendente
+    $query = new MongoDB\Driver\Query([], [
+        'sort' => ['fecha_creacion' => -1]
+    ]);
+    
     $cursor = $cliente->executeQuery('Veganimo.Recetas', $query);
 
     $recetas = [];
     foreach ($cursor as $documento) {
         $receta = (array)$documento;
         
-        // Asegurarse de que todos los campos necesarios existan
-        $receta['_id'] = (string)$receta['_id'];
-        $receta['nombre_receta'] = $receta['nombre_receta'] ?? 'Sin nombre';
-        $receta['descripcion'] = $receta['descripcion'] ?? 'Sin descripción';
-        $receta['ingredientes'] = $receta['ingredientes'] ?? [];
-        $receta['pasos'] = $receta['pasos'] ?? [];
-        $receta['tiempo_preparacion'] = $receta['tiempo_preparacion'] ?? 'No especificado';
-        $receta['dificultad'] = $receta['dificultad'] ?? 'No especificada';
-        $receta['fecha_creacion'] = isset($receta['fecha_creacion']) 
-            ? $receta['fecha_creacion']->toDateTime()->format('c') 
-            : (new DateTime())->format('c');
+        // Formatear los datos para la respuesta
+        $recetaFormateada = [
+            '_id' => (string)$receta['_id'],
+            'nombre_receta' => $receta['nombre_receta'] ?? 'Sin nombre',
+            'descripcion' => $receta['descripcion'] ?? 'Sin descripción',
+            'tiempo_preparacion' => $receta['tiempo_preparacion'] ?? 'No especificado',
+            'dificultad' => $receta['dificultad'] ?? 'No especificada',
+            'imagen' => $receta['imagen'] ?? '',
+            'fecha_creacion' => isset($receta['fecha_creacion']) 
+                ? $receta['fecha_creacion']->toDateTime()->format('Y-m-d H:i:s') 
+                : date('Y-m-d H:i:s')
+        ];
         
-        $recetas[] = $receta;
+        $recetas[] = $recetaFormateada;
     }
     
     echo json_encode([
