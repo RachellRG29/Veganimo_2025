@@ -93,8 +93,18 @@ function ejecutarScriptsPagina(pagina) {
   if (pagina === "crear-recetas.html") {
     inicializarCrearRecetas();
   }
-}
 
+  // Cargar recetas
+ if (pagina === "pp_recetas.html") {
+  setTimeout(() => {
+    if (typeof cargarRecetas === 'function') {
+      cargarRecetas();
+    } else {
+      console.error("❌ La función cargarRecetas no está definida.");
+    }
+  }, 100);
+}
+}
 
  //* Inicializa la funcionalidad de "Crear Recetas"
 
