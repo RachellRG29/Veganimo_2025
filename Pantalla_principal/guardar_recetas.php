@@ -15,12 +15,15 @@ $dificultad = $_POST['dificultad'] ?? '';
 $ingredientes = $_POST['ingredientes'] ?? [];
 $pasos = $_POST['pasos'] ?? [];
 $categoria = $_POST['categoria-receta'] ?? '';
+$calificacion = $_POST['star-radio'] ?? []; // Array de estrellas seleccionadas
 
+// Filtrar las calificaciones válidas (de 1 a 5)
+$calificacionFiltrada = array_filter($calificacion, function($valor) {
+    return in_array($valor, ['1', '2', '3', '4', '5']);
+});
 
-
-// datos esenciales
+// Procesar imagen principal
 $imagenReceta = '';
-// Procesar la imagen principal
 if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
     $nombreArchivo = uniqid('receta_') . '.' . $extension;
@@ -38,17 +41,16 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-// datos esenciales
+// Procesar imágenes de los pasos
 $pasosCompletos = [];
 $imagenesPasos = $_FILES['imagen-paso'] ?? [];
-// Procesar imágenes de pasos
+
 foreach ($pasos as $index => $textoPaso) {
     $pasoData = [
         'texto' => $textoPaso,
         'imagen' => ''
     ];
 
-    // Verificar si hay imagen para este paso
     if (isset($imagenesPasos['tmp_name'][$index]) && $imagenesPasos['error'][$index] === UPLOAD_ERR_OK) {
         $extension = pathinfo($imagenesPasos['name'][$index], PATHINFO_EXTENSION);
         $nombreArchivoPaso = uniqid('paso_' . $index . '_') . '.' . $extension;
@@ -63,7 +65,7 @@ foreach ($pasos as $index => $textoPaso) {
 }
 
 // Validar campos obligatorios
-if (empty($nombreReceta) || empty($descripcion) || empty($tiempo) || empty($dificultad) || empty($imagenReceta)|| empty($categoria)) {
+if (empty($nombreReceta) || empty($descripcion) || empty($tiempo) || empty($dificultad) || empty($imagenReceta) || empty($categoria)) {
     echo json_encode([
         "success" => false,
         "message" => "Faltan datos esenciales del formulario.",
@@ -79,9 +81,10 @@ $documento = [
     'tiempo_preparacion' => $tiempo,
     'dificultad' => $dificultad,
     'ingredientes' => $ingredientes,
-    'pasos' => $pasosCompletos, // Ahora incluye texto e imagen para cada paso
+    'pasos' => $pasosCompletos,
     'imagen' => $imagenReceta,
-     'categoria' => $categoria,
+    'categoria' => $categoria,
+    'calificaciones' => array_map('intval', $calificacionFiltrada), // Guardar como array de enteros
     'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
 ];
 
