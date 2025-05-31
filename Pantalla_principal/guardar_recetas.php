@@ -14,18 +14,13 @@ $tiempo = $_POST['time-receta'] ?? '';
 $dificultad = $_POST['dificultad'] ?? '';
 $ingredientes = $_POST['ingredientes'] ?? [];
 $pasos = $_POST['pasos'] ?? [];
+$categoria = $_POST['categoria-receta'] ?? '';
 
-if (empty($nombreReceta) || empty($descripcion) || empty($tiempo) || empty($dificultad)) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Faltan datos esenciales del formulario.",
-        "icon" => "warning"
-    ]);
-    exit;
-}
 
-// Procesar imagen principal
+
+// datos esenciales
 $imagenReceta = '';
+// Procesar la imagen principal
 if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     $extension = pathinfo($_FILES['imagen']['name'], PATHINFO_EXTENSION);
     $nombreArchivo = uniqid('receta_') . '.' . $extension;
@@ -43,10 +38,10 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-// Procesar imágenes de pasos
+// datos esenciales
 $pasosCompletos = [];
 $imagenesPasos = $_FILES['imagen-paso'] ?? [];
-
+// Procesar imágenes de pasos
 foreach ($pasos as $index => $textoPaso) {
     $pasoData = [
         'texto' => $textoPaso,
@@ -67,6 +62,16 @@ foreach ($pasos as $index => $textoPaso) {
     $pasosCompletos[] = $pasoData;
 }
 
+// Validar campos obligatorios
+if (empty($nombreReceta) || empty($descripcion) || empty($tiempo) || empty($dificultad) || empty($imagenReceta)|| empty($categoria)) {
+    echo json_encode([
+        "success" => false,
+        "message" => "Faltan datos esenciales del formulario.",
+        "icon" => "warning"
+    ]);
+    exit;
+}
+
 // Crear documento para MongoDB
 $documento = [
     'nombre_receta' => $nombreReceta,
@@ -76,6 +81,7 @@ $documento = [
     'ingredientes' => $ingredientes,
     'pasos' => $pasosCompletos, // Ahora incluye texto e imagen para cada paso
     'imagen' => $imagenReceta,
+     'categoria' => $categoria,
     'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
 ];
 

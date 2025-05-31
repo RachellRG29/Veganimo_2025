@@ -16,6 +16,7 @@ try {
             'descripcion' => $doc->descripcion ?? '',
             'tiempo_preparacion' => $doc->tiempo_preparacion ?? '',
             'dificultad' => $doc->dificultad ?? '',
+            'categoria' => $doc->categoria ?? '',
             'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png'
         ];
     }

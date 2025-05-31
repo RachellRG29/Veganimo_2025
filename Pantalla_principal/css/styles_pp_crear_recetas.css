@@ -90,6 +90,11 @@
   height: auto;
 }
 
+
+.zona_tarjeta_calif{
+  margin-right: 20px;
+}
+
 /*formulario de receta*/
 .form-receta {
   display: flex;
@@ -100,12 +105,10 @@
 
 .form-control{
   font-family: 'Comfortaa', Verdana;
-
 }
 
 .form-label {
   margin: 10px 0 10px 0;/*top-rigth-bottom-left*/
-
 }
 
 .input-border {
@@ -123,16 +126,15 @@
 
 .textarea-fija {
   resize: vertical;
-  height: 200px;
-  max-height: 200px; /* Establece la altura máxima */
-  min-height: 140px; /* Establece la altura mínima */
+  height: 190px;
+  max-height: 190px; /* Establece la altura máxima */
+  min-height: min-content; /* Establece la altura mínima */
 }
 
 .tiempo-dificultad {
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 90%;
   margin: auto;
   margin-top: 1rem;
   position: relative;
@@ -141,6 +143,34 @@
 
 .tiempo, .dificultad {
   flex: 1;
+}
+
+.tiempo{
+  margin-left: 20px;
+}
+
+/*minuto/hora*/
+#unidad-tiempo {
+ max-width: 6rem;
+  font-size: 14px;
+  margin-left: -10px;
+}
+
+/*tiempo de preparacion*/
+#time-receta {
+  max-width: 7rem;
+  font-size: 14px;
+}
+
+/* Ajuste del ancho del select de dificultad */
+#select-dificultad {
+  max-width: 12rem;
+  margin-left: 0;
+  font-size: 14px;
+}
+
+.select_dif{
+  font-size: 14px;
 }
 
 .separador-vertical {
@@ -155,6 +185,34 @@
   gap: 0.5rem;
 }
 
+.tiempo-inputs {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.tiempo-inputs input,
+.tiempo-inputs select {
+  flex: 1;
+}
+
+
+.select-categoria {
+  width: 90%;
+  font-size: 14px;
+  margin-top: 0.5rem;
+  color: #1A1C1C;
+}
+
+.categoria label {
+  color: #1A1C1C;
+  font-size: 14px;
+  margin-top: 1rem;
+}
+
+
+/*-------------------------- IMAGEN DE RECETA------------------------------*/
 
 .lbl-seleccionar-imagen{
   color: #F6FFFE;

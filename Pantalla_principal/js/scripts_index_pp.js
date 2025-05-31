@@ -212,22 +212,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // Manejar parámetros de URL
-  const params = new URLSearchParams(window.location.search);
-  const seccion = params.get('seccion');
+const params = new URLSearchParams(window.location.search);
+const seccion = params.get('seccion');
+const ultimaPagina = localStorage.getItem('ultimaPaginaCargada');
+let paginaInicial = "pp_inicio.html"; // Default
 
-  if (seccion === 'recetas') {
-    const recetasItem = [...document.querySelectorAll('.nav-item')].find(item => 
-      item.textContent.trim().includes('Recetas')
-    );
-    recetasItem?.click();
-  } else if (seccion === 'informate') {
-    const informateItem = [...document.querySelectorAll('.has-submenu')].find(item => 
-      item.textContent.trim().includes('Infórmate')
-    );
-    informateItem?.querySelector('.nav-trigger')?.click();
-  } else {
-    cargarContenido("pp_inicio.html");
+if (seccion === 'recetas') {
+  paginaInicial = "pp_recetas.html";
+} else if (seccion === 'informate') {
+  paginaInicial = "pp_informate.html";
+} else if (ultimaPagina) {
+  paginaInicial = ultimaPagina;
+}
+
+// Buscar y marcar el ítem correspondiente como activo
+const navItem = [...document.querySelectorAll('.nav-item')].find(item =>
+  item.getAttribute('data-page') === paginaInicial
+);
+if (navItem) {
+  navItem.classList.add('active', 'highlight');
+  if (navItem.closest('.has-submenu')) {
+    navItem.closest('.has-submenu').classList.add('open-submenu');
   }
+}
+
+cargarContenido(paginaInicial);
+
+
 });
 
  //* Maneja acciones personalizadas como "Crear Recetas"
@@ -277,7 +288,10 @@ async function cargarContenido(pagina) {
     
     ejecutarScriptsPagina(pagina);
     
-    return true;
+    localStorage.setItem('ultimaPaginaCargada', pagina);
+
+    return true; 
+
   } catch (error) {
     console.error('⚠️ Error al cargar contenido:', error);
     mostrarErrorCarga();

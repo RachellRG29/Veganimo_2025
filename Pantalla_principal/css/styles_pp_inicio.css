@@ -21,7 +21,7 @@ body, html {
 
 /*Perfil usuario esquina superior derecha*/
 .perfil_user{
-  position: fixed; /*para q no se mueva*/
+  position: fixed !important; /*para q no se mueva*/
   right: 2.5rem;
   top: 1rem;
   padding: 2px 20px;
@@ -29,13 +29,14 @@ body, html {
   display: flex;
   gap: 10px;
   border-radius: 0.5rem;
-  align-items: center;
   z-index: 1000;
+  align-content: center !important; /*para que se alinee verticalmente*/
+  align-items: center !important; /*para que se alinee verticalmente*/
 }
 
 .circulo_perfil{
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   position: relative;
   left: 10px;
@@ -51,6 +52,7 @@ body, html {
 .lbl_nombre_user{
   font-family: 'Comfortaa', Verdana;
   font-size: 20px;
+  text-align: center !important;
 }
 
 /*-------------------------------------------------------------------------------------------------*/
