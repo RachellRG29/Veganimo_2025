@@ -70,6 +70,7 @@ function agregarPaso() {
   lista.appendChild(pasoItem);
 }
 
+/*--------------------------------MODAL PARA RECORTAR IMAGEN    --------------------------------- */
 /* Modal para recortar la imagen */
 let cropper;
 function mostrarPreviewReceta(input, imgElement) {
@@ -112,7 +113,7 @@ function mostrarPreviewReceta(input, imgElement) {
         // Mostrar imagen recortada en el preview
         imgElement.src = result.value;
         imgElement.style.display = 'block';
-        imgElement.style.borderRadius = '50%'; // Forma circular
+        //imgElement.style.borderRadius = '50%';  Forma circular
         document.querySelector('.icono-placeholder').style.display = 'none';
       } else {
         // Si cancela, limpia el input

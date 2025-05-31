@@ -65,7 +65,8 @@
                   <div class="tiempo-dificultad">
                     <div class="tiempo">
                       <label for="time-receta" class="form-label">Tiempo de preparación:</label>
-                      <input type="text" id="time-receta" name="time-receta" class="form-control input-border" placeholder="Ej: 30 minutos">
+                      <input type="text" id="time-receta" name="time-receta" class="form-control input-border" placeholder="Ej: 30">
+                      <label for="minutos_lbl" style="font-size: 12px;">minutos</label>
                     </div>
             
                     <div class="separador-vertical"></div>
@@ -132,7 +133,7 @@
                     <div class="paso-imagen-small" onclick="this.querySelector('input').click()">
                       <i class="ph ph-image icono-placeholder"></i>
                       <img class="img-preview" style="display:none;">
-                      <input type="file" accept="image/*" name="imagen-paso[]" class="input-paso-img" style="display:none;" onchange="mostrarPreviewPaso(this, this.previousElementSibling)" multiple>
+                      <input type="file" accept="image/*" name="imagen-paso[]" style="display:none;" onchange="mostrarPreviewPaso(this, this.previousElementSibling)">
                     </div>
                     <input type="text" name="pasos[]" class="form-control input-border paso-input" placeholder="Paso 1">
                   </div>

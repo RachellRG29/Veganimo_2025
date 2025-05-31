@@ -1,15 +1,29 @@
 document.addEventListener("DOMContentLoaded", function() {
-  // Delegación de eventos para el formulario dinámico
   document.body.addEventListener("submit", function(event) {
     if (event.target.id === "form-receta") {
       event.preventDefault();
+      
+      // Mostrar loader mientras se procesa
+      Swal.fire({
+        title: 'Guardando receta...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
       const formData = new FormData(event.target);
 
-      fetch("guardar_recetas.php", {  // Asegúrate de que la ruta sea correcta
+      fetch("guardar_recetas.php", {
         method: "POST",
         body: formData
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+      })
       .then(data => {
         Swal.fire({
           toast: true,
@@ -21,14 +35,20 @@ document.addEventListener("DOMContentLoaded", function() {
           timerProgressBar: true
         });
         
-        // Opcional: Resetear el formulario después de guardar
         if (data.success) {
           event.target.reset();
-          document.getElementById("preview-imagen-receta").style.display = "none";
-          document.querySelector(".icono-placeholder").style.display = "block";
+          // Resetear vistas previas de imágenes
+          document.querySelectorAll('.img-preview').forEach(img => {
+            img.style.display = 'none';
+            img.src = '';
+          });
+          document.querySelectorAll('.icono-placeholder').forEach(icon => {
+            icon.style.display = 'block';
+          });
         }
       })
-      .catch(() => {
+      .catch(error => {
+        console.error('Error:', error);
         Swal.fire({
           toast: true,
           position: 'bottom-end',
