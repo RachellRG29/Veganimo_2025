@@ -15,13 +15,13 @@ function renderEstrellas(calificacion, tamaño = 24) {
     
     if (i <= estrellasLlenas) {
       estrella.className = 'ph ph-star-fill';
-      estrella.style.color = '#FFD700'; // Dorado para estrellas llenas
+      estrella.style.color = '#FFD700';
     } else if (i === estrellasLlenas + 1 && tieneMediaEstrella) {
       estrella.className = 'ph ph-star-half';
-      estrella.style.color = '#FFD700'; // Dorado para media estrella
+      estrella.style.color = '#FFD700';
     } else {
       estrella.className = 'ph ph-star';
-      estrella.style.color = '#C0C0C0'; // Plata para estrellas vacías
+      estrella.style.color = '#C0C0C0';
     }
     
     estrella.style.fontSize = `${tamaño}px`;
@@ -188,11 +188,7 @@ function cerrarModal() {
 document.addEventListener('DOMContentLoaded', () => {
   cargarRecetas();
 
-  const cerrarModalBtn = document.getElementById('cerrar-modal');
-  if (cerrarModalBtn) {
-    cerrarModalBtn.addEventListener('click', cerrarModal);
-  }
-
+  // Cierre del modal al hacer clic fuera del contenido
   const modal = document.getElementById('modal-receta');
   if (modal) {
     modal.addEventListener('click', (e) => {
@@ -202,8 +198,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Cierre con tecla ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      cerrarModal();
+    }
+  });
+
+  // Delegación de eventos para botón cerrar (funciona aunque se cargue después)
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'cerrar-modal') {
       cerrarModal();
     }
   });

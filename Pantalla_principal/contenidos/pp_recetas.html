@@ -1,41 +1,102 @@
-<html>
-  <body>
-    <!-- pp_recetas.html -->
-    <section class="section_recetas_pp">
-      <!-- Contenedor de la barra de busqueda -->
-      <div class="busqueda-conteiner">
-        <div class="busqueda-recetas">
-          <!-- Contenedor de barra busqueda y busqueda por categoria -->
-          <div class="input-busq-recetas">
-            <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
-            <i class="ph ph-magnifying-glass"></i>
-          </div>
-      
-          <div class="input-busq-categoria">
-            <select name="categoria" id="categoria-recetas">
-              <option value="todos" selected>Todos</option>
-              <option value="transicionista">Transicionista</option>
-              <option value="vegetariano">Vegetariano</option>
-              <option value="vegano">Vegano</option>
-            </select>
-          </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Recetas | Vegánimo</title>
+  <link rel="stylesheet" href="../Pagina_Principal/css/styles_pp_inicio.css">
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <style>
+    .modal-receta {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .modal-receta.oculto {
+      display: none !important;
+      opacity: 0;
+    }
+
+    .modal-contenido {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .btn-cerrar-modal {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background-color: #ff4444;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-cerrar-modal:hover {
+      background-color: #cc0000;
+    }
+
+    .modal-contenido img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <section class="section_recetas_pp">
+    <!-- Contenedor de la barra de búsqueda -->
+    <div class="busqueda-conteiner">
+      <div class="busqueda-recetas">
+        <!-- Barra de búsqueda y categorías -->
+        <div class="input-busq-recetas">
+          <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
+          <i class="ph ph-magnifying-glass"></i>
         </div>
-        
-        <!-- codigo user en css: /Pagina_Principal/css/styles_pp_inicio.css -->
-          <div class="perfil_user">
-            <h2 class="lbl_nombre_user">User</h2> 
-            <div class="circulo_perfil">
-                <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
-            </div>
-          </div>
+
+        <div class="input-busq-categoria">
+          <select name="categoria" id="categoria-recetas">
+            <option value="todos" selected>Todos</option>
+            <option value="transicionista">Transicionista</option>
+            <option value="vegetariano">Vegetariano</option>
+            <option value="vegano">Vegano</option>
+          </select>
+        </div>
       </div>
 
-      <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
-      <!-- GRID DE LA TARJETAS/contenedor en cuadriculas -->
-      <div class="grid-container-recetas" id="contenedor-recetas">
-        <!-- Diseño usado en cargar_recetas.js -->
-      </div> <!-- fin de grid-container -->
-    </section>
+      <!-- Perfil del usuario -->
+      <div class="perfil_user">
+        <h2 class="lbl_nombre_user">User</h2> 
+        <div class="circulo_perfil">
+          <img src="../Images/img_sinperfilusuario.png" alt="Imagen de perfil" class="img_perfil">
+        </div>
+      </div>
+    </div>
+
+    <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
+
+    <!-- Contenedor de tarjetas de recetas -->
+    <div class="grid-container-recetas" id="contenedor-recetas">
+      <!-- Aquí se insertan las tarjetas dinámicamente -->
+    </div>
 
     <!-- Modal de receta -->
     <div id="modal-receta" class="modal-receta oculto">
@@ -54,111 +115,9 @@
         <ol id="modal-pasos"></ol>
       </div>
     </div>
+  </section>
 
-    <style>
-      .modal-receta {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.7);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-      }
-
-      .modal-contenido {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 600px;
-        max-height: 90vh;
-        overflow-y: auto;
-        position: relative;
-      }
-
-      .btn-cerrar-modal {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        background-color: #ff4444;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-
-      .btn-cerrar-modal:hover {
-        background-color: #cc0000;
-      }
-
-      .oculto {
-        display: none;
-      }
-
-      .modal-contenido img {
-        width: 100%;
-        border-radius: 10px;
-        margin-bottom: 15px;
-      }
-    </style>
-
-    <!-- Incluir el archivo JavaScript externo -->
-    <script src="js/recetas.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/phosphor-icons@1.4.2/css/phosphor.css">
-  </body>
-  
+  <!-- Tu script personalizado -->
+  <script src="../Pantalla_principal/js/cargar_recetas.js"></script>
+</body>
 </html>
-
-
-          <!-- Diseño usado en cargar_recetas.js -->
-          <!-- Diseño de tarjeta de receta -->
-         <!-- <div class="tarjeta-receta">
-            <div class="circulo-img">
-              <img src="../Images/img_conc_animal.jpg" alt="" class="img-plato">
-            </div>
-            <div class="body-tarjeta">
-              <h2 class="title-tarjeta">Platillo Vegano de Fresas</h2>
-              <p class="descripcion-tarjeta">
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
-              <-- Estrellas --
-              <div class="estrellas_vot">
-                <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
-                <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
-                <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
-                <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
-                <i class="ph ph-star" style="font-size: 24px;" class="star"></i>
-              </div>
-              <-- Datos receta/ tiempo & dificultad  
-              <div class="datos-receta">
-                  <-- Tiempo de preparacion --
-                <div class="tiempo-receta">
-                  <p>Tiempo de preparación</p>
-                  <div class="grupo_tiempo">                              
-                    <i class="ph ph-timer" style="font-size: 24px;"></i>
-                    <p class="lbl_tiempo_receta">28 min</p>
-                  </div>
-                </div>
-                <div class="linea-datos"></div>
-                <-- Dificultad de la receta --
-                <div class="dificultad-receta">
-                  <p>Dificultad</p>
-                  <div class="grupo_dif">
-                    <i class="ph ph-square-fill" style="font-size: 24px;"></i>
-                    <p class="lbl_dificultad">Medio</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>-->
-
-  
