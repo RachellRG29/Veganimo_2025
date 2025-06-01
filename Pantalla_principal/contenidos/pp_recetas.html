@@ -1,52 +1,118 @@
 <html>
-
   <body>
-
     <!-- pp_recetas.html -->
     <section class="section_recetas_pp">
-
-        <!-- Contenedor de la barra de busqueda -->
-        <div class="busqueda-conteiner">
-          <div class="busqueda-recetas">
-            <!-- Contenedor de barra busqueda y busqueda por categoria -->
-            <div class="input-busq-recetas">
-              <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
-              <i class="ph ph-magnifying-glass"></i>
-            </div>
+      <!-- Contenedor de la barra de busqueda -->
+      <div class="busqueda-conteiner">
+        <div class="busqueda-recetas">
+          <!-- Contenedor de barra busqueda y busqueda por categoria -->
+          <div class="input-busq-recetas">
+            <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
+            <i class="ph ph-magnifying-glass"></i>
+          </div>
+      
+          <div class="input-busq-categoria">
+            <select name="categoria" id="categoria-recetas">
+              <option value="todos" selected>Todos</option>
+              <option value="transicionista">Transicionista</option>
+              <option value="vegetariano">Vegetariano</option>
+              <option value="vegano">Vegano</option>
+            </select>
+          </div>
+        </div>
         
-            <div class="input-busq-categoria">
-              <select name="categoria" id="categoria-recetas">
-                <option value="todos" selected>Todos</option>
-                <option value="transicionista">Transicionista</option>
-                <option value="vegetariano">Vegetariano</option>
-                <option value="vegano">Vegano</option>
-              </select>
+        <!-- codigo user en css: /Pagina_Principal/css/styles_pp_inicio.css -->
+          <div class="perfil_user">
+            <h2 class="lbl_nombre_user">User</h2> 
+            <div class="circulo_perfil">
+                <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
             </div>
           </div>
-          
-          <!-- codigo user en css: /Pagina_Principal/css/styles_pp_inicio.css -->
-            <div class="perfil_user">
-              <h2 class="lbl_nombre_user">User</h2> 
-              <div class="circulo_perfil">
-                  <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
-              </div>
-            </div>
-          
-        </div>
+      </div>
 
-        
-        <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
-        <!-- GRID DE LA TARJETAS/contenedor en cuadriculas -->
-        <div class="grid-container-recetas" id="contenedor-recetas">
-          <!-- Diseño usado en cargar_recetas.js -->
-
-        </div> <!-- fin de grid-container -->
-
-        
+      <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
+      <!-- GRID DE LA TARJETAS/contenedor en cuadriculas -->
+      <div class="grid-container-recetas" id="contenedor-recetas">
+        <!-- Diseño usado en cargar_recetas.js -->
+      </div> <!-- fin de grid-container -->
     </section>
 
-  </body>
+    <!-- Modal de receta -->
+    <div id="modal-receta" class="modal-receta oculto">
+      <div class="modal-contenido">
+        <button id="cerrar-modal" class="btn-cerrar-modal">Cerrar</button>
+        <h2 id="modal-titulo"></h2>
+        <div id="modal-estrellas" class="estrellas_vot" style="margin-bottom: 10px;"></div>
+        <img id="modal-imagen" src="" alt="Imagen receta" />
+        <p id="modal-descripcion"></p>
+        <p><strong>Tiempo de preparación:</strong> <span id="modal-tiempo"></span></p>
+        <p><strong>Dificultad:</strong> <span id="modal-dificultad"></span></p>
+        <p><strong>Categoría:</strong> <span id="modal-categoria"></span></p>
+        <h3>Ingredientes:</h3>
+        <ul id="modal-ingredientes"></ul>
+        <h3>Pasos:</h3>
+        <ol id="modal-pasos"></ol>
+      </div>
+    </div>
 
+    <style>
+      .modal-receta {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-contenido {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .btn-cerrar-modal {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        background-color: #ff4444;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .btn-cerrar-modal:hover {
+        background-color: #cc0000;
+      }
+
+      .oculto {
+        display: none;
+      }
+
+      .modal-contenido img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+    </style>
+
+    <!-- Incluir el archivo JavaScript externo -->
+    <script src="js/recetas.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/phosphor-icons@1.4.2/css/phosphor.css">
+  </body>
+  
 </html>
 
 
