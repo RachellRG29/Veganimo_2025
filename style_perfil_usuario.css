@@ -1,0 +1,35 @@
+/*Perfil usuario esquina superior derecha*/
+.perfil_user{
+  position: fixed !important; /*para q no se mueva*/
+  right: 2.5rem;
+  top: 1rem;
+  padding: 2px 20px;
+  background-color: #E99A3C;
+  display: flex;
+  gap: 10px;
+  border-radius: 0.5rem;
+  z-index: 1000;
+  align-content: center !important; /*para que se alinee verticalmente*/
+  align-items: center !important; /*para que se alinee verticalmente*/
+}
+
+.circulo_perfil{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  left: 10px;
+}
+
+.img_perfil{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 50%;
+}
+
+.lbl_nombre_user{
+  font-family: 'Comfortaa', Verdana;
+  font-size: 20px;
+  text-align: center !important;
+}

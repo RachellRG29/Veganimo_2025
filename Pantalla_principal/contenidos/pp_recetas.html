@@ -5,7 +5,364 @@
   <title>Recetas | Vegánimo</title>
   <link rel="stylesheet" href="../Pagina_Principal/css/styles_pp_inicio.css">
   <script src="https://unpkg.com/phosphor-icons"></script>
+
   <style>
+    .modal-receta {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .modal-receta.oculto {
+      display: none !important;
+      opacity: 0;
+    }
+
+    .modal-contenido {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 940px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      font-family: "Comfortaa", sans-serif;
+    }
+
+    .btn-cerrar-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #D9D9D9;
+      color: black;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    /* BLOQUE 1 */
+    .bloque1 {
+      display: flex;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .col1, .col2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .col1 {
+      width: 60%;
+    }
+
+    .col2 {
+      width: 40%;
+    }
+
+    #modal-titulo {
+      font-size: 23px;
+      font-weight: 700;
+      color: #F6FFFE;
+      background-color: #007848;
+      width: 20rem;
+      height: 4rem;
+      margin-top: 55px;
+      border-radius: 4px 10px 10px 0;
+      padding-left: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .linea {
+      width: 15rem;
+      height: 3px;
+      background-color: #F6FFFE;
+      border-radius: 4px;
+      margin: 10px 0 20px 0;
+    }
+
+    .descripcion {
+      text-align: justify;
+      margin-bottom: 15px;
+      padding-right: 10px;
+    }
+
+    .categoria-modal {
+      display: inline-block;
+      background-color: #154734;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 14px;
+      max-width: fit-content;
+      margin-bottom: 20px;
+    }
+
+    .info-final {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: auto;
+    }
+
+    .tiempo, .dificultad {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex: 1;
+    }
+
+    .subti-info {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .valor-horizontal {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .icono {
+      font-size: 18px;
+    }
+
+    #icono-dificultad {
+      font-size: 18px;
+    }
+
+    /* Colores dinámicos de dificultad */
+    .dif-alta {
+      color: red !important;
+    }
+    .dif-media {
+      color: orange !important;
+    }
+    .dif-baja {
+      color: green !important;
+    }
+
+    /* Imagen y estrellas */
+    .contenedor-imagen-verde {
+      background-color: #007848;
+      padding: 10px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    #modal-imagen {
+      width: 250px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 6px;
+      background-color: #f2fef9;
+      margin-bottom: 10px;
+    }
+
+    #modal-estrellas {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    /* BLOQUE 2 Ingredientes */
+    .bloque2 {
+      border: 1px solid #707070;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 30px;
+      background-color: white;
+    }
+
+    .subtitulo-bloque {
+      background-color: #007848;
+      color: white;
+      border-radius: 6px 6px 0 0;
+      padding: 8px 12px;
+      font-size: 18px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .subtitulo-bloque.corto {
+      max-width: 150px;
+    }
+
+    #modal-ingredientes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    /* BLOQUE 3 Pasos */
+    .bloque3 {
+      border: 1px solid #707070;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 20px;
+      background-color: white;
+    }
+
+    #modal-pasos {
+      list-style-type: decimal;
+      padding-left: 0;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #modal-pasos li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #modal-pasos img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <section class="section_recetas_pp">
+    <!-- Contenedor de la barra de búsqueda -->
+    <div class="busqueda-conteiner">
+      <div class="busqueda-recetas">
+        <!-- Barra de búsqueda y categorías -->
+        <div class="input-busq-recetas">
+          <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
+          <i class="ph ph-magnifying-glass"></i>
+        </div>
+
+        <div class="input-busq-categoria">
+          <select name="categoria" id="categoria-recetas">
+            <option value="todos" selected>Todos</option>
+            <option value="transicionista">Transicionista</option>
+            <option value="vegetariano">Vegetariano</option>
+            <option value="vegano">Vegano</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Perfil del usuario -->
+      <div class="perfil_user">
+        <h2 class="lbl_nombre_user">User</h2> 
+        <div class="circulo_perfil">
+          <img src="../Images/img_sinperfilusuario.png" alt="Imagen de perfil" class="img_perfil">
+        </div>
+      </div>
+    </div>
+
+    <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
+
+    <!-- Contenedor de tarjetas de recetas -->
+    <div class="grid-container-recetas" id="contenedor-recetas">
+      <!-- Aquí se insertan las tarjetas dinámicamente -->
+    </div>
+
+    <!-- Modal de receta -->
+    <div id="modal-receta" class="modal-receta oculto">
+      <div class="modal-contenido">
+
+        <!-- Botón cerrar -->
+        <button id="cerrar-modal" class="btn-cerrar-modal">×</button>
+
+        <!-- BLOQUE 1: Contenedor de columnas -->
+        <div class="bloque1">
+          <!-- Columna izquierda -->
+          <div class="col1">
+            <h2 id="modal-titulo"></h2>
+            <div class="linea"></div>
+            <p id="modal-descripcion" class="descripcion"></p>
+
+            <div class="categoria-modal" id="modal-categoria"></div>
+
+            <div class="info-final">
+              <div class="tiempo">
+                <p class="subti-info">Tiempo de preparación:</p>
+                <div class="valor-horizontal">
+                  <span class="icono">⏱️</span>
+                  <span id="modal-tiempo"></span>
+                  <span id="modal-tiempo-unidad"></span>
+                </div>
+              </div>
+
+              <div class="dificultad">
+                <p class="subti-info">Dificultad:</p>
+                <div class="valor-horizontal">
+                  <i id="icono-dificultad" class="ph ph-square-fill"></i>
+                  <span id="modal-dificultad" class="lbl_dificultad"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Columna derecha -->
+          <div class="col2">
+            <div class="tarjeta-receta">
+              <img id="modal-imagen" src="" alt="Imagen receta" />
+              <div id="modal-estrellas" class="estrellas_vot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOQUE 2 -->
+        <div class="bloque2">
+          <h3 class="subtitulo-bloque corto">Ingredientes:</h3>
+          <ul id="modal-ingredientes"></ul>
+        </div>
+
+        <!-- BLOQUE 3 -->
+        <div class="bloque3">
+          <h3 class="subtitulo-bloque corto">Pasos:</h3>
+          <ol id="modal-pasos"></ol>
+        </div>
+      </div>
+    </div>
+
+
+  </section>
+
+
+</body>
+</html>
+
+
+
+
+    <!-- 
+css:
+<style>
     .modal-receta {
       position: fixed;
       top: 0;
@@ -60,45 +417,9 @@
       margin-bottom: 15px;
     }
   </style>
-</head>
-<body>
-  <section class="section_recetas_pp">
-    <!-- Contenedor de la barra de búsqueda -->
-    <div class="busqueda-conteiner">
-      <div class="busqueda-recetas">
-        <!-- Barra de búsqueda y categorías -->
-        <div class="input-busq-recetas">
-          <input type="text" placeholder="Buscar recetas..." class="input_busqueda">
-          <i class="ph ph-magnifying-glass"></i>
-        </div>
 
-        <div class="input-busq-categoria">
-          <select name="categoria" id="categoria-recetas">
-            <option value="todos" selected>Todos</option>
-            <option value="transicionista">Transicionista</option>
-            <option value="vegetariano">Vegetariano</option>
-            <option value="vegano">Vegano</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Perfil del usuario -->
-      <div class="perfil_user">
-        <h2 class="lbl_nombre_user">User</h2> 
-        <div class="circulo_perfil">
-          <img src="../Images/img_sinperfilusuario.png" alt="Imagen de perfil" class="img_perfil">
-        </div>
-      </div>
-    </div>
-
-    <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
-
-    <!-- Contenedor de tarjetas de recetas -->
-    <div class="grid-container-recetas" id="contenedor-recetas">
-      <!-- Aquí se insertan las tarjetas dinámicamente -->
-    </div>
-
-    <!-- Modal de receta -->
+----------------------------------------------------------------------------
+    Modal de receta 
     <div id="modal-receta" class="modal-receta oculto">
       <div class="modal-contenido">
         <button id="cerrar-modal" class="btn-cerrar-modal">Cerrar</button>
@@ -115,9 +436,5 @@
         <ol id="modal-pasos"></ol>
       </div>
     </div>
-  </section>
 
-  <!-- Tu script personalizado -->
-  <script src="../Pantalla_principal/js/cargar_recetas.js"></script>
-</body>
-</html>
+    -->
