@@ -417,7 +417,7 @@ color: #1A1C1C;
 
 }
 
-
+/*------------------ Calificacion de estrellas --------------------------------*/
 .rating {
   display: flex;
   flex-direction: row-reverse;

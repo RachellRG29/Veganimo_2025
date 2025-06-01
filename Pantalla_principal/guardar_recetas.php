@@ -65,14 +65,25 @@ foreach ($pasos as $index => $textoPaso) {
 }
 
 // Validar campos obligatorios
-if (empty($nombreReceta) || empty($descripcion) || empty($tiempo) || empty($dificultad) || empty($imagenReceta) || empty($categoria)) {
+if (
+    empty($nombreReceta) ||
+    empty($descripcion) ||
+    empty($tiempo) ||
+    empty($dificultad) ||
+    empty($imagenReceta) ||
+    empty($categoria) ||
+    empty($ingredientes) ||
+    empty($pasos) ||
+    !array_filter($pasos, fn($p) => !empty($p)) // Al menos un paso con texto
+) {
     echo json_encode([
         "success" => false,
-        "message" => "Faltan datos esenciales del formulario.",
+        "message" => "⚠️ Faltan datos esenciales del formulario. Verifica que todos los campos estén completos.",
         "icon" => "warning"
     ]);
     exit;
 }
+
 
 // Crear documento para MongoDB
 $documento = [

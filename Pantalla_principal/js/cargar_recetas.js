@@ -11,6 +11,55 @@ async function cargarRecetas() {
     cat_transc: "Transicionista"
   };
 
+
+  /* Función para renderizar las estrellas de la calificación */
+  function renderEstrellas(calificacion) {
+    const totalEstrellas = 5;
+    const estrellasLlenas = Math.round(calificacion);
+    let estrellasHTML = '';
+
+    for (let i = 1; i <= totalEstrellas; i++) {
+      const filled = i <= estrellasLlenas;
+
+      estrellasHTML += `
+        <svg xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="28" height="28"
+            style="
+              margin: 0 4px;
+              fill: ${filled ? '#ffc73a' : 'transparent'};
+              stroke: ${filled ? '#ffc73a' : '#ccc'};
+              stroke-width: 2px;
+              stroke-linejoin: round;
+              transform: rotate(45deg);
+              display: inline-block;
+            ">
+          <path d="M12,17.27L18.18,21L16.54,13.97
+                  L22,9.24L14.81,8.62L12,2L9.19,8.62
+                  L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+        </svg>`;
+    }
+
+    return `
+      <div style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        margin-top: 8px;
+      ">
+        ${estrellasHTML}
+      </div>`;
+  }
+
+  /* acortar la descripcion */
+  function recortarDescripcion(texto, limitePalabras = 20) {
+    const palabras = texto.trim().split(/\s+/);
+    if (palabras.length <= limitePalabras) return texto;
+    return palabras.slice(0, limitePalabras).join(" ") + "...";
+  }
+
+
   fetch('../Pantalla_principal/obtener_recetas.php')
     .then(response => response.json())
     .then(data => {
@@ -51,7 +100,7 @@ async function cargarRecetas() {
           </div>
           <div class="body-tarjeta">
             <h2 class="title-tarjeta">${receta.nombre_receta}</h2>
-            <p class="descripcion-tarjeta">${receta.descripcion}</p>
+            <p class="descripcion-tarjeta">${recortarDescripcion(receta.descripcion)}</p>
             <p class="categoria-tarjeta" 
             style=" color: #F6FFFE; 
             font-weight: bold; 
@@ -62,8 +111,8 @@ async function cargarRecetas() {
             border-radius: 20px;">
             Categoría: ${categorias[receta.categoria] || 'Sin categoría'}</p>
 
-            <div class="estrellas_vot">
-              ${'<i class="ph ph-star" style="font-size: 24px;"></i>'.repeat(5)}
+            <div class="rating-estatica">
+              ${renderEstrellas(receta.calificacion)}
             </div>
 
             <div class="datos-receta">

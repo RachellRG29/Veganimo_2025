@@ -17,7 +17,12 @@ try {
             'tiempo_preparacion' => $doc->tiempo_preparacion ?? '',
             'dificultad' => $doc->dificultad ?? '',
             'categoria' => $doc->categoria ?? '',
-            'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png'
+            'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png',
+            'calificacion' => isset($doc->calificaciones) && is_array($doc->calificaciones) && count($doc->calificaciones) > 0 
+                            ? array_sum($doc->calificaciones) / count($doc->calificaciones)
+                            : 0,
+
+            
         ];
     }
 

@@ -69,14 +69,13 @@
   .ph-magnifying-glass {
     color: #E99A3C;
     font-size: 20px;
-    cursor: pointer;
     margin-right: 15px;
     transition: transform 0.3s ease;
   }
   
-  .ph-magnifying-glass:hover {
+  /*.ph-magnifying-glass:hover {
     transform: scale(1.1);
-  }
+  }*/
   
 /* Select de categorías (estilo mejorado) */
 .input-busq-categoria select {

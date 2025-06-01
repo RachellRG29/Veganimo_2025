@@ -36,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const textoOriginal = p.textContent.trim();
     const palabras = textoOriginal.split(/\s+/); // divide por espacios
 
-    if (palabras.length > 50) {
-      const textoRecortado = palabras.slice(0, 50).join(" ") + "...";
+    if (palabras.length > 30) {
+      const textoRecortado = palabras.slice(0, 30).join(" ") + "...";
       p.textContent = textoRecortado;
     }
   });
