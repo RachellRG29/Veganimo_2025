@@ -8,30 +8,69 @@ document.addEventListener("DOMContentLoaded", function () {
   function cerrarModalReceta() {
     const modal = document.getElementById("modal-receta");
     modal.classList.add("oculto");
+    document.body.style.overflow = "auto";
+  }
+
+  // --- DICCIONARIO DE CATEGORÍAS ---
+  const categorias = {
+    cat_vegan: "Vegano",
+    cat_veget: "Vegetariano",
+    cat_transc: "Transicionista",
+  };
+
+  // --- FUNCIÓN PARA RENDERIZAR ESTRELLAS SVG ---
+  function renderizarEstrellas(calificacion) {
+    const estrellasContainer = document.getElementById("modal-estrellas");
+    estrellasContainer.innerHTML = "";
+
+    for (let i = 1; i <= 5; i++) {
+      const filled = i <= calificacion;
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("width", "22");
+      svg.setAttribute("height", "22");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("style", `
+        margin: 0 2px;
+        fill: ${filled ? '#ffc73a' : 'transparent'};
+        stroke: ${filled ? '#ffc73a' : '#ccc'};
+        stroke-width: 2px;
+        stroke-linejoin: round;
+        transform: rotate(45deg);
+      `);
+
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", "M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z");
+
+      svg.appendChild(path);
+      estrellasContainer.appendChild(svg);
+    }
   }
 
   // --- FUNCIÓN PARA CARGAR DATOS EN EL MODAL ---
   function cargarModalReceta(receta) {
     document.getElementById("modal-titulo").textContent = receta.nombre_receta || "";
     document.getElementById("modal-descripcion").textContent = receta.descripcion || "";
-    document.getElementById("modal-categoria").textContent = receta.categoria || "";
-    document.getElementById("modal-tiempo").textContent = receta.tiempo_preparacion || "";
+
+    const catTexto = categorias[receta.categoria] || receta.categoria || "Sin categoría";
+    document.getElementById("modal-categoria").textContent = catTexto;
+
+    const tiempo = receta.tiempo_preparacion || "";
+    let numero = tiempo.replace(/[^\d]/g, '');
+    let unidad = "";
+    if (tiempo.toLowerCase().includes("hora")) unidad = "hora(s)";
+    else if (tiempo.toLowerCase().includes("minuto")) unidad = "minuto(s)";
+    else unidad = "";
+
+    document.getElementById("modal-tiempo").textContent = numero || tiempo;
+    document.getElementById("modal-tiempo-unidad").textContent = unidad;
+
     document.getElementById("modal-dificultad").textContent = receta.dificultad || "";
 
     const imagen = document.getElementById("modal-imagen");
     imagen.src = receta.imagen || "";
     imagen.alt = receta.nombre_receta || "Imagen de receta";
 
-    const estrellasContainer = document.getElementById("modal-estrellas");
-    const puntuacion = parseInt(receta.calificacion) || 0;
-    estrellasContainer.innerHTML = "";
-    for (let i = 1; i <= 5; i++) {
-      const estrella = document.createElement("span");
-      estrella.textContent = i <= puntuacion ? "★" : "☆";
-      estrella.style.color = i <= puntuacion ? "#ffc107" : "#ccc";
-      estrella.style.fontSize = "20px";
-      estrellasContainer.appendChild(estrella);
-    }
+    renderizarEstrellas(parseInt(receta.calificacion) || 0);
 
     const listaIngredientes = document.getElementById("modal-ingredientes");
     listaIngredientes.innerHTML = "";
@@ -42,30 +81,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const olPasos = document.getElementById('modal-pasos');
-  olPasos.innerHTML = '';
-  if (Array.isArray(receta.pasos)) {
-    receta.pasos.forEach(paso => {
-      const li = document.createElement('li');
-      const textoPaso = document.createElement('p');
-      textoPaso.textContent = paso.texto;
-      li.appendChild(textoPaso);
+    olPasos.innerHTML = '';
+    if (Array.isArray(receta.pasos)) {
+      receta.pasos.forEach((paso, index) => {
+        const divPaso = document.createElement('div');
+        divPaso.classList.add('modal-paso');
 
-      if (paso.imagen) {
-        const imagenPaso = document.createElement('img');
-        imagenPaso.src = paso.imagen;
-        imagenPaso.alt = "Imagen del paso";
-        imagenPaso.style.maxWidth = '100%';
-        imagenPaso.style.borderRadius = '8px';
-        imagenPaso.style.marginTop = '8px';
-        li.appendChild(imagenPaso);
-      }
+        const imgPaso = document.createElement('img');
+        imgPaso.src = paso.imagen || "";
+        imgPaso.alt = `Paso ${index + 1}`;
+        divPaso.appendChild(imgPaso);
 
-      olPasos.appendChild(li);
-    });
+        const textoPaso = document.createElement('div');
+        textoPaso.innerHTML = `<h4>Paso ${index + 1}</h4><p>${paso.texto || paso.descripcion || ""}</p>`;
+        divPaso.appendChild(textoPaso);
+
+        olPasos.appendChild(divPaso);
+      });
+    }
+
+    const dificultad = receta.dificultad?.toLowerCase() || "";
+    const icono = document.getElementById("icono-dificultad");
+    icono.classList.remove("dif-alta", "dif-media", "dif-baja");
+    if (dificultad.includes("alta")) {
+      icono.classList.add("dif-alta");
+    } else if (dificultad.includes("media")) {
+      icono.classList.add("dif-media");
+    } else if (dificultad.includes("baja")) {
+      icono.classList.add("dif-baja");
+    }
   }
-  }
 
-  // --- ESCUCHAR CLIC EN CUALQUIER TARJETA DINÁMICAMENTE (delegación de eventos) ---
+  // Delegación de eventos para detectar clics en las tarjetas
   document.addEventListener("click", function (e) {
     const tarjeta = e.target.closest(".tarjeta-receta");
     if (tarjeta && tarjeta.hasAttribute("data-receta")) {
@@ -74,30 +121,37 @@ document.addEventListener("DOMContentLoaded", function () {
       abrirModalReceta();
     }
   });
-
 });
 
-/* Función para cerrar el modal */
+// Función global para cerrar el modal
 function cerrarModal() {
   const modal = document.getElementById('modal-receta');
   if (modal) {
     modal.classList.add('oculto');
     document.body.style.overflow = 'auto';
-
     console.log('Modal cerrado');
   }
 }
 
- // Cierre con tecla ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      cerrarModal();
-    }
-  });
+// Cerrar con tecla ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    cerrarModal();
+  }
+});
 
-  // Delegación de eventos para botón cerrar (funciona aunque se cargue después)
-  document.addEventListener('click', (e) => {
-    if (e.target && e.target.id === 'cerrar-modal') {
-      cerrarModal();
-    }
-  });
+// Botón de cerrar
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'cerrar-modal') {
+    cerrarModal();
+  }
+});
+
+// CSS dinámico
+/*
+const style_modal_receta = document.createElement('style');
+style_modal_receta.textContent = `
+
+`;
+document.head.appendChild(style_modal_receta);
+*/

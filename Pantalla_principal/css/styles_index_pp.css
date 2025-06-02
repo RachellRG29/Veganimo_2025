@@ -284,6 +284,8 @@ body , html{
 
 #footer-pp .afiliados h2 {
   margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #footer-pp .afiliados ul {
