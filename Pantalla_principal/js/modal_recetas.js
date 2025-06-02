@@ -41,26 +41,28 @@ document.addEventListener("DOMContentLoaded", function () {
       listaIngredientes.appendChild(li);
     });
 
-    const listaPasos = document.getElementById("modal-pasos");
-    listaPasos.innerHTML = "";
-    (receta.pasos || []).forEach((paso, index) => {
-      const li = document.createElement("li");
-      li.classList.add("paso-item");
+    const olPasos = document.getElementById('modal-pasos');
+  olPasos.innerHTML = '';
+  if (Array.isArray(receta.pasos)) {
+    receta.pasos.forEach(paso => {
+      const li = document.createElement('li');
+      const textoPaso = document.createElement('p');
+      textoPaso.textContent = paso.texto;
+      li.appendChild(textoPaso);
 
-      const img = document.createElement("img");
-      img.src = paso.imagen || "";
-      img.alt = `Paso ${index + 1}`;
-      img.classList.add("imagen-paso");
+      if (paso.imagen) {
+        const imagenPaso = document.createElement('img');
+        imagenPaso.src = paso.imagen;
+        imagenPaso.alt = "Imagen del paso";
+        imagenPaso.style.maxWidth = '100%';
+        imagenPaso.style.borderRadius = '8px';
+        imagenPaso.style.marginTop = '8px';
+        li.appendChild(imagenPaso);
+      }
 
-      const texto = document.createElement("div");
-      texto.textContent = paso.descripcion || "";
-      texto.classList.add("texto-paso");
-
-      li.appendChild(img);
-      li.appendChild(texto);
-
-      listaPasos.appendChild(li);
+      olPasos.appendChild(li);
     });
+  }
   }
 
   // --- ESCUCHAR CLIC EN CUALQUIER TARJETA DINÁMICAMENTE (delegación de eventos) ---

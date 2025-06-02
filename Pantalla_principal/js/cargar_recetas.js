@@ -1,4 +1,4 @@
-
+/* Estilos para la carga de recetas */
 async function cargarRecetas() {
   const contenedor = document.getElementById('contenedor-recetas');
   if (!contenedor) {
@@ -153,4 +153,14 @@ async function cargarRecetas() {
       console.error('❌ Error de red:', error);
       contenedor.innerHTML = '<p>Error al conectar con el servidor.</p>';
     });
+
+
+const style_carg = document.createElement('style');
+style_carg.textContent = `
+  .tarjeta-receta {
+  cursor: pointer;
+  }
+`;
+document.head.appendChild(style_carg);
+
 }
