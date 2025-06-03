@@ -139,11 +139,13 @@
               </div>
               <div class="zona-ingredientes">
                 <div id="lista-ingredientes" class="lista-dinamica">
-                  <input type="text" class="form-control input-border" name="ingredientes[]" placeholder="Ingrediente 1">
+                  <div class="ingrediente-item sin-boton">
+                    <input type="text" class="form-control input-border" name="ingredientes[]" placeholder="Ingrediente 1">
+                  </div>
                 </div>
                 <button type="button" onclick="agregarIngrediente()" class="btn-agregar btn-agregar-ingrediente">Añadir más</button>
               </div>
-            
+
               <!-- Pasos -->
               <div class="cont-pasos">
                 <h2 class="lbl_pasos">Pasos</h2>
@@ -151,7 +153,7 @@
               </div>
               <div class="zona-pasos">
                 <div id="lista-pasos" class="lista-dinamica">
-                  <div class="paso-item">
+                  <div class="paso-item sin-boton">
                     <div class="paso-imagen-small" onclick="this.querySelector('input').click()">
                       <i class="ph ph-image icono-placeholder"></i>
                       <img class="img-preview" style="display:none;">
@@ -162,19 +164,20 @@
                 </div>
                 <button type="button" onclick="agregarPaso()" class="btn-agregar btn-agregar-paso">Añadir más</button>
               </div>
-            
+
               <!-- Botón de Guardar -->
               <div class="boton-crear-receta">
                 <button type="submit" class="btn-crear-receta">Guardar receta</button>
 
               </div>
             </form>
+
             
 
           </div>
 
           <!-- Tabla de recetas -->
-          <div class="contenedor-tabla-recetas">
+          <!--<div class="contenedor-tabla-recetas">
               <div class="card shadow-sm">
                   <div class="card-header bg-white border-bottom-0">
                       <h2 class="mb-0">Recetas almacenadas</h2>
@@ -203,7 +206,7 @@
                       </div>
                   </div>
               </div>
-          </div>
+          </div>-->
         
     </section>
 

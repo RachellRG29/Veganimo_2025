@@ -1,3 +1,5 @@
+//ESTE ARCHIVO TIENE CONFLICTO PARA GUARDAR LAS RECETAS POR LO TANTO FIJENSE AHI
+
 // validaciones
 document.getElementById("form-receta").addEventListener("submit", function (e) {
   let valid = true;

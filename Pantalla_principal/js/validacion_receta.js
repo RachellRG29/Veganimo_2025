@@ -1,12 +1,7 @@
 // =========================
-// VARIABLES GLOBALES
-// =========================
-let contadorIngredientes = 2;
-let contadorPasos = 2;
-
-// =========================
 // FUNCIONES DE INTERFAZ
 // =========================
+
 function cambiarColorIcono() {
   const icon = document.getElementById('icon-dificultad');
   const valor = document.getElementById('select-dificultad').value;
@@ -18,12 +13,32 @@ function cambiarColorIcono() {
 
 function agregarIngrediente() {
   const lista = document.getElementById("lista-ingredientes");
+
+  const contenedor = document.createElement("div");
+  contenedor.className = "ingrediente-item";
+  contenedor.style.display = "flex";
+  contenedor.style.alignItems = "center";
+  contenedor.style.gap = "10px";
+
   const input = document.createElement("input");
   input.type = "text";
   input.className = "form-control input-border";
   input.name = "ingredientes[]";
-  input.placeholder = `Ingrediente ${contadorIngredientes++}`;
-  lista.appendChild(input);
+
+  const btnEliminar = document.createElement("button");
+  btnEliminar.type = "button";
+  btnEliminar.className = "btn-eliminar";
+  btnEliminar.textContent = "❌";
+  btnEliminar.onclick = () => {
+    contenedor.remove();
+    actualizarNumeracionIngredientes();
+  };
+
+  contenedor.appendChild(input);
+  contenedor.appendChild(btnEliminar);
+  lista.appendChild(contenedor);
+
+  actualizarNumeracionIngredientes();
 }
 
 function agregarPaso() {
@@ -62,12 +77,55 @@ function agregarPaso() {
   inputPaso.type = "text";
   inputPaso.name = "pasos[]";
   inputPaso.className = "form-control input-border paso-input";
-  inputPaso.placeholder = `Paso ${contadorPasos++}`;
+
+  const btnEliminar = document.createElement("button");
+  btnEliminar.type = "button";
+  btnEliminar.className = "btn-eliminar";
+  btnEliminar.textContent = "❌";
+  btnEliminar.onclick = () => {
+    pasoItem.remove();
+    actualizarNumeracionPasos();
+  };
 
   pasoItem.appendChild(pasoImagen);
   pasoItem.appendChild(inputPaso);
+  pasoItem.appendChild(btnEliminar);
 
   lista.appendChild(pasoItem);
+
+  actualizarNumeracionPasos();
+}
+
+function actualizarNumeracionIngredientes() {
+  const ingredientes = document.querySelectorAll("#lista-ingredientes input[name='ingredientes[]']");
+  ingredientes.forEach((input, index) => {
+    input.placeholder = `Ingrediente ${index + 1}`;
+  });
+}
+
+function actualizarNumeracionPasos() {
+  const pasos = document.querySelectorAll("#lista-pasos input[name='pasos[]']");
+  pasos.forEach((input, index) => {
+    input.placeholder = `Paso ${index + 1}`;
+  });
+}
+
+function mostrarPreviewPaso(input, previewImg) {
+  const file = input.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImg.src = e.target.result;
+      previewImg.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// OPCIONAL: resetear numeración después de guardar
+function resetFormulario() {
+  actualizarNumeracionIngredientes();
+  actualizarNumeracionPasos();
 }
 
 /*--------------------------------MODAL PARA RECORTAR IMAGEN    --------------------------------- */
