@@ -43,7 +43,68 @@
                     <label for="description-receta" class="form-label">Descripción:</label>
                     <textarea id="description-receta" name="description-receta" class="form-control input-border textarea-fija" rows="4" placeholder="Describa la receta"></textarea>
                   </div>
+
+                </div>
             
+              <!-- Zona derecha: Imagen, estrellas y categoria -->
+                <div class="zona_tarjeta_calif">
+                    <label for="lbl_imagen" class="form-label">Imagen de receta:</label>
+                  <div class="zona-derecha">
+                     
+                    <!-- Imagen -->
+                    <div class="img-container" onclick="document.getElementById('input-imagen-receta').click()">
+                        <i class="ph ph-image icono-placeholder"></i>
+                        <img id="preview-imagen-receta" class="img-preview" style="display: none;">
+                      </div>
+                      <input 
+                        type="file" 
+                        id="input-imagen-receta" 
+                        name="imagen" 
+                        accept="image/*" 
+                        style="display: none;" 
+                        onchange="mostrarPreviewReceta(this, document.getElementById('preview-imagen-receta'))"
+                      >
+                    <!-- Estrellas -->
+                     <label for="estrella_rating" style="color: #F6FFFE;" class="form-label">Calificación con estrellas:</label>
+                     <div class="rating">
+                        <input type="radio" id="star-1" name="star-radio[]" value="5">
+                        <label for="star-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+                        </label>
+                        <input type="radio" id="star-2" name="star-radio[]" value="4">
+                        <label for="star-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+                        </label>
+                        <input type="radio" id="star-3" name="star-radio[]" value="3">
+                        <label for="star-3">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+                        </label>
+                        <input type="radio" id="star-4" name="star-radio[]" value="2">
+                        <label for="star-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+                        </label>
+                        <input type="radio" id="star-5" name="star-radio[]" value="1">
+                        <label for="star-5">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+                        </label>
+                     </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="grupo_caracteristicas">
+
+                <div class="cont-caracteristicas">
+                  <h2 class="lbl_ingredientes">Características específicas de la receta</h2>
+                  <div class="linea-ingred"></div>
+                </div>
+
+                <div class="caracteristicas_recetas">
+
+
                   <div class="tiempo-dificultad">
                     <div class="tiempo">
                       <label for="time-receta" class="form-label">Tiempo de preparación:</label>
@@ -70,53 +131,9 @@
                         </select>
                       </div>
                     </div>
-                  </div>
 
-                </div>
-            
-              <!-- Zona derecha: Imagen, estrellas y categoria -->
-                <div class="zona_tarjeta_calif">
+                    <div class="separador-vertical"></div>
 
-                  <div class="zona-derecha">
-                    <!-- Imagen -->
-                    <div class="img-container" onclick="document.getElementById('input-imagen-receta').click()">
-                        <i class="ph ph-image icono-placeholder"></i>
-                        <img id="preview-imagen-receta" class="img-preview" style="display: none;">
-                      </div>
-                      <input 
-                        type="file" 
-                        id="input-imagen-receta" 
-                        name="imagen" 
-                        accept="image/*" 
-                        style="display: none;" 
-                        onchange="mostrarPreviewReceta(this, document.getElementById('preview-imagen-receta'))"
-                      >
-                    <!-- Estrellas -->
-                     <div class="rating">
-                        <input type="radio" id="star-1" name="star-radio[]" value="5">
-                        <label for="star-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                        </label>
-                        <input type="radio" id="star-2" name="star-radio[]" value="4">
-                        <label for="star-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                        </label>
-                        <input type="radio" id="star-3" name="star-radio[]" value="3">
-                        <label for="star-3">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                        </label>
-                        <input type="radio" id="star-4" name="star-radio[]" value="2">
-                        <label for="star-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                        </label>
-                        <input type="radio" id="star-5" name="star-radio[]" value="1">
-                        <label for="star-5">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                        </label>
-                     </div>
-
-                  </div>
-                  
                   <!-- Categoría -->
                   <div class="categoria">
                     <label for="categoria-receta" class="form-label">Categoría:</label>
@@ -128,9 +145,13 @@
                     </select>
                   </div>
 
+            </div>
+
                 </div>
 
               </div>
+
+
             
               <!-- Ingredientes -->
               <div class="cont-ingred">
