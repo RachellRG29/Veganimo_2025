@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function abrirModalReceta() {
     const modal = document.getElementById("modal-receta");
     modal.classList.remove("oculto");
+    document.body.style.overflow = "hidden";
   }
 
   function cerrarModalReceta() {
@@ -114,13 +115,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Delegación de eventos para detectar clics en las tarjetas
   document.addEventListener("click", function (e) {
+    // Verificar si el clic fue en elementos del popup de perfil
+    const esClickEnPerfil = e.target.closest('.tarjeta-perfil') || 
+                          e.target.closest('.tarjeta_menu') || 
+                          e.target.closest('#tarj_perfil_user') ||
+                          e.target.closest('#menu_popup');
+    
+    // Si es un clic en el perfil o su popup, no hacer nada
+    if (esClickEnPerfil) {
+      return;
+    }
+    
+    // Solo procesar clics en tarjetas de receta
     const tarjeta = e.target.closest(".tarjeta-receta");
     if (tarjeta && tarjeta.hasAttribute("data-receta")) {
       const receta = JSON.parse(tarjeta.getAttribute("data-receta"));
       cargarModalReceta(receta);
       abrirModalReceta();
     }
-  });
+  }, false); // Usamos bubble phase para dar prioridad al popup
 });
 
 // Función global para cerrar el modal
@@ -129,7 +142,6 @@ function cerrarModal() {
   if (modal) {
     modal.classList.add('oculto');
     document.body.style.overflow = 'auto';
-    console.log('Modal cerrado');
   }
 }
 

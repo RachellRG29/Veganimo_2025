@@ -74,6 +74,7 @@ if (
     empty($categoria) ||
     empty($ingredientes) ||
     empty($pasos) ||
+    empty($calificacionFiltrada) || // Al menos una calificación válida
     !array_filter($pasos, fn($p) => !empty($p)) // Al menos un paso con texto
 ) {
     echo json_encode([

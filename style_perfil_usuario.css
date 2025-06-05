@@ -1,17 +1,27 @@
-/*Perfil usuario esquina superior derecha*/
-.perfil_user{
+/*
+* {
+  outline: 1px solid rgb(208, 223, 8);
+}*/
+
+/* Tarjeta Perfil usuario esquina superior derecha*/
+.tarjeta_menu{
+  display: flex;
+  flex-direction: column;
+}
+
+/*Perfil usuario vegano*/
+.tarjeta-perfil{
   position: fixed !important; /*para q no se mueva*/
+  display: flex;
   right: 2.5rem;
   top: 1rem;
   padding: 2px 20px;
   background-color: #E99A3C;
-  display: flex;
   gap: 5px;
   border-radius: 0.5rem;
   z-index: 1000;
-  align-content: center !important; /*para que se alinee verticalmente*/
-  align-items: center !important; /*para que se alinee verticalmente*/
   cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .circulo_perfil{
@@ -33,5 +43,38 @@
   font-family: 'Comfortaa', Verdana;
   font-size: 16px;
   text-align: center !important;
-  margin-top: 8px;
+  margin-top: 11px;
+}
+
+
+/* Menu perfil popup */
+.menu_perfil {
+  position: fixed !important;
+  right: 2.5rem;
+  top: 4.2rem; /* ✅ esta línea asegura que el menú se muestre debajo */
+  padding: 2px 38px;
+  background-color: #E99A3C;
+  border-radius: 0.5rem;
+  z-index: 999;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+.menu_perfil ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu_perfil li {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.menu_perfil a {
+  color: #1A1C1C;
+  font-family: 'Comfortaa', Verdana;
+  font-size: 16px;
+  text-decoration: none;
 }

@@ -22,9 +22,7 @@ async function cargarContenido(pagina) {
   }
 }
 
-
- //Actualiza la información del perfil del usuario en toda la aplicación
-
+//Actualiza la información del perfil del usuario en toda la aplicación
 async function actualizarPerfilUsuario() {
   try {
     let nombreUsuario = localStorage.getItem('userDisplayName');
@@ -56,6 +54,7 @@ async function verificarSesion() {
   if (!response.ok) throw new Error('Error verificando sesión');
   return await response.json();
 }
+
 
 //Verifica el rol del usuario y muestra/oculta elementos de admin
 async function verificarRolUsuario() {
@@ -89,69 +88,21 @@ function aplicarEstilosFondo(pagina) {
  //Ejecuta scripts específicos para cada página
 
 function ejecutarScriptsPagina(pagina) {
-  // Lógica específica para "Crear Recetas"
   if (pagina === "crear-recetas.html") {
     inicializarCrearRecetas();
   }
 
-  // Cargar recetas
- if (pagina === "pp_recetas.html") {
-  setTimeout(() => {
-    if (typeof cargarRecetas === 'function') {
-      cargarRecetas();
-    } else {
-      console.error("❌ La función cargarRecetas no está definida.");
-    }
-  }, 100);
-}
-}
-
-// Cerrar sesión
-document.addEventListener('DOMContentLoaded', () => {
-  const btnCerrarSesion = document.querySelector('.cerrar-sesion');
-
-  if (btnCerrarSesion) {
-    btnCerrarSesion.addEventListener('click', () => {
-      Swal.fire({
-        title: '¿Cerrar sesión?',
-        text: "¿Estás seguro de que deseas salir?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, salir',
-        cancelButtonText: 'Cancelar'
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const response = await fetch('/Login/logout.php');
-            const data = await response.json();
-
-            if (data.success) {
-              localStorage.removeItem('userDisplayName');
-              Swal.fire({
-                title: 'Sesión cerrada',
-                text: 'Has cerrado sesión exitosamente.',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false
-              });
-
-              setTimeout(() => {
-                window.location.href = data.redirect;
-              }, 1600);
-            } else {
-              Swal.fire('Error', 'No se pudo cerrar la sesión.', 'error');
-            }
-          } catch (error) {
-            console.error('Error al cerrar sesión:', error);
-            Swal.fire('Error', 'Algo salió mal al cerrar sesión.', 'error');
-          }
-        }
-      });
-    });
+  if (pagina === "pp_recetas.html") {
+    setTimeout(() => {
+      if (typeof cargarRecetas === 'function') {
+        cargarRecetas();
+      } else {
+        console.error("❌ La función cargarRecetas no está definida.");
+      }
+    }, 100);
   }
-});
+
+}
 
 
  //* Inicializa la funcionalidad de "Crear Recetas"

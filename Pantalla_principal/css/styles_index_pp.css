@@ -2,7 +2,7 @@
 * {
   /*outline: 1px solid rgb(208, 223, 8);*/
   margin: 0; padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
 
 body , html{
@@ -10,17 +10,19 @@ body , html{
   flex-direction: column !important;
   min-height: 100vh !important;
   font-family: 'Comfortaa', Verdana;
+  padding-right: 0 !important; /*para q no se mueva el contenido de pp, por bootstrap*/
 }
 
 .container {
   flex: 1;
   display: flex;
-   width: 100% !important;
+  width: 100% !important;
   max-width: none !important;
-   margin-right: auto !important;
+  margin-right: auto !important;
   margin-left: auto !important;
   padding-right: 0 !important;
   padding-left: 0 !important;
+    right: 0 !important;
 }
 
 /* Contenido */
@@ -29,8 +31,8 @@ body , html{
   padding: 25px;
   background-color: #F6FFFE;
   min-height: 100vh;
+  margin-right: 0 !important;
 }
-
 
 .logo-isotipo {
   width: 50px;

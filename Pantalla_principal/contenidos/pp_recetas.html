@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Recetas | Vegánimo</title>
@@ -7,8 +6,6 @@
   <script src="https://unpkg.com/phosphor-icons"></script>
 
 </head>
-
-<body>
 
   <section class="section_recetas_pp">
     <!-- Contenedor de la barra de búsqueda -->
@@ -30,13 +27,29 @@
         </div>
       </div>
 
-      <!-- Perfil del usuario -->
-      <div class="perfil_user">
-        <h2 class="lbl_nombre_user">User</h2> 
+    <!-- Tarjeta menu perfil nutricional -->
+    <div class="tarjeta_menu">
+      <!-- Tarjeta usuario del perfil -->
+      <div class="tarjeta-perfil" id="tarj_perfil_user"> <!-- CAMBIO AQUÍ -->
+        <h2 class="lbl_nombre_user">User</h2>  
         <div class="circulo_perfil">
-          <img src="../Images/img_sinperfilusuario.png" alt="Imagen de perfil" class="img_perfil">
+          <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
         </div>
       </div>
+
+      <!-- Menu perfil popup -->
+      <div class="menu_perfil" id="menu_popup" style="display: none;">
+        <ul>
+          <li><a href="/Perfil_nutricional/crear_perfil_nutric.html">Crear perfil nutricional </a></li>
+          <li>
+            <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
+              <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     </div>
 
     <h1 class="lbl_title_recetas">Recetas generales de Vegánimo 🌱</h1>
@@ -348,9 +361,8 @@
     
   </section>
 
-
-</body>
 </html>
+
 
 
 
