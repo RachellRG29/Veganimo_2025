@@ -6,11 +6,12 @@
   padding: 2px 20px;
   background-color: #E99A3C;
   display: flex;
-  gap: 10px;
+  gap: 5px;
   border-radius: 0.5rem;
   z-index: 1000;
   align-content: center !important; /*para que se alinee verticalmente*/
   align-items: center !important; /*para que se alinee verticalmente*/
+  cursor: pointer;
 }
 
 .circulo_perfil{
@@ -30,6 +31,7 @@
 
 .lbl_nombre_user{
   font-family: 'Comfortaa', Verdana;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center !important;
+  margin-top: 8px;
 }

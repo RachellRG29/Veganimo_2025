@@ -106,6 +106,54 @@ function ejecutarScriptsPagina(pagina) {
 }
 }
 
+// Cerrar sesión
+document.addEventListener('DOMContentLoaded', () => {
+  const btnCerrarSesion = document.querySelector('.cerrar-sesion');
+
+  if (btnCerrarSesion) {
+    btnCerrarSesion.addEventListener('click', () => {
+      Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: "¿Estás seguro de que deseas salir?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, salir',
+        cancelButtonText: 'Cancelar'
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await fetch('/Login/logout.php');
+            const data = await response.json();
+
+            if (data.success) {
+              localStorage.removeItem('userDisplayName');
+              Swal.fire({
+                title: 'Sesión cerrada',
+                text: 'Has cerrado sesión exitosamente.',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+              });
+
+              setTimeout(() => {
+                window.location.href = data.redirect;
+              }, 1600);
+            } else {
+              Swal.fire('Error', 'No se pudo cerrar la sesión.', 'error');
+            }
+          } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+            Swal.fire('Error', 'Algo salió mal al cerrar sesión.', 'error');
+          }
+        }
+      });
+    });
+  }
+});
+
+
  //* Inicializa la funcionalidad de "Crear Recetas"
 
 function inicializarCrearRecetas() {
