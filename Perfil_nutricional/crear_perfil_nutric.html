@@ -27,6 +27,7 @@
 </head>
 
 <body>
+  
 
     <!-- Tarjeta menu perfil nutricional -->
     <div class="tarjeta_menu">
@@ -63,18 +64,18 @@
 
             <div class="form-group">
                 <label class="form-label">Nombre completo:</label>
-                <input type="text" class="form-input half-width">
+                <input type="text" name="nombre_completo" class="form-input half-width">
             </div>
 
             <div class="form-group">
                 <label class="form-label">Fecha de nacimiento:</label>
-                <input type="date" class="form-input half-width">
+                <input type="date" name="fecha_nacimiento" class="form-input half-width">
             </div>
 
             <div class="form-group">
                 <label class="form-label">Género:</label>
                 <div class="select-container">
-                    <select class="form-select">
+                    <select name="genero" class="form-select">
                         <option value="" disabled selected>Selecciona tu género</option>
                         <option value="masculino">Masculino</option>
                         <option value="femenino">Femenino</option>
@@ -86,7 +87,7 @@
             </div>
 
             <div class="buttons-container">
-                <button class="form-button next-button" onclick="nextSection(1)">Siguiente</button>
+                <button type="button" class="form-button next-button" onclick="nextSection(1)">Siguiente</button>
             </div>
 
             <div class="progress-container">
@@ -112,7 +113,7 @@
             <div class="form-group">
                 <label class="form-label required">¿Qué tipo de dieta llevas actualmente:</label>
                 <div class="select-container">
-                    <select class="form-select">
+                    <select name="dieta_actual" class="form-select">
                         <option value="" disabled selected>Selecciona tu dieta</option>
                         <option value="omnivora">Omnívora</option>
                         <option value="vegetariana">Vegetariana</option>
@@ -130,7 +131,7 @@
                     <div class="form-group">
                         <label class="form-label required">Escribe tu peso actual:</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="number" class="form-input half-width">
+                            <input type="number" name="peso" class="form-input half-width">
                             <span class="unit-text">kg</span>
                         </div>
                         <p class="explanation-text">Ingresa tu peso actual en kilogramos</p>
@@ -140,7 +141,7 @@
                     <div class="form-group">
                         <label class="form-label required">Escribe tu altura:</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="number" class="form-input half-width">
+                            <input type="number" name="altura" class="form-input half-width">
                             <span class="unit-text">cm</span>
                         </div>
                         <p class="explanation-text">Ingresa tu altura en centímetros</p>
@@ -153,7 +154,7 @@
                     <div class="form-group">
                         <label class="form-label required">¿Cuál es tu objetivo nutricional?</label>
                         <div class="select-container">
-                            <select class="form-select">
+                            <select name="objetivo" class="form-select">
                                 <option value="" disabled selected>Selecciona tu objetivo</option>
                                 <option value="perder-peso">Perder peso</option>
                                 <option value="ganar-masa">Ganar masa muscular</option>
@@ -170,7 +171,7 @@
                     <div class="form-group">
                         <label class="form-label required">¿Cuál es el nivel o meta que esperas alcanzar?</label>
                         <div class="select-container">
-                            <select class="form-select">
+                            <select name="nivel_meta" class="form-select">
                                 <option value="" disabled selected>Selecciona tu meta</option>
                                 <option value="bajo">Bajo (cambios mínimos)</option>
                                 <option value="moderado">Moderado (cambios graduales)</option>
@@ -185,8 +186,8 @@
             </div>
 
             <div class="buttons-container">
-                <button class="form-button prev-button" onclick="prevSection(2)">Atrás</button>
-                <button class="form-button next-button" onclick="nextSection(2)">Siguiente</button>
+                <button type="button" class="form-button prev-button" onclick="prevSection(2)">Atrás</button>
+                <button type="button" class="form-button next-button" onclick="nextSection(2)">Siguiente</button>
             </div>
 
                <div class="progress-container2">
@@ -213,38 +214,38 @@
   <!-- Antecedentes patológicos -->
   <div class="form-group">
     <label class="form-label">Antecedentes patológicos</label>
-    <div class="custom-select-container" onclick="historia(this)">
+    <div class="custom-select-container"  onclick="historia(this)">
       <div class="custom-select-selected">Selecciona antecedentes patológicos</div>
       <i class="fas fa-chevron-down select-arrow"></i>
     </div>
     <div class="custom-select-options" style="display: none;">
-      <label><input type="checkbox" name="patologicos" value="Hipertensión arterial"> Hipertensión arterial</label>
-      <label><input type="checkbox" name="patologicos" value="Diabetes mellitus"> Diabetes mellitus</label>
-      <label><input type="checkbox" name="patologicos" value="Asma bronquial"> Asma bronquial</label>
-      <label><input type="checkbox" name="patologicos" value="Alergia a medicamentos"> Alergia a medicamentos</label>
-      <label><input type="checkbox" name="patologicos" value="Alergia a picaduras"> Alergia a picaduras</label>
-      <label><input type="checkbox" name="patologicos" value="Colesterol alto"> Colesterol alto</label>
-      <label><input type="checkbox" name="patologicos" value="Triglicéridos altos"> Triglicéridos altos</label>
-      <label><input type="checkbox" name="patologicos" value="Obesidad"> Obesidad</label>
-      <label><input type="checkbox" name="patologicos" value="Sobrepeso"> Sobrepeso</label>
-      <label><input type="checkbox" name="patologicos" value="Hipotiroidismo"> Hipotiroidismo</label>
-      <label><input type="checkbox" name="patologicos" value="Hipertiroidismo"> Hipertiroidismo</label>
-      <label><input type="checkbox" name="patologicos" value="Infarto"> Infarto</label>
-      <label><input type="checkbox" name="patologicos" value="Insuficiencia cardíaca"> Insuficiencia cardíaca</label>
-      <label><input type="checkbox" name="patologicos" value="EPOC"> EPOC</label>
-      <label><input type="checkbox" name="patologicos" value="Tuberculosis"> Tuberculosis</label>
-      <label><input type="checkbox" name="patologicos" value="Epilepsia"> Epilepsia</label>
-      <label><input type="checkbox" name="patologicos" value="Migraña"> Migraña</label>
-      <label><input type="checkbox" name="patologicos" value="ACV"> Accidente cerebrovascular (ACV)</label>
-      <label><input type="checkbox" name="patologicos" value="Depresión"> Depresión</label>
-      <label><input type="checkbox" name="patologicos" value="Ansiedad"> Ansiedad</label>
-      <label><input type="checkbox" name="patologicos" value="Esquizofrenia"> Esquizofrenia</label>
-      <label><input type="checkbox" name="patologicos" value="VIH"> VIH</label>
-      <label><input type="checkbox" name="patologicos" value="Hepatitis B"> Hepatitis B</label>
-      <label><input type="checkbox" name="patologicos" value="Hepatitis C"> Hepatitis C</label>
-      <label><input type="checkbox" name="patologicos" value="Gastritis"> Gastritis</label>
-      <label><input type="checkbox" name="patologicos" value="Úlcera"> Úlcera</label>
-      <label><input type="checkbox" name="patologicos" value="Colitis"> Colitis</label>
+      <label><input type="checkbox" name="patologicos[]" value="Hipertensión arterial"> Hipertensión arterial</label>
+      <label><input type="checkbox" name="patologicos[]" value="Diabetes mellitus"> Diabetes mellitus</label>
+      <label><input type="checkbox" name="patologicos[]" value="Asma bronquial"> Asma bronquial</label>
+      <label><input type="checkbox" name="patologicos[]" value="Alergia a medicamentos"> Alergia a medicamentos</label>
+      <label><input type="checkbox" name="patologicos[]" value="Alergia a picaduras"> Alergia a picaduras</label>
+      <label><input type="checkbox" name="patologicos[]" value="Colesterol alto"> Colesterol alto</label>
+      <label><input type="checkbox" name="patologicos[]" value="Triglicéridos altos"> Triglicéridos altos</label>
+      <label><input type="checkbox" name="patologicos[]" value="Obesidad"> Obesidad</label>
+      <label><input type="checkbox" name="patologicos[]" value="Sobrepeso"> Sobrepeso</label>
+      <label><input type="checkbox" name="patologicos[]" value="Hipotiroidismo"> Hipotiroidismo</label>
+      <label><input type="checkbox" name="patologicos[]" value="Hipertiroidismo"> Hipertiroidismo</label>
+      <label><input type="checkbox" name="patologicos[]" value="Infarto"> Infarto</label>
+      <label><input type="checkbox" name="patologicos[]" value="Insuficiencia cardíaca"> Insuficiencia cardíaca</label>
+      <label><input type="checkbox" name="patologicos[]" value="EPOC"> EPOC</label>
+      <label><input type="checkbox" name="patologicos[]" value="Tuberculosis"> Tuberculosis</label>
+      <label><input type="checkbox" name="patologicos[]" value="Epilepsia"> Epilepsia</label>
+      <label><input type="checkbox" name="patologicos[]" value="Migraña"> Migraña</label>
+      <label><input type="checkbox" name="patologicos[]" value="ACV"> Accidente cerebrovascular (ACV)</label>
+      <label><input type="checkbox" name="patologicos[]" value="Depresión"> Depresión</label>
+      <label><input type="checkbox" name="patologicos[]" value="Ansiedad"> Ansiedad</label>
+      <label><input type="checkbox" name="patologicos[]" value="Esquizofrenia"> Esquizofrenia</label>
+      <label><input type="checkbox" name="patologicos[]" value="VIH"> VIH</label>
+      <label><input type="checkbox" name="patologicos[]" value="Hepatitis B"> Hepatitis B</label>
+      <label><input type="checkbox" name="patologicos[]" value="Hepatitis C"> Hepatitis C</label>
+      <label><input type="checkbox" name="patologicos[]" value="Gastritis"> Gastritis</label>
+      <label><input type="checkbox" name="patologicos[]" value="Úlcera"> Úlcera</label>
+      <label><input type="checkbox" name="patologicos[]" value="Colitis"> Colitis</label>
     </div>
     <small>Selecciona si tienes o has tenido alguna de estas condiciones médicas.</small>
   </div>
@@ -257,26 +258,26 @@
     <i class="fas fa-chevron-down select-arrow"></i>
   </div>
   <div class="custom-select-options" style="display: none;">
-    <label><input type="checkbox" name="familiares" value="Diabetes mellitus"> Diabetes mellitus</label>
-    <label><input type="checkbox" name="familiares" value="Hipertensión arterial"> Hipertensión arterial</label>
-    <label><input type="checkbox" name="familiares" value="Cáncer de mama"> Cáncer de mama</label>
-    <label><input type="checkbox" name="familiares" value="Cáncer de colon"> Cáncer de colon</label>
-    <label><input type="checkbox" name="familiares" value="Cáncer de próstata"> Cáncer de próstata</label>
-    <label><input type="checkbox" name="familiares" value="Cáncer de pulmón"> Cáncer de pulmón</label>
-    <label><input type="checkbox" name="familiares" value="Infarto"> Infarto</label>
-    <label><input type="checkbox" name="familiares" value="Angina"> Angina</label>
-    <label><input type="checkbox" name="familiares" value="Muerte súbita"> Muerte súbita</label>
-    <label><input type="checkbox" name="familiares" value="ACV"> Accidente cerebrovascular (ACV)</label>
-    <label><input type="checkbox" name="familiares" value="Asma"> Asma</label>
-    <label><input type="checkbox" name="familiares" value="Enfermedades alérgicas"> Enfermedades alérgicas</label>
-    <label><input type="checkbox" name="familiares" value="Hemofilia"> Hemofilia</label>
-    <label><input type="checkbox" name="familiares" value="Fibrosis quística"> Fibrosis quística</label>
-    <label><input type="checkbox" name="familiares" value="Otra enfermedad genética"> Otra enfermedad genética o hereditaria</label>
-    <label><input type="checkbox" name="familiares" value="Depresión"> Depresión</label>
-    <label><input type="checkbox" name="familiares" value="Ansiedad"> Ansiedad</label>
-    <label><input type="checkbox" name="familiares" value="Esquizofrenia"> Esquizofrenia</label>
-    <label><input type="checkbox" name="familiares" value="Artritis reumatoide"> Artritis reumatoide</label>
-    <label><input type="checkbox" name="familiares" value="Lupus"> Lupus</label>
+    <label><input type="checkbox" name="familiares[]" value="Diabetes mellitus"> Diabetes mellitus</label>
+    <label><input type="checkbox" name="familiares[]" value="Hipertensión arterial"> Hipertensión arterial</label>
+    <label><input type="checkbox" name="familiares[]" value="Cáncer de mama"> Cáncer de mama</label>
+    <label><input type="checkbox" name="familiares[]" value="Cáncer de colon"> Cáncer de colon</label>
+    <label><input type="checkbox" name="familiares[]" value="Cáncer de próstata"> Cáncer de próstata</label>
+    <label><input type="checkbox" name="familiares[]" value="Cáncer de pulmón"> Cáncer de pulmón</label>
+    <label><input type="checkbox" name="familiares[]" value="Infarto"> Infarto</label>
+    <label><input type="checkbox" name="familiares[]" value="Angina"> Angina</label>
+    <label><input type="checkbox" name="familiares[]" value="Muerte súbita"> Muerte súbita</label>
+    <label><input type="checkbox" name="familiares[]" value="ACV"> Accidente cerebrovascular (ACV)</label>
+    <label><input type="checkbox" name="familiares[]" value="Asma"> Asma</label>
+    <label><input type="checkbox" name="familiares[]" value="Enfermedades alérgicas"> Enfermedades alérgicas</label>
+    <label><input type="checkbox" name="familiares[]" value="Hemofilia"> Hemofilia</label>
+    <label><input type="checkbox" name="familiares[]" value="Fibrosis quística"> Fibrosis quística</label>
+    <label><input type="checkbox" name="familiares[]" value="Otra enfermedad genética"> Otra enfermedad genética o hereditaria</label>
+    <label><input type="checkbox" name="familiares[]" value="Depresión"> Depresión</label>
+    <label><input type="checkbox" name="familiares[]" value="Ansiedad"> Ansiedad</label>
+    <label><input type="checkbox" name="familiares[]" value="Esquizofrenia"> Esquizofrenia</label>
+    <label><input type="checkbox" name="familiares[]" value="Artritis reumatoide"> Artritis reumatoide</label>
+    <label><input type="checkbox" name="familiares[]" value="Lupus"> Lupus</label>
   </div>
   <small>Indica si tus familiares directos han tenido alguna de estas enfermedades.</small>
 </div>
@@ -289,27 +290,27 @@
     <i class="fas fa-chevron-down select-arrow"></i>
   </div>
   <div class="custom-select-options" style="display: none;">
-    <label><input type="checkbox" name="quirurgicos" value="Apendicectomía"> Apendicectomía</label>
-    <label><input type="checkbox" name="quirurgicos" value="Colecistectomía"> Colecistectomía</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cesárea"> Cesárea</label>
-    <label><input type="checkbox" name="quirurgicos" value="Herniorrafia inguinal"> Herniorrafia inguinal</label>
-    <label><input type="checkbox" name="quirurgicos" value="Herniorrafia umbilical"> Herniorrafia umbilical</label>
-    <label><input type="checkbox" name="quirurgicos" value="Amigdalectomía"> Amigdalectomía</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cirugía de rodilla"> Cirugía de rodilla</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cirugía de columna"> Cirugía de columna</label>
-    <label><input type="checkbox" name="quirurgicos" value="Histerectomía"> Histerectomía</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cirugía oftálmica"> Cirugía oftálmica</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cirugías por fracturas"> Cirugías ortopédicas por fracturas</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cirugías con prótesis"> Cirugías ortopédicas con prótesis</label>
-    <label><input type="checkbox" name="quirurgicos" value="Cirugías cardiovasculares"> Cirugías cardiovasculares</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Apendicectomía"> Apendicectomía</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Colecistectomía"> Colecistectomía</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cesárea"> Cesárea</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Herniorrafia inguinal"> Herniorrafia inguinal</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Herniorrafia umbilical"> Herniorrafia umbilical</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Amigdalectomía"> Amigdalectomía</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cirugía de rodilla"> Cirugía de rodilla</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cirugía de columna"> Cirugía de columna</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Histerectomía"> Histerectomía</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cirugía oftálmica"> Cirugía oftálmica</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cirugías por fracturas"> Cirugías ortopédicas por fracturas</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cirugías con prótesis"> Cirugías ortopédicas con prótesis</label>
+    <label><input type="checkbox" name="quirurgicos[]" value="Cirugías cardiovasculares"> Cirugías cardiovasculares</label>
   </div>
   <small>Selecciona las cirugías a las que has sido sometido anteriormente.</small>
 </div>
 
 
   <div class="buttons-container">
-    <button class="form-button prev-button" onclick="prevSection(3)">Atrás</button>
-    <button class="form-button next-button" onclick="nextSection(3)">Siguiente</button>
+    <button type="button" class="form-button prev-button" onclick="prevSection(3)">Atrás</button>
+    <button type="button" class="form-button next-button" onclick="nextSection(3)">Siguiente</button>
   </div>
 
  <div class="barra-progreso">
@@ -345,31 +346,31 @@
             <i class="fas fa-chevron-down select-arrow"></i>
           </div>
           <div class="custom-select-options" style="display: none;">
-            <label><input type="checkbox" name="intolerancias" value="Lactosa"> Lactosa</label>
-            <label><input type="checkbox" name="intolerancias" value="Gluten (no celíaca)"> Gluten (no celíaca)</label>
-            <label><input type="checkbox" name="intolerancias" value="Fructosa"> Fructosa</label>
-            <label><input type="checkbox" name="intolerancias" value="Sorbitol"> Sorbitol</label>
-            <label><input type="checkbox" name="intolerancias" value="Caseína"> Caseína</label>
-            <label><input type="checkbox" name="intolerancias" value="Suero de leche"> Suero de leche</label>
-            <label><input type="checkbox" name="intolerancias" value="FODMAPs"> FODMAPs</label>
-            <label><input type="checkbox" name="intolerancias" value="Huevos"> Huevos (clara o yema)</label>
-            <label><input type="checkbox" name="intolerancias" value="Pescado o mariscos"> Pescado o mariscos</label>
-            <label><input type="checkbox" name="intolerancias" value="Trigo"> Trigo (no celíaco)</label>
-            <label><input type="checkbox" name="intolerancias" value="Maíz"> Maíz</label>
-            <label><input type="checkbox" name="intolerancias" value="Soya"> Soya</label>
-            <label><input type="checkbox" name="intolerancias" value="Ajo"> Ajo</label>
-            <label><input type="checkbox" name="intolerancias" value="Cebolla"> Cebolla</label>
-            <label><input type="checkbox" name="intolerancias" value="Tomate"> Tomate</label>
-            <label><input type="checkbox" name="intolerancias" value="Chocolate"> Chocolate</label>
-            <label><input type="checkbox" name="intolerancias" value="Cafeína"> Cafeína</label>
-            <label><input type="checkbox" name="intolerancias" value="Alcohol"> Alcohol</label>
-            <label><input type="checkbox" name="intolerancias" value="Maní o nueces"> Maní o nueces</label>
-            <label><input type="checkbox" name="intolerancias" value="GMS"> Glutamato monosódico (GMS)</label>
-            <label><input type="checkbox" name="intolerancias" value="Vinagre"> Vinagre</label>
-            <label><input type="checkbox" name="intolerancias" value="Colorantes artificiales"> Colorantes artificiales</label>
-            <label><input type="checkbox" name="intolerancias" value="Edulcorantes artificiales"> Edulcorantes artificiales</label>
-            <label><input type="checkbox" name="intolerancias" value="Legumbres"> Legumbres</label>
-            <label><input type="checkbox" name="intolerancias" value="Miel"> Miel</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Lactosa"> Lactosa</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Gluten (no celíaca)"> Gluten (no celíaca)</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Fructosa"> Fructosa</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Sorbitol"> Sorbitol</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Caseína"> Caseína</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Suero de leche"> Suero de leche</label>
+            <label><input type="checkbox" name="intolerancias[]" value="FODMAPs"> FODMAPs</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Huevos"> Huevos (clara o yema)</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Pescado o mariscos"> Pescado o mariscos</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Trigo"> Trigo (no celíaco)</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Maíz"> Maíz</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Soya"> Soya</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Ajo"> Ajo</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Cebolla"> Cebolla</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Tomate"> Tomate</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Chocolate"> Chocolate</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Cafeína"> Cafeína</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Alcohol"> Alcohol</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Maní o nueces"> Maní o nueces</label>
+            <label><input type="checkbox" name="intolerancias[]" value="GMS"> Glutamato monosódico (GMS)</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Vinagre"> Vinagre</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Colorantes artificiales"> Colorantes artificiales</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Edulcorantes artificiales"> Edulcorantes artificiales</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Legumbres"> Legumbres</label>
+            <label><input type="checkbox" name="intolerancias[]" value="Miel"> Miel</label>
           </div>
         </div>
 
@@ -381,27 +382,27 @@
             <i class="fas fa-chevron-down select-arrow"></i>
           </div>
           <div class="custom-select-options" style="display: none;">
-            <label><input type="checkbox" name="alergias" value="Maní"> Maní (cacahuate)</label>
-            <label><input type="checkbox" name="alergias" value="Nueces"> Nueces (nuez, almendra, avellana, etc.)</label>
-            <label><input type="checkbox" name="alergias" value="Huevo"> Huevo</label>
-            <label><input type="checkbox" name="alergias" value="Leche de vaca"> Leche de vaca</label>
-            <label><input type="checkbox" name="alergias" value="Pescado"> Pescado</label>
-            <label><input type="checkbox" name="alergias" value="Mariscos"> Mariscos</label>
-            <label><input type="checkbox" name="alergias" value="Trigo"> Trigo (alergia)</label>
-            <label><input type="checkbox" name="alergias" value="Soya"> Soya</label>
-            <label><input type="checkbox" name="alergias" value="Sésamo"> Sésamo (ajonjolí)</label>
-            <label><input type="checkbox" name="alergias" value="Mostaza"> Mostaza</label>
-            <label><input type="checkbox" name="alergias" value="Frutas frescas"> Frutas frescas (alergia cruzada con polen)</label>
-            <label><input type="checkbox" name="alergias" value="Latex-frutas"> Latex-frutas</label>
-            <label><input type="checkbox" name="alergias" value="Gelatina"> Gelatina (alergia a colágeno animal)</label>
-            <label><input type="checkbox" name="alergias" value="Colorantes artificiales"> Colorantes artificiales</label>
-            <label><input type="checkbox" name="alergias" value="Preservantes"> Preservantes (sulfitos, benzoatos)</label>
+            <label><input type="checkbox" name="alergias[]" value="Maní"> Maní (cacahuate)</label>
+            <label><input type="checkbox" name="alergias[]" value="Nueces"> Nueces (nuez, almendra, avellana, etc.)</label>
+            <label><input type="checkbox" name="alergias[]" value="Huevo"> Huevo</label>
+            <label><input type="checkbox" name="alergias[]" value="Leche de vaca"> Leche de vaca</label>
+            <label><input type="checkbox" name="alergias[]" value="Pescado"> Pescado</label>
+            <label><input type="checkbox" name="alergias[]" value="Mariscos"> Mariscos</label>
+            <label><input type="checkbox" name="alergias[]" value="Trigo"> Trigo (alergia)</label>
+            <label><input type="checkbox" name="alergias[]" value="Soya"> Soya</label>
+            <label><input type="checkbox" name="alergias[]" value="Sésamo"> Sésamo (ajonjolí)</label>
+            <label><input type="checkbox" name="alergias[]" value="Mostaza"> Mostaza</label>
+            <label><input type="checkbox" name="alergias[]" value="Frutas frescas"> Frutas frescas (alergia cruzada con polen)</label>
+            <label><input type="checkbox" name="alergias[]" value="Latex-frutas"> Latex-frutas</label>
+            <label><input type="checkbox" name="alergias[]" value="Gelatina"> Gelatina (alergia a colágeno animal)</label>
+            <label><input type="checkbox" name="alergias[]" value="Colorantes artificiales"> Colorantes artificiales</label>
+            <label><input type="checkbox" name="alergias[]" value="Preservantes"> Preservantes (sulfitos, benzoatos)</label>
           </div>
         </div>
 
         <div class="buttons-container">
-          <button class="form-button prev-button" onclick="prevSection(4)">Atrás</button>
-          <button class="form-button next-button" onclick="nextSection(4)">Siguiente</button>
+          <button type="button" class="form-button prev-button" onclick="prevSection(4)">Atrás</button>
+          <button type="button" class="form-button next-button" onclick="nextSection(4)">Siguiente</button>
         </div>
 
       <div class="progress-container4">
@@ -458,8 +459,8 @@
         </div>
 
         <div class="buttons-container">
-            <button class="form-button prev-button" onclick="prevSection(5)">Atrás</button>
-            <button class="form-button next-button" onclick="nextSection(5)">Siguiente</button>
+            <button type="button" class="form-button prev-button" onclick="prevSection(5)">Atrás</button>
+            <button type="button" class="form-button next-button" onclick="nextSection(5)">Siguiente</button>
         </div>
 
     <div class="progress-container5">
@@ -493,16 +494,16 @@
         </div>
 
         <div class="form-group" id="dietaDescripcion" style="display: none;">
-            <textarea class="form-input full-width" rows="4" placeholder="Describe la dieta médica o terapéutica que estás siguiendo..."></textarea>
+            <textarea class="form-input full-width" name="descripcion_dieta" rows="4" placeholder="Describe la dieta médica o terapéutica que estás siguiendo..."></textarea>
             <small class="form-hint">Incluye el tipo de dieta y cualquier detalle relevante proporcionado por tu nutricionista o médico.</small>
         </div>
 
     
 
-        <div class="buttons-container">
-            <button class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
-            <button class="form-button submit-button" id="gilberto" onclick="submitForm()">Guardar</button>
-        </div>
+                        <div class="buttons-container">
+                    <button type="button" class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
+                    <button type="submit" class="form-button submit-button">Guardar</button>
+                </div>
 
     <div class="progress-container6">
         <div class="progress-step6 active6"></div>
