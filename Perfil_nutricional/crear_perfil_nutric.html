@@ -52,9 +52,8 @@
       </div>
     </div>
 
-
-    <div class="form-container">
-        <!-- Sección 1: Datos generales -->
+    <form action="guardar_perfil.php" method="POST" class="form-container" id="form-crear-perfil"> 
+      <!-- Sección 1: Datos generales -->
         <div class="section active" id="section1">
             <h1 class="main-title">Crear perfil nutricional</h1>
             <div class="title-decoration"></div>
@@ -105,7 +104,7 @@
             </div>
         </div>
 
-        <!-- Sección 2: Datos nutricionales -->
+         <!-- Sección 2: Datos nutricionales -->
         <div class="section" id="section2">
             <h2 class="section-title">Datos nutricionales</h2>
             <div class="section-divider"></div>
@@ -204,11 +203,10 @@
     <div class="progress-step2 inactive2"></div>
 </div>
 
-</div>
+     </div>
 
-
-<!-- Sección 3: Historia clínica -->
-<div class="section" id="section3">
+     <!-- Sección 3: Historia clínica -->
+        <div class="section" id="section3">
   <h2 class="section-title">Historia clínica</h2>
   <div class="section-divider"></div>
 
@@ -327,201 +325,203 @@
     <div class="linea-progreso"></div>
     <div class="paso-progreso inactivo"></div>
 </div>
-</div>
+     </div>
 
 
-<!-- Sección 4: Afecciones personales -->
-<div class="section" id="section4">
-  <h2 class="section-title">Afecciones personales</h2>
-  <div class="section-divider"></div>
+          <!-- Sección 4: Afecciones personales -->
+      <div class="section" id="section4">
+        <h2 class="section-title">Afecciones personales</h2>
+        <div class="section-divider"></div>
 
-  <p class="section-description">
-    Las afecciones personales no serán campos obligatorios.
-  </p>
+        <p class="section-description">
+          Las afecciones personales no serán campos obligatorios.
+        </p>
 
-  <!-- Intolerancias -->
-  <div class="form-group">
-    <label class="form-label">Intolerancias</label>
-    <div class="custom-select-container" onclick="afecciones(this)">
-      <div class="custom-select-selected">Selecciona intolerancias</div>
-      <i class="fas fa-chevron-down select-arrow"></i>
-    </div>
-    <div class="custom-select-options" style="display: none;">
-      <label><input type="checkbox" name="intolerancias" value="Lactosa"> Lactosa</label>
-      <label><input type="checkbox" name="intolerancias" value="Gluten (no celíaca)"> Gluten (no celíaca)</label>
-      <label><input type="checkbox" name="intolerancias" value="Fructosa"> Fructosa</label>
-      <label><input type="checkbox" name="intolerancias" value="Sorbitol"> Sorbitol</label>
-      <label><input type="checkbox" name="intolerancias" value="Caseína"> Caseína</label>
-      <label><input type="checkbox" name="intolerancias" value="Suero de leche"> Suero de leche</label>
-      <label><input type="checkbox" name="intolerancias" value="FODMAPs"> FODMAPs</label>
-      <label><input type="checkbox" name="intolerancias" value="Huevos"> Huevos (clara o yema)</label>
-      <label><input type="checkbox" name="intolerancias" value="Pescado o mariscos"> Pescado o mariscos</label>
-      <label><input type="checkbox" name="intolerancias" value="Trigo"> Trigo (no celíaco)</label>
-      <label><input type="checkbox" name="intolerancias" value="Maíz"> Maíz</label>
-      <label><input type="checkbox" name="intolerancias" value="Soya"> Soya</label>
-      <label><input type="checkbox" name="intolerancias" value="Ajo"> Ajo</label>
-      <label><input type="checkbox" name="intolerancias" value="Cebolla"> Cebolla</label>
-      <label><input type="checkbox" name="intolerancias" value="Tomate"> Tomate</label>
-      <label><input type="checkbox" name="intolerancias" value="Chocolate"> Chocolate</label>
-      <label><input type="checkbox" name="intolerancias" value="Cafeína"> Cafeína</label>
-      <label><input type="checkbox" name="intolerancias" value="Alcohol"> Alcohol</label>
-      <label><input type="checkbox" name="intolerancias" value="Maní o nueces"> Maní o nueces</label>
-      <label><input type="checkbox" name="intolerancias" value="GMS"> Glutamato monosódico (GMS)</label>
-      <label><input type="checkbox" name="intolerancias" value="Vinagre"> Vinagre</label>
-      <label><input type="checkbox" name="intolerancias" value="Colorantes artificiales"> Colorantes artificiales</label>
-      <label><input type="checkbox" name="intolerancias" value="Edulcorantes artificiales"> Edulcorantes artificiales</label>
-      <label><input type="checkbox" name="intolerancias" value="Legumbres"> Legumbres</label>
-      <label><input type="checkbox" name="intolerancias" value="Miel"> Miel</label>
-    </div>
-  </div>
+        <!-- Intolerancias -->
+        <div class="form-group">
+          <label class="form-label">Intolerancias</label>
+          <div class="custom-select-container" onclick="afecciones(this)">
+            <div class="custom-select-selected">Selecciona intolerancias</div>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <div class="custom-select-options" style="display: none;">
+            <label><input type="checkbox" name="intolerancias" value="Lactosa"> Lactosa</label>
+            <label><input type="checkbox" name="intolerancias" value="Gluten (no celíaca)"> Gluten (no celíaca)</label>
+            <label><input type="checkbox" name="intolerancias" value="Fructosa"> Fructosa</label>
+            <label><input type="checkbox" name="intolerancias" value="Sorbitol"> Sorbitol</label>
+            <label><input type="checkbox" name="intolerancias" value="Caseína"> Caseína</label>
+            <label><input type="checkbox" name="intolerancias" value="Suero de leche"> Suero de leche</label>
+            <label><input type="checkbox" name="intolerancias" value="FODMAPs"> FODMAPs</label>
+            <label><input type="checkbox" name="intolerancias" value="Huevos"> Huevos (clara o yema)</label>
+            <label><input type="checkbox" name="intolerancias" value="Pescado o mariscos"> Pescado o mariscos</label>
+            <label><input type="checkbox" name="intolerancias" value="Trigo"> Trigo (no celíaco)</label>
+            <label><input type="checkbox" name="intolerancias" value="Maíz"> Maíz</label>
+            <label><input type="checkbox" name="intolerancias" value="Soya"> Soya</label>
+            <label><input type="checkbox" name="intolerancias" value="Ajo"> Ajo</label>
+            <label><input type="checkbox" name="intolerancias" value="Cebolla"> Cebolla</label>
+            <label><input type="checkbox" name="intolerancias" value="Tomate"> Tomate</label>
+            <label><input type="checkbox" name="intolerancias" value="Chocolate"> Chocolate</label>
+            <label><input type="checkbox" name="intolerancias" value="Cafeína"> Cafeína</label>
+            <label><input type="checkbox" name="intolerancias" value="Alcohol"> Alcohol</label>
+            <label><input type="checkbox" name="intolerancias" value="Maní o nueces"> Maní o nueces</label>
+            <label><input type="checkbox" name="intolerancias" value="GMS"> Glutamato monosódico (GMS)</label>
+            <label><input type="checkbox" name="intolerancias" value="Vinagre"> Vinagre</label>
+            <label><input type="checkbox" name="intolerancias" value="Colorantes artificiales"> Colorantes artificiales</label>
+            <label><input type="checkbox" name="intolerancias" value="Edulcorantes artificiales"> Edulcorantes artificiales</label>
+            <label><input type="checkbox" name="intolerancias" value="Legumbres"> Legumbres</label>
+            <label><input type="checkbox" name="intolerancias" value="Miel"> Miel</label>
+          </div>
+        </div>
 
-  <!-- Alergias -->
-  <div class="form-group">
-    <label class="form-label">Alergias</label>
-    <div class="custom-select-container" onclick="afecciones(this)">
-      <div class="custom-select-selected">Selecciona alergias</div>
-      <i class="fas fa-chevron-down select-arrow"></i>
-    </div>
-    <div class="custom-select-options" style="display: none;">
-      <label><input type="checkbox" name="alergias" value="Maní"> Maní (cacahuate)</label>
-      <label><input type="checkbox" name="alergias" value="Nueces"> Nueces (nuez, almendra, avellana, etc.)</label>
-      <label><input type="checkbox" name="alergias" value="Huevo"> Huevo</label>
-      <label><input type="checkbox" name="alergias" value="Leche de vaca"> Leche de vaca</label>
-      <label><input type="checkbox" name="alergias" value="Pescado"> Pescado</label>
-      <label><input type="checkbox" name="alergias" value="Mariscos"> Mariscos</label>
-      <label><input type="checkbox" name="alergias" value="Trigo"> Trigo (alergia)</label>
-      <label><input type="checkbox" name="alergias" value="Soya"> Soya</label>
-      <label><input type="checkbox" name="alergias" value="Sésamo"> Sésamo (ajonjolí)</label>
-      <label><input type="checkbox" name="alergias" value="Mostaza"> Mostaza</label>
-      <label><input type="checkbox" name="alergias" value="Frutas frescas"> Frutas frescas (alergia cruzada con polen)</label>
-      <label><input type="checkbox" name="alergias" value="Latex-frutas"> Latex-frutas</label>
-      <label><input type="checkbox" name="alergias" value="Gelatina"> Gelatina (alergia a colágeno animal)</label>
-      <label><input type="checkbox" name="alergias" value="Colorantes artificiales"> Colorantes artificiales</label>
-      <label><input type="checkbox" name="alergias" value="Preservantes"> Preservantes (sulfitos, benzoatos)</label>
-    </div>
-  </div>
+        <!-- Alergias -->
+        <div class="form-group">
+          <label class="form-label">Alergias</label>
+          <div class="custom-select-container" onclick="afecciones(this)">
+            <div class="custom-select-selected">Selecciona alergias</div>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <div class="custom-select-options" style="display: none;">
+            <label><input type="checkbox" name="alergias" value="Maní"> Maní (cacahuate)</label>
+            <label><input type="checkbox" name="alergias" value="Nueces"> Nueces (nuez, almendra, avellana, etc.)</label>
+            <label><input type="checkbox" name="alergias" value="Huevo"> Huevo</label>
+            <label><input type="checkbox" name="alergias" value="Leche de vaca"> Leche de vaca</label>
+            <label><input type="checkbox" name="alergias" value="Pescado"> Pescado</label>
+            <label><input type="checkbox" name="alergias" value="Mariscos"> Mariscos</label>
+            <label><input type="checkbox" name="alergias" value="Trigo"> Trigo (alergia)</label>
+            <label><input type="checkbox" name="alergias" value="Soya"> Soya</label>
+            <label><input type="checkbox" name="alergias" value="Sésamo"> Sésamo (ajonjolí)</label>
+            <label><input type="checkbox" name="alergias" value="Mostaza"> Mostaza</label>
+            <label><input type="checkbox" name="alergias" value="Frutas frescas"> Frutas frescas (alergia cruzada con polen)</label>
+            <label><input type="checkbox" name="alergias" value="Latex-frutas"> Latex-frutas</label>
+            <label><input type="checkbox" name="alergias" value="Gelatina"> Gelatina (alergia a colágeno animal)</label>
+            <label><input type="checkbox" name="alergias" value="Colorantes artificiales"> Colorantes artificiales</label>
+            <label><input type="checkbox" name="alergias" value="Preservantes"> Preservantes (sulfitos, benzoatos)</label>
+          </div>
+        </div>
 
-  <div class="buttons-container">
-    <button class="form-button prev-button" onclick="prevSection(4)">Atrás</button>
-    <button class="form-button next-button" onclick="nextSection(4)">Siguiente</button>
-  </div>
+        <div class="buttons-container">
+          <button class="form-button prev-button" onclick="prevSection(4)">Atrás</button>
+          <button class="form-button next-button" onclick="nextSection(4)">Siguiente</button>
+        </div>
 
-<div class="progress-container4">
-    <div class="progress-step4 active4"></div>
-    <div class="progress-line4"></div>
-    <div class="progress-step4 active4"></div>
-    <div class="progress-line4"></div>
-    <div class="progress-step4 active4"></div>
-    <div class="progress-line4"></div>
-    <div class="progress-step4 active4"></div>
-    <div class="progress-line4"></div>
-    <div class="progress-step4 inactive4"></div>
-    <div class="progress-line4"></div>
-    <div class="progress-step4 inactive4"></div>
-</div>
+      <div class="progress-container4">
+          <div class="progress-step4 active4"></div>
+          <div class="progress-line4"></div>
+          <div class="progress-step4 active4"></div>
+          <div class="progress-line4"></div>
+          <div class="progress-step4 active4"></div>
+          <div class="progress-line4"></div>
+          <div class="progress-step4 active4"></div>
+          <div class="progress-line4"></div>
+          <div class="progress-step4 inactive4"></div>
+          <div class="progress-line4"></div>
+          <div class="progress-step4 inactive4"></div>
+      </div>
 
-</div>
+      </div>
 
-<!-- Sección 5: Síntomas gastrointestinales -->
-<div class="section" id="section5">
-    <h2 class="section-title">Síntomas gastrointestinales</h2>
-    <div class="section-divider"></div>
 
-    <div class="form-group">
-        <label class="form-label">¿Sufres de alguno de los siguientes síntomas?</label>
-        <div class="dropdown-container">
-            <div class="custom-dropdown" onclick="toggleDropdown()">
-                Selecciona síntomas
-                <span class="arrow">&#9660;</span> <!-- Flecha hacia abajo -->
-            </div>
-            <div class="dropdown-options" id="dropdownOptions">
-                <label><input type="checkbox" name="sintomas[]" value="Dolor abdominal"> Dolor abdominal</label>
-                <label><input type="checkbox" name="sintomas[]" value="Distensión abdominal"> Distensión abdominal</label>
-                <label><input type="checkbox" name="sintomas[]" value="Gases o flatulencias"> Gases o flatulencias</label>
-                <label><input type="checkbox" name="sintomas[]" value="Náuseas"> Náuseas</label>
-                <label><input type="checkbox" name="sintomas[]" value="Vómitos"> Vómitos</label>
-                <label><input type="checkbox" name="sintomas[]" value="Diarrea"> Diarrea</label>
-                <label><input type="checkbox" name="sintomas[]" value="Estreñimiento"> Estreñimiento</label>
-                <label><input type="checkbox" name="sintomas[]" value="Reflujo gastroesofágico"> Reflujo gastroesofágico</label>
-                <label><input type="checkbox" name="sintomas[]" value="Acidez estomacal"> Acidez estomacal</label>
-                <label><input type="checkbox" name="sintomas[]" value="Eructos frecuentes"> Eructos frecuentes</label>
-                <label><input type="checkbox" name="sintomas[]" value="Pérdida de apetito"> Pérdida de apetito</label>
-                <label><input type="checkbox" name="sintomas[]" value="Sensación de llenura precoz"> Sensación de llenura precoz</label>
-                <label><input type="checkbox" name="sintomas[]" value="Cambio en el color de las heces"> Cambio en el color de las heces</label>
-                <label><input type="checkbox" name="sintomas[]" value="Heces con moco o sangre"> Heces con moco o sangre</label>
-                <label><input type="checkbox" name="sintomas[]" value="Tenesmo rectal"> Tenesmo rectal</label>
-                <label><input type="checkbox" name="sintomas[]" value="Incontinencia fecal"> Incontinencia fecal</label>
-                <label><input type="checkbox" name="sintomas[]" value="Dolor rectal o anal"> Dolor rectal o anal</label>
-                <label><input type="checkbox" name="sintomas[]" value="Ictericia"> Ictericia</label>
-                <label><input type="checkbox" name="sintomas[]" value="Sabor amargo en la boca"> Sabor amargo en la boca</label>
+    <!-- Sección 5: Síntomas gastrointestinales -->
+    <div class="section" id="section5">
+        <h2 class="section-title">Síntomas gastrointestinales</h2>
+        <div class="section-divider"></div>
+
+        <div class="form-group">
+            <label class="form-label">¿Sufres de alguno de los siguientes síntomas?</label>
+            <div class="dropdown-container">
+                <div class="custom-dropdown" onclick="toggleDropdown()">
+                    Selecciona síntomas
+                    <span class="arrow">&#9660;</span> <!-- Flecha hacia abajo -->
+                </div>
+                <div class="dropdown-options" id="dropdownOptions">
+                    <label><input type="checkbox" name="sintomas[]" value="Dolor abdominal"> Dolor abdominal</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Distensión abdominal"> Distensión abdominal</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Gases o flatulencias"> Gases o flatulencias</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Náuseas"> Náuseas</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Vómitos"> Vómitos</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Diarrea"> Diarrea</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Estreñimiento"> Estreñimiento</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Reflujo gastroesofágico"> Reflujo gastroesofágico</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Acidez estomacal"> Acidez estomacal</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Eructos frecuentes"> Eructos frecuentes</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Pérdida de apetito"> Pérdida de apetito</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Sensación de llenura precoz"> Sensación de llenura precoz</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Cambio en el color de las heces"> Cambio en el color de las heces</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Heces con moco o sangre"> Heces con moco o sangre</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Tenesmo rectal"> Tenesmo rectal</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Incontinencia fecal"> Incontinencia fecal</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Dolor rectal o anal"> Dolor rectal o anal</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Ictericia"> Ictericia</label>
+                    <label><input type="checkbox" name="sintomas[]" value="Sabor amargo en la boca"> Sabor amargo en la boca</label>
+                </div>
             </div>
         </div>
+
+        <div class="buttons-container">
+            <button class="form-button prev-button" onclick="prevSection(5)">Atrás</button>
+            <button class="form-button next-button" onclick="nextSection(5)">Siguiente</button>
+        </div>
+
+    <div class="progress-container5">
+        <div class="progress-step5 active5"></div>
+        <div class="progress-line5"></div>
+        <div class="progress-step5 active5"></div>
+        <div class="progress-line5"></div>
+        <div class="progress-step5 active5"></div>
+        <div class="progress-line5"></div>
+        <div class="progress-step5 active5"></div>
+        <div class="progress-line5"></div>
+        <div class="progress-step5 active5"></div>
+        <div class="progress-line5"></div>
+        <div class="progress-step5 inactive5"></div>
+    </div>
     </div>
 
-    <div class="buttons-container">
-        <button class="form-button prev-button" onclick="prevSection(5)">Atrás</button>
-        <button class="form-button next-button" onclick="nextSection(5)">Siguiente</button>
-    </div>
 
-<div class="progress-container5">
-    <div class="progress-step5 active5"></div>
-    <div class="progress-line5"></div>
-    <div class="progress-step5 active5"></div>
-    <div class="progress-line5"></div>
-    <div class="progress-step5 active5"></div>
-    <div class="progress-line5"></div>
-    <div class="progress-step5 active5"></div>
-    <div class="progress-line5"></div>
-    <div class="progress-step5 active5"></div>
-    <div class="progress-line5"></div>
-    <div class="progress-step5 inactive5"></div>
-</div>
-</div>
-
-
-<!-- Sección 6: Dieta prescrita por profesional -->
-<div class="section" id="section6">
-    <h2 class="section-title">Dieta prescrita por profesional</h2>
-    <div class="section-divider"></div>
+        <!-- Sección 6: Dieta prescrita por profesional -->
+        <div class="section" id="section6">
+        <h2 class="section-title">Dieta prescrita por profesional</h2>
+        <div class="section-divider"></div>
 
 
 
-    <div class="form-group">
-        <label class="form-label">¿Sigues una dieta prescrita por profesional?</label>
-            <input type="checkbox" id="dietaCheckbox" onchange="toggleDietaBox()">
-            Si
-        </label>
-    </div>
+        <div class="form-group">
+            <label class="form-label">¿Sigues una dieta prescrita por profesional?</label>
+                <input type="checkbox" id="dietaCheckbox" onchange="toggleDietaBox()">
+                Si
+            </label>
+        </div>
 
-    <div class="form-group" id="dietaDescripcion" style="display: none;">
-        <textarea class="form-input full-width" rows="4" placeholder="Describe la dieta médica o terapéutica que estás siguiendo..."></textarea>
-        <small class="form-hint">Incluye el tipo de dieta y cualquier detalle relevante proporcionado por tu nutricionista o médico.</small>
-    </div>
+        <div class="form-group" id="dietaDescripcion" style="display: none;">
+            <textarea class="form-input full-width" rows="4" placeholder="Describe la dieta médica o terapéutica que estás siguiendo..."></textarea>
+            <small class="form-hint">Incluye el tipo de dieta y cualquier detalle relevante proporcionado por tu nutricionista o médico.</small>
+        </div>
 
- 
-
-    <div class="buttons-container">
-        <button class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
-        <button class="form-button submit-button" id="gilberto" onclick="submitForm()">Guardar</button>
-    </div>
-
-<div class="progress-container6">
-    <div class="progress-step6 active6"></div>
-    <div class="progress-line6"></div>
-    <div class="progress-step6 active6"></div>
-    <div class="progress-line6"></div>
-    <div class="progress-step6 active6"></div>
-    <div class="progress-line6"></div>
-    <div class="progress-step6 active6"></div>
-    <div class="progress-line6"></div>
-    <div class="progress-step6 active6"></div>
-    <div class="progress-line6"></div>
-    <div class="progress-step6 active6"></div>
-</div>
-
-</div>
     
 
+        <div class="buttons-container">
+            <button class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
+            <button class="form-button submit-button" id="gilberto" onclick="submitForm()">Guardar</button>
+        </div>
+
+    <div class="progress-container6">
+        <div class="progress-step6 active6"></div>
+        <div class="progress-line6"></div>
+        <div class="progress-step6 active6"></div>
+        <div class="progress-line6"></div>
+        <div class="progress-step6 active6"></div>
+        <div class="progress-line6"></div>
+        <div class="progress-step6 active6"></div>
+        <div class="progress-line6"></div>
+        <div class="progress-step6 active6"></div>
+        <div class="progress-line6"></div>
+        <div class="progress-step6 active6"></div>
+    </div>
+
+      </div>
+
+    </form>
+      
     <!-- SCRIPTS DE CREAR PERFIL NUTRICIONAL -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
     <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
