@@ -187,6 +187,21 @@ body {
     color: #F6FFFE;
 }
 
+#gilberto {
+    background-color: #E99A3C;
+    color: #000000;
+    
+}
+
+#nextButton1 {
+    background-color: #007848;
+    color: #F6FFFE;
+    position: center;
+
+}
+
+
+
 .progress-container {
     display: flex;
     align-items: center;
@@ -200,6 +215,8 @@ body {
     flex-grow: 1;
     max-width: 50px;
 }
+
+
 
 .progress-step {
     width: 16px;
@@ -248,3 +265,158 @@ body {
         max-width: 100%;
     }
 }
+
+
+.progress-container2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.progress-line2 {
+    height: 2px;
+    background-color: #007848;
+    flex-grow: 1;
+    max-width: 50px;
+}
+
+.progress-step2 {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #154734;
+    position: relative;
+}
+
+.progress-step2.active2 {
+    background: linear-gradient(#007848, #154734);
+}
+
+.progress-step2.inactive2 {
+    background-color: #F6FFFE;
+}
+
+
+.barra-progreso {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.linea-progreso {
+    height: 2px;
+    background-color: #007848;
+    flex-grow: 1;
+    max-width: 50px;
+}
+
+.paso-progreso {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #154734;
+    position: relative;
+}
+
+.paso-progreso.activo {
+    background: linear-gradient(#007848, #154734);
+}
+
+.paso-progreso.inactivo {
+    background-color: #F6FFFE;
+}
+
+.progress-container4 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.progress-line4 {
+    height: 2px;
+    background-color: #007848;
+    flex-grow: 1;
+    max-width: 50px;
+}
+
+.progress-step4 {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #154734;
+    position: relative;
+}
+
+.progress-step4.active4 {
+    background: linear-gradient(#007848, #154734);
+}
+
+.progress-step4.inactive4 {
+    background-color: #F6FFFE;
+}
+
+.progress-container5 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.progress-line5 {
+    height: 2px;
+    background-color: #007848;
+    flex-grow: 1;
+    max-width: 50px;
+}
+
+.progress-step5 {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #154734;
+    position: relative;
+}
+
+.progress-step5.active5 {
+    background: linear-gradient(#007848, #154734);
+}
+
+.progress-step5.inactive5 {
+    background-color: #F6FFFE;
+}
+
+
+.progress-container6 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.progress-line6 {
+    height: 2px;
+    background-color: #007848;
+    flex-grow: 1;
+    max-width: 50px;
+}
+
+.progress-step6 {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #154734;
+    position: relative;
+}
+
+.progress-step6.active6 {
+    background: linear-gradient(#007848, #154734);
+}
+
+.progress-step6.inactive6 {
+    background-color: #F6FFFE;
+}
+
+
