@@ -420,3 +420,138 @@ body {
 }
 
 
+/* Estilos (reutiliza los que ya tienes para "custom-select")*/
+
+  .custom-select-container {
+    border: 2px solid green;
+    padding: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .custom-select-selected {
+    font-weight: bold;
+  }
+
+  .custom-select-options {
+    border: 2px solid green;
+    background-color: #f9f9f9;
+    margin-top: 5px;
+    padding: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 5px;
+  }
+
+  .custom-select-options label {
+    display: block;
+    margin: 3px 0;
+  }
+
+  .select-arrow {
+    color: green;
+  }
+
+
+  /*AFECCIONES*/
+
+.custom-select-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #1A7A53;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.custom-select-container:hover {
+  background-color: #f1fdf7;
+}
+
+.custom-select-selected {
+  font-size: 15px;
+  color: #333;
+}
+
+.select-arrow {
+  color: #1A7A53;
+  transition: transform 0.2s ease;
+}
+
+.custom-select-container.active .select-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-select-options {
+  border: 1px solid #1A7A53;
+  border-radius: 10px;
+  padding: 10px 15px;
+  background-color: #fff;
+  max-height: 250px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.custom-select-options label {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 6px;
+  transition: 0.2s ease;
+}
+
+.custom-select-options label:hover {
+  background-color: #f1fdf7;
+}
+
+/*Síntomas gastrointestinales*/
+
+    .dropdown-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-dropdown {
+        background-color: white;
+        border: 2px solid green;
+        padding: 10px;
+        cursor: pointer;
+        color: black;
+    }
+
+    .custom-dropdown .arrow {
+        float: right;
+    }
+
+    .dropdown-options {
+        display: none;
+        border: 1px solid green;
+        background-color: white;
+        color: black;
+        padding: 10px;
+        margin-top: 5px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .dropdown-options label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+
+    

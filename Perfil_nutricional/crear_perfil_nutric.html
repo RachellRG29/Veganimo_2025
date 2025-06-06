@@ -204,7 +204,7 @@
     <div class="progress-step2 inactive2"></div>
 </div>
 
-        </div>
+</div>
 
 
 <!-- Sección 3: Historia clínica -->
@@ -329,54 +329,6 @@
 </div>
 </div>
 
-<!-- Script para dropdown estilo intolerancias -->
-<script>
-  function historia(container) {
-    const options = container.nextElementSibling;
-    options.style.display = (options.style.display === 'none' || options.style.display === '') ? 'block' : 'none';
-  }
-</script>
-
-<!-- Estilos (reutiliza los que ya tienes para "custom-select") -->
-<style>
-  .custom-select-container {
-    border: 2px solid green;
-    padding: 10px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-  }
-
-  .custom-select-selected {
-    font-weight: bold;
-  }
-
-  .custom-select-options {
-    border: 2px solid green;
-    background-color: #f9f9f9;
-    margin-top: 5px;
-    padding: 10px;
-    max-height: 150px;
-    overflow-y: auto;
-    border-radius: 5px;
-  }
-
-  .custom-select-options label {
-    display: block;
-    margin: 3px 0;
-  }
-
-  .select-arrow {
-    color: green;
-  }
-</style>
-
-
-
-
 
 <!-- Sección 4: Afecciones personales -->
 <div class="section" id="section4">
@@ -470,80 +422,6 @@
 
 </div>
 
-<style>
-.custom-select-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 2px solid #1A7A53;
-  border-radius: 10px;
-  padding: 10px 12px;
-  cursor: pointer;
-  background-color: #fff;
-  margin-bottom: 8px;
-  position: relative;
-}
-
-.custom-select-container:hover {
-  background-color: #f1fdf7;
-}
-
-.custom-select-selected {
-  font-size: 15px;
-  color: #333;
-}
-
-.select-arrow {
-  color: #1A7A53;
-  transition: transform 0.2s ease;
-}
-
-.custom-select-container.active .select-arrow {
-  transform: rotate(180deg);
-}
-
-.custom-select-options {
-  border: 1px solid #1A7A53;
-  border-radius: 10px;
-  padding: 10px 15px;
-  background-color: #fff;
-  max-height: 250px;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.custom-select-options label {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 6px;
-  transition: 0.2s ease;
-}
-
-.custom-select-options label:hover {
-  background-color: #f1fdf7;
-}
-</style>
-
-<script>
-function afecciones(container) {
-  // Buscamos el grupo completo del select personalizado
-  const formGroup = container.closest('.form-group');
-  const dropdown = formGroup.querySelector('.custom-select-options');
-
-  // Alternamos la clase y el estado de visibilidad
-  container.classList.toggle('active');
-  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
-</script>
-
-
 <!-- Sección 5: Síntomas gastrointestinales -->
 <div class="section" id="section5">
     <h2 class="section-title">Síntomas gastrointestinales</h2>
@@ -598,63 +476,7 @@ function afecciones(container) {
     <div class="progress-line5"></div>
     <div class="progress-step5 inactive5"></div>
 </div>
-
-
 </div>
-
-
-
-
-
-<style>
-    .dropdown-container {
-        position: relative;
-        width: 100%;
-    }
-
-    .custom-dropdown {
-        background-color: white;
-        border: 2px solid green;
-        padding: 10px;
-        cursor: pointer;
-        color: black;
-    }
-
-    .custom-dropdown .arrow {
-        float: right;
-    }
-
-    .dropdown-options {
-        display: none;
-        border: 1px solid green;
-        background-color: white;
-        color: black;
-        padding: 10px;
-        margin-top: 5px;
-        max-height: 200px;
-        overflow-y: auto;
-    }
-
-    .dropdown-options label {
-        display: block;
-        margin-bottom: 5px;
-    }
-</style>
-
-<script>
-    function toggleDropdown() {
-        const options = document.getElementById('dropdownOptions');
-        options.style.display = options.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Cierra el dropdown si se hace clic fuera de él
-    document.addEventListener('click', function (event) {
-        const dropdown = document.querySelector('.dropdown-container');
-        if (!dropdown.contains(event.target)) {
-            document.getElementById('dropdownOptions').style.display = 'none';
-        }
-    });
-</script>
 
 
 <!-- Sección 6: Dieta prescrita por profesional -->
@@ -698,51 +520,13 @@ function afecciones(container) {
 </div>
 
 </div>
-
-<script>
-    function toggleDietaBox() {
-        const checkbox = document.getElementById('dietaCheckbox');
-        const descripcion = document.getElementById('dietaDescripcion');
-        descripcion.style.display = checkbox.checked ? 'block' : 'none';
-    }
-</script>
-
-
-
     
 
     <!-- SCRIPTS DE CREAR PERFIL NUTRICIONAL -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
     <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
     <script src="/perfil_nutric_popup.js"></script>
-
-<script>
-    function nextSection(currentSection) {
-        document.getElementById(`section${currentSection}`).classList.remove('active');
-        document.getElementById(`section${currentSection + 1}`).classList.add('active');
-        updateProgressBar(currentSection + 1);
-    }
-
-    function prevSection(currentSection) {
-        document.getElementById(`section${currentSection}`).classList.remove('active');
-        document.getElementById(`section${currentSection - 1}`).classList.add('active');
-        updateProgressBar(currentSection - 1);
-    }
-
-    function updateProgressBar(currentStep) {
-        const steps = document.querySelectorAll('.progress-step');
-        steps.forEach((step, index) => {
-            if (index < currentStep) {
-                step.classList.add('active');
-                step.classList.remove('inactive');
-            } else {
-                step.classList.remove('active');
-                step.classList.add('inactive');
-            }
-        });
-    }
-</script>
-
+    <script src="/Perfil_nutricional/crear_perfil_nutric.js"></script>
 
 
 </body>
