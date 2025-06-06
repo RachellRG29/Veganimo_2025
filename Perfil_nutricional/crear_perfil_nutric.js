@@ -25,43 +25,51 @@
             }
         });
     }
-  //Script para dropdown estilo intolerancias -->
-
+    // Mostrar/Ocultar opciones en "historia"
   function historia(container) {
     const options = container.nextElementSibling;
     options.style.display = (options.style.display === 'none' || options.style.display === '') ? 'block' : 'none';
   }
 
-  //afecciones
-function afecciones(container) {
-  // Buscamos el grupo completo del select personalizado
-  const formGroup = container.closest('.form-group');
-  const dropdown = formGroup.querySelector('.custom-select-options');
+  // Mostrar/Ocultar opciones en "afecciones"
+  function afecciones(container) {
+    const formGroup = container.closest('.form-group');
+    const dropdown = formGroup.querySelector('.custom-select-options');
+    container.classList.toggle('active');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+  }
 
-  // Alternamos la clase y el estado de visibilidad
-  container.classList.toggle('active');
-  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-}
+  // Dropdown general
+  function toggleDropdown() {
+    const options = document.getElementById('dropdownOptions');
+    options.style.display = options.style.display === 'block' ? 'none' : 'block';
+  }
 
+  // Mostrar/Ocultar cuadro de descripción para dieta
+  function toggleDietaBox() {
+    const checkbox = document.getElementById('dietaCheckbox');
+    const descripcion = document.getElementById('dietaDescripcion');
+    descripcion.style.display = checkbox.checked ? 'block' : 'none';
+  }
 
+  // Cierra cualquier dropdown si se hace clic fuera de ellos
+  document.addEventListener('click', function (event) {
+    // Lista de todos los dropdowns y select personalizados
+    const allDropdowns = document.querySelectorAll('.dropdown-container .dropdown-options, .custom-select-options');
 
-    function toggleDropdown() {
-        const options = document.getElementById('dropdownOptions');
-        options.style.display = options.style.display === 'block' ? 'none' : 'block';
-    }
+    allDropdowns.forEach(dropdown => {
+      // Si el clic fue fuera del dropdown o de su botón contenedor
+      if (!dropdown.contains(event.target) && !dropdown.previousElementSibling?.contains(event.target)) {
+        dropdown.style.display = 'none';
 
-    // Cierra el dropdown si se hace clic fuera de él
-    document.addEventListener('click', function (event) {
-        const dropdown = document.querySelector('.dropdown-container');
-        if (!dropdown.contains(event.target)) {
-            document.getElementById('dropdownOptions').style.display = 'none';
+        // Elimina clase 'active' si es un select personalizado
+        const parent = dropdown.closest('.form-group');
+        if (parent) {
+          const customSelect = parent.querySelector('.custom-select');
+          if (customSelect) {
+            customSelect.classList.remove('active');
+          }
         }
+      }
     });
-
-
-  
-    function toggleDietaBox() {
-        const checkbox = document.getElementById('dietaCheckbox');
-        const descripcion = document.getElementById('dietaDescripcion');
-        descripcion.style.display = checkbox.checked ? 'block' : 'none';
-    }
+  });
