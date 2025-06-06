@@ -92,7 +92,7 @@ document.getElementById('form-crear-perfil').addEventListener('submit', function
     .then(data => {
         if (data.success) {
             Swal.fire({
-                title: 'Éxito',
+                title: 'Perfil nutricional creado con exito',
                 text: data.message,
                 icon: 'success',
                 confirmButtonText: 'OK'
