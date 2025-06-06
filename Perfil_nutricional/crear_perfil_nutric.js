@@ -73,3 +73,54 @@
       }
     });
   });
+
+ // Función para manejar el envío del formulario
+document.getElementById('form-crear-perfil').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Mostrar loader o feedback al usuario
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+    
+    // Enviar formulario via AJAX
+    fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                title: 'Éxito',
+                text: data.message,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                // Cambiado para redirigir a la pantalla principal
+                window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
+            });
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: data.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+            title: 'Error',
+            text: 'Ocurrió un error al enviar el formulario',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Guardar';
+    });
+});
+
+// Resto de tus funciones para manejar las secciones...
