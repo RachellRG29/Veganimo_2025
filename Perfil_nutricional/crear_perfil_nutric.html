@@ -80,7 +80,7 @@
                         <option value="masculino">Masculino</option>
                         <option value="femenino">Femenino</option>
                         <option value="otro">Otro</option>
-                        <option value="prefiero-no-decir">Prefiero no elegir</option>
+                        <option value="prefiero-no-decir">Prefiero no decir</option>
                     </select>
                     <i class="fas fa-chevron-down select-arrow"></i>
                 </div>
@@ -215,7 +215,7 @@
   <!-- Antecedentes patológicos -->
   <div class="form-group">
     <label class="form-label">Antecedentes patológicos</label>
-    <div class="custom-select-container" onclick="toggleDropdown(this)">
+    <div class="custom-select-container" onclick="historia(this)">
       <div class="custom-select-selected">Selecciona antecedentes patológicos</div>
       <i class="fas fa-chevron-down select-arrow"></i>
     </div>
@@ -254,7 +254,7 @@
   <!-- Antecedentes familiares -->
 <div class="form-group">
   <label class="form-label">Antecedentes familiares</label>
-  <div class="custom-select-container" onclick="toggleDropdown(this)">
+  <div class="custom-select-container" onclick="historia(this)">
     <div class="custom-select-selected">Selecciona antecedentes familiares</div>
     <i class="fas fa-chevron-down select-arrow"></i>
   </div>
@@ -286,7 +286,7 @@
 <!-- Antecedentes quirúrgicos -->
 <div class="form-group">
   <label class="form-label">Antecedentes quirúrgicos</label>
-  <div class="custom-select-container" onclick="toggleDropdown(this)">
+  <div class="custom-select-container" onclick="historia(this)">
     <div class="custom-select-selected">Selecciona antecedentes quirúrgicos</div>
     <i class="fas fa-chevron-down select-arrow"></i>
   </div>
@@ -314,7 +314,7 @@
     <button class="form-button next-button" onclick="nextSection(3)">Siguiente</button>
   </div>
 
-  <div class="barra-progreso">
+ <div class="barra-progreso">
     <div class="paso-progreso activo"></div>
     <div class="linea-progreso"></div>
     <div class="paso-progreso activo"></div>
@@ -327,12 +327,11 @@
     <div class="linea-progreso"></div>
     <div class="paso-progreso inactivo"></div>
 </div>
-
-        </div>
+</div>
 
 <!-- Script para dropdown estilo intolerancias -->
 <script>
-  function toggleDropdown(container) {
+  function historia(container) {
     const options = container.nextElementSibling;
     options.style.display = (options.style.display === 'none' || options.style.display === '') ? 'block' : 'none';
   }
@@ -378,6 +377,7 @@
 
 
 
+
 <!-- Sección 4: Afecciones personales -->
 <div class="section" id="section4">
   <h2 class="section-title">Afecciones personales</h2>
@@ -390,7 +390,7 @@
   <!-- Intolerancias -->
   <div class="form-group">
     <label class="form-label">Intolerancias</label>
-    <div class="custom-select-container" onclick="toggleDropdown(this)">
+    <div class="custom-select-container" onclick="afecciones(this)">
       <div class="custom-select-selected">Selecciona intolerancias</div>
       <i class="fas fa-chevron-down select-arrow"></i>
     </div>
@@ -426,7 +426,7 @@
   <!-- Alergias -->
   <div class="form-group">
     <label class="form-label">Alergias</label>
-    <div class="custom-select-container" onclick="toggleDropdown(this)">
+    <div class="custom-select-container" onclick="afecciones(this)">
       <div class="custom-select-selected">Selecciona alergias</div>
       <i class="fas fa-chevron-down select-arrow"></i>
     </div>
@@ -532,16 +532,17 @@
 </style>
 
 <script>
-function toggleDropdown(container) {
+function afecciones(container) {
+  // Buscamos el grupo completo del select personalizado
+  const formGroup = container.closest('.form-group');
+  const dropdown = formGroup.querySelector('.custom-select-options');
+
+  // Alternamos la clase y el estado de visibilidad
   container.classList.toggle('active');
-  const dropdown = container.nextElementSibling;
-  if (dropdown.style.display === 'block') {
-    dropdown.style.display = 'none';
-  } else {
-    dropdown.style.display = 'block';
-  }
+  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
 }
 </script>
+
 
 <!-- Sección 5: Síntomas gastrointestinales -->
 <div class="section" id="section5">
