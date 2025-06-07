@@ -73,11 +73,11 @@ function validarSeccionNutricional() {
     campos.forEach(campo => {
         const valor = campo.element.value.trim();
         const esSelect = campo.element.tagName === 'SELECT';
-        
+
         // Resetear clases
         campo.element.classList.remove('campo-error', 'campo-valido');
         if (campo.errorElement) campo.errorElement.classList.remove('error', 'valido');
-        
+
         // Validar
         if ((esSelect && valor === '') || (!esSelect && valor === '')) {
             valido = false;
@@ -110,6 +110,68 @@ function validarSeccionNutricional() {
 
     return valido;
 }
+
+// Validación en tiempo real
+document.addEventListener('DOMContentLoaded', () => {
+    const campos = [
+        {
+            name: 'dieta_actual',
+            error: 'Selecciona un tipo de dieta',
+            element: document.querySelector('[name="dieta_actual"]'),
+            errorElement: document.getElementById('error-dieta')
+        },
+        {
+            name: 'peso',
+            error: 'Ingresa tu peso en libras',
+            element: document.querySelector('[name="peso"]'),
+            errorElement: document.getElementById('error-peso')
+        },
+        {
+            name: 'altura',
+            error: 'Ingresa tu altura en cm',
+            element: document.querySelector('[name="altura"]'),
+            errorElement: document.getElementById('error-altura')
+        },
+        {
+            name: 'objetivo',
+            error: 'Selecciona un objetivo nutricional',
+            element: document.querySelector('[name="objetivo"]'),
+            errorElement: document.getElementById('error-objetivo')
+        },
+        {
+            name: 'nivel_meta',
+            error: 'Selecciona un nivel de meta',
+            element: document.querySelector('[name="nivel_meta"]'),
+            errorElement: document.getElementById('error-nivel-meta')
+        }
+    ];
+
+    campos.forEach(campo => {
+        const esSelect = campo.element.tagName === 'SELECT';
+        const evento = esSelect ? 'change' : 'input';
+
+        campo.element.addEventListener(evento, () => {
+            const valor = campo.element.value.trim();
+            campo.element.classList.remove('campo-error', 'campo-valido');
+            campo.errorElement.classList.remove('error', 'valido');
+
+            if (valor === '') {
+                campo.element.classList.add('campo-error');
+                campo.errorElement.textContent = `⚠️ ${campo.error}`;
+                campo.errorElement.classList.add('error');
+            } else {
+                campo.element.classList.add('campo-valido');
+                campo.errorElement.classList.add('valido');
+                if (campo.name === 'peso') campo.errorElement.textContent = 'Ingresa tu peso actual en libras';
+                else if (campo.name === 'altura') campo.errorElement.textContent = 'Ingresa tu altura en centímetros';
+                else if (campo.name === 'dieta_actual') campo.errorElement.textContent = 'Selecciona la dieta que sigues actualmente';
+                else if (campo.name === 'objetivo') campo.errorElement.textContent = 'Selecciona tu principal objetivo nutricional';
+                else if (campo.name === 'nivel_meta') campo.errorElement.textContent = 'Selecciona el nivel de cambio que deseas lograr';
+            }
+        });
+    });
+});
+
 
     // Mostrar/Ocultar opciones en "historia"
   function historia(container) {
