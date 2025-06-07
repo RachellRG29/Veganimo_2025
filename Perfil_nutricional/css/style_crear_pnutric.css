@@ -135,10 +135,33 @@ body {
     pointer-events: none;
 }
 
+
+/**/
 .explanation-text {
     font-size: 14px;
     color: #707070;
     margin-top: 6px;
+}
+
+/* Estilos para campos válidos */
+.campo-valido {
+    border-color: #48c78e !important;
+    box-shadow: 0 0 0 1px rgba(72, 199, 142, 0.25);
+}
+
+/* Estilos para campos con error (mantenemos los existentes) */
+.campo-error {
+    border-color: #ff3860 !important;
+    box-shadow: 0 0 0 1px rgba(255, 56, 96, 0.25);
+}
+
+.explanation-text.error {
+    color: #ff3860;
+    font-weight: 500;
+}
+
+.explanation-text.valido {
+    color: #48c78e;
 }
 
 .unit-text {

@@ -64,18 +64,23 @@
 
             <div class="form-group">
                 <label class="form-label">Nombre completo:</label>
-                <input type="text" name="nombre_completo" class="form-input half-width">
+                <input type="text" name="nombre_completo" class="form-input half-width" readonly>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Fecha de nacimiento:</label>
-                <input type="date" name="fecha_nacimiento" class="form-input half-width">
+                <input type="date" name="fecha_nacimiento" class="form-input half-width" readonly>
             </div>
 
             <div class="form-group">
                 <label class="form-label">Género:</label>
-                <div class="select-container">
-                    <select name="genero" class="form-select">
+                <input type="text" name="genero" class="form-input half-width" readonly>
+            </div>
+
+            <!--<div class="form-group">
+                <label class="form-label">Género:</label>
+                <div class="select-container" readonly>
+                    <select name="genero" class="form-select" disabled>
                         <option value="" disabled selected>Selecciona tu género</option>
                         <option value="masculino">Masculino</option>
                         <option value="femenino">Femenino</option>
@@ -84,7 +89,7 @@
                     </select>
                     <i class="fas fa-chevron-down select-arrow"></i>
                 </div>
-            </div>
+            </div>-->
 
             <div class="buttons-container">
                 <button type="button" class="form-button next-button" onclick="nextSection(1)">Siguiente</button>
@@ -123,7 +128,7 @@
                     </select>
                     <i class="fas fa-chevron-down select-arrow"></i>
                 </div>
-                <p class="explanation-text">Selecciona la dieta que sigues actualmente</p>
+                <p class="explanation-text" id="error-dieta">Selecciona la dieta que sigues actualmente</p>
             </div>
 
             <div class="columns-container">
@@ -132,9 +137,9 @@
                         <label class="form-label required">Escribe tu peso actual:</label>
                         <div style="display: flex; align-items: center;">
                             <input type="number" name="peso" class="form-input half-width">
-                            <span class="unit-text">kg</span>
+                            <span class="unit-text">libras</span>
                         </div>
-                        <p class="explanation-text">Ingresa tu peso actual en kilogramos</p>
+                        <p class="explanation-text" id="error-peso">Ingresa tu peso actual en libras</p>
                     </div>
                 </div>
                 <div class="column">
@@ -144,7 +149,7 @@
                             <input type="number" name="altura" class="form-input half-width">
                             <span class="unit-text">cm</span>
                         </div>
-                        <p class="explanation-text">Ingresa tu altura en centímetros</p>
+                       <p class="explanation-text" id="error-altura">Ingresa tu altura en centímetros</p>
                     </div>
                 </div>
             </div>
@@ -164,7 +169,7 @@
                             </select>
                             <i class="fas fa-chevron-down select-arrow"></i>
                         </div>
-                        <p class="explanation-text">Selecciona tu principal objetivo nutricional</p>
+                        <p class="explanation-text" id="error-objetivo">Selecciona tu principal objetivo nutricional</p>
                     </div>
                 </div>
                 <div class="column">
@@ -529,6 +534,66 @@
     <script src="/perfil_nutric_popup.js"></script>
     <script src="/Perfil_nutricional/crear_perfil_nutric.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Verificar sesión primero
+    fetch('../Login/check_session.php')
+        .then(response => {
+            if (!response.ok) throw new Error('Error de red');
+            return response.json();
+        })
+        .then(sessionData => {
+            if (!sessionData.logged_in) {
+                throw new Error('Usuario no autenticado');
+            }
+            
+            // Obtener datos del usuario si hay sesión
+            return fetch('obtener_usuario.php');
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Error al obtener datos');
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Llenar campos readonly
+                const nombreInput = document.querySelector('input[name="nombre_completo"]');
+                const fechaInput = document.querySelector('input[name="fecha_nacimiento"]');
+                const generoInput = document.querySelector('input[name="genero"]');
+                
+                if (nombreInput) nombreInput.value = data.usuario.nombre_completo || '';
+                if (fechaInput) fechaInput.value = data.usuario.fecha_nacimiento || '';
+                
+                if (generoInput && data.usuario.genero) {
+                    generoInput.value = data.usuario.genero;
+                }
+            } else {
+                showError('Error al cargar datos: ' + (data.message || 'Error desconocido'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showError('Error al cargar datos del usuario. Por favor recarga la página.');
+            
+            if (error.message.includes('autenticado')) {
+                setTimeout(() => {
+                    window.location.href = '/Login/login.html';
+                }, 3000);
+            }
+        });
+
+    function showError(message) {
+        Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: 'error',
+            title: message,
+            showConfirmButton: false,
+            timer: 3000
+        });
+    }
+});
+</script>
 
 </body>
 

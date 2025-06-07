@@ -1,17 +1,21 @@
 
-    function nextSection(currentSection) {
-        document.getElementById(`section${currentSection}`).classList.remove('active');
-        document.getElementById(`section${currentSection + 1}`).classList.add('active');
-        updateProgressBar(currentSection + 1);
+function nextSection(currentSection) {
+    if (currentSection === 2 && !validarSeccionNutricional()) {
+        return; // No avanza si hay errores
     }
+    
+    // Resto del código para cambiar sección...
+    document.getElementById(`section${currentSection}`).classList.remove('active');
+    document.getElementById(`section${currentSection + 1}`).classList.add('active');
+    updateProgressBar(currentSection + 1);
+}
+
 
     function prevSection(currentSection) {
         document.getElementById(`section${currentSection}`).classList.remove('active');
         document.getElementById(`section${currentSection - 1}`).classList.add('active');
         updateProgressBar(currentSection - 1);
     }
-  
-
 
     function updateProgressBar(currentStep) {
         const steps = document.querySelectorAll('.progress-step');
@@ -25,6 +29,88 @@
             }
         });
     }
+
+// Validar sección nutricional
+function validarSeccionNutricional() {
+    let valido = true;
+    let primerCampoError = null;
+
+    // Campos a validar
+    const campos = [
+        {
+            name: 'dieta_actual',
+            error: 'Selecciona un tipo de dieta',
+            element: document.querySelector('[name="dieta_actual"]'),
+            errorElement: document.getElementById('error-dieta')
+        },
+        {
+            name: 'peso',
+            error: 'Ingresa tu peso en libras',
+            element: document.querySelector('[name="peso"]'),
+            errorElement: document.getElementById('error-peso')
+        },
+        {
+            name: 'altura',
+            error: 'Ingresa tu altura en cm',
+            element: document.querySelector('[name="altura"]'),
+            errorElement: document.getElementById('error-altura')
+        },
+        {
+            name: 'objetivo',
+            error: 'Selecciona un objetivo nutricional',
+            element: document.querySelector('[name="objetivo"]'),
+            errorElement: document.getElementById('error-objetivo')
+        },
+        {
+            name: 'nivel_meta',
+            error: 'Selecciona un nivel de meta',
+            element: document.querySelector('[name="nivel_meta"]'),
+            errorElement: document.getElementById('error-nivel-meta')
+        }
+    ];
+
+    // Validar cada campo
+    campos.forEach(campo => {
+        const valor = campo.element.value.trim();
+        const esSelect = campo.element.tagName === 'SELECT';
+        
+        // Resetear clases
+        campo.element.classList.remove('campo-error', 'campo-valido');
+        if (campo.errorElement) campo.errorElement.classList.remove('error', 'valido');
+        
+        // Validar
+        if ((esSelect && valor === '') || (!esSelect && valor === '')) {
+            valido = false;
+            campo.element.classList.add('campo-error');
+            if (campo.errorElement) {
+                campo.errorElement.textContent = `⚠️ ${campo.error}`;
+                campo.errorElement.classList.add('error');
+            }
+            if (!primerCampoError) primerCampoError = campo.element;
+        } else {
+            // Marcar como válido
+            campo.element.classList.add('campo-valido');
+            if (campo.errorElement) {
+                campo.errorElement.classList.add('valido');
+                // Restaurar mensaje original para campos válidos
+                if (campo.name === 'peso') campo.errorElement.textContent = 'Ingresa tu peso actual en libras';
+                else if (campo.name === 'altura') campo.errorElement.textContent = 'Ingresa tu altura en centímetros';
+                else if (campo.name === 'dieta_actual') campo.errorElement.textContent = 'Selecciona la dieta que sigues actualmente';
+                else if (campo.name === 'objetivo') campo.errorElement.textContent = 'Selecciona tu principal objetivo nutricional';
+                else if (campo.name === 'nivel_meta') campo.errorElement.textContent = 'Selecciona el nivel de cambio que deseas lograr';
+            }
+        }
+    });
+
+    // Enfocar y desplazarse al primer error
+    if (primerCampoError) {
+        primerCampoError.focus();
+        primerCampoError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    return valido;
+}
+
     // Mostrar/Ocultar opciones en "historia"
   function historia(container) {
     const options = container.nextElementSibling;
@@ -75,51 +161,59 @@
   });
 
  // Función para manejar el envío del formulario
+// Función para manejar el envío del formulario
 document.getElementById('form-crear-perfil').addEventListener('submit', function(e) {
     e.preventDefault();
     
-    // Mostrar loader o feedback al usuario
+    // Mostrar loader
     const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
     
-    // Enviar formulario via AJAX
+    // Enviar formulario
     fetch(this.action, {
         method: 'POST',
         body: new FormData(this)
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) throw new Error("Error en la respuesta del servidor");
+        return response.json();
+    })
     .then(data => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+
+        Toast.fire({
+            icon: data.icon || (data.success ? 'success' : 'error'),
+            title: data.message
+        });
+
         if (data.success) {
-            Swal.fire({
-                title: 'Perfil nutricional creado con exito',
-                text: data.message,
-                icon: 'success',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                // Cambiado para redirigir a la pantalla principal
+            setTimeout(() => {
                 window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
-            });
-        } else {
-            Swal.fire({
-                title: 'Error',
-                text: data.message,
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
+            }, 3000);
         }
     })
     .catch(error => {
+        console.error('Error:', error);
         Swal.fire({
-            title: 'Error',
-            text: 'Ocurrió un error al enviar el formulario',
+            toast: true,
+            position: 'bottom-end',
             icon: 'error',
-            confirmButtonText: 'OK'
+            title: 'Error al enviar el formulario',
+            showConfirmButton: false,
+            timer: 3000
         });
     })
     .finally(() => {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Guardar';
+        submitBtn.innerHTML = originalText;
     });
 });
 
