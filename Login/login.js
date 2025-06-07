@@ -1,5 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
   // ... (código existente del toggle de contraseña)
+  
+  //para mostrar la contraseña de login
+const togglePassword = document.querySelector('.password-toggle');
+const passwordInput = document.getElementById('password');
+const eyeIcon = togglePassword.querySelector('.eye-icon');
+
+togglePassword.addEventListener('click', function () {
+  const isPassword = passwordInput.type === 'password';
+  passwordInput.type = isPassword ? 'text' : 'password';
+  eyeIcon.classList.toggle('fa-eye');
+  eyeIcon.classList.toggle('fa-eye-slash');
+});
+
 
   document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();

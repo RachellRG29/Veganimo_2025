@@ -117,6 +117,34 @@
     ul li {
       margin-bottom: 5px;
     }
+
+    /* Animación */
+@keyframes modalShow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal.show {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  animation: modalShow 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
   </style>
 </head>
 <body>
@@ -139,136 +167,148 @@
   </div>
 
   <script>
-    let datosUsuario = {};
+  let datosUsuario = {};
 
-    fetch('cargar_perfil.php')
-      .then(res => res.json())
-      .then(data => {
-        datosUsuario = data.datos;
-        renderTarjetas();
-      })
-      .catch(err => {
-        console.error('Error al cargar perfil:', err);
-        alert('Hubo un error al cargar el perfil.');
-      });
+  fetch('cargar_perfil.php')
+    .then(res => res.json())
+    .then(data => {
+      datosUsuario = data.datos;
+      renderTarjetas();
+    })
+    .catch(err => {
+      console.error('Error al cargar perfil:', err);
+      alert('Hubo un error al cargar el perfil.');
+    });
 
-    function renderTarjetas() {
-      const d = datosUsuario;
-      const container = document.getElementById('contenedor-tarjetas');
+  function renderTarjetas() {
+    const d = datosUsuario;
+    const container = document.getElementById('contenedor-tarjetas');
 
-      container.innerHTML = `
-        <div class="card">
-          <h3>Datos generales</h3>
-          <p><strong>Nombre:</strong> ${d.nombre_completo}</p>
-          <p><strong>Fecha de nacimiento:</strong> ${d.fecha_nacimiento}</p>
-          <p><strong>Género:</strong> ${d.genero}</p>
-          
-        </div>
+    container.innerHTML = `
+      <div class="card">
+        <h3>Datos generales</h3>
+        <p><strong>Nombre:</strong> ${d.nombre_completo}</p>
+        <p><strong>Fecha de nacimiento:</strong> ${d.fecha_nacimiento}</p>
+        <p><strong>Género:</strong> ${d.genero}</p>
+      </div>
 
-        <div class="card">
-          <h3>Datos nutricionales</h3>
-          <p><strong>Dieta:</strong> ${d.dieta_actual}</p>
-          <p><strong>Peso:</strong> ${d.peso} kg</p>
-          <p><strong>Altura:</strong> ${d.altura} cm</p>
-          <button class="ver-mas" onclick="mostrarModal('nutricionales')">Ver más</button>
-        </div>
+      <div class="card">
+        <h3>Datos nutricionales</h3>
+        <p><strong>Dieta:</strong> ${d.dieta_actual}</p>
+        <p><strong>Peso:</strong> ${d.peso} kg</p>
+        <p><strong>Altura:</strong> ${d.altura} cm</p>
+        <button class="ver-mas" onclick="mostrarModal('nutricionales')">Ver más</button>
+      </div>
 
-        <div class="card">
-          <h3>Historia clínica</h3>
-          <p>${previewLista([...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])])}</p>
-          <button class="ver-mas" onclick="mostrarModal('clinica')">Ver más</button>
-        </div>
+      <div class="card">
+        <h3>Historia clínica</h3>
+        <p>${previewLista([...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])])}</p>
+        <button class="ver-mas" onclick="mostrarModal('clinica')">Ver más</button>
+      </div>
 
-        <div class="card">
-          <h3>Afecciones personales</h3>
-          <p>${previewLista([...(d.intolerancias || []), ...(d.alergias || [])])}</p>
-          <button class="ver-mas" onclick="mostrarModal('afecciones')">Ver más</button>
-        </div>
+      <div class="card">
+        <h3>Afecciones personales</h3>
+        <p>${previewLista([...(d.intolerancias || []), ...(d.alergias || [])])}</p>
+        <button class="ver-mas" onclick="mostrarModal('afecciones')">Ver más</button>
+      </div>
 
-        <div class="card">
-          <h3>Síntomas gastrointestinales</h3>
-          <p>${previewLista(d.sintomas || [])}</p>
-          <button class="ver-mas" onclick="mostrarModal('sintomas')">Ver más</button>
-        </div>
+      <div class="card">
+        <h3>Síntomas gastrointestinales</h3>
+        <p>${previewLista(d.sintomas || [])}</p>
+        <button class="ver-mas" onclick="mostrarModal('sintomas')">Ver más</button>
+      </div>
+    `;
+  }
+
+  function previewLista(lista) {
+    if (!lista || lista.length === 0) return 'Sin datos registrados.';
+    return lista.slice(0, 2).join(', ') + (lista.length > 2 ? '...' : '');
+  }
+
+  function mostrarModal(tipo) {
+    const title = document.getElementById('modal-title');
+    const body = document.getElementById('modal-body');
+    const modal = document.getElementById('modal');
+    body.innerHTML = '';
+
+    const d = datosUsuario;
+
+    const titulos = {
+      generales: 'Datos generales',
+      nutricionales: 'Datos nutricionales',
+      clinica: 'Historia clínica',
+      afecciones: 'Afecciones personales',
+      sintomas: 'Síntomas gastrointestinales'
+    };
+
+    title.textContent = titulos[tipo] || 'Detalle';
+
+    if (tipo === 'generales') {
+      body.innerHTML = `
+        <p><strong>Nombre:</strong> ${d.nombre_completo}</p>
+        <p><strong>Fecha de nacimiento:</strong> ${d.fecha_nacimiento}</p>
+        <p><strong>Género:</strong> ${d.genero}</p>
       `;
+    } else if (tipo === 'nutricionales') {
+      body.innerHTML = `
+        <p><strong>Dieta actual:</strong> ${d.dieta_actual}</p>
+        <p><strong>Peso:</strong> ${d.peso} kg</p>
+        <p><strong>Altura:</strong> ${d.altura} cm</p>
+        <p><strong>Objetivo:</strong> ${d.objetivo}</p>
+        <p><strong>Meta:</strong> ${d.nivel_meta}</p>
+        <p><strong>Descripción:</strong> ${d.descripcion_dieta || 'N/A'}</p>
+      `;
+    } else if (tipo === 'clinica') {
+      const lista = [...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])];
+      mostrarLista(body, lista);
+    } else if (tipo === 'afecciones') {
+      const lista = [...(d.intolerancias || []), ...(d.alergias || [])];
+      mostrarLista(body, lista);
+    } else if (tipo === 'sintomas') {
+      mostrarLista(body, d.sintomas || []);
     }
 
-    function previewLista(lista) {
-      if (!lista || lista.length === 0) return 'Sin datos registrados.';
-      return lista.slice(0, 2).join(', ') + (lista.length > 2 ? '...' : '');
-    }
-
-    function mostrarModal(tipo) {
-      const title = document.getElementById('modal-title');
-      const body = document.getElementById('modal-body');
-      body.innerHTML = '';
-
-      const d = datosUsuario;
-
-      const titulos = {
-        generales: 'Datos generales',
-        nutricionales: 'Datos nutricionales',
-        clinica: 'Historia clínica',
-        afecciones: 'Afecciones personales',
-        sintomas: 'Síntomas gastrointestinales'
-      };
-
-      title.textContent = titulos[tipo] || 'Detalle';
-
-      if (tipo === 'generales') {
-        body.innerHTML = `
-          <p><strong>Nombre:</strong> ${d.nombre_completo}</p>
-          <p><strong>Fecha de nacimiento:</strong> ${d.fecha_nacimiento}</p>
-          <p><strong>Género:</strong> ${d.genero}</p>
-        `;
-      } else if (tipo === 'nutricionales') {
-        body.innerHTML = `
-          <p><strong>Dieta actual:</strong> ${d.dieta_actual}</p>
-          <p><strong>Peso:</strong> ${d.peso} kg</p>
-          <p><strong>Altura:</strong> ${d.altura} cm</p>
-          <p><strong>Objetivo:</strong> ${d.objetivo}</p>
-          <p><strong>Meta:</strong> ${d.nivel_meta}</p>
-          <p><strong>Descripción:</strong> ${d.descripcion_dieta || 'N/A'}</p>
-        `;
-      } else if (tipo === 'clinica') {
-        const lista = [...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])];
-        mostrarLista(body, lista);
-      } else if (tipo === 'afecciones') {
-        const lista = [...(d.intolerancias || []), ...(d.alergias || [])];
-        mostrarLista(body, lista);
-      } else if (tipo === 'sintomas') {
-        mostrarLista(body, d.sintomas || []);
-      }
-
-      document.getElementById('modal').style.display = 'flex';
-    }
-
-    function mostrarLista(container, lista) {
-      if (!lista || lista.length === 0) {
-        container.innerHTML = '<p>Sin información.</p>';
-        return;
-      }
-      const ul = document.createElement('ul');
-      lista.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        ul.appendChild(li);
-      });
-      container.appendChild(ul);
-    }
-
-    function cerrarModal() {
-      document.getElementById('modal').style.display = 'none';
-    }
-
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Escape') cerrarModal();
+    // Mostrar modal con animación
+    modal.style.display = 'flex';
+    requestAnimationFrame(() => {
+      modal.classList.add('show');
     });
+  }
 
-    window.addEventListener('click', e => {
-      if (e.target === document.getElementById('modal')) cerrarModal();
+  function mostrarLista(container, lista) {
+    if (!lista || lista.length === 0) {
+      container.innerHTML = '<p>Sin información.</p>';
+      return;
+    }
+    const ul = document.createElement('ul');
+    lista.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
     });
-  </script>
+    container.appendChild(ul);
+  }
+
+  function cerrarModal() {
+    const modal = document.getElementById('modal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300); // Esperar que termine la animación
+  }
+
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') cerrarModal();
+  });
+
+  window.addEventListener('click', e => {
+    if (e.target === document.getElementById('modal')) cerrarModal();
+  });
+
+  // Cerrar con la X
+  document.querySelector('.close').addEventListener('click', cerrarModal);
+</script>
+
 
 </body>
 </html>
