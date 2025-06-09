@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -53,12 +52,12 @@ body {
 .section-title {
     background-color: #007848;
     color: #F6FFFE;
-    font-size: 20px;
+    font-size: 18px;
     padding: 8px 15px;
-    border-radius: 15px;
-    margin-bottom: 40px;
+    border-radius: 0 15px 15px 0; /*top right bottom left*/
+    margin-bottom: 20px;
     display: inline-block;
-    margin-left: -20px;
+    margin-left: -30px;
 }
 
 .section-divider {
@@ -98,7 +97,7 @@ body {
 
 .form-input:focus {
     outline: none;
-    border-color: #007848;
+    border-color: #0d8555;
 }
 
 
@@ -115,8 +114,8 @@ body {
 
 .form-select {
     background-color: #F6FFFE;
-    border: 1.5px solid #707070;
-    border-radius: 5px;
+    border: 2px solid #817c7c;
+    border-radius: 10px;
     padding: 8px 12px;
     font-size: 16px;
     width: 100%;
@@ -232,9 +231,6 @@ body {
 
 }
 
-
-
-
 .progress-container {
     display: flex;
     align-items: center;
@@ -248,8 +244,6 @@ body {
     flex-grow: 1;
     max-width: 50px;
 }
-
-
 
 .progress-step {
     width: 16px;
@@ -461,15 +455,6 @@ body {
     font-weight: bold;
   }
 
-  
-
-  /*AFECCIONES*/
-
-
-
-
-
-
 
 
 
@@ -507,7 +492,7 @@ margin-left: 0;
 .form-row {
     display: flex;
     gap: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
 }
 
 
@@ -516,10 +501,17 @@ margin-left: 0;
     max-width: 100%;
     margin-right: 90px;
 }
-  .w-85 {
+.w-85 {
     width: 85%;
     gap: 4.5rem;
-  }
+}
+
+.w-100{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 
 #dietaCheckbox {
   background-color: #007848;
@@ -531,10 +523,10 @@ input[type="checkbox"]#dietaCheckbox:checked {
   accent-color: #007848;
 }
 
-    .custom-select-container {
+.custom-select-container {
   background-color: #F6FFFE;
   border: 2px solid #007848;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 10px 12px;
   font-size: 16px;
   color: #1A1C1C;
@@ -544,7 +536,7 @@ input[type="checkbox"]#dietaCheckbox:checked {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 100%;
+  max-width: 85%;
 }
 
 .custom-select-options {
