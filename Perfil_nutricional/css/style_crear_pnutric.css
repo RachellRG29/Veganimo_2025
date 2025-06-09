@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -38,11 +39,15 @@ body {
 }
 
 .title-decoration {
-    height: 3px;
-    background-color: #F6FFFE;
-    border-radius: 3px;
-    width: 120px;
+    height: 2px;
+    background-color: #F6FFFE;;
+    border-radius: 20px;
+    width: 222px;
     margin: 8px auto 15px;
+    font-family: 'Gloock';
+    margin-top: -26px;
+    position: relative;
+    margin-left: 304px;
 }
 
 .section-title {
@@ -51,8 +56,9 @@ body {
     font-size: 20px;
     padding: 8px 15px;
     border-radius: 15px;
-    margin-bottom: 12px;
+    margin-bottom: 40px;
     display: inline-block;
+    margin-left: -20px;
 }
 
 .section-divider {
@@ -68,7 +74,7 @@ body {
 }
 
 .form-label {
-    font-size: 18px;
+    font-size: 16px;
     display: block;
     margin-bottom: 8px;
 }
@@ -81,11 +87,11 @@ body {
 
 .form-input {
     background-color: #F6FFFE;
-    border: 1.5px solid #707070;
-    border-radius: 5px;
+    border: 2px solid #817c7c;
+    border-radius: 10px;
     padding: 8px 12px;
-    font-size: 16px;
-    width: 100%;
+    font-size: 15px;
+    width: 85%;
     color: #707070;
     font-family: 'Comfortaa', sans-serif;
 }
@@ -94,6 +100,7 @@ body {
     outline: none;
     border-color: #007848;
 }
+
 
 .half-width {
     width: 100%;
@@ -120,10 +127,7 @@ body {
     -moz-appearance: none;
 }
 
-.form-select:focus {
-    outline: none;
-    border-color: #007848;
-}
+
 
 .select-arrow {
     position: absolute;
@@ -145,7 +149,7 @@ body {
 
 /* Estilos para campos válidos */
 .campo-valido {
-    border-color: #48c78e !important;
+    border-color: #059e61 !important;
     box-shadow: 0 0 0 1px rgba(72, 199, 142, 0.25);
 }
 
@@ -161,7 +165,7 @@ body {
 }
 
 .explanation-text.valido {
-    color: #48c78e;
+    color: #007848;
 }
 
 .unit-text {
@@ -192,7 +196,7 @@ body {
     border: none;
     border-radius: 12px;
     padding: 10px 25px;
-    font-family: 'Comfortaa', sans-serif;
+    font-family: 'Comfortaa';
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
@@ -206,22 +210,28 @@ body {
 }
 
 .next-button {
-    background-color: #007848;
+    background-color: #154734;
     color: #F6FFFE;
+    font-family: "Comfortaa";
+    font-size: 14px;
+  
+    
 }
 
-#gilberto {
+#guardarButton {
     background-color: #E99A3C;
-    color: #000000;
+    color: #1A1C1C;
     
 }
 
 #nextButton1 {
-    background-color: #007848;
+    background-color: #130a0a;
     color: #F6FFFE;
     position: center;
+   
 
 }
+
 
 
 
@@ -445,54 +455,134 @@ body {
 
 /* Estilos (reutiliza los que ya tienes para "custom-select")*/
 
-  .custom-select-container {
-    border: 2px solid green;
-    padding: 10px;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-  }
+ 
 
   .custom-select-selected {
     font-weight: bold;
   }
 
-  .custom-select-options {
-    border: 2px solid green;
-    background-color: #f9f9f9;
-    margin-top: 5px;
-    padding: 10px;
-    max-height: 150px;
-    overflow-y: auto;
-    border-radius: 5px;
-  }
-
-  .custom-select-options label {
-    display: block;
-    margin: 3px 0;
-  }
-
-  .select-arrow {
-    color: green;
-  }
-
+  
 
   /*AFECCIONES*/
 
-.custom-select-container {
+
+
+
+
+
+
+
+
+
+    /* Centra SOLO el botón de la sección 1 */
+#section1 .center-button {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    margin-top: 25px;
+    font-family: "Comfortaa";
+}
+
+
+ .centered-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.centered-group .form-input {
+    margin-top: 5px;
+max-width: 85%;
+margin-left: 0;
+}
+   
+
+.centered-group .form-label {
+    align-self: flex-start;
+    margin-left: 7.5%; 
+}
+
+
+/* Estilo para la fila de fecha y género */
+.form-row {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+
+.form-row .form-input {
+    
+    max-width: 100%;
+    margin-right: 90px;
+}
+  .w-85 {
+    width: 85%;
+    gap: 4.5rem;
+  }
+
+#dietaCheckbox {
+  background-color: #007848;
+}
+
+
+
+input[type="checkbox"]#dietaCheckbox:checked {
+  accent-color: #007848;
+}
+
+    .custom-select-container {
+  background-color: #F6FFFE;
+  border: 2px solid #007848;
+  border-radius: 5px;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: #1A1C1C;
+  font-family: 'Comfortaa', sans-serif;
+  cursor: pointer;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 2px solid #1A7A53;
-  border-radius: 10px;
-  padding: 10px 12px;
-  cursor: pointer;
-  background-color: #fff;
-  margin-bottom: 8px;
+  max-width: 100%;
+}
+
+.custom-select-options {
+  background-color: #F6FFFE;
+  border: 1.5px solid #707070;
+  border-radius: 20px;
+  padding: 10px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 15px;
+  color: #1A1C1C;
   position: relative;
+  z-index: 100;
+}
+
+.custom-select-options label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.custom-select-options input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  accent-color: #007848;
+  border-radius: 15px;
+}
+
+.custom-select-selected {
+  flex-grow: 1;
+  color: #707070;
+}
+
+.select-arrow {
+  margin-left: 10px;
+  color: #007848;
 }
 
 .custom-select-container:hover {
@@ -505,7 +595,7 @@ body {
 }
 
 .select-arrow {
-  color: #1A7A53;
+  color: #007848;
   transition: transform 0.2s ease;
 }
 
@@ -513,68 +603,3 @@ body {
   transform: rotate(180deg);
 }
 
-.custom-select-options {
-  border: 1px solid #1A7A53;
-  border-radius: 10px;
-  padding: 10px 15px;
-  background-color: #fff;
-  max-height: 250px;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.custom-select-options label {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 6px;
-  transition: 0.2s ease;
-}
-
-.custom-select-options label:hover {
-  background-color: #f1fdf7;
-}
-
-/*Síntomas gastrointestinales*/
-
-    .dropdown-container {
-        position: relative;
-        width: 100%;
-    }
-
-    .custom-dropdown {
-        background-color: white;
-        border: 2px solid green;
-        padding: 10px;
-        cursor: pointer;
-        color: black;
-    }
-
-    .custom-dropdown .arrow {
-        float: right;
-    }
-
-    .dropdown-options {
-        display: none;
-        border: 1px solid green;
-        background-color: white;
-        color: black;
-        padding: 10px;
-        margin-top: 5px;
-        max-height: 200px;
-        overflow-y: auto;
-    }
-
-    .dropdown-options label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-
-    

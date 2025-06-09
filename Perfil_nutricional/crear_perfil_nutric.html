@@ -60,38 +60,26 @@
             <div class="title-decoration"></div>
 
             <h2 class="section-title">Datos generales</h2>
-            <div class="section-divider"></div>
+            
 
-            <div class="form-group">
+            <div class="form-group centered-group">
                 <label class="form-label">Nombre completo:</label>
-                <input type="text" name="nombre_completo" class="form-input half-width" readonly>
+                <input type="text" name="nombre_completo" class="form-input half-width" readonly style="border: 2px solid #817c7c !important;">
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Fecha de nacimiento:</label>
-                <input type="date" name="fecha_nacimiento" class="form-input half-width" readonly>
-            </div>
+            <div class="form-row justify-content-center w-85 mx-auto">  <!-- Esta es la nueva clase contenedora -->
+              <div class="form-group">
+                  <label class="form-label">Fecha de nacimiento:</label>
+                  <input type="date" name="fecha_nacimiento" class="form-input half-width" readonly style="border: 2px solid #817c7c !important; " >
+              </div>
 
-            <div class="form-group">
-                <label class="form-label">Género:</label>
-                <input type="text" name="genero" class="form-input half-width" readonly>
-            </div>
+              <div class="form-group">
+                  <label class="form-label">Género:</label>
+                  <input type="text" name="genero" class="form-input half-width"  style="border: 2px solid #817c7c !important; ">
+              </div>
+          </div>
 
-            <!--<div class="form-group">
-                <label class="form-label">Género:</label>
-                <div class="select-container" readonly>
-                    <select name="genero" class="form-select" disabled>
-                        <option value="" disabled selected>Selecciona tu género</option>
-                        <option value="masculino">Masculino</option>
-                        <option value="femenino">Femenino</option>
-                        <option value="otro">Otro</option>
-                        <option value="prefiero-no-decir">Prefiero no decir</option>
-                    </select>
-                    <i class="fas fa-chevron-down select-arrow"></i>
-                </div>
-            </div>-->
-
-            <div class="buttons-container">
+            <div class="buttons-container center-button">
                 <button type="button" class="form-button next-button" onclick="nextSection(1)">Siguiente</button>
             </div>
 
@@ -125,7 +113,7 @@
                         <option value="vegana">Vegana</option>
                    
                     </select>
-                    <i class="fas fa-chevron-down select-arrow"></i>
+                  
                 </div>
                 <p class="explanation-text" id="error-dieta">Selecciona la dieta que sigues actualmente</p>
             </div>
@@ -134,7 +122,7 @@
                 <div class="column">
                     <div class="form-group">
                         <label class="form-label required">Escribe tu peso actual:</label>
-                        <div style="display: flex; align-items: center;">
+                        <div style="display: flex; align-items: center; ">
                             <input type="number" name="peso" class="form-input half-width">
                             <span class="unit-text">libras</span>
                         </div>
@@ -166,7 +154,7 @@
                                 <option value="mejorar-salud">Mejorar salud general</option>
                                 <option value="rendimiento">Mejorar rendimiento deportivo</option>
                             </select>
-                            <i class="fas fa-chevron-down select-arrow"></i>
+                            
                         </div>
                         <p class="explanation-text" id="error-objetivo">Selecciona tu principal objetivo nutricional</p>
                     </div>
@@ -182,7 +170,7 @@
                                 <option value="alto">Alto (cambios significativos)</option>
                                 <option value="maximo">Máximo (transformación completa)</option>
                             </select>
-                            <i class="fas fa-chevron-down select-arrow"></i>
+                            
                         </div>
                                 <p class="explanation-text" id="error-nivel-meta">Selecciona el nivel de cambio que deseas lograr</p>
                     </div>
@@ -442,11 +430,11 @@
         <div class="form-group">
             <label class="form-label">¿Sufres de alguno de los siguientes síntomas? (opcional)</label>
             <div class="dropdown-container">
-                <div class="custom-dropdown" onclick="toggleDropdown()">
+                <div class="custom-select-container" onclick="toggleDropdown()">
                     Selecciona síntomas
-                    <span class="arrow">&#9660;</span> <!-- Flecha hacia abajo -->
+                   <i class="fas fa-chevron-down select-arrow"></i> <!-- Flecha hacia abajo -->
                 </div>
-                <div class="dropdown-options" id="dropdownOptions">
+                <div class="custom-select-options" id="dropdownOptions">
                     <label><input type="checkbox" name="sintomas[]" value="Dolor abdominal"> Dolor abdominal</label>
                     <label><input type="checkbox" name="sintomas[]" value="Distensión abdominal"> Distensión abdominal</label>
                     <label><input type="checkbox" name="sintomas[]" value="Gases o flatulencias"> Gases o flatulencias</label>
@@ -527,7 +515,7 @@
 
   <div class="buttons-container">
     <button type="button" class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
-    <button type="submit" class="form-button submit-button">Guardar</button>
+    <button type="submit" id="guardarButton" class="form-button submit-button">Guardar</button>
   </div>
 
   <div class="progress-container6">
@@ -638,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Estilo visual de cada etiqueta */
 .selected-tag {
   background-color: #e0f6e9;
-  color: #2c7a4d;
+  color: #007848;
   border: 1px solid #b2e3c4;
   border-radius: 15px;
   padding: 2px 6px;      /* Más compacto */
@@ -652,7 +640,7 @@ document.addEventListener('DOMContentLoaded', function() {
   margin-left: 4px;
   cursor: pointer;
   font-weight: bold;
-  color: #2c7a4d;
+  color: #007848;
 }
 
 </style>
