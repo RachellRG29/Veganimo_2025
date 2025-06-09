@@ -30,6 +30,10 @@ function nextSection(currentSection) {
         });
     }
 
+
+
+
+
 // Validar sección nutricional
 function validarSeccionNutricional() {
     let valido = true;
@@ -172,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
+ //historia clinica
     // Mostrar/Ocultar opciones en "historia"
   function historia(container) {
     const options = container.nextElementSibling;
@@ -225,58 +229,68 @@ document.addEventListener('DOMContentLoaded', () => {
  // Función para manejar el envío del formulario
 // Función para manejar el envío del formulario
 document.getElementById('form-crear-perfil').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Mostrar loader
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
-    
-    // Enviar formulario
-    fetch(this.action, {
-        method: 'POST',
-        body: new FormData(this)
-    })
-    .then(response => {
-        if (!response.ok) throw new Error("Error en la respuesta del servidor");
-        return response.json();
-    })
-    .then(data => {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true
-        });
+  e.preventDefault();
 
-        Toast.fire({
-            icon: data.icon || (data.success ? 'success' : 'error'),
-            title: data.message
-        });
+  // Validar antes de enviar
+  if (!validarDieta()) {
+    // Aquí ya mostraste los mensajes, no envías nada
+    return; // Salir y no continuar con fetch
+  }
 
-        if (data.success) {
-            setTimeout(() => {
-                window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
-            }, 3000);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire({
-            toast: true,
-            position: 'bottom-end',
-            icon: 'error',
-            title: 'Error al enviar el formulario',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    })
-    .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalText;
+  // Si pasa validación, sigue con el fetch
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+
+  fetch(this.action, {
+    method: 'POST',
+    body: new FormData(this)
+  })
+  .then(response => {
+    if (!response.ok) throw new Error("Error en la respuesta del servidor");
+    return response.json();
+  })
+  .then(data => {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'bottom-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true
     });
+
+    Toast.fire({
+      icon: data.icon || (data.success ? 'success' : 'error'),
+      title: data.message
+    });
+
+    if (data.success) {
+      setTimeout(() => {
+        window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
+      }, 3000);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    Swal.fire({
+      toast: true,
+      position: 'bottom-end',
+      icon: 'error',
+      title: 'Error al enviar el formulario',
+      showConfirmButton: false,
+      timer: 3000
+    });
+  })
+  .finally(() => {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  });
 });
+
+
+
+
+
 
 // Resto de tus funciones para manejar las secciones...

@@ -120,11 +120,10 @@
                 <div class="select-container">
                     <select name="dieta_actual" class="form-select">
                         <option value="" disabled selected>Selecciona tu dieta</option>
-                        <option value="omnivora">Omnívora</option>
+                        <option value="normal">Normal</option>
                         <option value="vegetariana">Vegetariana</option>
                         <option value="vegana">Vegana</option>
-                        <option value="flexitariana">Flexitariana</option>
-                        <option value="pescetariana">Pescetariana</option>
+                   
                     </select>
                     <i class="fas fa-chevron-down select-arrow"></i>
                 </div>
@@ -185,7 +184,7 @@
                             </select>
                             <i class="fas fa-chevron-down select-arrow"></i>
                         </div>
-                        <p class="explanation-text">Selecciona el nivel de cambio que deseas lograr</p>
+                                <p class="explanation-text" id="error-nivel-meta">Selecciona el nivel de cambio que deseas lograr</p>
                     </div>
                 </div>
             </div>
@@ -252,7 +251,8 @@
       <label><input type="checkbox" name="patologicos[]" value="Úlcera"> Úlcera</label>
       <label><input type="checkbox" name="patologicos[]" value="Colitis"> Colitis</label>
     </div>
-    <small>Selecciona si tienes o has tenido alguna de estas condiciones médicas.</small>
+    <small>Selecciona si tienes o has tenido alguna de estas condiciones médicas (opcional)</small>
+    <div class="selected-tags" data-group="patologicos"></div>
   </div>
 
   <!-- Antecedentes familiares -->
@@ -284,7 +284,9 @@
     <label><input type="checkbox" name="familiares[]" value="Artritis reumatoide"> Artritis reumatoide</label>
     <label><input type="checkbox" name="familiares[]" value="Lupus"> Lupus</label>
   </div>
-  <small>Indica si tus familiares directos han tenido alguna de estas enfermedades.</small>
+  <small>Indica si tus familiares directos han tenido alguna de estas enfermedades (opcional).</small>
+  <div class="selected-tags" data-group="familiares"></div>
+  
 </div>
 
 <!-- Antecedentes quirúrgicos -->
@@ -309,7 +311,8 @@
     <label><input type="checkbox" name="quirurgicos[]" value="Cirugías con prótesis"> Cirugías ortopédicas con prótesis</label>
     <label><input type="checkbox" name="quirurgicos[]" value="Cirugías cardiovasculares"> Cirugías cardiovasculares</label>
   </div>
-  <small>Selecciona las cirugías a las que has sido sometido anteriormente.</small>
+  <small>Selecciona las cirugías a las que has sido sometido anteriormente (opcional)</small>
+  <div class="selected-tags" data-group="quirurgicos"></div>
 </div>
 
 
@@ -377,6 +380,8 @@
             <label><input type="checkbox" name="intolerancias[]" value="Legumbres"> Legumbres</label>
             <label><input type="checkbox" name="intolerancias[]" value="Miel"> Miel</label>
           </div>
+          <div class="selected-tags" data-group="intolerancias"></div>
+
         </div>
 
         <!-- Alergias -->
@@ -403,6 +408,8 @@
             <label><input type="checkbox" name="alergias[]" value="Colorantes artificiales"> Colorantes artificiales</label>
             <label><input type="checkbox" name="alergias[]" value="Preservantes"> Preservantes (sulfitos, benzoatos)</label>
           </div>
+          <div class="selected-tags" data-group="alergias"></div>
+
         </div>
 
         <div class="buttons-container">
@@ -433,7 +440,7 @@
         <div class="section-divider"></div>
 
         <div class="form-group">
-            <label class="form-label">¿Sufres de alguno de los siguientes síntomas?</label>
+            <label class="form-label">¿Sufres de alguno de los siguientes síntomas? (opcional)</label>
             <div class="dropdown-container">
                 <div class="custom-dropdown" onclick="toggleDropdown()">
                     Selecciona síntomas
@@ -460,6 +467,9 @@
                     <label><input type="checkbox" name="sintomas[]" value="Ictericia"> Ictericia</label>
                     <label><input type="checkbox" name="sintomas[]" value="Sabor amargo en la boca"> Sabor amargo en la boca</label>
                 </div>
+              <div class="selected-tags" data-group="sintomas"></div>
+
+
             </div>
         </div>
 
@@ -483,48 +493,58 @@
     </div>
     </div>
 
+<!-- Sección 6: Dieta prescrita por profesional -->
+<div class="section" id="section6">
+  <h2 class="section-title">Dieta prescrita por profesional</h2>
+  <div class="section-divider"></div>
 
-        <!-- Sección 6: Dieta prescrita por profesional -->
-        <div class="section" id="section6">
-        <h2 class="section-title">Dieta prescrita por profesional</h2>
-        <div class="section-divider"></div>
+  <div class="form-group">
+  <label class="form-label">¿Sigues una dieta prescrita por profesional?</label>
+  <div>
+    <input type="checkbox" id="dietaCheckbox" onchange="toggleDietaBox()"> <label for="dietaCheckbox">Sí</label>
+  </div>
+</div>
 
+  <div class="form-group" id="dietaDescripcion" style="display: none; position: relative;">
+    <textarea 
+      class="form-input full-width" 
+      name="descripcion_dieta" 
+      id="descripcionDieta" 
+      rows="4" 
+      placeholder="Describe la dieta médica o terapéutica que estás siguiendo..."></textarea>
 
-
-        <div class="form-group">
-            <label class="form-label">¿Sigues una dieta prescrita por profesional?</label>
-                <input type="checkbox" id="dietaCheckbox" onchange="toggleDietaBox()">
-                Si
-            </label>
-        </div>
-
-        <div class="form-group" id="dietaDescripcion" style="display: none;">
-            <textarea class="form-input full-width" name="descripcion_dieta" rows="4" placeholder="Describe la dieta médica o terapéutica que estás siguiendo..."></textarea>
-            <small class="form-hint">Incluye el tipo de dieta y cualquier detalle relevante proporcionado por tu nutricionista o médico.</small>
-        </div>
-
-    
-
-                        <div class="buttons-container">
-                    <button type="button" class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
-                    <button type="submit" class="form-button submit-button">Guardar</button>
-                </div>
-
-    <div class="progress-container6">
-        <div class="progress-step6 active6"></div>
-        <div class="progress-line6"></div>
-        <div class="progress-step6 active6"></div>
-        <div class="progress-line6"></div>
-        <div class="progress-step6 active6"></div>
-        <div class="progress-line6"></div>
-        <div class="progress-step6 active6"></div>
-        <div class="progress-line6"></div>
-        <div class="progress-step6 active6"></div>
-        <div class="progress-line6"></div>
-        <div class="progress-step6 active6"></div>
+    <div style="display:flex; justify-content: space-between; align-items: center;">
+      <small class="form-hint">
+        Incluye el tipo de dieta y cualquier detalle relevante proporcionado por tu nutricionista o médico.
+      </small>
+      <small id="contadorPalabras" style="font-weight:bold; color:#555;">0 / 250 palabras</small>
     </div>
 
-      </div>
+    <small id="errorDieta" style="color: red; display: none; margin-top: 4px;">
+      Por favor, escribe una descripción válida y respetuosa.
+    </small>
+  </div>
+
+  <div class="buttons-container">
+    <button type="button" class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
+    <button type="submit" class="form-button submit-button">Guardar</button>
+  </div>
+
+  <div class="progress-container6">
+    <div class="progress-step6 active6"></div>
+    <div class="progress-line6"></div>
+    <div class="progress-step6 active6"></div>
+    <div class="progress-line6"></div>
+    <div class="progress-step6 active6"></div>
+    <div class="progress-line6"></div>
+    <div class="progress-step6 active6"></div>
+    <div class="progress-line6"></div>
+    <div class="progress-step6 active6"></div>
+    <div class="progress-line6"></div>
+    <div class="progress-step6 active6"></div>
+  </div>
+</div>
+
 
     </form>
       
@@ -592,8 +612,50 @@ document.addEventListener('DOMContentLoaded', function() {
             timer: 3000
         });
     }
+
+    
 });
 </script>
+<script src="validaciones.js"></script>
+
+<style>/* Etiqueta en verde suave cuando se selecciona */
+.custom-select-options label.selected {
+  background-color: #e0f6e9;
+  border-radius: 5px;
+  padding: 4px;
+  display: block;
+}
+
+/* Contenedor de etiquetas tipo 'chips' */
+.selected-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;          /* Menor espacio entre etiquetas */
+  font-size: 10px;    /* Tamaño base pequeño para las etiquetas */
+}
+
+/* Estilo visual de cada etiqueta */
+.selected-tag {
+  background-color: #e0f6e9;
+  color: #2c7a4d;
+  border: 1px solid #b2e3c4;
+  border-radius: 15px;
+  padding: 2px 6px;      /* Más compacto */
+  font-size: inherit;    /* Hereda tamaño del contenedor */
+  display: flex;
+  align-items: center;
+}
+
+/* Botón de cierre de la etiqueta */
+.selected-tag .remove-tag {
+  margin-left: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #2c7a4d;
+}
+
+</style>
 
 </body>
 
