@@ -227,31 +227,37 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
  // Función para manejar el envío del formulario
-// Función para manejar el envío del formulario
 document.getElementById('form-crear-perfil').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  // Validar antes de enviar
-  if (!validarDieta()) {
-    // Aquí ya mostraste los mensajes, no envías nada
-    return; // Salir y no continuar con fetch
-  }
+  if (!validarDieta()) return;
 
-  // Si pasa validación, sigue con el fetch
-  const submitBtn = this.querySelector('button[type="submit"]');
+  const form = this;
+  const submitBtn = form.querySelector('button[type="submit"]');
   const originalText = submitBtn.innerHTML;
   submitBtn.disabled = true;
   submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
 
-  fetch(this.action, {
+  fetch(form.action, {
     method: 'POST',
-    body: new FormData(this)
+    body: new FormData(form)
   })
-  .then(response => {
-    if (!response.ok) throw new Error("Error en la respuesta del servidor");
-    return response.json();
-  })
+  .then(response => response.json())
   .then(data => {
+    if (data.existe) {
+      // Caso especial: Perfil ya existe → Mostrar alerta modal (no Toast) y redirigir
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: data.message,
+        confirmButtonText: 'Entendido'
+      }).then(() => {
+        window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
+      });
+      return; // Importante: Salir para no ejecutar el Toast
+    }
+
+    // Caso normal (éxito o error genérico)
     const Toast = Swal.mixin({
       toast: true,
       position: 'bottom-end',
@@ -261,23 +267,24 @@ document.getElementById('form-crear-perfil').addEventListener('submit', function
     });
 
     Toast.fire({
-      icon: data.icon || (data.success ? 'success' : 'error'),
-      title: data.message
+      icon: data.icon || 'info',
+      title: data.message || 'Operación completada'
     });
 
+    // Redirigir solo si es éxito (data.success)
     if (data.success) {
       setTimeout(() => {
         window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
-      }, 3000);
+      }, 3200);
     }
   })
   .catch(error => {
-    console.error('Error:', error);
+    console.error('Error en fetch:', error);
     Swal.fire({
       toast: true,
       position: 'bottom-end',
       icon: 'error',
-      title: 'Error al enviar el formulario',
+      title: '❌ Error de red o del servidor',
       showConfirmButton: false,
       timer: 3000
     });
@@ -287,6 +294,8 @@ document.getElementById('form-crear-perfil').addEventListener('submit', function
     submitBtn.innerHTML = originalText;
   });
 });
+
+
 
 
 

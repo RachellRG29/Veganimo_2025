@@ -136,12 +136,54 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    const nivelMeta = document.querySelector('[name="nivel_meta"]');
-const errorNivelMeta = document.getElementById('error-nivel-meta');
 
+
+
+    
+  const nivelMeta = document.querySelector('[name="nivel_meta"]');
+const errorNivelMeta = document.getElementById('error-nivel-meta');
+const selectDieta = document.querySelector('[name="dieta_actual"]');
+const errorElement = document.getElementById('error-dieta');
+
+// Definimos las descripciones
+const descripcionesDieta = {
+    normal: "Normal: Persona que consume todo tipo de alimentos sin ningún tipo de restricción.",
+    vegetariana: "Vegetariana: No consume carne, pollo ni pescado, pero sí puede consumir productos de origen animal como leche, huevos o miel.",
+    vegana: "Vegana: No consume ningún producto de origen animal, incluyendo carne, lácteos, huevos, miel y derivados."
+};
+
+const descripcionesNivelMeta = {
+    transicionista: "Transicionista: Persona que está en proceso de dejar de consumir productos de origen animal, pero aún no es completamente vegetariana o vegana.",
+    vegetariano: "Vegetariano: No consume carne, pollo ni pescado, pero sí puede consumir productos de origen animal como leche, huevos o miel.",
+    vegano: "Vegano: No consume ningún producto de origen animal, incluyendo carne, lácteos, huevos, miel y derivados. También suele evitar el uso de productos animales en otros aspectos de la vida."
+};
+
+// Configuramos el evento para dieta (independiente)
+selectDieta.addEventListener('change', () => {
+    const valor = selectDieta.value.trim();
+    
+    selectDieta.classList.remove('campo-error', 'campo-valido');
+    errorElement.classList.remove('error', 'valido');
+
+    if (valor === '') {
+        selectDieta.classList.add('campo-error');
+        errorElement.textContent = '⚠️ Selecciona un tipo de dieta';
+        errorElement.classList.add('error');
+        errorElement.style.fontStyle = '';
+        errorElement.style.color = '';
+    } else {
+        selectDieta.classList.add('campo-valido');
+        errorElement.textContent = descripcionesDieta[valor];
+        errorElement.classList.add('valido');
+        errorElement.style.fontStyle = 'italic';
+        errorElement.style.color = '#666';
+    }
+});
+
+// Configuramos el evento para nivel meta (independiente)
 nivelMeta.addEventListener('change', () => {
     const valor = nivelMeta.value.trim();
-
+    
     nivelMeta.classList.remove('campo-error', 'campo-valido');
     errorNivelMeta.classList.remove('error', 'valido');
 
@@ -149,14 +191,23 @@ nivelMeta.addEventListener('change', () => {
         nivelMeta.classList.add('campo-error');
         errorNivelMeta.textContent = '⚠️ Selecciona un nivel de meta';
         errorNivelMeta.classList.add('error');
+        errorNivelMeta.style.fontStyle = '';
+        errorNivelMeta.style.color = '';
     } else {
         nivelMeta.classList.add('campo-valido');
-        errorNivelMeta.textContent = 'Selecciona el nivel de cambio que deseas lograr';
+        errorNivelMeta.textContent = descripcionesNivelMeta[valor];
         errorNivelMeta.classList.add('valido');
+        errorNivelMeta.style.fontStyle = 'italic';
+        errorNivelMeta.style.color = '#666';
     }
 });
 
+    
 });
+
+
+    
+
 
 // Historia clínica
 
@@ -372,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const contieneMalaPalabra = malasPalabras.some(palabra => texto.toLowerCase().includes(palabra));
 
       if (texto === '') {
-        errorDieta.textContent = 'Por favor, describe la dieta prescrita por el profesional.';
+        errorDieta.textContent = 'Por favor, describe la dieta prescrita por el profesional o desmarque el checkbox.';
         errorDieta.style.display = 'block';
         dietaDescripcion.style.borderColor = 'red';
         dietaDescripcion.focus();
@@ -446,4 +497,51 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = originalText;
       });
   });
+});
+
+document.getElementById('form-crear-perfil').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  if (!validarDieta()) return;
+
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
+
+  try {
+    const response = await fetch(this.action, {
+      method: 'POST',
+      body: new FormData(this)
+    });
+    const data = await response.json();
+
+    if (data.error === "user_exists") {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ya tienes un perfil creado.',
+        confirmButtonText: 'Entendido'
+      });
+      window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
+      return; // Detener ejecución
+    }
+
+    if (data.success) {
+      await Swal.fire({
+        icon: 'success',
+        title: '¡Perfil guardado!',
+        timer: 3000
+      });
+      window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
+    } else {
+      throw new Error(data.message || "Error desconocido");
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    Swal.fire('Error', 'No se pudo guardar el perfil', 'error');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
 });
