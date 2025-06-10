@@ -52,7 +52,7 @@ body {
 .section-title {
     background-color: #007848;
     color: #F6FFFE;
-    font-size: 18px;
+    font-size: 20px;
     padding: 8px 15px;
     border-radius: 0 15px 15px 0; /*top right bottom left*/
     margin-bottom: 20px;
@@ -206,6 +206,7 @@ body {
     background-color: #F6FFFE;
     color: #007848;
     border: 2px solid #007848;
+     font-size: 14px;
 }
 
 .next-button {
