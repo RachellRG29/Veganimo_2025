@@ -12,3 +12,8 @@ try {
     die("❌ Error de conexión con MongoDB Atlas: " . $e->getMessage());
 }
 ?>
+
+
+
+
+
