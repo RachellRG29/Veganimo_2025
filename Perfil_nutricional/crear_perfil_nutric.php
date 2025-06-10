@@ -1,3 +1,33 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    // Redirigir al login si no hay sesión
+    header("Location: /login.html");
+    exit;
+}
+
+require_once __DIR__ . '/../misc/db_config.php';
+
+try {
+    $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
+    $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
+    $perfilExistente = current($cursor->toArray());
+
+    if ($perfilExistente) {
+        // Redirigir si ya existe el perfil
+        header("Location: /Perfil_nutricional/perfil_nutricional.html");
+        exit;
+    }
+} catch (MongoDB\Driver\Exception\Exception $e) {
+    // Puedes mostrar un error, pero aquí redirigiremos por seguridad
+    header("Location: /error.html");
+    exit;
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
