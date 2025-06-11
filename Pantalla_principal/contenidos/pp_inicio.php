@@ -23,7 +23,7 @@ if (isset($_SESSION['user_id'])) {
         <?php if ($perfilExistente): ?>
             <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
         <?php else: ?>
-            <li><a href="/Perfil_nutricional/crear_perfil_nutric.php" id="btn_crear_perfil">Crear perfil nutricional</a></li>
+            <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional</a></li>
         <?php endif; ?>
 
         <li>
@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id'])) {
       <!-- Menu perfil popup -->
       <div class="menu_perfil" id="menu_popup" style="display: none;">
         <ul>
-          <li><a href="/Perfil_nutricional/crear_perfil_nutric.php" id="btn_crear_perfil">Crear perfil nutricional </a></li>
+          <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional </a></li>
           <li>
             
             <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
@@ -67,8 +67,6 @@ if (isset($_SESSION['user_id'])) {
         </ul>
       </div>
     </div>
-
-
 
 
     <!-- INICIAR PLAN  -->
