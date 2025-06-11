@@ -92,7 +92,7 @@ function ejecutarScriptsPagina(pagina) {
     inicializarCrearRecetas();
   }
 
-  if (pagina === "pp_recetas.html") {
+  if (pagina === "pp_recetas.php") {
     setTimeout(() => {
       if (typeof cargarRecetas === 'function') {
         cargarRecetas();
@@ -217,7 +217,7 @@ const ultimaPagina = localStorage.getItem('ultimaPaginaCargada');
 let paginaInicial = "pp_inicio.php"; // Default
 
 if (seccion === 'recetas') {
-  paginaInicial = "pp_recetas.html";
+  paginaInicial = "pp_recetas.php";
 } else if (seccion === 'informate') {
   paginaInicial = "pp_informate.html";
 } else if (ultimaPagina) {
