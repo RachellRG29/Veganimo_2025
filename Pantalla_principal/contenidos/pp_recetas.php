@@ -162,6 +162,12 @@ if (isset($_SESSION['user_id'])) {
 
 <style>
 
+  .menu_perfil {
+  position: absolute;
+  z-index: 9999; /* Muy importante para que esté por encima */
+
+}
+
   .modal-receta {
     position: fixed;
     top: 0; right: 0;
@@ -188,6 +194,7 @@ if (isset($_SESSION['user_id'])) {
     flex-direction: column;
     position: relative;
   }
+
 
   /* BLOQUE CERRAR */
   .bloque-cerrar {
