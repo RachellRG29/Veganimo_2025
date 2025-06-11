@@ -10,3 +10,7 @@ if (result.success) {
         window.location.href = "/Pantalla_principal/index_pantalla_principal.html"; 
     }, 1500);
 }
+
+
+
+

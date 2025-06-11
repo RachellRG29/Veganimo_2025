@@ -80,7 +80,7 @@ async function verificarRolUsuario() {
 
  //Aplica estilos de fondo según la página cargada
 function aplicarEstilosFondo(pagina) {
-  const paginasVerdes = ["pp_inicio.html", "pp_mi_plan.html","pp_crear_recetas.html"];
+  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html","pp_crear_recetas.html"];
   document.getElementById("contenido-principal").style.backgroundColor = 
     paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
 }
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 const params = new URLSearchParams(window.location.search);
 const seccion = params.get('seccion');
 const ultimaPagina = localStorage.getItem('ultimaPaginaCargada');
-let paginaInicial = "pp_inicio.html"; // Default
+let paginaInicial = "pp_inicio.php"; // Default
 
 if (seccion === 'recetas') {
   paginaInicial = "pp_recetas.html";

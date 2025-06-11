@@ -1,3 +1,44 @@
+<?php
+session_start();
+
+// Ruta corregida al archivo de configuración
+require_once __DIR__ . '/../../misc/db_config.php';
+
+$perfilExistente = false;
+
+if (isset($_SESSION['user_id'])) {
+    try {
+        $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
+        $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
+        $perfil = current($cursor->toArray());
+        $perfilExistente = $perfil ? true : false;
+    } catch (Exception $e) {
+        $perfilExistente = false;
+    }
+}
+?>
+
+<div class="menu_perfil" id="menu_popup" style="display: none;">
+    <ul>
+        <?php if ($perfilExistente): ?>
+            <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
+        <?php else: ?>
+            <li><a href="/Perfil_nutricional/crear_perfil_nutric.php" id="btn_crear_perfil">Crear perfil nutricional</a></li>
+        <?php endif; ?>
+
+        <li>
+            <a href="#" class="pop-cerrar-sesion">
+                Cerrar sesión 
+                <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+
+
+
 <!-- pp_inicio.html -->
 <section class="section_inicio">
     <h1 class="lbl_bienvenida_vg">Bienvenido a Vegánimo 🌱</h1>
@@ -16,8 +57,9 @@
       <!-- Menu perfil popup -->
       <div class="menu_perfil" id="menu_popup" style="display: none;">
         <ul>
-          <li><a href="/Perfil_nutricional/crear_perfil_nutric.php">Crear perfil nutricional </a></li>
+          <li><a href="/Perfil_nutricional/crear_perfil_nutric.php" id="btn_crear_perfil">Crear perfil nutricional </a></li>
           <li>
+            
             <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
               <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
             </a>
@@ -25,6 +67,8 @@
         </ul>
       </div>
     </div>
+
+
 
 
     <!-- INICIAR PLAN  -->

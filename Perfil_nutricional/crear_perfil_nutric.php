@@ -1,33 +1,3 @@
-<?php
-session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    // Redirigir al login si no hay sesión
-    header("Location: /login.html");
-    exit;
-}
-
-require_once __DIR__ . '/../misc/db_config.php';
-
-try {
-    $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
-    $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
-    $perfilExistente = current($cursor->toArray());
-
-    if ($perfilExistente) {
-        // Redirigir si ya existe el perfil
-        header("Location: /Perfil_nutricional/perfil_nutricional.html");
-        exit;
-    }
-} catch (MongoDB\Driver\Exception\Exception $e) {
-    // Puedes mostrar un error, pero aquí redirigiremos por seguridad
-    header("Location: /error.html");
-    exit;
-}
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,6 +18,9 @@ try {
 
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+ 
+
 
 
     <!-- Estilos personalizados -->
@@ -75,6 +48,7 @@ try {
           <li><a href="/Pantalla_principal/index_pantalla_principal.html">Pantalla principal </a></li>
           <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional </a></li>
           <li>
+
             <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
               <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
             </a>
@@ -628,6 +602,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
 });
+
+
+
+
+
 </script>
 <script src="validaciones.js"></script>
 
