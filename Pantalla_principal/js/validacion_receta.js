@@ -2,6 +2,8 @@
 // FUNCIONES DE INTERFAZ
 // =========================
 
+//VALIDACIONES PARA CREAR RECETA 
+
 function cambiarColorIcono() {
   const icon = document.getElementById('icon-dificultad');
   const valor = document.getElementById('select-dificultad').value;

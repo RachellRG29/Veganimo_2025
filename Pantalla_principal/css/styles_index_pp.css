@@ -55,6 +55,7 @@ body , html{
   display: flex;
   flex-direction: column;
   z-index: 1000;
+  font-family: 'Comfortaa', Verdana !important;
 }
 
 /* icono arrow de la barra lateral */

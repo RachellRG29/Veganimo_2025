@@ -20,7 +20,8 @@
     <link rel="stylesheet" href="/Pantalla_principal/css/style_mi_plan.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_recetas.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_informate.css">
-    <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_crear_recetas.css">
+
+    <link rel="stylesheet" href="/Pantalla_principal/css/style_crear_receta.css"> <!-- Estilos para crear recetas -->
 
     <link rel="stylesheet" href="../style_tarjeta_receta.css"> <!-- Estilos para las tarjetas de recetas -->
     <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario -->
@@ -99,7 +100,7 @@
           <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
         </li>
 
-        <li class="nav-item" data-page="pp_crear_recetas.html" data-admin-only>
+        <li class="nav-item" data-page="pp_crear_receta.php" data-admin-only>
           <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear recetas</span>
         </li>
 
@@ -166,12 +167,15 @@
 
 
   <script src="../Pantalla_principal/js/scripts_index_pp.js"></script>   <!-- pantalla principal de la app - Importante -->
-  <script src="../Pantalla_principal/js/guardar_recetas.js"></script>  <!-- Guardar recetas -->
-  <script src="../Pantalla_principal/js/validacion_receta.js"></script>  <!-- metodos de interfaz de crear receta -->
+ 
   <script src="../Pantalla_principal/js/filtrado_posicion_tarjeta.js"></script>  <!-- Busqueda de tarjetas y animacion en posicion en pp_recetas.html -->
   <script src="../Pantalla_principal/js/cargar_recetas.js"></script>  <!-- Cargar recetas en pp_recetas.html -->
 
   <script src="../Pantalla_principal/js/modal_recetas.js"></script>
+
+  <script src="../Pantalla_principal/js/crear_receta.js"></script>
+  <script src="../Pantalla_principal/js/validacion_receta.js"></script>  <!-- metodos de interfaz de crear receta -->
+  <script src="../Pantalla_principal/js/guardar_recetas.js"></script>  <!-- Guardar recetas -->
 
   <!-- MENU Y POPUP PERFIL NUTRC -->
   <script src="../perfil_nutric_popup.js"></script>

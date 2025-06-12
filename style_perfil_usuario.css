@@ -13,7 +13,7 @@
 .tarjeta-perfil{
   position: fixed !important; /*para q no se mueva*/
   display: flex;
-  right: 2.5rem;
+  right: 1rem;
   top: 1rem;
   padding: 2px 20px;
   background-color: #E99A3C;

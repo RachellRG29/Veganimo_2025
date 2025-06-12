@@ -80,7 +80,7 @@ async function verificarRolUsuario() {
 
  //Aplica estilos de fondo según la página cargada
 function aplicarEstilosFondo(pagina) {
-  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html","pp_crear_recetas.html"];
+  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html","pp_crear_receta.php"];
   document.getElementById("contenido-principal").style.backgroundColor = 
     paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
 }
@@ -88,7 +88,7 @@ function aplicarEstilosFondo(pagina) {
  //Ejecuta scripts específicos para cada página
 
 function ejecutarScriptsPagina(pagina) {
-  if (pagina === "crear-recetas.html") {
+  if (pagina === "pp_crear_receta.php") {
     inicializarCrearRecetas();
   }
 
