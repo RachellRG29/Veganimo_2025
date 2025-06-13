@@ -79,6 +79,19 @@
   text-decoration: none;
 }
 
-.input-error {
-  border: 1px solid red !important;
+
+
+
+
+  .input-error {
+    border: 2px solid #e74c3c !important; /* Rojo */
+    background-color: #fff6f6;
+  }
+
+.rating.error {
+  border: 2px solid red;
+  border-radius: 6px;
+  padding: 4px;
 }
+
+

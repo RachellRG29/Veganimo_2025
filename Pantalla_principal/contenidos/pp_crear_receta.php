@@ -204,7 +204,7 @@
 
             <div class="buttons-container">
                 <button type="button" class="form-button prev-button" onclick="prevSectionCR(2)">Atrás</button>
-                <button type="button" class="form-button next-button" onclick="nextSectionCR(2)">Siguiente</button>
+                <button type="button" class="form-button next-button">Siguiente</button>
             </div>
 
             <div class="progress-container2">
