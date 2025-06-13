@@ -142,7 +142,7 @@
             
 
             <div class="buttons-container center-button">
-                <button type="button" class="form-button next-button" onclick="nextSectionCR(1)">Siguiente</button>
+               <button type="button" class="form-button next-button">Siguiente</button>
             </div>
 
             <div class="progress-container">
@@ -262,6 +262,9 @@
     <!-- SCRIPTS DE CREAR RECETAS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
     <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+    <script>src="https://code.jquery.com/jquery-3.6.0.min.js"></script></script>
+    
 
 </body>
 

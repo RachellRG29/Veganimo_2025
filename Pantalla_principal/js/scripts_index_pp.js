@@ -108,9 +108,10 @@ function ejecutarScriptsPagina(pagina) {
  //* Inicializa la funcionalidad de "Crear Recetas"
 
 function inicializarCrearRecetas() {
-  console.log("Inicializando creación de recetas...");
-  //agregar toda la lógica específica para crear recetas
+  console.log("✅ Inicializando creación de recetas...");
+  iniciarValidacionCrearReceta();
 }
+
 
 function mostrarErrorCarga() {
   const contenido = document.getElementById("contenido-principal");
@@ -245,7 +246,7 @@ function manejarAccionPersonalizada(accion) {
   switch(accion) {
     case 'crear-recetas':
       console.log("Iniciando creación de recetas...");
-      cargarContenido("pp_crear_recetas.html")
+      cargarContenido("pp_crear_recetas.php")
         .then(() => {
           // Actualización específica para crear recetas
           actualizarPerfilUsuario();
@@ -256,6 +257,8 @@ function manejarAccionPersonalizada(accion) {
       console.warn(`Acción personalizada no reconocida: ${accion}`);
   }
 }
+
+
 
 // Nueva función para verificar y forzar actualización
 function verificarActualizacionPerfil() {
@@ -297,3 +300,4 @@ async function cargarContenido(pagina) {
     return false;
   }
 }
+
