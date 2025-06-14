@@ -199,7 +199,11 @@ function iniciarValidacionCrearReceta() {
 
   // Eventos sección 1
 nombre.addEventListener('input', () => {
-  nombre.value = nombre.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+  // Limpiar caracteres no válidos
+  nombre.value = nombre.value
+    .replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '') // Solo letras con tildes, ñ y espacios
+    .replace(/^\s+/, '')                     // Quitar espacios al inicio
+    .replace(/\s{2,}/g, ' ');                // Reemplazar múltiples espacios por uno
 
   if (intentoEnvio) {
     validarCampoSeccion1(nombre, 'El nombre de la receta es obligatorio.');
@@ -217,13 +221,20 @@ nombre.addEventListener('input', () => {
 
 
 
+
 descripcion.addEventListener('input', () => {
-  // Limpiar lo que no sea letras, puntos, comas o espacios
-  descripcion.value = descripcion.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ.,\s]/g, '');
+  descripcion.value = descripcion.value
+    .replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s.,]/g, '')   // Solo letras, espacios, punto y coma
+    .replace(/^\s+/, '')                         // Elimina espacios al inicio
+    .replace(/^[\s.,]+/, '')                     // Quita  puntos y comas al inicio
+    .replace(/\s{2,}/g, ' ')                     // Reemplaza múltiples espacios por uno
+    .replace(/\.{2,}/g, '.')                     // Reemplaza múltiples puntos por uno
+    .replace(/,{2,}/g, ',');                     // Reemplaza múltiples comas por una
 
   actualizarContador();
-  intentoEnvio && validarDescripcion();
+  if (intentoEnvio) validarDescripcion();
 });
+
 
 
   categoria.addEventListener('change', () => intentoEnvio && validarCampoSeccion1(categoria, 'Selecciona categoría.'));
@@ -274,20 +285,27 @@ descripcion.addEventListener('input', () => {
     if (aviso) aviso.remove();
   }
 
-  function validarTiempo() {
-    const valor = parseInt(tiempoInput.value, 10);
-    if (isNaN(valor) || valor < 1) {
-      if (intentoEnvio2) {
-        aplicarEstiloError(tiempoInput);
-        crearAvisoSeccion2(tiempoInput, 'Tiempo mínimo: 1 unidad.');
-      }
-      return false;
-    } else {
-      quitarEstiloError(tiempoInput);
-      eliminarAvisoSeccion2(tiempoInput);
-      return true;
+ function validarTiempo() {
+  const valor = parseInt(tiempoInput.value, 10);
+  if (isNaN(valor) || valor < 1) {
+    if (intentoEnvio2) {
+      aplicarEstiloError(tiempoInput);
+      crearAvisoSeccion2(tiempoInput, 'Tiempo mínimo: 1 unidad.');
     }
+    return false;
+  } else if (valor > 300) {
+    if (intentoEnvio2) {
+      aplicarEstiloError(tiempoInput);
+      crearAvisoSeccion2(tiempoInput, 'El máximo de minutos es 300.');
+    }
+    return false;
+  } else {
+    quitarEstiloError(tiempoInput);
+    eliminarAvisoSeccion2(tiempoInput);
+    return true;
   }
+}
+
 
   function validarDificultad() {
     if (!dificultadSelect.value.trim()) {
@@ -345,9 +363,73 @@ descripcion.addEventListener('input', () => {
   }
 
   // Eventos sección 2
-  tiempoInput.addEventListener('input', () => intentoEnvio2 && validarTiempo());
+ let temporizadorMaximoMinutos; // para controlar el tiempo de mensaje
+
+tiempoInput.addEventListener('beforeinput', (e) => {
+  const esNumero = /^[0-9]$/.test(e.data);
+  const esPegado = e.inputType === 'insertFromPaste';
+
+  // Detectar si ya tiene 3 dígitos y va a escribir más
+  if ((tiempoInput.value.length >= 3 && esNumero) || 
+      (esPegado && (e.data?.length + tiempoInput.value.length > 3))) {
+    
+    e.preventDefault(); // Bloquea la escritura extra
+
+    if (intentoEnvio2) {
+      aplicarEstiloError(tiempoInput);
+      crearAvisoSeccion2(tiempoInput, 'El máximo de minutos es 300.');
+
+      // Limpiar el anterior si existe
+      clearTimeout(temporizadorMaximoMinutos);
+
+      // Ocultar el mensaje después de 5 segundos
+      temporizadorMaximoMinutos = setTimeout(() => {
+        quitarEstiloError(tiempoInput);
+        eliminarAvisoSeccion2(tiempoInput);
+      }, 5000);
+    }
+  }
+});
+
+tiempoInput.addEventListener('input', () => {
+  tiempoInput.value = tiempoInput.value.replace(/[^0-9]/g, '');
+  const valor = parseInt(tiempoInput.value, 10);
+
+  if (valor > 300 && intentoEnvio2) {
+    aplicarEstiloError(tiempoInput);
+    crearAvisoSeccion2(tiempoInput, 'El máximo de minutos es 300.');
+  } else if (!isNaN(valor)) {
+    quitarEstiloError(tiempoInput);
+    eliminarAvisoSeccion2(tiempoInput);
+  }
+
+  if (intentoEnvio2) {
+    validarTiempo();
+  }
+});
+
+
   dificultadSelect.addEventListener('change', () => intentoEnvio2 && validarDificultad());
-  ingredientesZona.addEventListener('input', () => intentoEnvio2 && validarIngredientes());
+ ingredientesZona.addEventListener('input', (e) => { const target = e.target;
+
+  // Verificamos que sea un input de ingredientes
+  if (target.matches('input[name="ingredientes[]"]')) {
+    // Solo letras, números, espacios simples y punto y coma
+    target.value = target.value
+      .replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.,]/g, '')  // Solo caracteres permitidos
+      .replace(/^\s+/, '')                         // Quita espacios al inicio
+      .replace(/^[\s.,]+/, '')                     // Quita puntos y comas al inicio
+      .replace(/\s{2,}/g, ' ')                     // Un solo espacio entre palabras
+      .replace(/\.{2,}/g, '.')                     // Evita .. seguidos
+      .replace(/,{2,}/g, ',');                    // Evita ,, seguidos
+
+    // Validación en tiempo real si ya intentó enviar
+    if (intentoEnvio2) {
+      validarIngredientes();
+    }
+  }
+});
+
 
   botonSiguiente2.addEventListener('click', function (e) {
     e.preventDefault();
@@ -426,9 +508,23 @@ descripcion.addEventListener('input', () => {
 
   // Eventos sección 3
 
-  pasosZona.addEventListener('input', () => {
+ pasosZona.addEventListener('input', (e) => {
+  const target = e.target;
+
+  //  input de paso
+  if (target.matches('input[name="pasos[]"]')) {
+    target.value = target.value
+      .replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.,]/g, '')   // Solo letras, números, espacio,  . ,
+      .replace(/^\s+/, '')                             // No espacios al inicio
+      .replace(/^[\s.,]+/, '')                     // Quita puntos y comas al inicio
+      .replace(/\s{2,}/g, ' ')                         // Solo un espacio entre palabras
+      .replace(/\.{2,}/g, '.')                         // Evita .. seguidos
+      .replace(/,{2,}/g, ',');                         // Evita ,, seguidos
+
     if (intentoEnvio3) validarPasos();
-  });
+  }
+});
+
 
   botonGuardar.addEventListener('click', function (e) {
     intentoEnvio3 = true;
