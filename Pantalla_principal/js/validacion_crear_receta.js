@@ -261,7 +261,7 @@ function iniciarValidacionCrearReceta() {
     if (!dificultadSelect.value.trim()) {
       if (intentoEnvio2) {
         aplicarEstiloError(dificultadSelect);
-        crearAvisoSeccion2(dificultadSelect, 'Selecciona la dificultad.');
+        crearAvisoSeccion2(dificultadSelect, 'Selecciona la dificultad de la receta...');
       }
       return false;
     } else {

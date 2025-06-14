@@ -241,7 +241,7 @@
                 <div class="progress-line3"></div>
                 <div class="progress-step3 active"></div>
                 <div class="progress-line3"></div>
-                <div class="progress-step3 inactive"></div>
+                <div class="progress-step3 active"></div>
               </div>
 
               <!-- Botón de Guardar -->
