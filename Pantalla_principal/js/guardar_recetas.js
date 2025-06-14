@@ -34,10 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
           timer: 3000,
           timerProgressBar: true
         });
-        
+
         if (data.success) {
+          // Limpiar formulario y resetear vistas previas
           event.target.reset();
-          // Resetear vistas previas de imágenes
           document.querySelectorAll('.img-preview').forEach(img => {
             img.style.display = 'none';
             img.src = '';
@@ -45,6 +45,11 @@ document.addEventListener("DOMContentLoaded", function() {
           document.querySelectorAll('.icono-placeholder').forEach(icon => {
             icon.style.display = 'block';
           });
+
+          // Recargar la página luego de un breve retraso
+          setTimeout(() => {
+            location.reload();
+          }, 3000); // Esperar a que se vea el toast
         }
       })
       .catch(error => {
