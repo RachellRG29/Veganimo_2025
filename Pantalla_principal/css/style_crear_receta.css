@@ -1,6 +1,6 @@
 
 *{
-    /*outline: 1px solid red; */
+   /* outline: 1px solid red; */
     font-family: 'Comfortaa', Verdana;
 }
 
@@ -83,15 +83,16 @@ body {
 }
  /*Textos del formulario*/
 .form-group label{
-    font-size: 15px;
+    font-size: 14.5px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-    font-size: 14.5px;
+    font-size: 13.5px;
     color: #1A1C1C;
 }
+
 
 .input-border {
   border: 1.9px solid #007848 !important;
@@ -103,6 +104,13 @@ body {
 .input-border:focus {
   border-color: #007848 !important;
   box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25) !important;
+}
+
+.textarea-fija {
+  resize: vertical;
+  height: 115px;
+  max-height: 115px; /* Establece la altura máxima */
+  min-height: min-content; /* Establece la altura mínima */
 }
 
 
@@ -123,26 +131,6 @@ body {
 
 }
 
-.input-border {
-  border: 1.9px solid #007848;
-  width: 90%;
-  margin: 10px auto;
-  padding: 8px;
-  border-radius: 10px;
-}
-
-.input-border:focus {
-  border-color: #007848;
-  box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
-}
-
-.textarea-fija {
-  resize: vertical;
-  height: 120px;
-  max-height: 120px; /* Establece la altura máxima */
-  min-height: min-content; /* Establece la altura mínima */
-}
-
 /*--------------------------   ZONA IZQUIERDA  ------------------------------*/
 
 /*zona de imagen receta*/
@@ -159,7 +147,7 @@ body {
 
 .zona_tarjeta_calif{
   margin-right: 20px;
-  margin-top: -3rem;
+  margin-top: -2.7rem;
 }
 
 /* IMAGEN DE LA RECETA*/
@@ -301,14 +289,19 @@ body {
 .tiempo-dificultad {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
   margin: auto;
   margin-top: 1rem;
   position: relative;
+  gap: 3.5rem;
 }
 
-.tiempo, .dificultad {
-  flex: 1;
+.tiempo,
+.dificultad {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
 }
 
 .tiempo{
@@ -319,7 +312,6 @@ body {
 #unidad-tiempo {
  max-width: 6rem;
   font-size: 14px;
-  margin-left: -10px;
 }
 
 /*tiempo de preparacion*/
@@ -348,14 +340,13 @@ body {
 .dificultad-con-icono {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.80rem; 
 }
 
 .tiempo-inputs {
   display: flex;
-  gap: 0.5rem;
   align-items: center;
-  margin-top: 0.25rem;
+  gap: 0.80rem; 
 }
 
 .tiempo-inputs input,

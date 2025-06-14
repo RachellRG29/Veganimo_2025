@@ -89,9 +89,10 @@
   }
 
 .rating.error {
-  border: 2px solid red;
+  border: 2px solid #FFDDD3;
   border-radius: 6px;
   padding: 4px;
+  background-color: #FE4D3E;
 }
 
 

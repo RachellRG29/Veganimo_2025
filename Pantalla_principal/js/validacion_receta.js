@@ -131,6 +131,49 @@ function resetFormulario() {
 }
 
 /*--------------------------------MODAL PARA RECORTAR IMAGEN    --------------------------------- */
+// Agrega estilos personalizados para los botones de SweetAlert2
+const estiloBotonesSwal = document.createElement('style');
+estiloBotonesSwal.innerHTML = `
+  .btn-confirmar {
+    background-image: linear-gradient(
+      to right bottom,
+      #007848 0%,
+      #e5fb6a 100%
+    );
+    color: #1A1C1C;
+    border: 1px solid white;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+
+  .btn-confirmar:hover {
+    background-image: linear-gradient(
+      to left bottom,
+      #007848 0%,
+      #e5fb6a 100%
+    );
+  }
+
+  .btn-cancelar {
+    background-color: #6c757d; /* Gris */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+
+  .btn-cancelar:hover {
+    background-color: #5a6268;
+  }
+`;
+document.head.appendChild(estiloBotonesSwal);
+
 /* Modal para recortar la imagen */
 let cropper;
 function mostrarPreviewReceta(input, imgElement) {
@@ -150,6 +193,11 @@ function mostrarPreviewReceta(input, imgElement) {
       showCancelButton: true,
       confirmButtonText: 'Aplicar',
       cancelButtonText: 'Cancelar',
+      customClass: {
+        confirmButton: 'btn-confirmar',
+        cancelButton: 'btn-cancelar'
+      },
+      buttonsStyling: false, 
       didOpen: () => {
         // Inicializar Cropper en el modal
         const image = document.getElementById('imagen-modal');

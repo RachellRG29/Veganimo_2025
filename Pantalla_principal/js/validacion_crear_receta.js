@@ -19,7 +19,7 @@ function iniciarValidacionCrearReceta() {
       aviso = document.createElement('div');
       aviso.className = 'mensaje-error-seccion1';
       aviso.style.color = 'red';
-      aviso.style.fontSize = '13px';
+      aviso.style.fontSize = '12.5px';
       aviso.style.marginTop = '5px';
       aviso.style.display = 'block';
       aviso.style.position = 'relative';
@@ -49,8 +49,9 @@ function iniciarValidacionCrearReceta() {
 
   // Contador de palabras descripción
   const contadorPalabras = document.createElement('div');
-  contadorPalabras.style.fontSize = '12px';
+  contadorPalabras.style.fontSize = '11.5px';
   contadorPalabras.style.marginTop = '5px';
+    contadorPalabras.style.marginBottom = '-10px';
   contadorPalabras.style.color = '#999';
   descripcion.parentElement.appendChild(contadorPalabras);
 
@@ -111,7 +112,7 @@ function iniciarValidacionCrearReceta() {
     let tooltip = imgContainer.querySelector('.tooltip-error-imagen');
 
     if (!archivo && intentoEnvio) {
-      imgContainer.style.border = '2px solid #e53935';
+      imgContainer.style.border = '2px solid #FE4D3E';
       imgContainer.style.borderRadius = '8px';
       if (!tooltip) {
         tooltip = document.createElement('div');
@@ -159,8 +160,8 @@ function iniciarValidacionCrearReceta() {
           top: '-30px',
           left: '50%',
           transform: 'translateX(-50%)',
-          backgroundColor: '#f44336',
-          color: 'white',
+          backgroundColor: '#FFDDD3',
+          color: '#1A1C1C',
           padding: '6px 12px',
           borderRadius: '6px',
           fontSize: '13px',

@@ -106,7 +106,7 @@
                         onchange="mostrarPreviewReceta(this, document.getElementById('preview-imagen-receta'))"
                       >
                     <!-- Estrellas -->
-                     <label for="estrella_rating" style="color: #F6FFFE;" class="form-label">Calificación con estrellas:</label>
+                     <label for="estrella_rating" style="color: #F6FFFE; margin: 6px 0;"  class="form-label">Calificación con estrellas:</label>
                      <div class="rating">
                         <input type="radio" id="star-1" name="star-radio[]" value="5">
                         <label for="star-1">
@@ -165,10 +165,10 @@
                 <label for="time-receta" class="form-label">Tiempo de preparación:</label>
                 <div class="tiempo-inputs">
                   <input type="number" id="time-receta" name="time-receta" class="form-control input-border" placeholder="Ej: 30" min="1">
-                  <select id="unidad-tiempo" name="unidad-tiempo" class="form-control input-border">
+                  <!-- <select id="unidad-tiempo" name="unidad-tiempo" class="form-control input-border">
                     <option value="minutos">Minutos</option>
-                    <option value="horas">Horas</option>
-                  </select>
+                  </select>-->
+                  <label for="minutos" id="unidad-tiempo" name="unidad-tiempo" class="form-control">Minutos</label>
                 </div>
               </div>
 
