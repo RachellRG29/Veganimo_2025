@@ -178,22 +178,53 @@ function iniciarValidacionCrearReceta() {
     }
   }
 
-  function validarFormulario1() {
-    const nombreValido = validarCampoSeccion1(nombre, 'El nombre de la receta es obligatorio.');
-    const descripcionValida = validarDescripcion();
-    const categoriaValida = validarCampoSeccion1(categoria, 'Selecciona una categoría.');
-    const estrellasValidas = validarEstrellas();
-    const imagenValida = validarImagen();
+ function validarFormulario1() {
+  const nombreValido = validarCampoSeccion1(nombre, 'El nombre de la receta es obligatorio.');
+  const descripcionValida = validarDescripcion();
+  const categoriaValida = validarCampoSeccion1(categoria, 'Selecciona una categoría.');
+  const estrellasValidas = validarEstrellas();
+  const imagenValida = validarImagen();
 
-    return nombreValido && descripcionValida && categoriaValida && estrellasValidas && imagenValida;
+  const valorLimpio = nombre.value.replace(/\s/g, '');
+  if (valorLimpio.length < 3) {
+    aplicarEstiloError(nombre);
+    crearAvisoSeccion1(nombre, 'El nombre debe tener al menos 3 letras.');
+    return false;
   }
 
+  return nombreValido && descripcionValida && categoriaValida && estrellasValidas && imagenValida;
+}
+
+
   // Eventos sección 1
-  nombre.addEventListener('input', () => intentoEnvio && validarCampoSeccion1(nombre, 'El nombre es obligatorio.'));
-  descripcion.addEventListener('input', () => {
-    actualizarContador();
-    intentoEnvio && validarDescripcion();
-  });
+nombre.addEventListener('input', () => {
+  nombre.value = nombre.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+
+  if (intentoEnvio) {
+    validarCampoSeccion1(nombre, 'El nombre de la receta es obligatorio.');
+
+    const valorLimpio = nombre.value.replace(/\s/g, '');
+    if (valorLimpio.length < 3) {
+      aplicarEstiloError(nombre);
+      crearAvisoSeccion1(nombre, 'El nombre debe tener al menos 3 letras.');
+    } else {
+      quitarEstiloError(nombre);
+      eliminarAvisoSeccion1(nombre);
+    }
+  }
+});
+
+
+
+descripcion.addEventListener('input', () => {
+  // Limpiar lo que no sea letras, puntos, comas o espacios
+  descripcion.value = descripcion.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ.,\s]/g, '');
+
+  actualizarContador();
+  intentoEnvio && validarDescripcion();
+});
+
+
   categoria.addEventListener('change', () => intentoEnvio && validarCampoSeccion1(categoria, 'Selecciona categoría.'));
   estrellas.forEach(e => e.addEventListener('change', () => intentoEnvio && validarEstrellas()));
   imagenInput.addEventListener('change', () => intentoEnvio && validarImagen());
