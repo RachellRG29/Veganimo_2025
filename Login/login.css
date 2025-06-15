@@ -1,165 +1,300 @@
 body {
-  font-family: 'Comfortaa','Verdana';
-  }
-  
-  /* Fondo degradado  */
-  .custom-bg {
-    background: linear-gradient(to right, #33AD7F, #154734);
-  }
-  
-  /* Contenedor principal */
+  font-family: 'Comfortaa', 'Verdana', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Fondo degradado */
+.custom-bg {
+  background: linear-gradient(to right, #33AD7F, #154734);
+}
+
+/* Contenedor principal - versión corregida para pantalla grande */
+.container {
+  position: relative;
+  min-height: 100vh;
+  padding-left: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Cambiado de center a flex-start */
+}
+
+/* Tarjeta del formulario - versión corregida */
+.custom-form-card {
+  background-color: #F6FFFE;
+  width: 850px;
+  max-width: 800px;
+  padding: 50px;
+  height: 561px;
+  z-index: 2;
+  left: -100px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative; /* Añadido para mantener el left: -100px */
+}
+
+/* Restauramos el diseño original del título */
+.form-title {
+  font-family: 'Gloock';
+  color: #154734;
+  margin-bottom: 10px;
+  font-size: 2rem; /* Tamaño original */
+}
+
+/* Separador original */
+.separator {
+  width: 150px;
+  height: 1px;
+  background-color: #E99A3C;
+  border-radius: 2px;
+  margin: 0 auto 20px auto;
+  display: block;
+}
+
+/* Etiqueta del formulario - versión corregida */
+.form-label {
+  padding-left: 15%;
+  text-align: left;
+  width: auto;
+  margin: 0;
+  display: block;
+}
+
+/* Inputs - versión corregida */
+.input-border {
+  border: 1.9px solid #007848;
+  width: 70%;
+  display: block;
+  margin: 10px auto;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.input-border:focus {
+  border-color: #007848;
+  box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
+}
+
+/* Icono de ojo - posición corregida */
+.password-toggle {
+  position: absolute;
+  top: 77%;
+  transform: translateY(-50%);
+  right: 17%;
+  cursor: pointer;
+}
+
+.eye-icon {
+  color: #E99A3C;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Botón - versión corregida */
+button {
+  padding: 9.5px 20px;
+  border: 0;
+  border-radius: 20px;
+  background-color: #E99A3C;
+  color: #000000;
+  font-family: 'Comfortaa';
+  transition: all 0.4s;
+}
+
+button:hover {
+  background-color: #E99A3C;
+  box-shadow: 0 0 20px #19d80050;
+  transform: scale(1.1);
+}
+
+button:active {
+  background-color: #E99A3C;
+  transition: all 0.25s;
+  box-shadow: none;
+  transform: scale(0.98);
+}
+
+/* Imagen derecha - versión corregida */
+.login-image {
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 430px;
+  height: 561px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+/* Textos - versión corregida */
+.text-muted {
+  color: #000000 !important;
+  margin-top: 24px;
+}
+
+.text-center.mt-3 {
+  margin-top: 50px;
+  color: #000000 !important;
+}
+
+.text-center.mt-3 a {
+  display: inline;
+  margin: 0 5px;
+}
+
+/* Logo - versión corregida */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.logo {
+  max-height: 60px;
+  width: 50px;
+  fill: #154734;
+}
+
+/* ============================================ */
+/* Media queries para responsividad (mejoradas) */
+/* ============================================ */
+
+@media (max-width: 1200px) {
   .container {
-    position: relative;
-    min-height: 100vh;
-    padding-left: 40px;
-    display: flex;
-    align-items: center;
+    padding-left: 30px;
   }
   
-  /* Tarjeta del formulario */
   .custom-form-card {
-    background-color: #F6FFFE;
-    width: 850px;
-    max-width: 800px;
-    padding: 50px;
-    height: 561px;
-    z-index: 2;
-    left: -100px;
+    left: -80px;
+    width: 750px;
+    padding: 40px;
   }
   
-  /* Título del formulario */
-  .form-title {
-    font-family: 'Gloock';
-    color: #154734;
-    margin-bottom: 10px;
-  }
-  
-  /* Línea decorativa debajo del título */
-  .separator {
-    width: 150px;
-    height: 1px;
-    background-color: #E99A3C;
-    border-radius: 2px;
-    margin: 0 auto 20px auto;
-    display: block;
-  }
-  
-  /* Etiqueta del formulario */
-  .form-label {
-    padding-left: 15%;
-  }
-  
-  /* Estilo general de inputs */
-  .input-border {
-    border: 1.9px solid #007848;
-    width: 70%;
-    display: block;
-    margin: 10px auto;
-    padding: 8px;
-    border-radius: 10px;
-  }
-  
-  /* Input enfocado */
-  .input-border:focus {
-    border-color: #007848;
-    box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25);
-  }
-  
-  /* Icono de ojo  */
-  .eye-icon {
-    color: #E99A3C;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-left: 8px;
-  }
-  
-  /* Botón y efectos */
-  button {
-    padding: 9.5px 20px;
-    border: 0;
-    border-radius: 20px;
-    background-color: #E99A3C;
-    color: #000000;
-    font-family: 'Comfortaa';
-    transition: all 0.4s;
-    -webkit-transition: all 0.4s;
-  }
-  
-  button:hover {
-    background-color: #E99A3C;
-    box-shadow: 0 0 20px #19d80050;
-    transform: scale(1.1);
-  }
-  
-  button:active {
-    background-color: #E99A3C;
-    transition: all 0.25s;
-    -webkit-transition: all 0.25s;
-    box-shadow: none;
-    transform: scale(0.98);
-  }
-  
-  /* Imagen de la derecha */
   .login-image {
-    position: absolute;
-    right: -50px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 430px;
-    height: 561px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 380px;
+    height: 500px;
+    right: -40px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    padding-left: 20px;
+    justify-content: center;
   }
   
-  /* Icono del ojo dentro del input */
+  .custom-form-card {
+    left: 0;
+    margin-right: 0;
+    width: 90%;
+    max-width: 600px;
+  }
+  
+  .login-image {
+    display: none;
+  }
+  
+  .form-label {
+    padding-left: 10%;
+  }
+  
+  .input-border {
+    width: 80%;
+  }
+  
   .password-toggle {
-    position: absolute;
-    top: 77%;
-    transform: translateY(-50%);
-    right: 17%;
-    cursor: pointer;
+    right: 12%;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
   }
   
-  /* Botón   */
-  .submit-btn {
-    background-color: #E99A3C;
-    color: #000000;
-    margin-top: 20px;
-    border-radius: 15px;
+  .custom-form-card {
+    width: 95%;
+    max-width: 500px;
+    padding: 40px 30px;
+    height: auto;
   }
   
-  .submit-btn:hover {
-    background-color: #000000;
+  .form-title {
+    font-size: 1.8rem;
   }
   
-  /* Estilos de texto */
-  .text-muted {
-    color: #000000 !important;
-    margin-top: 24px;
+  .separator {
+    width: 120px;
+  }
+  
+  .form-label {
+    padding-left: 5%;
+    width: 90%;
+  }
+  
+  .input-border {
+    width: 90%;
+    padding: 10px 12px;
+  }
+  
+  .password-toggle {
+    right: 7%;
+    top: 76%;
+  }
+  
+  button {
+    padding: 10px 25px;
   }
   
   .text-center.mt-3 {
-    margin-top: 50px;
-    color: #000000 !important;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .custom-form-card {
+    padding: 30px 20px;
   }
   
-  .text-decoration-none {
-    text-decoration: none !important;
+  .form-title {
+    font-size: 1.6rem;
   }
   
-  /* Contenedor del logo/isotipo */
-  .logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  .input-border {
+    padding: 8px 10px;
+    font-size: 0.9rem;
   }
   
-  /* Estilo del logo/isotipo */
-  .logo {
-    max-height: 60px;
-    width: 50px;
-    fill: #154734;
+  .password-toggle {
+    right: 6%;
+    top: 75%;
   }
   
+  .text-center.mt-3 a {
+    display: block;
+    margin: 8px 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .custom-form-card {
+    padding: 25px 15px;
+  }
   
+  .form-title {
+    font-size: 1.5rem;
+  }
+  
+  .input-border {
+    width: 95%;
+  }
+  
+  .password-toggle {
+    right: 4%;
+  }
+}

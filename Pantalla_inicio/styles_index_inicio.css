@@ -49,6 +49,8 @@
   flex-direction: column;
   gap: 10px; /* Espacio entre ellos */
   text-wrap: pretty;   
+  max-width: 57%;
+  
 }
 
 .slogan_inicio{
@@ -142,29 +144,41 @@
   /*------------------------------------------------------------------------------------*/
 /* Responsive para celular */
 @media (max-width: 768px) {
-  .contentdeinicio {
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .inicio_contenido {
-    gap: 4.5rem;
+    flex-direction: column;
+    gap: 2rem;
   }
-
-  .inicio_logo,
-  .imagen_lado {
-    justify-content: center;
-  }
-
+  
   .inicio_logo {
-    margin: 6rem 0 10px 0 ; /*top-right-bottom-left*/
-    max-width: 100%;
-    flex: 1 1 450px; /* que crezca pero mínimo 400px */
+    margin: 4rem 0 0 0;
+    flex: 1 1 auto;
   }
-
+  
+  .imagen_lado {
+    margin: 0;
+    flex: 1 1 auto;
+  }
+  
   .imagen_lado img {
-    max-width: 90%;
-    margin: -6rem 20px 50px 20px ; /*top-right-bottom-left*/
+    max-width: 80%;
+    margin: 0 auto;
   }
-
+  
+  .div_descripcion {
+    max-width: 90%;
+    margin: 20px auto;
+    font-size: 1rem;
+  }
+  
+  .slogan_inicio {
+    position: relative;
+    text-align: center;
+    margin: 20px 0;
+    right: auto;
+    font-size: 1.2rem;
+  }
+  
+  .btn-explorar {
+    margin: 20px auto;
+  }
 }

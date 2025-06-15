@@ -334,11 +334,15 @@ eeire-black: #1A1C1C
       margin-top: 10px;
     }
 
+
+
+
+
     /* Navbar Responsivo */
     @media (max-width: 660px) {
         /* Ocultar enlaces inicialmente en modo responsivo */
       header {
-        background:#007848;   
+        background:#154734;   
       }
 
       .navbar-links {
@@ -351,7 +355,7 @@ eeire-black: #1A1C1C
         border-radius: 0 0 5px 5px;
         padding: 10px 0;
         gap: 10px;
-        background-color: #007848;
+        background-color: #154734;
         z-index: 100;
       }
 
@@ -384,3 +388,19 @@ eeire-black: #1A1C1C
       
     }
 
+        /* Footer */
+    @media (max-width: 768px) {
+      .ListFooter {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      
+      .logoarea, .afiliados {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .logo-container {
+        align-self: center;
+      }
+    }
