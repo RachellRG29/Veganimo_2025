@@ -39,7 +39,7 @@ if (isset($_SESSION['user_id'])) {
 
 
 
-<!-- pp_inicio.html -->
+<!-- pp_inicio.php y css: styles_pp_inicio.css -->
 <section class="section_inicio">
     <h1 class="lbl_bienvenida_vg">Bienvenido a Vegánimo 🌱</h1>
     <!-- <p class="lbl_user_bienvenida"> Usuario </p> -->
