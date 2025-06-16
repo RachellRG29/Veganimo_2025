@@ -5,3 +5,53 @@
     font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
     color: #1A1C1C;
  }
+
+ .chat-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 2px solid #ccc;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.mensajes {
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.mensajes div {
+  margin-bottom: 8px;
+}
+
+.hora {
+  font-size: 0.8em;
+  color: #999;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+form input[type="text"] {
+  flex-grow: 1;
+  padding: 8px;
+}
+
+form button {
+  padding: 8px 12px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #45a049;
+}

@@ -80,7 +80,7 @@ async function verificarRolUsuario() {
 
  //Aplica estilos de fondo según la página cargada
 function aplicarEstilosFondo(pagina) {
-  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html","pp_crear_receta.php"];
+  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html", "pp_comunidad.php","pp_crear_receta.php"];
   document.getElementById("contenido-principal").style.backgroundColor = 
     paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
 }
@@ -102,6 +102,79 @@ function ejecutarScriptsPagina(pagina) {
     }, 100);
   }
 
+  if (pagina === "pp_comunidad.php") {
+    inicializarChatComunidad();
+  }
+}
+
+
+
+function inicializarChatComunidad() {
+  console.log("✅ Inicializando chat de la comunidad...");
+
+  const chatMensajes = document.getElementById('chat-mensajes');
+  const form = document.getElementById('form-enviar-mensaje');
+  const mensajeInput = document.getElementById('mensaje');
+
+  if (!chatMensajes || !form || !mensajeInput) {
+    console.error("❌ Elementos del chat no encontrados.");
+    return;
+  }
+
+  async function mostrarMensajes(mensajes) {
+    chatMensajes.innerHTML = '';
+    mensajes.forEach(msg => {
+      const divMensaje = document.createElement('div');
+      const fecha = new Date(msg.fecha.$date).toLocaleString();
+
+      divMensaje.classList.add('mensaje-chat');
+      divMensaje.innerHTML = `
+        <p><strong>${msg.autor}</strong> <span style="font-size: 0.8em; color: #888;">[${fecha}]</span></p>
+        <p>${msg.mensaje}</p>
+        <hr>
+      `;
+      chatMensajes.appendChild(divMensaje);
+    });
+    chatMensajes.scrollTop = chatMensajes.scrollHeight;
+  }
+
+  async function cargarMensajes() {
+    try {
+      const resp = await fetch('/Pantalla_principal/contenidos/obtener_mensajes.php');
+      const mensajes = await resp.json();
+      mostrarMensajes(mensajes);
+    } catch (error) {
+      console.error('❌ Error cargando mensajes:', error);
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const mensaje = mensajeInput.value.trim();
+    if (!mensaje) return;
+
+    const formData = new FormData();
+    formData.append('mensaje', mensaje);
+
+    try {
+      const resp = await fetch('/Pantalla_principal/contenidos/insertar_mensaje.php', {
+        method: 'POST',
+        body: formData
+      });
+      const resultado = await resp.json();
+      if (resultado.success) {
+        mensajeInput.value = '';
+        await cargarMensajes();
+      } else {
+        console.error('❌ Error al enviar mensaje:', resultado.error);
+      }
+    } catch (error) {
+      console.error('❌ Error al enviar mensaje:', error);
+    }
+  });
+
+  cargarMensajes();
+  setInterval(cargarMensajes, 5000);
 }
 
 

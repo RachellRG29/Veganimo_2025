@@ -1,30 +1,24 @@
-<?php
-session_start();
+<!-- pp_comunidad.php -->
 
-// Ruta corregida al archivo de configuración
-require_once __DIR__ . '/../../misc/db_config.php';
-
-$perfilExistente = false;
-
-if (isset($_SESSION['user_id'])) {
-    try {
-        $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
-        $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
-        $perfil = current($cursor->toArray());
-        $perfilExistente = $perfil ? true : false;
-    } catch (Exception $e) {
-        $perfilExistente = false;
-    }
-}
-?>
-
-<!-- pp_comunidad.php y css: styles_pp_comunidad.css -->
 <section class="section_comunidad">
     <h1 class="lbl_bienvenida_vg_comunidad">Bienvenido a Vegánimo 🌱</h1>
-  
 
+    <div id="chat-comunidad" class="chat-container">
+        <div id="chat-mensajes" class="mensajes"></div>
 
-
+        <!-- Formulario con método POST apuntando a insertar_mensaje.php -->
+        <form id="form-enviar-mensaje">
+            <input type="text" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..." autocomplete="off" required>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
 
 
 </section>
+
+
+
+
+
+
+ 
