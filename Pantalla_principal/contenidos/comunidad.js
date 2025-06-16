@@ -10,7 +10,7 @@ function inicializarChatComunidad() {
     return;
   }
 
-  // Función para obtener el nombre del usuario actual
+  // Obtener el nombre del usuario actual
   async function obtenerNombreUsuario() {
     try {
       const res = await fetch('/Login/check_session.php');
@@ -21,15 +21,21 @@ function inicializarChatComunidad() {
     }
   }
 
-  // Función para renderizar todos los mensajes y eliminar los que ya no están
+  // Renderizar los mensajes y mantener posición de scroll si no estás abajo
   async function mostrarMensajes(mensajes) {
     const nombreUsuario = await obtenerNombreUsuario();
 
-    // Limpiar el contenedor y reiniciar el registro
+    // ¿Estás al final del scroll?
+    const estabaAlFinal =
+      chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
+
+    // Guardar scroll anterior si no estás abajo
+    const scrollAnterior = chatMensajes.scrollTop;
+
+    // Limpiar chat
     chatMensajes.innerHTML = '';
 
     mensajes.forEach(msg => {
-      const msgId = msg._id?.$oid || JSON.stringify(msg.fecha);
       const fecha = new Date(msg.fecha.$date).toLocaleString();
       const esMio = msg.autor === nombreUsuario;
       const claseMensaje = esMio ? 'mensaje-yo' : 'mensaje-otro';
@@ -48,10 +54,15 @@ function inicializarChatComunidad() {
       chatMensajes.appendChild(divMensaje);
     });
 
-    chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    // Scroll inteligente: solo baja si estabas abajo
+    if (estabaAlFinal) {
+      chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    } else {
+      chatMensajes.scrollTop = scrollAnterior;
+    }
   }
 
-  // Cargar mensajes desde el backend
+  // Cargar mensajes desde el servidor
   async function cargarMensajes() {
     try {
       const resp = await fetch('/Pantalla_principal/contenidos/obtener_mensajes.php');
@@ -62,7 +73,7 @@ function inicializarChatComunidad() {
     }
   }
 
-  // Enviar un nuevo mensaje
+  // Enviar mensaje nuevo
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const mensaje = mensajeInput.value.trim();
@@ -80,7 +91,7 @@ function inicializarChatComunidad() {
 
       if (resultado.success) {
         mensajeInput.value = '';
-        await cargarMensajes(); // Se actualiza el chat
+        await cargarMensajes();
       } else {
         console.error('❌ Error al enviar mensaje:', resultado.error);
       }
@@ -89,7 +100,7 @@ function inicializarChatComunidad() {
     }
   });
 
-  // Cargar mensajes iniciales y luego cada 5 segundos (sin parpadeos)
+  // Iniciar y recargar cada 5 segundos
   cargarMensajes();
   setInterval(cargarMensajes, 5000);
 }
