@@ -2,12 +2,12 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-header('Content-Type: application/json'); // 👈 Importante para que el navegador no lo muestre
-
+header('Content-Type: application/json');
 require_once __DIR__ . '/../../misc/db_config.php';
 
+session_start();
 $mensaje = htmlspecialchars(trim($_POST['mensaje']), ENT_QUOTES, 'UTF-8');
-$autor = 'Invitado';
+$autor = isset($_SESSION['display_name']) ? $_SESSION['display_name'] : 'Invitado';
 $fecha = new MongoDB\BSON\UTCDateTime();
 
 $documento = [

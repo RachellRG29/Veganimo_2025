@@ -1,45 +1,70 @@
-document.addEventListener('DOMContentLoaded', () => {
+function inicializarChatComunidad() {
+  console.log("✅ Inicializando chat de la comunidad...");
+
   const chatMensajes = document.getElementById('chat-mensajes');
   const form = document.getElementById('form-enviar-mensaje');
   const mensajeInput = document.getElementById('mensaje');
 
-  // Función para mostrar mensajes en el contenedor
-  function mostrarMensajes(mensajes) {
-    chatMensajes.innerHTML = ''; // Limpia el chat
-
-    mensajes.forEach(msg => {
-      const divMensaje = document.createElement('div');
-      const fecha = new Date(msg.fecha.$date).toLocaleString();
-
-      divMensaje.classList.add('mensaje-chat'); // Puedes usar esta clase para estilos tipo WhatsApp
-
-      divMensaje.innerHTML = `
-        <p><strong>${msg.autor}</strong> <span style="font-size: 0.8em; color: #888;">[${fecha}]</span></p>
-        <p>${msg.mensaje}</p>
-        <hr>
-      `;
-      chatMensajes.appendChild(divMensaje);
-    });
-
-    // Auto-scroll hacia el fondo
-    chatMensajes.scrollTop = chatMensajes.scrollHeight;
+  if (!chatMensajes || !form || !mensajeInput) {
+    console.error("❌ Elementos del chat no encontrados.");
+    return;
   }
 
-  // Cargar mensajes desde el servidor
-  async function cargarMensajes() {
+  // Función para obtener el nombre del usuario actual
+  async function obtenerNombreUsuario() {
     try {
-      const respuesta = await fetch('/Pantalla_principal/contenidos/obtener_mensajes.php');
-      const mensajes = await respuesta.json();
-      mostrarMensajes(mensajes);
-    } catch (error) {
-      console.error('Error cargando mensajes:', error);
+      const res = await fetch('/Login/check_session.php');
+      const data = await res.json();
+      return data.display_name || 'Invitado';
+    } catch {
+      return 'Invitado';
     }
   }
 
-  // Enviar nuevo mensaje
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Evitar recarga
+  // Función para renderizar todos los mensajes y eliminar los que ya no están
+  async function mostrarMensajes(mensajes) {
+    const nombreUsuario = await obtenerNombreUsuario();
 
+    // Limpiar el contenedor y reiniciar el registro
+    chatMensajes.innerHTML = '';
+
+    mensajes.forEach(msg => {
+      const msgId = msg._id?.$oid || JSON.stringify(msg.fecha);
+      const fecha = new Date(msg.fecha.$date).toLocaleString();
+      const esMio = msg.autor === nombreUsuario;
+      const claseMensaje = esMio ? 'mensaje-yo' : 'mensaje-otro';
+
+      const divMensaje = document.createElement('div');
+      divMensaje.classList.add('mensaje-chat', claseMensaje);
+
+      divMensaje.innerHTML = `
+        <div class="mensaje-burbuja">
+          <p class="mensaje-autor"><strong>${msg.autor}</strong></p>
+          <p class="mensaje-texto">${msg.mensaje}</p>
+          <p class="mensaje-info"><span class="mensaje-hora">${fecha}</span></p>
+        </div>
+      `;
+
+      chatMensajes.appendChild(divMensaje);
+    });
+
+    chatMensajes.scrollTop = chatMensajes.scrollHeight;
+  }
+
+  // Cargar mensajes desde el backend
+  async function cargarMensajes() {
+    try {
+      const resp = await fetch('/Pantalla_principal/contenidos/obtener_mensajes.php');
+      const mensajes = await resp.json();
+      await mostrarMensajes(mensajes);
+    } catch (error) {
+      console.error('❌ Error cargando mensajes:', error);
+    }
+  }
+
+  // Enviar un nuevo mensaje
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
     const mensaje = mensajeInput.value.trim();
     if (!mensaje) return;
 
@@ -51,12 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         body: formData
       });
-
       const resultado = await resp.json();
 
       if (resultado.success) {
         mensajeInput.value = '';
-        await cargarMensajes(); // Mostrar mensajes actualizados
+        await cargarMensajes(); // Se actualiza el chat
       } else {
         console.error('❌ Error al enviar mensaje:', resultado.error);
       }
@@ -65,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Cargar mensajes al iniciar y cada 5 segundos
+  // Cargar mensajes iniciales y luego cada 5 segundos (sin parpadeos)
   cargarMensajes();
   setInterval(cargarMensajes, 5000);
-});
+}
