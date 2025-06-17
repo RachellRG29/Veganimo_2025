@@ -53,23 +53,22 @@
         <!-- MODAL Notificación -->
         <div id="modal_notificacion" class="modal_notificacion">
           <!-- Contenedor de notificaciones -->
-          <div class="notificacion-item">
-            <div class="contenido-notificacion">
-              <h3 class="notificacion-titulo">¡Tienes una nueva receta disponible!</h3>
-              <p class="notificacion-descripcion">
-                Explora las nuevas recetas veganas que hemos añadido esta semana.
-              </p>
-            </div>
+          <div class="contenedor-notificaciones">
+            <!-- Las notificaciones se agregarán aquí dinámicamente -->
           </div>
 
           <!-- Mensaje si no hay notificaciones -->
-          <div class="mensaje-sin-notificaciones oculto">
+          <div class="mensaje-sin-notificaciones">
             <p class="notificacion-descripcion" style="text-align: center;">No tienes notificaciones disponibles.</p>
           </div>
+          
           <!-- Botón para cambiar la configuración -->
           <div id="configuracion-notificaciones" style="text-align: center; margin-top: 10px;">
             <button id="toggle-notificaciones" style="font-size: 13px; background: none; border: none; color: #1a7f5a; cursor: pointer;">
               Desactivar notificaciones
+            </button>
+            <button id="toggle-chat-notificaciones" style="font-size: 13px; background: none; border: none; color: #1a7f5a; cursor: pointer; margin-left: 10px;">
+              Desactivar notificaciones del chat
             </button>
           </div>
         </div>

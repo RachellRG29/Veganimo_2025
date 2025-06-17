@@ -192,7 +192,9 @@
 /*Contenedor de las notificaciones*/
 .contenedor-notificaciones {
   max-height: 300px;
-  overflow-y: auto;
+  overflow: auto; /* Cambiar de overflow-y a overflow */
+  -webkit-overflow-scrolling: touch; /* Para scroll suave en iOS */
+  overscroll-behavior: contain; /* Evita efectos de rebote */
   padding-right: 5px;
 }
 

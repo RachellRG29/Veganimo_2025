@@ -100,6 +100,7 @@ function aplicarEstilosFondo(pagina) {
 function ejecutarScriptsPagina(pagina) {
 
   if (pagina === "pp_inicio.php") {
+    inicializarChatComunidad();
     preguntarActivarNotificaciones();
     inicializarNotificaciones(); 
   }
