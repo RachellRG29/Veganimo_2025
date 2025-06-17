@@ -5,24 +5,14 @@
     <div class="contenedor-perfil-notificacion">
       <!-- Notificación -->
       <div class="grupo_notificacion">
-        <div id="btn-notificacion" class="notification_loader" style="display: flex; cursor: pointer;"> 
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            height="24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-            class="w-6 h-6 text-gray-800 dark:text-white"
-          >
-            <path
-              d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"
-              stroke-width="2"
-              stroke-linejoin="round"
-              stroke-linecap="round"
-              stroke="currentColor"
-            ></path>
+        <div id="btn-notificacion" class="notification_loader" style="display: flex; cursor: pointer;">      
+          <svg class="logo_bell_campana" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.1 107.79">
+              <g>
+                <path class="cls-1" d="M49.4,101.61H24.7c-1.7,0-3.09,1.38-3.09,3.09s1.39,3.09,3.09,3.09h24.7c1.71,0,3.09-1.39,3.09-3.09s-1.38-3.09-3.09-3.09Z"/>
+                <path class="cls-1" d="M89.1,7.03c-.52,8.9-5,17.48-12.93,22.93-5.71,3.94-12.31,5.62-18.73,5.23,6.43,5.66,10.49,13.95,10.49,23.19,0,13.64,3.19,24.08,5.33,27.77,.55,.94,.84,2.01,.84,3.1,0,3.41-2.76,6.18-6.17,6.18H6.17c-1.09,0-2.16-.29-3.1-.84-2.95-1.72-3.94-5.5-2.23-8.44,2.15-3.69,5.33-14.13,5.33-27.77s9.66-26.25,22.78-29.81c-1.36-.99-2.6-2.19-3.67-3.6-4.02-5.28-4.66-12.08-2.28-17.78,6.14-.79,12.52,1.63,16.54,6.9,3.16,4.15,4.24,9.22,3.4,13.97,1.12,.22,2.22,.49,3.29,.83,.33-9.14,4.83-18.02,12.96-23.62C67.12-.18,76.75-1.3,85.24,1.42c1.03,1.51-7.56,9.21-11.32,11.91,3.86-2.55,14.12-7.81,15.18-6.3Z"/>
+              </g>
           </svg>
+
           <div class="point"><span class="contador-noti">1</span></div>
         </div>
 

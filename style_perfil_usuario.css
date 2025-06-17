@@ -123,6 +123,11 @@
   transition: 0.2s;
 }
 
+.logo_bell_campana{
+  width: 24px;
+  height: 24px;
+}
+
 .notification_loader:hover svg {
   color: white;
 }
@@ -145,14 +150,15 @@
 .point {
   position: absolute;
   bottom: -3px;
-  left: 1px;
-  width: 14px;
-  height: 14px;
+  left: -3px;  
+  width: 16px;  
+  height: 16px;
   background-color: rgb(0, 255, 0);
-  border-radius: 25px;
+  border-radius: 50%;  
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;  /* Asegurar que esté por encima */
 }
 
 .point::before {
@@ -189,34 +195,6 @@
   }
 }
 
-/*Contenedor de las notificaciones*/
-.contenedor-notificaciones {
-  max-height: 300px;
-  overflow: auto; /* Cambiar de overflow-y a overflow */
-  -webkit-overflow-scrolling: touch; /* Para scroll suave en iOS */
-  overscroll-behavior: contain; /* Evita efectos de rebote */
-  padding-right: 5px;
-}
-
-/* Estilo de scrollbar para el contenedor de notificaciones */
-.contenedor-notificaciones::-webkit-scrollbar {
-  width: 5px;
-}
-
-.contenedor-notificaciones::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 10px;
-}
-
-.contenedor-notificaciones::-webkit-scrollbar-thumb {
-  background: #1a7f5a;
-  border-radius: 10px;
-}
-
-.contenedor-notificaciones::-webkit-scrollbar-thumb:hover {
-  background: #154734;
-}
-
 /*---------------------------------------------- MODAL NOTIFICACION ---------------------------------------------*/
 .notificacion-item {
   background-color: #e0f5eb;
@@ -229,6 +207,12 @@
   flex-direction: column;
   gap: 5px;
   margin-bottom: 0.5rem;
+}
+
+.notificacion-item.vista {
+  opacity: 0.7;
+  background-color: #f0f0f0;
+  border-left-color: #cccccc;
 }
 
 @keyframes show-message {

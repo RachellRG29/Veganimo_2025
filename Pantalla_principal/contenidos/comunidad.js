@@ -5,6 +5,8 @@ function inicializarChatComunidad() {
   const form = document.getElementById('form-enviar-mensaje');
   const mensajeInput = document.getElementById('mensaje');
   let ultimoMensajeId = null;
+  const mensajesNotificados = new Set(); // Registrar mensajes ya notificados
+  const mensajesVistos = new Set(); // Registrar mensajes vistos
 
   if (!chatMensajes || !form || !mensajeInput) {
     console.error("❌ Elementos del chat no encontrados.");
@@ -19,6 +21,21 @@ function inicializarChatComunidad() {
       return data.display_name || 'Invitado';
     } catch {
       return 'Invitado';
+    }
+  }
+
+  // Actualizar el contador de notificaciones
+  function actualizarContador() {
+    const contador = document.querySelector('.contador-noti');
+    const point = document.querySelector('.point');
+    const notificacionesNoVistas = document.querySelectorAll('.notificacion-item:not(.vista)').length;
+    
+    contador.textContent = notificacionesNoVistas;
+    
+    if (notificacionesNoVistas > 0) {
+      point.style.display = 'flex';
+    } else {
+      point.style.display = 'none';
     }
   }
 
@@ -60,12 +77,11 @@ function inicializarChatComunidad() {
       const ultimoMensaje = mensajes[mensajes.length - 1];
       
       // Solo notificar si:
-      // 1. No es el primer mensaje (ultimoMensajeId existe)
-      // 2. El mensaje es nuevo (id diferente)
-      // 3. No es del usuario actual
-      if ((!ultimoMensajeId || ultimoMensaje._id !== ultimoMensajeId) && 
-          ultimoMensaje.autor !== nombreUsuario) {
+      // 1. No es del usuario actual
+      // 2. No ha sido notificado antes
+      if (ultimoMensaje.autor !== nombreUsuario && !mensajesNotificados.has(ultimoMensaje._id)) {
         mostrarNotificacionChat(ultimoMensaje);
+        mensajesNotificados.add(ultimoMensaje._id); // Registrar como notificado
       }
       
       ultimoMensajeId = ultimoMensaje._id;
@@ -80,29 +96,37 @@ function inicializarChatComunidad() {
     const chatNotificacionesActivadas = localStorage.getItem('chat_notificaciones_activadas') !== 'no';
 
     if (notificacionesActivadas && chatNotificacionesActivadas) {
-      // Incrementar contador
-      const contador = document.querySelector('.contador-noti');
-      const currentCount = parseInt(contador.textContent || '0');
-      const nuevoCount = currentCount + 1;
-      contador.textContent = nuevoCount;
-      document.querySelector('.point').style.display = 'flex';
-
-      // Crear notificación en el modal
       const modal = document.getElementById('modal_notificacion');
       const notificacionesContainer = modal.querySelector('.contenedor-notificaciones');
       
+      // Crear notificación en el modal
       const nuevaNotificacion = document.createElement('div');
       nuevaNotificacion.className = 'notificacion-item nueva';
       nuevaNotificacion.dataset.tipo = 'chat';
+      nuevaNotificacion.dataset.mensajeId = mensaje._id; // Identificador único
       nuevaNotificacion.innerHTML = `
         <div class="contenido-notificacion">
           <h3 class="notificacion-titulo">Nuevo mensaje en el chat</h3>
           <p class="notificacion-descripcion">
             <strong>${mensaje.autor}:</strong> ${mensaje.mensaje.substring(0, 50)}${mensaje.mensaje.length > 50 ? '...' : ''}
           </p>
-          <small class="notificacion-hora">${new Date().toLocaleTimeString()}</small>
+          <small class="notificacion-hora">Visto: ${new Date().toLocaleTimeString()}</small>
         </div>
       `;
+      
+      // Marcar como vista si ya fue vista antes
+      if (mensajesVistos.has(mensaje._id)) {
+        nuevaNotificacion.classList.add('vista');
+      }
+      
+      // Evento para marcar como vista al hacer clic
+      nuevaNotificacion.addEventListener('click', () => {
+        if (!nuevaNotificacion.classList.contains('vista')) {
+          nuevaNotificacion.classList.add('vista');
+          mensajesVistos.add(mensaje._id);
+          actualizarContador();
+        }
+      });
       
       // Insertar al principio
       notificacionesContainer.insertBefore(nuevaNotificacion, notificacionesContainer.firstChild);
@@ -110,6 +134,9 @@ function inicializarChatComunidad() {
       // Actualizar estado del modal
       const mensajeVacio = modal.querySelector('.mensaje-sin-notificaciones');
       mensajeVacio.classList.add('oculto');
+      
+      // Actualizar contador
+      actualizarContador();
       
       // Mostrar notificación aunque el modal no esté abierto
       if (!modal.classList.contains('active')) {
@@ -162,3 +189,6 @@ function inicializarChatComunidad() {
   cargarMensajes();
   setInterval(cargarMensajes, 3000);
 }
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', inicializarChatComunidad);
