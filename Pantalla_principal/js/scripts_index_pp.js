@@ -188,49 +188,42 @@ function activarLoader(activar) {
   }
 }
 
-
-
 // Inicializa notificaciones y eventos
 function inicializarNotificaciones() {
   const btnNotificacion = document.getElementById('btn-notificacion');
   const modal = document.getElementById('modal_notificacion');
+  const contenedorNotificaciones = modal.querySelector('.contenedor-notificaciones');
   const mensajeVacio = modal.querySelector('.mensaje-sin-notificaciones');
   const toggleBtn = document.getElementById('toggle-notificaciones');
+  const toggleChatBtn = document.getElementById('toggle-chat-notificaciones');
 
-  // Actualiza visibilidad de mensaje vacío según notificaciones
+  // Ocultar mensaje de "no hay notificaciones" inicialmente
+  mensajeVacio.classList.add('oculto');
+
   function actualizarContenidoModal() {
-    const notis = modal.querySelectorAll('.notificacion-item');
+    const notis = contenedorNotificaciones.querySelectorAll('.notificacion-item');
     const hayNotis = notis.length > 0;
     mensajeVacio.classList.toggle('oculto', hayNotis);
   }
 
-  function actualizarContadorNotificaciones(numero) {
-    const contador = document.querySelector('.contador-noti');
-    if (contador) {
-      contador.textContent = numero > 0 ? numero : '';
-      document.querySelector('.point').style.display = numero > 0 ? 'flex' : 'none';
-    }
-  }
-
-  // Abre o cierra el modal
   function toggleModal() {
     modal.classList.toggle('active');
     actualizarContenidoModal();
     actualizarTextoToggle();
   }
 
-  // Cierra el modal
   function cerrarModal() {
     modal.classList.remove('active');
   }
 
-  // Actualiza texto del botón toggle según estado
   function actualizarTextoToggle() {
     const estado = localStorage.getItem('notificaciones_activadas');
     toggleBtn.textContent = (estado === 'si') ? 'Desactivar notificaciones' : 'Activar notificaciones';
+    
+    const estadoChat = localStorage.getItem('chat_notificaciones_activadas');
+    toggleChatBtn.textContent = (estadoChat === 'no') ? 'Activar notificaciones del chat' : 'Desactivar notificaciones del chat';
   }
 
-  // Evento toggle para activar o desactivar notificaciones
   toggleBtn.addEventListener('click', () => {
     const estado = localStorage.getItem('notificaciones_activadas');
     if (estado === 'si') {
@@ -244,26 +237,40 @@ function inicializarNotificaciones() {
     actualizarTextoToggle();
   });
 
-  // Evento para abrir/cerrar modal al hacer click en el botón de notificación
+  toggleChatBtn.addEventListener('click', () => {
+    const estadoChat = localStorage.getItem('chat_notificaciones_activadas');
+    if (estadoChat === 'no') {
+      localStorage.removeItem('chat_notificaciones_activadas');
+    } else {
+      localStorage.setItem('chat_notificaciones_activadas', 'no');
+    }
+    actualizarTextoToggle();
+  });
+
   btnNotificacion.addEventListener('click', (e) => {
     e.stopPropagation();
     toggleModal();
   });
 
-  // Cerrar modal al hacer click fuera del modal o del botón
   document.addEventListener('click', (e) => {
     if (!modal.contains(e.target) && !btnNotificacion.contains(e.target)) {
       cerrarModal();
     }
   });
 
-  // Inicialización visual según estado guardado
+  // Inicialización
   const estadoInicial = localStorage.getItem('notificaciones_activadas');
   if (estadoInicial === 'si') {
     activarLoader(true);
   } else {
     activarLoader(false);
   }
+  
+  // Por defecto, las notificaciones del chat están activadas
+  if (!localStorage.getItem('chat_notificaciones_activadas')) {
+    localStorage.setItem('chat_notificaciones_activadas', 'si');
+  }
+  
   actualizarContenidoModal();
   actualizarTextoToggle();
 }
@@ -272,7 +279,6 @@ function inicializarNotificaciones() {
 window.addEventListener('DOMContentLoaded', () => {
   preguntarActivarNotificaciones();
   inicializarNotificaciones();
-  actualizarContadorNotificaciones(1);
 });
 
 

@@ -12,10 +12,11 @@ try {
     $mensajes = [];
     foreach ($cursor as $doc) {
         $mensajes[] = [
+            '_id' => (string)$doc->_id,
             'mensaje' => $doc->mensaje,
             'autor' => $doc->autor,
             'fecha' => [
-                '$date' => $doc->fecha->toDateTime()->format('c') // ISO 8601 (ej: 2025-06-16T13:00:00Z)
+                '$date' => $doc->fecha->toDateTime()->format('c')
             ]
         ];
     }
@@ -26,4 +27,3 @@ try {
     echo json_encode(['error' => $e->getMessage()]);
 }
 ?>
-

@@ -4,6 +4,7 @@ function inicializarChatComunidad() {
   const chatMensajes = document.getElementById('chat-mensajes');
   const form = document.getElementById('form-enviar-mensaje');
   const mensajeInput = document.getElementById('mensaje');
+  let ultimoMensajeId = null;
 
   if (!chatMensajes || !form || !mensajeInput) {
     console.error("❌ Elementos del chat no encontrados.");
@@ -21,18 +22,11 @@ function inicializarChatComunidad() {
     }
   }
 
-  // Renderizar los mensajes y mantener posición de scroll si no estás abajo
   async function mostrarMensajes(mensajes) {
     const nombreUsuario = await obtenerNombreUsuario();
-
-    // ¿Estás al final del scroll?
-    const estabaAlFinal =
-      chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
-
-    // Guardar scroll anterior si no estás abajo
+    const estabaAlFinal = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
     const scrollAnterior = chatMensajes.scrollTop;
 
-    // Limpiar chat
     chatMensajes.innerHTML = '';
 
     mensajes.forEach(msg => {
@@ -42,6 +36,7 @@ function inicializarChatComunidad() {
 
       const divMensaje = document.createElement('div');
       divMensaje.classList.add('mensaje-chat', claseMensaje);
+      divMensaje.dataset.id = msg._id;
 
       divMensaje.innerHTML = `
         <div class="mensaje-burbuja">
@@ -54,15 +49,79 @@ function inicializarChatComunidad() {
       chatMensajes.appendChild(divMensaje);
     });
 
-    // Scroll inteligente: solo baja si estabas abajo
     if (estabaAlFinal) {
       chatMensajes.scrollTop = chatMensajes.scrollHeight;
     } else {
       chatMensajes.scrollTop = scrollAnterior;
     }
+
+    // Verificar si hay nuevos mensajes para notificar
+    if (mensajes.length > 0) {
+      const ultimoMensaje = mensajes[mensajes.length - 1];
+      
+      // Solo notificar si:
+      // 1. No es el primer mensaje (ultimoMensajeId existe)
+      // 2. El mensaje es nuevo (id diferente)
+      // 3. No es del usuario actual
+      if ((!ultimoMensajeId || ultimoMensaje._id !== ultimoMensajeId) && 
+          ultimoMensaje.autor !== nombreUsuario) {
+        mostrarNotificacionChat(ultimoMensaje);
+      }
+      
+      ultimoMensajeId = ultimoMensaje._id;
+    }
   }
 
-  // Cargar mensajes desde el servidor
+  function mostrarNotificacionChat(mensaje) {
+    const btnNotificacion = document.getElementById('btn-notificacion');
+    
+    // Verificar si las notificaciones están activadas
+    const notificacionesActivadas = localStorage.getItem('notificaciones_activadas') === 'si';
+    const chatNotificacionesActivadas = localStorage.getItem('chat_notificaciones_activadas') !== 'no';
+
+    if (notificacionesActivadas && chatNotificacionesActivadas) {
+      // Incrementar contador
+      const contador = document.querySelector('.contador-noti');
+      const currentCount = parseInt(contador.textContent || '0');
+      const nuevoCount = currentCount + 1;
+      contador.textContent = nuevoCount;
+      document.querySelector('.point').style.display = 'flex';
+
+      // Crear notificación en el modal
+      const modal = document.getElementById('modal_notificacion');
+      const notificacionesContainer = modal.querySelector('.contenedor-notificaciones');
+      
+      const nuevaNotificacion = document.createElement('div');
+      nuevaNotificacion.className = 'notificacion-item nueva';
+      nuevaNotificacion.dataset.tipo = 'chat';
+      nuevaNotificacion.innerHTML = `
+        <div class="contenido-notificacion">
+          <h3 class="notificacion-titulo">Nuevo mensaje en el chat</h3>
+          <p class="notificacion-descripcion">
+            <strong>${mensaje.autor}:</strong> ${mensaje.mensaje.substring(0, 50)}${mensaje.mensaje.length > 50 ? '...' : ''}
+          </p>
+          <small class="notificacion-hora">${new Date().toLocaleTimeString()}</small>
+        </div>
+      `;
+      
+      // Insertar al principio
+      notificacionesContainer.insertBefore(nuevaNotificacion, notificacionesContainer.firstChild);
+      
+      // Actualizar estado del modal
+      const mensajeVacio = modal.querySelector('.mensaje-sin-notificaciones');
+      mensajeVacio.classList.add('oculto');
+      
+      // Mostrar notificación aunque el modal no esté abierto
+      if (!modal.classList.contains('active')) {
+        // Pequeña animación para llamar la atención
+        btnNotificacion.style.transform = 'scale(1.1)';
+        setTimeout(() => {
+          btnNotificacion.style.transform = 'scale(1)';
+        }, 300);
+      }
+    }
+  }
+
   async function cargarMensajes() {
     try {
       const resp = await fetch('/Pantalla_principal/contenidos/obtener_mensajes.php');
@@ -73,7 +132,6 @@ function inicializarChatComunidad() {
     }
   }
 
-  // Enviar mensaje nuevo
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const mensaje = mensajeInput.value.trim();
@@ -100,7 +158,7 @@ function inicializarChatComunidad() {
     }
   });
 
-  // Iniciar y recargar cada 5 segundos
+  // Iniciar y recargar cada 3 segundos
   cargarMensajes();
-  setInterval(cargarMensajes, 5000);
+  setInterval(cargarMensajes, 3000);
 }
