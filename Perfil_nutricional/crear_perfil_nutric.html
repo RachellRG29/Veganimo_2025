@@ -19,10 +19,6 @@
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
- 
-
-
-
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario --> 
     <link rel="stylesheet" href="../Perfil_nutricional/css/style_crear_pnutric.css">
@@ -32,28 +28,82 @@
 <body>
   
 
-    <!-- Tarjeta menu perfil nutricional -->
-    <div class="tarjeta_menu">
-      <!-- Tarjeta usuario del perfil -->
-      <div class="tarjeta-perfil" id="tarj_perfil_user"> <!-- CAMBIO AQUÍ -->
-        <h2 class="lbl_nombre_user">User</h2>  
-        <div class="circulo_perfil">
-          <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
+      <!-- NotificaciónNOMOSTRARAQUI+ perfil usuario -->
+    <div class="contenedor-perfil-notificacion">
+      <!-- Notificación -->
+      <div class="grupo_notificacion" style="display: none;">
+        <div id="btn-notificacion" class="notification_loader" style="display: flex; cursor: pointer;"> 
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            height="24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            class="w-6 h-6 text-gray-800 dark:text-white"
+          >
+            <path
+              d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"
+              stroke-width="2"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke="currentColor"
+            ></path>
+          </svg>
+          <div class="point"><span class="contador-noti">1</span></div>
         </div>
+
+        <!-- MODAL Notificación -->
+        <div id="modal_notificacion" class="modal_notificacion">
+          <!-- Contenedor de notificaciones -->
+          <div class="notificacion-item">
+            <div class="contenido-notificacion">
+              <h3 class="notificacion-titulo">¡Tienes una nueva receta disponible!</h3>
+              <p class="notificacion-descripcion">
+                Explora las nuevas recetas veganas que hemos añadido esta semana.
+              </p>
+            </div>
+          </div>
+
+          <!-- Mensaje si no hay notificaciones -->
+          <div class="mensaje-sin-notificaciones oculto">
+            <p class="notificacion-descripcion" style="text-align: center;">No tienes notificaciones disponibles.</p>
+          </div>
+          <!-- Botón para cambiar la configuración -->
+          <div id="configuracion-notificaciones" style="text-align: center; margin-top: 10px;">
+            <button id="toggle-notificaciones" style="font-size: 13px; background: none; border: none; color: #1a7f5a; cursor: pointer;">
+              Desactivar notificaciones
+            </button>
+          </div>
+        </div>
+
+ 
       </div>
 
-      <!-- Menu perfil popup -->
-      <div class="menu_perfil" id="menu_popup" style="display: none;">
-        <ul>
-          <li><a href="/Pantalla_principal/index_pantalla_principal.html">Pantalla principal </a></li>
-          <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional </a></li>
-          <li>
+      <!-- Tarjeta menu perfil nutricional -->
+      <div class="tarjeta_menu">
+        <!-- Tarjeta usuario del perfil -->
+        <div class="tarjeta-perfil" id="tarj_perfil_user">
+          <h2 class="lbl_nombre_user">User</h2>  
+          <div class="circulo_perfil">
+            <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
+          </div>
+        </div>
 
-            <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
-              <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
-            </a>
-          </li>
-        </ul>
+        <!-- Menu perfil popup -->
+        <div class="menu_perfil" id="menu_popup" style="display: none;">
+          <ul>
+            <li><a href="/Pantalla_principal/index_pantalla_principal.html">Pantalla principal </a></li>
+            <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional </a></li>
+            <li>
+
+              <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
+                <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </div>
 
@@ -201,133 +251,133 @@
 
      </div>
 
-     <!-- Sección 3: Historia clínica -->
-  <div class="section" id="section3">
-    <h2 class="section-title">Historia clínica</h2>
+        <!-- Sección 3: Historia clínica -->
+      <div class="section" id="section3">
+        <h2 class="section-title">Historia clínica</h2>
 
-    <!-- Antecedentes patológicos -->
-    <div class="form-group justify-content-center w-100 mx-auto">
-      <label class="form-label">Antecedentes patológicos</label>
-      <div class="custom-select-container"  onclick="historia(this)">
-        <div class="custom-select-selected">Selecciona antecedentes patológicos</div>
-        <i class="fas fa-chevron-down select-arrow"></i>
+        <!-- Antecedentes patológicos -->
+        <div class="form-group justify-content-center w-100 mx-auto">
+          <label class="form-label">Antecedentes patológicos</label>
+          <div class="custom-select-container"  onclick="historia(this)">
+            <div class="custom-select-selected">Selecciona antecedentes patológicos</div>
+            <i class="fas fa-chevron-down select-arrow"></i>
+          </div>
+          <div class="custom-select-options" style="display: none;">
+            <label><input type="checkbox" name="patologicos[]" value="Hipertensión arterial"> Hipertensión arterial</label>
+            <label><input type="checkbox" name="patologicos[]" value="Diabetes mellitus"> Diabetes mellitus</label>
+            <label><input type="checkbox" name="patologicos[]" value="Asma bronquial"> Asma bronquial</label>
+            <label><input type="checkbox" name="patologicos[]" value="Alergia a medicamentos"> Alergia a medicamentos</label>
+            <label><input type="checkbox" name="patologicos[]" value="Alergia a picaduras"> Alergia a picaduras</label>
+            <label><input type="checkbox" name="patologicos[]" value="Colesterol alto"> Colesterol alto</label>
+            <label><input type="checkbox" name="patologicos[]" value="Triglicéridos altos"> Triglicéridos altos</label>
+            <label><input type="checkbox" name="patologicos[]" value="Obesidad"> Obesidad</label>
+            <label><input type="checkbox" name="patologicos[]" value="Sobrepeso"> Sobrepeso</label>
+            <label><input type="checkbox" name="patologicos[]" value="Hipotiroidismo"> Hipotiroidismo</label>
+            <label><input type="checkbox" name="patologicos[]" value="Hipertiroidismo"> Hipertiroidismo</label>
+            <label><input type="checkbox" name="patologicos[]" value="Infarto"> Infarto</label>
+            <label><input type="checkbox" name="patologicos[]" value="Insuficiencia cardíaca"> Insuficiencia cardíaca</label>
+            <label><input type="checkbox" name="patologicos[]" value="EPOC"> EPOC</label>
+            <label><input type="checkbox" name="patologicos[]" value="Tuberculosis"> Tuberculosis</label>
+            <label><input type="checkbox" name="patologicos[]" value="Epilepsia"> Epilepsia</label>
+            <label><input type="checkbox" name="patologicos[]" value="Migraña"> Migraña</label>
+            <label><input type="checkbox" name="patologicos[]" value="ACV"> Accidente cerebrovascular (ACV)</label>
+            <label><input type="checkbox" name="patologicos[]" value="Depresión"> Depresión</label>
+            <label><input type="checkbox" name="patologicos[]" value="Ansiedad"> Ansiedad</label>
+            <label><input type="checkbox" name="patologicos[]" value="Esquizofrenia"> Esquizofrenia</label>
+            <label><input type="checkbox" name="patologicos[]" value="VIH"> VIH</label>
+            <label><input type="checkbox" name="patologicos[]" value="Hepatitis B"> Hepatitis B</label>
+            <label><input type="checkbox" name="patologicos[]" value="Hepatitis C"> Hepatitis C</label>
+            <label><input type="checkbox" name="patologicos[]" value="Gastritis"> Gastritis</label>
+            <label><input type="checkbox" name="patologicos[]" value="Úlcera"> Úlcera</label>
+            <label><input type="checkbox" name="patologicos[]" value="Colitis"> Colitis</label>
+          </div>
+          <small>Selecciona si tienes o has tenido alguna de estas condiciones médicas (opcional)</small>
+          <div class="selected-tags" data-group="patologicos"></div>
+        </div>
+
+        <!-- Antecedentes familiares -->
+      <div class="form-group justify-content-center w100 mx-auto">
+        <label class="form-label">Antecedentes familiares</label>
+        <div class="custom-select-container" onclick="historia(this)">
+          <div class="custom-select-selected">Selecciona antecedentes familiares</div>
+          <i class="fas fa-chevron-down select-arrow"></i>
+        </div>
+        <div class="custom-select-options" style="display: none;">
+          <label><input type="checkbox" name="familiares[]" value="Diabetes mellitus"> Diabetes mellitus</label>
+          <label><input type="checkbox" name="familiares[]" value="Hipertensión arterial"> Hipertensión arterial</label>
+          <label><input type="checkbox" name="familiares[]" value="Cáncer de mama"> Cáncer de mama</label>
+          <label><input type="checkbox" name="familiares[]" value="Cáncer de colon"> Cáncer de colon</label>
+          <label><input type="checkbox" name="familiares[]" value="Cáncer de próstata"> Cáncer de próstata</label>
+          <label><input type="checkbox" name="familiares[]" value="Cáncer de pulmón"> Cáncer de pulmón</label>
+          <label><input type="checkbox" name="familiares[]" value="Infarto"> Infarto</label>
+          <label><input type="checkbox" name="familiares[]" value="Angina"> Angina</label>
+          <label><input type="checkbox" name="familiares[]" value="Muerte súbita"> Muerte súbita</label>
+          <label><input type="checkbox" name="familiares[]" value="ACV"> Accidente cerebrovascular (ACV)</label>
+          <label><input type="checkbox" name="familiares[]" value="Asma"> Asma</label>
+          <label><input type="checkbox" name="familiares[]" value="Enfermedades alérgicas"> Enfermedades alérgicas</label>
+          <label><input type="checkbox" name="familiares[]" value="Hemofilia"> Hemofilia</label>
+          <label><input type="checkbox" name="familiares[]" value="Fibrosis quística"> Fibrosis quística</label>
+          <label><input type="checkbox" name="familiares[]" value="Otra enfermedad genética"> Otra enfermedad genética o hereditaria</label>
+          <label><input type="checkbox" name="familiares[]" value="Depresión"> Depresión</label>
+          <label><input type="checkbox" name="familiares[]" value="Ansiedad"> Ansiedad</label>
+          <label><input type="checkbox" name="familiares[]" value="Esquizofrenia"> Esquizofrenia</label>
+          <label><input type="checkbox" name="familiares[]" value="Artritis reumatoide"> Artritis reumatoide</label>
+          <label><input type="checkbox" name="familiares[]" value="Lupus"> Lupus</label>
+        </div>
+        <small>Indica si tus familiares directos han tenido alguna de estas enfermedades (opcional).</small>
+        <div class="selected-tags" data-group="familiares"></div>
+        
       </div>
-      <div class="custom-select-options" style="display: none;">
-        <label><input type="checkbox" name="patologicos[]" value="Hipertensión arterial"> Hipertensión arterial</label>
-        <label><input type="checkbox" name="patologicos[]" value="Diabetes mellitus"> Diabetes mellitus</label>
-        <label><input type="checkbox" name="patologicos[]" value="Asma bronquial"> Asma bronquial</label>
-        <label><input type="checkbox" name="patologicos[]" value="Alergia a medicamentos"> Alergia a medicamentos</label>
-        <label><input type="checkbox" name="patologicos[]" value="Alergia a picaduras"> Alergia a picaduras</label>
-        <label><input type="checkbox" name="patologicos[]" value="Colesterol alto"> Colesterol alto</label>
-        <label><input type="checkbox" name="patologicos[]" value="Triglicéridos altos"> Triglicéridos altos</label>
-        <label><input type="checkbox" name="patologicos[]" value="Obesidad"> Obesidad</label>
-        <label><input type="checkbox" name="patologicos[]" value="Sobrepeso"> Sobrepeso</label>
-        <label><input type="checkbox" name="patologicos[]" value="Hipotiroidismo"> Hipotiroidismo</label>
-        <label><input type="checkbox" name="patologicos[]" value="Hipertiroidismo"> Hipertiroidismo</label>
-        <label><input type="checkbox" name="patologicos[]" value="Infarto"> Infarto</label>
-        <label><input type="checkbox" name="patologicos[]" value="Insuficiencia cardíaca"> Insuficiencia cardíaca</label>
-        <label><input type="checkbox" name="patologicos[]" value="EPOC"> EPOC</label>
-        <label><input type="checkbox" name="patologicos[]" value="Tuberculosis"> Tuberculosis</label>
-        <label><input type="checkbox" name="patologicos[]" value="Epilepsia"> Epilepsia</label>
-        <label><input type="checkbox" name="patologicos[]" value="Migraña"> Migraña</label>
-        <label><input type="checkbox" name="patologicos[]" value="ACV"> Accidente cerebrovascular (ACV)</label>
-        <label><input type="checkbox" name="patologicos[]" value="Depresión"> Depresión</label>
-        <label><input type="checkbox" name="patologicos[]" value="Ansiedad"> Ansiedad</label>
-        <label><input type="checkbox" name="patologicos[]" value="Esquizofrenia"> Esquizofrenia</label>
-        <label><input type="checkbox" name="patologicos[]" value="VIH"> VIH</label>
-        <label><input type="checkbox" name="patologicos[]" value="Hepatitis B"> Hepatitis B</label>
-        <label><input type="checkbox" name="patologicos[]" value="Hepatitis C"> Hepatitis C</label>
-        <label><input type="checkbox" name="patologicos[]" value="Gastritis"> Gastritis</label>
-        <label><input type="checkbox" name="patologicos[]" value="Úlcera"> Úlcera</label>
-        <label><input type="checkbox" name="patologicos[]" value="Colitis"> Colitis</label>
+
+      <!-- Antecedentes quirúrgicos -->
+      <div class="form-group justify-content-center w100 mx-auto">
+        <label class="form-label">Antecedentes quirúrgicos</label>
+        <div class="custom-select-container" onclick="historia(this)">
+          <div class="custom-select-selected">Selecciona antecedentes quirúrgicos</div>
+          <i class="fas fa-chevron-down select-arrow"></i>
+        </div>
+        <div class="custom-select-options" style="display: none;">
+          <label><input type="checkbox" name="quirurgicos[]" value="Apendicectomía"> Apendicectomía</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Colecistectomía"> Colecistectomía</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cesárea"> Cesárea</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Herniorrafia inguinal"> Herniorrafia inguinal</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Herniorrafia umbilical"> Herniorrafia umbilical</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Amigdalectomía"> Amigdalectomía</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cirugía de rodilla"> Cirugía de rodilla</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cirugía de columna"> Cirugía de columna</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Histerectomía"> Histerectomía</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cirugía oftálmica"> Cirugía oftálmica</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cirugías por fracturas"> Cirugías ortopédicas por fracturas</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cirugías con prótesis"> Cirugías ortopédicas con prótesis</label>
+          <label><input type="checkbox" name="quirurgicos[]" value="Cirugías cardiovasculares"> Cirugías cardiovasculares</label>
+        </div>
+        <small>Selecciona las cirugías a las que has sido sometido anteriormente (opcional)</small>
+        <div class="selected-tags" data-group="quirurgicos"></div>
       </div>
-      <small>Selecciona si tienes o has tenido alguna de estas condiciones médicas (opcional)</small>
-      <div class="selected-tags" data-group="patologicos"></div>
-    </div>
-
-    <!-- Antecedentes familiares -->
-  <div class="form-group justify-content-center w100 mx-auto">
-    <label class="form-label">Antecedentes familiares</label>
-    <div class="custom-select-container" onclick="historia(this)">
-      <div class="custom-select-selected">Selecciona antecedentes familiares</div>
-      <i class="fas fa-chevron-down select-arrow"></i>
-    </div>
-    <div class="custom-select-options" style="display: none;">
-      <label><input type="checkbox" name="familiares[]" value="Diabetes mellitus"> Diabetes mellitus</label>
-      <label><input type="checkbox" name="familiares[]" value="Hipertensión arterial"> Hipertensión arterial</label>
-      <label><input type="checkbox" name="familiares[]" value="Cáncer de mama"> Cáncer de mama</label>
-      <label><input type="checkbox" name="familiares[]" value="Cáncer de colon"> Cáncer de colon</label>
-      <label><input type="checkbox" name="familiares[]" value="Cáncer de próstata"> Cáncer de próstata</label>
-      <label><input type="checkbox" name="familiares[]" value="Cáncer de pulmón"> Cáncer de pulmón</label>
-      <label><input type="checkbox" name="familiares[]" value="Infarto"> Infarto</label>
-      <label><input type="checkbox" name="familiares[]" value="Angina"> Angina</label>
-      <label><input type="checkbox" name="familiares[]" value="Muerte súbita"> Muerte súbita</label>
-      <label><input type="checkbox" name="familiares[]" value="ACV"> Accidente cerebrovascular (ACV)</label>
-      <label><input type="checkbox" name="familiares[]" value="Asma"> Asma</label>
-      <label><input type="checkbox" name="familiares[]" value="Enfermedades alérgicas"> Enfermedades alérgicas</label>
-      <label><input type="checkbox" name="familiares[]" value="Hemofilia"> Hemofilia</label>
-      <label><input type="checkbox" name="familiares[]" value="Fibrosis quística"> Fibrosis quística</label>
-      <label><input type="checkbox" name="familiares[]" value="Otra enfermedad genética"> Otra enfermedad genética o hereditaria</label>
-      <label><input type="checkbox" name="familiares[]" value="Depresión"> Depresión</label>
-      <label><input type="checkbox" name="familiares[]" value="Ansiedad"> Ansiedad</label>
-      <label><input type="checkbox" name="familiares[]" value="Esquizofrenia"> Esquizofrenia</label>
-      <label><input type="checkbox" name="familiares[]" value="Artritis reumatoide"> Artritis reumatoide</label>
-      <label><input type="checkbox" name="familiares[]" value="Lupus"> Lupus</label>
-    </div>
-    <small>Indica si tus familiares directos han tenido alguna de estas enfermedades (opcional).</small>
-    <div class="selected-tags" data-group="familiares"></div>
-    
-  </div>
-
-  <!-- Antecedentes quirúrgicos -->
-  <div class="form-group justify-content-center w100 mx-auto">
-    <label class="form-label">Antecedentes quirúrgicos</label>
-    <div class="custom-select-container" onclick="historia(this)">
-      <div class="custom-select-selected">Selecciona antecedentes quirúrgicos</div>
-      <i class="fas fa-chevron-down select-arrow"></i>
-    </div>
-    <div class="custom-select-options" style="display: none;">
-      <label><input type="checkbox" name="quirurgicos[]" value="Apendicectomía"> Apendicectomía</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Colecistectomía"> Colecistectomía</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cesárea"> Cesárea</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Herniorrafia inguinal"> Herniorrafia inguinal</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Herniorrafia umbilical"> Herniorrafia umbilical</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Amigdalectomía"> Amigdalectomía</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cirugía de rodilla"> Cirugía de rodilla</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cirugía de columna"> Cirugía de columna</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Histerectomía"> Histerectomía</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cirugía oftálmica"> Cirugía oftálmica</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cirugías por fracturas"> Cirugías ortopédicas por fracturas</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cirugías con prótesis"> Cirugías ortopédicas con prótesis</label>
-      <label><input type="checkbox" name="quirurgicos[]" value="Cirugías cardiovasculares"> Cirugías cardiovasculares</label>
-    </div>
-    <small>Selecciona las cirugías a las que has sido sometido anteriormente (opcional)</small>
-    <div class="selected-tags" data-group="quirurgicos"></div>
-  </div>
 
 
-    <div class="buttons-container">
-      <button type="button" class="form-button prev-button" onclick="prevSection(3)">Atrás</button>
-      <button type="button" class="form-button next-button" onclick="nextSection(3)">Siguiente</button>
-    </div>
+        <div class="buttons-container">
+          <button type="button" class="form-button prev-button" onclick="prevSection(3)">Atrás</button>
+          <button type="button" class="form-button next-button" onclick="nextSection(3)">Siguiente</button>
+        </div>
 
-  <div class="barra-progreso">
-      <div class="paso-progreso activo"></div>
-      <div class="linea-progreso"></div>
-      <div class="paso-progreso activo"></div>
-      <div class="linea-progreso"></div>
-      <div class="paso-progreso activo"></div>
-      <div class="linea-progreso"></div>
-      <div class="paso-progreso inactivo"></div>
-      <div class="linea-progreso"></div>
-      <div class="paso-progreso inactivo"></div>
-      <div class="linea-progreso"></div>
-      <div class="paso-progreso inactivo"></div>
-  </div>
-  </div>
+      <div class="barra-progreso">
+          <div class="paso-progreso activo"></div>
+          <div class="linea-progreso"></div>
+          <div class="paso-progreso activo"></div>
+          <div class="linea-progreso"></div>
+          <div class="paso-progreso activo"></div>
+          <div class="linea-progreso"></div>
+          <div class="paso-progreso inactivo"></div>
+          <div class="linea-progreso"></div>
+          <div class="paso-progreso inactivo"></div>
+          <div class="linea-progreso"></div>
+          <div class="paso-progreso inactivo"></div>
+      </div>
+      </div>
 
 
-          <!-- Sección 4: Afecciones personales -->
+      <!-- Sección 4: Afecciones personales -->
       <div class="section" id="section4">
         <h2 class="section-title">Afecciones personales</h2>
 

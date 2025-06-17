@@ -25,34 +25,44 @@ async function cargarContenido(pagina) {
 //Actualiza la información del perfil del usuario en toda la aplicación
 async function actualizarPerfilUsuario() {
   try {
-    let nombreUsuario = localStorage.getItem('userDisplayName');
     const elementosNombre = document.querySelectorAll('.lbl_nombre_user, .lbl_user_bienvenida, .nombre-usuario-header');
+    const sessionData = await verificarSesion();
     
-    if (!nombreUsuario) {
-      const sessionData = await verificarSesion();
-      if (sessionData.logged_in) {
-        nombreUsuario = sessionData.display_name;
-        localStorage.setItem('userDisplayName', nombreUsuario);
+    let nombreMostrar = "Usuario invitado"; // Valor por defecto
+    
+    if (sessionData.logged_in) {
+      if (sessionData.display_name) {
+        nombreMostrar = sessionData.display_name;
+        localStorage.setItem('userDisplayName', nombreMostrar);
       } else {
-        redirigirALogin();
-        return;
+        // Si está logueado pero no tiene display_name, usar "Usuario"
+        nombreMostrar = "Usuario";
       }
     }
     
     elementosNombre.forEach(el => {
-      el.textContent = nombreUsuario;
+      el.textContent = nombreMostrar;
     });
     
   } catch (error) {
     console.error('Error actualizando perfil:', error);
+    // En caso de error, establecer "Usuario invitado"
+    document.querySelectorAll('.lbl_nombre_user').forEach(el => {
+      el.textContent = "Usuario invitado";
+    });
   }
 }
 
 // Verifica el estado de la sesión en el servidor
 async function verificarSesion() {
-  const response = await fetch('/Login/check_session.php');
-  if (!response.ok) throw new Error('Error verificando sesión');
-  return await response.json();
+  try {
+    const response = await fetch('/Login/check_session.php');
+    if (!response.ok) throw new Error('Error verificando sesión');
+    return await response.json();
+  } catch (error) {
+    console.error('Error al verificar sesión:', error);
+    return { logged_in: false }; // Retorna objeto con logged_in false en caso de error
+  }
 }
 
 
@@ -91,18 +101,21 @@ function ejecutarScriptsPagina(pagina) {
 
   if (pagina === "pp_inicio.php") {
     preguntarActivarNotificaciones();
-    
     inicializarNotificaciones(); 
   }
 
   if (pagina === "pp_crear_receta.php") {
     inicializarCrearRecetas();
+    preguntarActivarNotificaciones();
+    inicializarNotificaciones(); 
   }
 
   if (pagina === "pp_recetas.php") {
     setTimeout(() => {
       if (typeof cargarRecetas === 'function') {
         cargarRecetas();
+        preguntarActivarNotificaciones();
+        inicializarNotificaciones(); 
       } else {
         console.error("❌ La función cargarRecetas no está definida.");
       }
@@ -112,6 +125,13 @@ function ejecutarScriptsPagina(pagina) {
   if (pagina === "pp_comunidad.php") {
     // Aquí solo llamamos la función que está en comunidad.js
     inicializarChatComunidad();
+    preguntarActivarNotificaciones();
+    inicializarNotificaciones(); 
+  }
+
+  if (pagina === "pp_crear_receta.php") {
+    preguntarActivarNotificaciones();
+    inicializarNotificaciones(); 
   }
 
 }
@@ -426,8 +446,6 @@ function manejarAccionPersonalizada(accion) {
       console.warn(`Acción personalizada no reconocida: ${accion}`);
   }
 }
-
-
 
 // Nueva función para verificar y forzar actualización
 function verificarActualizacionPerfil() {
