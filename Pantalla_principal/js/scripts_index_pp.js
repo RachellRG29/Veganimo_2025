@@ -56,7 +56,7 @@ async function verificarSesion() {
 }
 
 
-//Verifica el rol del usuario y muestra/oculta elementos de admin
+//--------------------  VERIFICAR EL ROL DEL USUARIO Y MUESTRA/OCULTAR ELEMENTOS DE ADMIN---------------------//
 async function verificarRolUsuario() {
   try {
     const response = await fetch('/Login/check_session.php');
@@ -78,16 +78,23 @@ async function verificarRolUsuario() {
   }
 }
 
- //Aplica estilos de fondo según la página cargada
+ //--------------------------- ESTILOS DE LA PANTALLA PRINCIPAL -----------------------------//
 function aplicarEstilosFondo(pagina) {
   const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html", "pp_comunidad.php","pp_crear_receta.php"];
   document.getElementById("contenido-principal").style.backgroundColor = 
     paginasVerdes.includes(pagina) ? "#007848" : "#F6FFFE";
 }
 
- //Ejecuta scripts específicos para cada página
+ /* --------------------------------------- INICIALIZAR LOS SCRIPTS DE LA PANTALLA PRINCIPAL ------------------------------------------- */
 
 function ejecutarScriptsPagina(pagina) {
+
+  if (pagina === "pp_inicio.php") {
+    preguntarActivarNotificaciones();
+    
+    inicializarNotificaciones(); 
+  }
+
   if (pagina === "pp_crear_receta.php") {
     inicializarCrearRecetas();
   }
@@ -106,9 +113,151 @@ function ejecutarScriptsPagina(pagina) {
     // Aquí solo llamamos la función que está en comunidad.js
     inicializarChatComunidad();
   }
+
 }
 
- //* Inicializa la funcionalidad de "Crear Recetas"
+/* --------------------------------------------------- INICIALIZA LA NOTIFICACIÓN ------------------------------------------------------*/
+//Pregunta al usuario si desea activar las notificaciones
+function preguntarActivarNotificaciones() {
+  const btnNotificacion = document.getElementById('btn-notificacion');
+  const estado = localStorage.getItem('notificaciones_activadas');
+
+  if (estado === 'si') {
+    btnNotificacion.style.display = 'flex';
+    activarLoader(true);
+    return;
+  }
+
+  if (estado === 'no') {
+    btnNotificacion.style.display = 'flex'; // No ocultar el botón nunca
+    activarLoader(false);
+    return;
+  }
+
+  // Pregunta inicial
+  const desea = confirm('¿Deseas activar las notificaciones?');
+
+  if (desea) {
+    localStorage.setItem('notificaciones_activadas', 'si');
+    btnNotificacion.style.display = 'flex';
+    activarLoader(true);
+  } else {
+    localStorage.setItem('notificaciones_activadas', 'no');
+    btnNotificacion.style.display = 'flex'; // Mostrar siempre
+    activarLoader(false);
+  }
+}
+
+// Función que activa o desactiva el parpadeo del loader y el puntito verde
+function activarLoader(activar) {
+  const btnNotificacion = document.getElementById('btn-notificacion');
+  const point = btnNotificacion.querySelector('.point');
+  const contador = point.querySelector('.contador-noti');
+
+  if (activar) {
+    // Mostrar el punto y el contador si hay valor
+    const valor = parseInt(contador.textContent.trim());
+    if (valor > 0) {
+      point.style.display = 'flex';
+    } else {
+      point.style.display = 'none';
+    }
+  } else {
+    // Ocultar el punto por completo
+    point.style.display = 'none';
+  }
+}
+
+
+
+// Inicializa notificaciones y eventos
+function inicializarNotificaciones() {
+  const btnNotificacion = document.getElementById('btn-notificacion');
+  const modal = document.getElementById('modal_notificacion');
+  const mensajeVacio = modal.querySelector('.mensaje-sin-notificaciones');
+  const toggleBtn = document.getElementById('toggle-notificaciones');
+
+  // Actualiza visibilidad de mensaje vacío según notificaciones
+  function actualizarContenidoModal() {
+    const notis = modal.querySelectorAll('.notificacion-item');
+    const hayNotis = notis.length > 0;
+    mensajeVacio.classList.toggle('oculto', hayNotis);
+  }
+
+  function actualizarContadorNotificaciones(numero) {
+    const contador = document.querySelector('.contador-noti');
+    if (contador) {
+      contador.textContent = numero > 0 ? numero : '';
+      document.querySelector('.point').style.display = numero > 0 ? 'flex' : 'none';
+    }
+  }
+
+  // Abre o cierra el modal
+  function toggleModal() {
+    modal.classList.toggle('active');
+    actualizarContenidoModal();
+    actualizarTextoToggle();
+  }
+
+  // Cierra el modal
+  function cerrarModal() {
+    modal.classList.remove('active');
+  }
+
+  // Actualiza texto del botón toggle según estado
+  function actualizarTextoToggle() {
+    const estado = localStorage.getItem('notificaciones_activadas');
+    toggleBtn.textContent = (estado === 'si') ? 'Desactivar notificaciones' : 'Activar notificaciones';
+  }
+
+  // Evento toggle para activar o desactivar notificaciones
+  toggleBtn.addEventListener('click', () => {
+    const estado = localStorage.getItem('notificaciones_activadas');
+    if (estado === 'si') {
+      localStorage.setItem('notificaciones_activadas', 'no');
+      activarLoader(false);
+      cerrarModal();
+    } else {
+      localStorage.setItem('notificaciones_activadas', 'si');
+      activarLoader(true);
+    }
+    actualizarTextoToggle();
+  });
+
+  // Evento para abrir/cerrar modal al hacer click en el botón de notificación
+  btnNotificacion.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleModal();
+  });
+
+  // Cerrar modal al hacer click fuera del modal o del botón
+  document.addEventListener('click', (e) => {
+    if (!modal.contains(e.target) && !btnNotificacion.contains(e.target)) {
+      cerrarModal();
+    }
+  });
+
+  // Inicialización visual según estado guardado
+  const estadoInicial = localStorage.getItem('notificaciones_activadas');
+  if (estadoInicial === 'si') {
+    activarLoader(true);
+  } else {
+    activarLoader(false);
+  }
+  actualizarContenidoModal();
+  actualizarTextoToggle();
+}
+
+// Cuando cargue la página, pregunta al usuario y luego inicializa
+window.addEventListener('DOMContentLoaded', () => {
+  preguntarActivarNotificaciones();
+  inicializarNotificaciones();
+  actualizarContadorNotificaciones(1);
+});
+
+
+
+ //--------------------- Inicializa la funcionalidad de "Crear Recetas" --------------------- //
 
 function inicializarCrearRecetas() {
   console.log("✅ Inicializando creación de recetas...");
@@ -217,16 +366,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Manejar parámetros de URL
 const params = new URLSearchParams(window.location.search);
 const seccion = params.get('seccion');
-const ultimaPagina = localStorage.getItem('ultimaPaginaCargada');
-let paginaInicial = "pp_inicio.php"; // Default
+let ultimaPagina = localStorage.getItem('ultimaPaginaCargada');
+let paginaInicial = "pp_inicio.php"; // Default por defecto
 
 if (seccion === 'recetas') {
   paginaInicial = "pp_recetas.php";
 } else if (seccion === 'informate') {
   paginaInicial = "pp_informate.html";
 } else if (ultimaPagina) {
-  paginaInicial = ultimaPagina;
+  // Evitar mostrar "Crear Recetas" si no tiene permisos
+  const esCrearReceta = ultimaPagina === "pp_crear_receta.php";
+  try {
+    const sessionData = await verificarSesion();
+    const esAdmin = sessionData.role === 'admin';
+    
+    if (esCrearReceta && !esAdmin) {
+      paginaInicial = "pp_inicio.php";
+      localStorage.setItem('ultimaPaginaCargada', paginaInicial);
+    } else {
+      paginaInicial = ultimaPagina;
+    }
+  } catch (error) {
+    console.warn("No logueado o error de sesión. Restableciendo a inicio.");
+    paginaInicial = "pp_inicio.php";
+    localStorage.setItem('ultimaPaginaCargada', paginaInicial);
+  }
 }
+
 
 // Buscar y marcar el ítem correspondiente como activo
 const navItem = [...document.querySelectorAll('.nav-item')].find(item =>
@@ -271,7 +437,7 @@ function verificarActualizacionPerfil() {
   }
 }
 
-// Modifica cargarContenido para incluir verificación
+/* --------------------------------------------CARGAR CONTENIDO DE PANTALLA PRINCIPAL --------------------------------------------*/
 async function cargarContenido(pagina) {
   console.log("📥 Solicitando:", `/Pantalla_principal/contenidos/${pagina}`);
   
@@ -303,4 +469,3 @@ async function cargarContenido(pagina) {
     return false;
   }
 }
-
