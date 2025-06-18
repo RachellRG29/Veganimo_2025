@@ -65,8 +65,34 @@
   
 }
 
-.star{
+/*.star{
   transform: rotate(50deg);
+}*/
+
+/*Calificacion de estrellas */
+.rating {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  --stroke: #fffbfb;
+  --fill: #ffc73a;
+}
+
+.rating input {
+  appearance: unset;
+}
+
+.rating svg {
+  width: 2rem;
+  height: 2rem;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  animation: idle 4s linear infinite;
+  transition: stroke 0.2s, fill 0.5s;
 }
 
 .datos-receta {

@@ -1,35 +1,37 @@
-/**{
-  outline: 1px solid red;
-}
-*/
+
+
 .contentdeinicio {
   display: flex;
-  flex-wrap: wrap;
-  max-width: 1200px; /* Limitar el ancho máximo */
+  max-width: 1400px;
+  margin: 0 auto;
   animation: fadeIn 1.5s ease-out;
-  position: relative; /* Para el contenedor de hojas */
+  position: relative;
+  padding-top: 2rem; /* Espacio superior general */
+  left: 20px;
 }
 
 .inicio_contenido {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
   width: 100%;
-  height: 75vh;
-  margin: 40px 0 0 2rem; /* Ajuste de márgenes/ top-right-bottom-left */
+  padding: 0 20px;
+}
+
+.logo-desc-container {
+  flex: 0 1 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .inicio_logo {
   fill: #F6FFFE;
-  flex: 1 1 580px;
-  min-width: 280px; /* Mínimo para que no se haga muy pequeño */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0 0 0; /* Ajuste de márgenes */
-  padding: 0 20px; /* Padding para móviles */
+  width: 620px; /* Tamaño más pequeño */
+  max-width: 100%;
+  margin-top: 6rem;
+  margin-bottom: 20px;
   animation: fadeInUp 1s ease-out forwards;
 }
 
@@ -67,48 +69,61 @@
 }
 
 .imagen_lado {
-  flex: 1 1 400px;
+  flex: 0 1 46%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3rem -60px 0 0; /*top-right-bottom-left*/
+  opacity: 0;
+  animation: fadeInRight 1s ease-out 0.5s forwards;
+  padding-top: 2rem; /* Alineación vertical con el logo */
 }
 
 .imagen_lado img {
   max-width: 100%;
   height: auto;
-
+  max-height: 550px;
 }
 
-.div_descripcion{
-  margin: -30px 0 0 30px; /*Top-right-bottom-left*/
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.div_descripcion {
+  margin: 0;
   font-size: 1.2rem;
   color: #F6FFFE;
-  display: flex;
-  flex-direction: column;
-  gap: 10px; /* Espacio entre ellos */
-  text-wrap: pretty;   
-  max-width: 57%;
-  
+  max-width: 100%;
+  line-height: 1.6; /* Mejor legibilidad */
+  animation: fadeInUp 1s ease-out 0.3s forwards;
 }
 
 .div_descripcion p {
+  margin-bottom: 1rem; /*espaciado entre párrafos*/
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s ease-out forwards;
+
 }
 
 .div_descripcion p:first-child {
   animation-delay: 0.5s;
 }
 
-.slogan_inicio{
-  position: absolute;
-  margin-right: 20px;
+.slogan_inicio {
+  width: 100%;
+  text-align: end;
   color: #F6FFFE;
-  text-wrap: pretty;
-  right: 0;
-  font-size: 1.5rem; 
+  font-size: 1.5rem;
+  margin-top: -20px;
+  margin-bottom: 70px;
+  margin-right: 30px;
 }
 
 @keyframes fadeInUp {
@@ -211,7 +226,7 @@
 /*---------------------------- BOTON EXPLORAR --------------------------------------------------------------*/
 /*Boton de explorar*/
   .btn-explorar {
-    margin: 0 40px 40px 40px; /*Top-right-bottom-left*/
+    margin: 20px -40px 40px 20px; /*Top-right-bottom-left*/
     position: relative;
     background-image: linear-gradient(to bottom right, #F8C78C 40%, #E99A3C 60%);
     width: 200px;
@@ -289,43 +304,93 @@
   }
 
   /*------------------------------------------------------------------------------------*/
-/* Responsive para celular */
-@media (max-width: 768px) {
-  .inicio_contenido {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .inicio_logo {
-    margin: 4rem 0 0 0;
-    flex: 1 1 auto;
+  @media (max-width: 1024px) {
+  /* Ajustes para tablet */
+  .logo-desc-container {
+    flex: 0 1 55%;
   }
   
   .imagen_lado {
-    margin: 0;
-    flex: 1 1 auto;
+    flex: 0 1 40%;
   }
   
-  .imagen_lado img {
-    max-width: 80%;
-    margin: 0 auto;
+  .inicio_logo {
+    width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Estilos específicos para móvil */
+  .content-inicio::before,
+  .content-inicio::after {
+    width: 100%;
+    height: 50%;
+  }
+  
+  .content-inicio::after {
+    top: 50%;
+  }
+  
+  .logo-desc-container, 
+  .imagen_lado {
+    flex: 1 1 100%;
+    padding-top: 1rem; /* Menos espacio en móvil */
+  }
+  
+  .logo-desc-container {
+    order: 1;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .inicio_logo {
+    width: 280px;
+    margin: 2rem auto 0; /* Centrado y con espacio */
+    padding-top: 0;
   }
   
   .div_descripcion {
     max-width: 90%;
-    margin: 20px auto;
-    font-size: 1rem;
+    margin: 0 auto;
+    order: 3;
+    text-align: center;
+  }
+  
+  .imagen_lado {
+    order: 2;
+    margin: 1rem 0;
+    padding-top: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
   }
   
   .slogan_inicio {
-    position: relative;
+    order: 4;
     text-align: center;
-    margin: 20px 0;
-    right: auto;
-    font-size: 1.2rem;
+    padding-right: 0;
+    margin: 1.5rem 0;
+    font-size: 1.3rem;
   }
   
   .btn-explorar {
-    margin: 20px auto;
+    order: 5;
+    /*margin: 1.5rem auto 0; /**/
+    margin: 0 0 20px 0 auto; /*top-right-bottom-left*/
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes adicionales para móviles pequeños */
+  .inicio_logo {
+    width: 250px;
+  }
+  
+  .div_descripcion {
+    font-size: 1.1rem;
+    max-width: 95%;
+  }
+  
+  .slogan_inicio {
+    font-size: 1.2rem;
   }
 }

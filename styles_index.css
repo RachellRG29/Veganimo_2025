@@ -262,6 +262,8 @@ eeire-black: #1A1C1C
       background-color: #E99A3C;
       color: #1A1C1C;
       font-family: 'Comfortaa','verdana';
+      right: 0;
+      left: 0;
     }
 
     .logo-container {
@@ -390,6 +392,10 @@ eeire-black: #1A1C1C
 
         /* Footer */
     @media (max-width: 768px) {
+      footer{
+        left: 0 ;
+        right: 0 !important;
+      }
       .ListFooter {
         flex-direction: column;
         gap: 2rem;
