@@ -55,6 +55,7 @@
   color: #ffffffd4;
   font-size: 16px;
   margin-bottom: 15px;
+  line-height: 1.5; /* Mejor legibilidad */
 }
 
 .estrellas_vot {
@@ -77,6 +78,8 @@
   gap: 0.5rem;
   --stroke: #fffbfb;
   --fill: #ffc73a;
+  margin-bottom: 6px;
+  margin-top: -2px;
 }
 
 .rating input {

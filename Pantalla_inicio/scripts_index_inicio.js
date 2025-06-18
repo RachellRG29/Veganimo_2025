@@ -28,7 +28,7 @@ createApp({
     });
     
     // Recortar descripciones de recetas
-    this.truncateDescriptions('.descripcion-tarjeta', 50);
+    this.truncateDescriptions('.descripcion-tarjeta', 40);
     
     // Recortar descripciones de informate
     this.truncateDescriptions('.descripcion-tarjeta-inf', 40);

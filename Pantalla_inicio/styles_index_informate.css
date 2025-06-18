@@ -62,20 +62,11 @@
   color: #ffffffd4;
   font-size: 16px;
   margin-bottom: 15px;
-  /*opacity: 0;
-  max-height: 0;*/
   overflow: hidden;
   transform: translateY(10px);
   transition: all 0.4s ease;
+  line-height: 1.5; /* Mejor legibilidad */
 }
-
-/* Al pasar el mouse sobre la tarjeta, mostrar la descripción */
-/*.tarjeta-informate:hover .descripcion-tarjeta-inf {
-  opacity: 1;
-  max-height: 100px; 
-  transform: translateY(0);
-}*/
-
 
   /*Ver mas informate*/
 .btn-ver-mas-informate {
