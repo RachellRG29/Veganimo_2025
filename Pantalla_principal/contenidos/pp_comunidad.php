@@ -67,11 +67,32 @@
 
   <div id="chat-comunidad" class="chat-container">
     <div id="chat-mensajes" class="mensajes"></div>
+<form id="form-enviar-mensaje" style="display: flex; flex-direction: column; gap: 5px;">
+  <div style="display: flex; gap: 10px; align-items: center;">
+    <input 
+      type="text" 
+      id="mensaje" 
+      name="mensaje" 
+      placeholder="Escribe tu mensaje..." 
+      autocomplete="off" 
+      required
+      style="flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px;"
+    >
+    <button 
+      type="submit" 
+      id="btn-enviar"
+      style="padding: 8px 16px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;"
+    >
+      Enviar
+    </button>
+  </div>
+  <small 
+    id="error-mensaje" 
+    style="color: red; display: none; margin-top: 0; font-size: 0.8em; padding-left: 5px;"
+  ></small>
+</form>
 
-    <form id="form-enviar-mensaje">
-      <input type="text" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje..." autocomplete="off" required>
-      <button type="submit">Enviar</button>
-    </form>
+
   </div>
 </section>
 

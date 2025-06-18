@@ -76,7 +76,7 @@
   max-width: 90%;
   padding: 6px 12px;
   border-radius: 12px;
-  background-color: #E99A3C; 
+  background-color: #dfc75d; 
   position: relative;
   word-wrap: break-word;
   font-size: 17px;
@@ -85,11 +85,15 @@
    margin-bottom: 8px; 
    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
    
+   
 }
 
 .mensaje-yo .mensaje-burbuja {
-  background-color: #154734;
+  background-color: #b1b33f;
   text-align: right;
+  
+  
+  
 }
 
 .mensaje-autor {
@@ -175,8 +179,14 @@
   box-shadow: 0 2px 4px rgba(233, 154, 60, 0.3);
 }
 
+.mensaje-otro .mensaje-burbuja .mensaje-autor,
+.mensaje-otro .mensaje-burbuja .mensaje-texto,
+.mensaje-otro .mensaje-burbuja .mensaje-info {
+  color: #000000 !important; 
+}
 
-
-
+.input-error {
+  border: 1px solid red !important;
+}
 
 
