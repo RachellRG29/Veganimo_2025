@@ -1,5 +1,6 @@
 <!-- pp_comunidad.php -->
 <section class="section_comunidad">
+  <h1 class="lbl_bienvenida_vg">Bienvenido a Chat Comunidad Veganimo 🌱</h1>
 
     <!-- Notificación+perfil usuario -->
     <div class="contenedor-perfil-notificacion">
@@ -91,6 +92,11 @@
     style="color: red; display: none; margin-top: 0; font-size: 0.8em; padding-left: 5px;"
   ></small>
 </form>
+    <button id="btn-ir-abajo" class="boton-ir-abajo" title="Ir al final">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M12 5v14M5 12l7 7 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
 
 
   </div>

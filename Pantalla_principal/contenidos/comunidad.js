@@ -61,6 +61,7 @@ function inicializarChatComunidad() {
   console.log("✅ Inicializando chat de la comunidad...");
 
   const chatMensajes = document.getElementById('chat-mensajes');
+  const btnIrAbajo = document.getElementById('btn-ir-abajo');
   const form = document.getElementById('form-enviar-mensaje');
   const mensajeInput = document.getElementById('mensaje');
   const errorDiv = document.getElementById('error-mensaje');
@@ -72,6 +73,45 @@ function inicializarChatComunidad() {
     console.error("❌ Elementos del chat no encontrados.");
     return;
   }
+
+
+// Función para verificar si el botón debe mostrarse
+function verificarBotonIrAbajo() {
+  const estaAbajo = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
+  btnIrAbajo.style.display = estaAbajo ? 'none' : 'flex';
+}
+
+// Función para mostrar mensajes y verificar el botón
+function mostrarMensajes(mensajes) {
+  chatMensajes.innerHTML = ''; // Limpiar antes
+  mensajes.forEach(mensaje => {
+    const div = document.createElement('div');
+    div.textContent = mensaje.texto;
+    chatMensajes.appendChild(div);
+  });
+  verificarBotonIrAbajo(); // Verifica al mostrar mensajes
+}
+
+// Simulación de carga (sustituye por tu función real que obtiene los mensajes)
+function cargarMensajes() {
+  // Simula una llamada AJAX o fetch que obtiene los mensajes
+  const mensajes = [
+    { texto: 'Hola' },
+    { texto: '¿Cómo estás?' },
+    { texto: 'Todo bien por aquí' }
+  ];
+  mostrarMensajes(mensajes);
+}
+
+
+// Detecta cuando el usuario hace scroll
+chatMensajes.addEventListener('scroll', verificarBotonIrAbajo);
+
+// Acciones al hacer clic en el botón
+btnIrAbajo.addEventListener('click', () => {
+  chatMensajes.scrollTop = chatMensajes.scrollHeight;
+  btnIrAbajo.style.display = 'none';
+});
 
   // ✅ VALIDACIÓN EN TIEMPO REAL
   mensajeInput.addEventListener('input', () => {
@@ -93,9 +133,9 @@ function inicializarChatComunidad() {
     try {
       const res = await fetch('/Login/check_session.php');
       const data = await res.json();
-      return data.display_name || 'Invitado';
+      return data.display_name || 'Usuario Invitado';
     } catch {
-      return 'Invitado';
+      return 'Usuario Invitado';
     }
   }
 

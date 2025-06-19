@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../misc/db_config.php';
 
 session_start();
 $mensaje = htmlspecialchars(trim($_POST['mensaje']), ENT_QUOTES, 'UTF-8');
-$autor = isset($_SESSION['display_name']) ? $_SESSION['display_name'] : 'Invitado';
+$autor = isset($_SESSION['display_name']) ? $_SESSION['display_name'] : 'Usuario Invitado';
 $fecha = new MongoDB\BSON\UTCDateTime();
 
 $documento = [

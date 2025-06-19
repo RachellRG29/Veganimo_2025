@@ -127,39 +127,96 @@ function validateFullname() {
     return isValid;
   }
 
-  /* ----------------------   CONTRASEÑA ---------------------- */
-  function validatePassword() {
-    const value = passwordInput.value;
-    const hasLength = value.length >= 6;
-    const hasUpper = /[A-Z]/.test(value);
-    const hasNumber = /\d/.test(value);
-    const hasSymbol = /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value);
-    const hasNoSpace = !/\s/.test(value);
-    
-    const isValid = hasLength && hasUpper && hasNumber && hasSymbol && hasNoSpace;
-    validationState.password = isValid;
-    
-    if (!isValid) {
-      showFieldError(passwordInput, 'La contraseña no cumple los requisitos');
-    } else {
-      showFieldSuccess(passwordInput);
-    }
-    return isValid;
-  }
+ /* ----------------------   VARIABLES GLOBALES ---------------------- */
 
-  /* ----------------------   VALIDAR CONTRASEÑA ---------------------- */  
+const matchMessage = document.getElementById('match-message');
+
+const reqLength = document.getElementById('req-length');
+const reqUppercase = document.getElementById('req-uppercase');
+const reqNumber = document.getElementById('req-number');
+const reqSymbol = document.getElementById('req-symbol');
+const reqSpace = document.getElementById('req-space');
+
+const checkLength = document.getElementById('check-length');
+const checkUppercase = document.getElementById('check-uppercase');
+const checkNumber = document.getElementById('check-number');
+const checkSymbol = document.getElementById('check-symbol');
+const checkSpace = document.getElementById('check-space');
+
+
+
+/* ----------------------   CONTRASEÑA ---------------------- */
+function validatePassword() {
+  const value = passwordInput.value;
+  
+  const hasLength = value.length >= 6;
+  const hasUpper = /[A-Z]/.test(value);
+  const hasNumber = /\d/.test(value);
+  const hasSymbol = /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value);
+  const hasNoSpace = !/\s/.test(value);
+
+  updateItem(reqLength, hasLength, 'Al menos 6 caracteres', checkLength);
+  updateItem(reqUppercase, hasUpper, 'Debe tener al menos una mayúscula', checkUppercase);
+  updateItem(reqNumber, hasNumber, 'Debe tener al menos un número', checkNumber);
+  updateItem(reqSymbol, hasSymbol, 'Debe tener al menos un signo (!@#$%^&*()[]{};:,.<>?\\| etc.)', checkSymbol);
+  updateItem(reqSpace, hasNoSpace, 'No debe tener espacios', checkSpace);
+
+  passwordInput.style.borderColor = (hasLength && hasUpper && hasNumber && hasSymbol && hasNoSpace) ? 'green' : '';
+
+  validationState.password = hasLength && hasUpper && hasNumber && hasSymbol && hasNoSpace;
+
+  checkPasswordMatch();
+}
+
+function allValidationsPassed() {
+  const value = passwordInput.value;
+  return (
+    value.length >= 6 &&
+    /[A-Z]/.test(value) &&
+    /\d/.test(value) &&
+    /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value) &&
+    !/\s/.test(value)
+  );
+}
+
+function updateItem(element, isValid, text, checkIcon) {
+  element.textContent = text;
+  element.className = isValid ? 'text-success' : 'text-danger';
+  checkIcon.style.display = isValid ? 'inline' : 'none';
+}
+
+function checkPasswordMatch() {
+  const password = passwordInput.value;
+  const confirm = confirmPasswordInput.value;
+
+  if (confirm === '') {
+    matchMessage.textContent = '';
+    confirmPasswordInput.style.borderColor = '';
+  } else if (password === confirm && allValidationsPassed()) {
+    matchMessage.textContent = 'Las contraseñas coinciden';
+    matchMessage.className = 'form-text mt-1 text-success';
+    confirmPasswordInput.style.borderColor = 'green';
+  } else {
+    matchMessage.textContent = 'Las contraseñas no coinciden';
+    matchMessage.className = 'form-text mt-1 text-danger';
+    confirmPasswordInput.style.borderColor = '';
+  }
+}
+
+/* ----------------------   VALIDAR CONFIRMACIÓN ---------------------- */
 function validateConfirmPassword() {
   const password = passwordInput.value;
   const confirm = confirmPasswordInput.value;
   const messageElement = document.getElementById('match-message');
   const isValid = password === confirm && password !== "";
+
   validationState.confirmPassword = isValid;
 
   if (confirm === "") {
     clearFieldValidation(confirmPasswordInput);
     if (messageElement) messageElement.textContent = '';
   } else if (!isValid) {
-    showFieldError(confirmPasswordInput, ''); // limpiamos el mensaje asociado al input
+    showFieldError(confirmPasswordInput, '');
     if (messageElement) {
       messageElement.textContent = 'Las contraseñas no coinciden';
       messageElement.classList.add('text-danger');
@@ -176,62 +233,68 @@ function validateConfirmPassword() {
   return isValid;
 }
 
-
-  /* ---------------------- FUNCIONES AUXILIARES ---------------------- */
-
-  function showFieldError(element, message) {
-    element.classList.add('is-invalid');
-    element.classList.remove('is-valid');
-    const messageElement = document.getElementById(`${element.id}-message`);
-    if (messageElement) {
-      messageElement.textContent = message;
-      messageElement.classList.add('text-danger');
-      messageElement.classList.remove('text-success');
-    }
+/* ---------------------- FUNCIONES AUXILIARES ---------------------- */
+function showFieldError(element, message) {
+  element.classList.add('is-invalid');
+  element.classList.remove('is-valid');
+  const messageElement = document.getElementById(`${element.id}-message`);
+  if (messageElement) {
+    messageElement.textContent = message;
+    messageElement.classList.add('text-danger');
+    messageElement.classList.remove('text-success');
   }
+}
 
-  function showFieldSuccess(element) {
-    element.classList.add('is-valid');
-    element.classList.remove('is-invalid');
-    const messageElement = document.getElementById(`${element.id}-message`);
-    if (messageElement) {
-      messageElement.textContent = 'Campo válido ✅';
-      messageElement.classList.add('text-success');
-      messageElement.classList.remove('text-danger');
-    }
+function showFieldSuccess(element) {
+  element.classList.add('is-valid');
+  element.classList.remove('is-invalid');
+  const messageElement = document.getElementById(`${element.id}-message`);
+  if (messageElement) {
+    messageElement.textContent = 'Campo válido ✅';
+    messageElement.classList.add('text-success');
+    messageElement.classList.remove('text-danger');
   }
+}
 
-  function clearFieldValidation(element) {
-    element.classList.remove('is-valid', 'is-invalid');
-    const messageElement = document.getElementById(`${element.id}-message`);
-    if (messageElement) {
-      messageElement.textContent = '';
-      messageElement.classList.remove('text-danger', 'text-success');
-    }
+function clearFieldValidation(element) {
+  element.classList.remove('is-valid', 'is-invalid');
+  const messageElement = document.getElementById(`${element.id}-message`);
+  if (messageElement) {
+    messageElement.textContent = '';
+    messageElement.classList.remove('text-danger', 'text-success');
   }
+}
 
-  function validateAllFields() {
-    validateFullname();
-    validateBirthdate();
-    validateGender();
-    validateEmail();
-    validatePassword();
-    validateConfirmPassword();
-    
-    return Object.values(validationState).every(valid => valid);
-  }
+function validateAllFields() {
+  validatePassword();
+  validateConfirmPassword();
+  return Object.values(validationState).every(valid => valid);
+}
 
-  function showFormError(message) {
-    Swal.fire({
-      toast: true,
-      position: 'bottom-end',
-      icon: 'error',
-      title: message,
-      showConfirmButton: false,
-      timer: 5000,
-      timerProgressBar: true
+function showFormError(message) {
+  Swal.fire({
+    toast: true,
+    position: 'bottom-end',
+    icon: 'error',
+    title: message,
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true
+  });
+}
+
+/* ---------------------- EVENTOS ---------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  passwordInput.addEventListener('input', validatePassword);
+  confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+  // Bloquear espacios
+  [passwordInput, confirmPasswordInput].forEach(input => {
+    input.addEventListener('keydown', e => {
+      if (e.key === ' ') e.preventDefault();
     });
-  }
+  });
+});
 
   /* ---------------------- EVENT LISTENERS ---------------------- */
 
