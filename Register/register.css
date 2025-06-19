@@ -102,7 +102,7 @@ body {
   .password-toggle-inside {
     position: absolute;
     top: 54%;
-    left: 75%;
+    left: 73%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #E99A3C;
