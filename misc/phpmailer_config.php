@@ -22,6 +22,8 @@ function enviarCodigoVerificacion($email, $codigoDeVerificacion, $tipo = 'regist
         $mail->setFrom('cuentapruebacorreo503@gmail.com', 'Veganimo');
         $mail->addAddress($email);
 
+        $mail->CharSet = 'UTF-8'; // para que las letras se muestren correctas y no con signos 
+
         // Correo en formato HTML
         $mail->isHTML(true);
 
