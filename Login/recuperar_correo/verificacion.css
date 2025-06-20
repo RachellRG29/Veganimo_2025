@@ -1,0 +1,167 @@
+body {
+  font-family: 'Comfortaa','Verdana';
+  }
+  
+  /* efectos generales */
+  .container {
+    position: relative;
+    min-height: 100vh;
+    padding-left: 40px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Diseño card del formulario */
+  .custom-form-card {
+    background-color: #F6FFFE;
+    width: 850px;
+    max-width: 800px;
+    padding: 50px;
+    height: 561px;
+    z-index: 2;
+    left: -100px;
+  }
+  
+  /* Texto de Verificar Correo */
+  .form-title {
+    font-family: 'Gloock';
+    font-weight: 400;
+    color: #154734;
+    margin-bottom: 10px;
+  }
+  
+  /* Linea decorativa */
+  .separator {
+    width: 155px;
+    height: 1px;
+    background-color: #E99A3C;
+    border-radius: 2px;
+    margin: 0 auto 20px auto;
+    display: block;
+  }
+  
+  /* Posicionamiento de etiquetas */
+  .form-label {
+    padding-left: 15%;
+  }
+  
+  /* Color de fondo */
+  .custom-bg {
+    background: #154734;
+  }
+  
+  /* Botón de verificar y efectos de movimiento */
+  button {
+    padding: 9.5px 50px;
+    border: 0;
+    border-radius: 14px;
+    background-color: #E99A3C;
+    color: #000000;
+    font-family: 'Comfortaa';
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    margin-top:40px;
+  }
+  
+  button:hover {
+    background-color: #E99A3C;
+    box-shadow: 0 0 20px #19d80050;
+    transform: scale(1.1);
+  }
+  
+  button:active {
+    background-color: #E99A3C;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+  
+  /* Imagen de la derecha */
+  .login-image {
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 430px;
+    height: 561px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Texto de reenviar código */
+  .text-muted {
+    color: #000000 !important;
+    margin-top: 24px;
+  }
+   
+  .text-center.mt-3 {
+    margin-top: 50px;
+    color: #000000 !important;
+  }
+  
+  .text-decoration-none {
+    text-decoration: none !important;
+  }
+  
+  /* Isotipo/logo */
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+  }
+  
+  .logo {
+    max-height: 60px;
+    width: 50px;
+    fill: #154734;
+  }
+  
+  /* Texto de Ingrese el código */
+  .codigo-label {
+    display: block;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    color: #1A1C1C;
+  }
+  
+  /* Casillas de ingresar código */
+  .inp {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+  }
+  
+  /* Casillas de ingresar código */
+  .input {
+    color: #154734;
+    height:2em;
+    width: 3em;
+    text-align: center;
+    background: transparent;
+    outline: none;
+    border: 1px #154734 solid;
+    border-radius: 10px;
+    transition: all 0.6s ease;
+    font-size: larger;
+  }
+  
+  /* Casillas de ingresar código , efectos */
+  .input:focus {
+    outline: none;
+    border: 1px #154734 solid;
+  }
+  
+  .input:not(:placeholder-shown) {
+    background-color: #e7fff6;
+    width: 2em;
+    height: 2em;
+  }
+  
+  

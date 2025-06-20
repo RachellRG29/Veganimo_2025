@@ -1,0 +1,62 @@
+<!-- /Login/recuperar_correo/nueva_contraseña.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Restablecer contraseña</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/Login/login.css" />
+</head>
+<body class="custom-bg d-flex min-vh-100 px-3">
+  <div class="container d-flex align-items-center">
+    <div class="card shadow-lg rounded-4 custom-form-card p-4 w-100">
+      <h2 class="form-title text-center mb-4">Nueva contraseña</h2>
+
+      <form id="form-nueva-contra">
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña nueva:</label>
+          <input type="password" id="password" class="form-control" required />
+        </div>
+        <div class="mb-4">
+          <label for="confirm" class="form-label">Confirmar contraseña:</label>
+          <input type="password" id="confirm" class="form-control" required />
+        </div>
+        <div id="msg" class="text-center mb-3"></div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Actualizar contraseña</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    document.getElementById('form-nueva-contra').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+
+      if (password !== confirm) {
+        Swal.fire('⚠️', 'Las contraseñas no coinciden', 'warning');
+        return;
+      }
+
+      const response = await fetch('/Login/recuperar_correo/actualizar_contraseña.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `password=${encodeURIComponent(password)}`
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        Swal.fire('✅', data.message, 'success').then(() => {
+          window.location.href = "/Login/login.html";
+        });
+      } else {
+        Swal.fire('❌', data.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>
