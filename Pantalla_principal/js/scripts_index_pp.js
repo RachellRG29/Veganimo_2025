@@ -27,29 +27,25 @@ async function actualizarPerfilUsuario() {
   try {
     const elementosNombre = document.querySelectorAll('.lbl_nombre_user, .lbl_user_bienvenida, .nombre-usuario-header');
     const sessionData = await verificarSesion();
-    
-    let nombreMostrar = "Usuario invitado"; // Valor por defecto
-    
-    if (sessionData.logged_in) {
-      if (sessionData.display_name) {
-        nombreMostrar = sessionData.display_name;
-        localStorage.setItem('userDisplayName', nombreMostrar);
-      } else {
-        // Si está logueado pero no tiene display_name, usar "Usuario"
-        nombreMostrar = "Usuario";
-      }
+
+    // Si no está logueado, redirigir al login
+    if (!sessionData.logged_in) {
+      window.location.href = '/Login/login.html'; // Ajusta la ruta si tu login está en otro lugar
+      return;
     }
-    
+
+    // Si está logueado, mostrar el nombre
+    const nombreMostrar = sessionData.display_name || "Usuario";
+    localStorage.setItem('userDisplayName', nombreMostrar);
+
     elementosNombre.forEach(el => {
       el.textContent = nombreMostrar;
     });
-    
+
   } catch (error) {
     console.error('Error actualizando perfil:', error);
-    // En caso de error, establecer "Usuario invitado"
-    document.querySelectorAll('.lbl_nombre_user').forEach(el => {
-      el.textContent = "Usuario invitado";
-    });
+    // En caso de error grave, también redirigir al login
+    window.location.href = '/Login/login.html';
   }
 }
 
@@ -61,7 +57,7 @@ async function verificarSesion() {
     return await response.json();
   } catch (error) {
     console.error('Error al verificar sesión:', error);
-    return { logged_in: false }; // Retorna objeto con logged_in false en caso de error
+    return { logged_in: false };
   }
 }
 

@@ -129,15 +129,25 @@ btnIrAbajo.addEventListener('click', () => {
     }
   });
 
-  async function obtenerNombreUsuario() {
-    try {
-      const res = await fetch('/Login/check_session.php');
-      const data = await res.json();
-      return data.display_name || 'Usuario Invitado';
-    } catch {
-      return 'Usuario Invitado';
+ async function obtenerNombreUsuario() {
+  try {
+    const res = await fetch('/Login/check_session.php');
+    const data = await res.json();
+
+    // Si no está logueado, redirige al login
+    if (!data.logged_in) {
+      window.location.href = '/Login/login.html'; // Cambia esta ruta si tu archivo de login tiene otro nombre o ubicación
+      return;
     }
+
+    // Devuelve el nombre si está logueado
+    return data.display_name || 'Usuario'; // Puedes cambiar "Usuario" si quieres un texto alternativo
+  } catch (error) {
+    console.error('Error al obtener nombre de usuario:', error);
+    window.location.href = '/Login/login.html';
   }
+}
+
 
   function actualizarContador() {
     const contador = document.querySelector('.contador-noti');
