@@ -177,11 +177,21 @@
       form.addEventListener('submit', function (e) {
   e.preventDefault();
 
+  // ✅ Validación de campos vacíos con Toast
+  const vacios = Array.from(inputs).some(input => input.value.trim() === '');
+  if (vacios) {
+    Toast.fire({
+      icon: 'warning',
+      title: 'Completa todos los dígitos del código.'
+    });
+    return; // 🔴 Detiene el flujo si hay campos vacíos
+  }
+
   const now = Date.now();
   const bloqueadoHasta = localStorage.getItem('bloqueadoHasta');
 
   if (bloqueadoHasta && now < parseInt(bloqueadoHasta)) {
-    const restante = Math.ceil((parseInt(bloqueadoHasta) - now) / 60000); // en minutos
+    const restante = Math.ceil((parseInt(bloqueadoHasta) - now) / 60000);
     Swal.fire({
       icon: 'error',
       title: 'Bloqueado',
@@ -259,6 +269,7 @@
       });
     });
 });
+
 
     // Reenviar código con límite de intentos
     resendLink.addEventListener('click', function (e) {
