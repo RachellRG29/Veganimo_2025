@@ -128,7 +128,7 @@
 
     let cooldown = false;
     let intentos = 0;
-    const MAX_INTENTOS = 10;
+    const MAX_INTENTOS = 7;
 
      document.querySelectorAll('.inp .input').forEach((input) => {
     input.addEventListener('input', (e) => {
@@ -274,15 +274,28 @@
         });
       }
 
+        // Mostrar alerta de carga
+    Swal.fire({
+      title: 'Reenviando código...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+
       fetch('/login/recuperar_correo/reenviar_codigo.php')
         .then(response => response.json())
         .then(data => {
+          Swal.close(); // Cerrar la alerta de carga
+
           if (data.success) {
             Toast.fire({
               icon: 'success',
               title: 'Nuevo código enviado a tu correo'
             });
             startCooldown();
+
 
             // Si ya alcanzó el máximo, desactivar definitivamente el enlace
             if (intentos >= MAX_INTENTOS) {

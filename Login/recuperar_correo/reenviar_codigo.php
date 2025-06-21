@@ -34,8 +34,8 @@ $_SESSION['verification_code'] = $codigo;
 $_SESSION['user_data'] = (array)$usuario;
 $_SESSION['recovery'] = true;
 
-// Enviar código por correo
-$resultado = enviarCodigoVerificacion($email, $codigo);
+// Enviar código como tipo 'recuperacion'
+$resultado = enviarCodigoVerificacion($email, $codigo, 'recuperacion');
 
 if ($resultado === true) {
     echo json_encode([
