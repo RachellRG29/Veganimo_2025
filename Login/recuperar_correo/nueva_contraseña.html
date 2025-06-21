@@ -26,6 +26,15 @@
             </span>
           </div>
         </div>
+        <div id="password-message" class="form-text mt-1"></div>
+
+        <ul id="password-requirements" class="form-text mt-2">
+  <li id="req-length" class="text-danger">Al menos 6 caracteres</li>
+  <li id="req-uppercase" class="text-danger">Al menos una mayúscula</li>
+  <li id="req-number" class="text-danger">Al menos un número</li>
+  <li id="req-symbol" class="text-danger">Al menos un símbolo</li>
+</ul>
+
 
         <!-- Confirmar -->
         <div class="mb-4">
@@ -37,6 +46,8 @@
             </span>
           </div>
         </div>
+        <div id="confirm-message" class="form-text mt-1"></div>
+
 
         <div id="msg" class="text-center mb-3"></div>
         <div class="text-center">
@@ -47,48 +58,187 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    function toggleVisibility(inputId, iconElement) {
-      const input = document.getElementById(inputId);
-      const icon = iconElement.querySelector('i');
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.classList.remove('fa-eye');
-        icon.classList.add('fa-eye-slash');
-      } else {
-        input.type = 'password';
-        icon.classList.remove('fa-eye-slash');
-        icon.classList.add('fa-eye');
-      }
+<script>
+  const passwordInput = document.getElementById('password');
+  const confirmPasswordInput = document.getElementById('confirm');
+  const form = document.getElementById('form-nueva-contra');
+
+  const validationState = {
+    password: false,
+    confirm: false
+  };
+
+  const reqLength = document.getElementById('req-length');
+  const reqUppercase = document.getElementById('req-uppercase');
+  const reqNumber = document.getElementById('req-number');
+  const reqSymbol = document.getElementById('req-symbol');
+
+  function toggleVisibility(inputId, iconElement) {
+    const input = document.getElementById(inputId);
+    const icon = iconElement.querySelector('i');
+    input.type = input.type === 'password' ? 'text' : 'password';
+    icon.classList.toggle('fa-eye');
+    icon.classList.toggle('fa-eye-slash');
+  }
+
+  function updateRequirement(element, isValid) {
+    element.classList.toggle('text-success', isValid);
+    element.classList.toggle('text-danger', !isValid);
+  }
+
+  function showFieldError(element, message) {
+    element.classList.add('is-invalid');
+    element.classList.remove('is-valid');
+    const messageElement = document.getElementById(`${element.id}-message`);
+    if (messageElement) {
+      messageElement.textContent = message;
+      messageElement.classList.add('text-danger');
+      messageElement.classList.remove('text-success');
+    }
+  }
+
+  function showFieldSuccess(element) {
+    element.classList.add('is-valid');
+    element.classList.remove('is-invalid');
+    const messageElement = document.getElementById(`${element.id}-message`);
+    if (messageElement) {
+      messageElement.textContent = 'Campo válido ✅';
+      messageElement.classList.add('text-success');
+      messageElement.classList.remove('text-danger');
+    }
+  }
+
+  function showFormError(message) {
+    Swal.fire({
+      toast: true,
+      position: 'bottom-end',
+      icon: 'error',
+      title: message,
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true
+    });
+  }
+
+  function validatePassword() {
+    const value = passwordInput.value.trim();
+
+    const hasLength = value.length >= 6;
+    const hasUpper = /[A-Z]/.test(value);
+    const hasNumber = /\d/.test(value);
+    const hasSymbol = /[!@#$%^&*()\-_=+[\]{};:'",.<>/?\\|`~]/.test(value);
+
+    updateRequirement(reqLength, hasLength);
+    updateRequirement(reqUppercase, hasUpper);
+    updateRequirement(reqNumber, hasNumber);
+    updateRequirement(reqSymbol, hasSymbol);
+
+    if (hasLength && hasUpper && hasNumber && hasSymbol) {
+      showFieldSuccess(passwordInput);
+      validationState.password = true;
+    } else {
+      showFieldError(passwordInput, 'Debe cumplir todos los requisitos');
+      validationState.password = false;
     }
 
-    // Enviar formulario
-    document.getElementById('form-nueva-contra').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const password = document.getElementById('password').value;
-      const confirm = document.getElementById('confirm').value;
+    validateConfirmPassword(); // validar también confirmación
+  }
 
-      if (password !== confirm) {
-        Swal.fire('⚠️', 'Las contraseñas no coinciden', 'warning');
+  function validateConfirmPassword() {
+  const password = passwordInput.value.trim();
+  const confirm = confirmPasswordInput.value.trim();
+  const messageElement = document.getElementById('confirm-message');
+
+  // Solo mostrar mensajes si el usuario ya escribió algo en el campo
+  if (confirm.length === 0) {
+    confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
+    if (messageElement) {
+      messageElement.textContent = '';
+      messageElement.classList.remove('text-success', 'text-danger');
+    }
+    validationState.confirm = false;
+    return;
+  }
+
+  // Mientras escribe, pero aún no coincide
+  if (confirm !== password) {
+    confirmPasswordInput.classList.add('is-invalid');
+    confirmPasswordInput.classList.remove('is-valid');
+    if (messageElement) {
+      messageElement.textContent = '🔄 Comparando con la contraseña...';
+      messageElement.classList.remove('text-success');
+      messageElement.classList.add('text-danger');
+    }
+    validationState.confirm = false;
+  } else {
+    confirmPasswordInput.classList.add('is-valid');
+    confirmPasswordInput.classList.remove('is-invalid');
+    if (messageElement) {
+      messageElement.textContent = '✅ Las contraseñas coinciden';
+      messageElement.classList.add('text-success');
+      messageElement.classList.remove('text-danger');
+    }
+    validationState.confirm = true;
+  }
+}
+
+function validateAllFields() {
+  validatePassword();
+  validateConfirmPassword();
+  return Object.values(validationState).every(valid => valid);
+}
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    passwordInput.addEventListener('input', validatePassword);
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+
+    // Bloquear espacios
+    [passwordInput, confirmPasswordInput].forEach(input => {
+      input.addEventListener('keydown', e => {
+        if (e.key === ' ') e.preventDefault();
+      });
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const isFormValid = validateAllFields();
+      if (!isFormValid) {
+        showFormError('Por favor complete todos los campos correctamente');
         return;
       }
 
-      const response = await fetch('/Login/recuperar_correo/actualizar_contraseña.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `password=${encodeURIComponent(password)}`
+      Swal.fire({
+        title: 'Actualizando contraseña...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        Swal.fire('✅', data.message, 'success').then(() => {
-          window.location.href = "/Login/login.html";
+      try {
+        const password = passwordInput.value;
+        const response = await fetch('/Login/recuperar_correo/actualizar_contraseña.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `password=${encodeURIComponent(password)}`
         });
-      } else {
-        Swal.fire('❌', data.message, 'error');
+
+        const data = await response.json();
+        Swal.close();
+
+        if (data.success) {
+          Swal.fire('✅', data.message, 'success').then(() => {
+            window.location.href = "/Login/login.html";
+          });
+        } else {
+          showFormError(data.message || 'Error al actualizar la contraseña');
+        }
+      } catch (error) {
+        Swal.close();
+        showFormError('Error de conexión con el servidor');
       }
     });
-  </script>
-</body>
-</html>
+  });
+</script>

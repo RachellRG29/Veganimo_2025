@@ -85,7 +85,7 @@
   .position-relative .password-toggle-inside {
       position: absolute;
       top: 50%;
-      right: 12px;
+      right: 30px;
       transform: translateY(-50%);
       cursor: pointer;
       color: #E99A3C;
