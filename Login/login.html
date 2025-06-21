@@ -98,11 +98,7 @@
     
       toggleIcon.addEventListener('click', () => {
         const isPasswordVisible = passwordInput.type === 'text';
-    
-        
         passwordInput.type = isPasswordVisible ? 'password' : 'text';
-    
-        
         toggleIcon.classList.toggle('fa-eye-slash', isPasswordVisible); 
         toggleIcon.classList.toggle('fa-eye', !isPasswordVisible);      
       });
@@ -112,14 +108,10 @@
  // Elimina los scripts existentes y reemplaza con este:
 document.addEventListener('DOMContentLoaded', function() {
   // Configuración del toggle de contraseña
-  const passwordInput = document.getElementById('password');
-  const toggleIcon = document.querySelector('.eye-icon');
-  
   toggleIcon.addEventListener('click', () => {
     const isPasswordVisible = passwordInput.type === 'text';
     passwordInput.type = isPasswordVisible ? 'password' : 'text';
-    toggleIcon.classList.toggle('fa-eye-slash', isPasswordVisible); 
-    toggleIcon.classList.toggle('fa-eye', !isPasswordVisible);
+   
   });
 
   // Manejo del formulario de login

@@ -1,0 +1,95 @@
+
+
+/* Tarjeta del formulario */
+.custom-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Título del formulario */
+.form-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  padding: 10px 14px;
+}
+
+.form-control:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
+}
+
+/* Etiquetas */
+.form-label {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* Botón */
+.btn-primary {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Mensaje de error o éxito */
+#msg {
+  font-size: 14px;
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .custom-form-card {
+    padding: 20px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+}
+
+  .position-relative .password-toggle-inside {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #E99A3C;
+    }
+    .position-relative input {
+      padding-right: 40px;
+    }
