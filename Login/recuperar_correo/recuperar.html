@@ -42,22 +42,27 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
-    document.getElementById('recuperarForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
+  document.getElementById('recuperarForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const msg = document.getElementById('msg');
+    const email = document.getElementById('email').value;
+    const msg = document.getElementById('msg');
 
+    try {
       const response = await fetch('/Login/recuperar_correo/enviar_codigo.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `email=${encodeURIComponent(email)}`
       });
 
+      if (!response.ok) {
+        throw new Error('Error del servidor');
+      }
+
       const data = await response.json();
 
       if (data.success) {
-        localStorage.setItem('fromRecovery', 'true'); // Indica que viene de recuperación
+        localStorage.setItem('fromRecovery', 'true');
         Swal.fire('✅', data.message, 'success').then(() => {
           window.location.href = '/Login/recuperar_correo/verificacion.html';
         });
@@ -65,7 +70,27 @@
         msg.textContent = data.message;
         msg.className = 'text-danger text-center mb-3';
       }
-    });
-  </script>
+    } catch (error) {
+      // Mostrar toast no invasivo en la esquina inferior derecha
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-end',
+        showConfirmButton: false,
+        timer: 4000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      });
+
+      Toast.fire({
+        icon: 'error',
+        title: 'Sin conexión con el servidor'
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
