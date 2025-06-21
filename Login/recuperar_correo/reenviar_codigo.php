@@ -5,12 +5,12 @@ require_once __DIR__ . '/../../misc/db_config.php';
 
 header('Content-Type: application/json');
 
-// Validación básica
-$email = $_POST['email'] ?? '';
+// Obtener email desde la sesión
+$email = $_SESSION['user_data']['email'] ?? '';
 if (!$email) {
     echo json_encode([
         "success" => false,
-        "message" => "Por favor ingresa tu correo electrónico"
+        "message" => "No se encontró el correo electrónico en la sesión"
     ]);
     exit;
 }
@@ -32,7 +32,7 @@ if (!$usuario) {
 $codigo = rand(1000, 9999);
 $_SESSION['verification_code'] = $codigo;
 $_SESSION['user_data'] = (array)$usuario;
-$_SESSION['recovery'] = true; // ⚠️ Esta línea es clave
+$_SESSION['recovery'] = true;
 
 // Enviar código por correo
 $resultado = enviarCodigoVerificacion($email, $codigo);
@@ -40,7 +40,7 @@ $resultado = enviarCodigoVerificacion($email, $codigo);
 if ($resultado === true) {
     echo json_encode([
         "success" => true,
-        "message" => "Hemos enviado un código a tu correo. Revisa tu bandeja de entrada."
+        "message" => "Hemos enviado un nuevo código a tu correo. Revisa tu bandeja de entrada."
     ]);
 } else {
     echo json_encode([

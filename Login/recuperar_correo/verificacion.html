@@ -94,33 +94,61 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-    // Configuración global de SweetAlert
-    const Toast = Swal.mixin({
-      toast: true,
-      position: 'bottom-end',
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
-    });
+<script>
+  // Configuración global de SweetAlert
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'bottom-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('form');
-      const inputs = document.querySelectorAll('.input');
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const inputs = document.querySelectorAll('.input');
+    const resendLink = document.querySelector('a[href="#"]');
+    let cooldown = false;
 
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const codigo = Array.from(inputs).map(input => input.value).join('');
+    // Función para iniciar el temporizador de 60 segundos
+    function startCooldown() {
+      cooldown = true;
+      resendLink.classList.add('disabled');
+      resendLink.style.pointerEvents = 'none';
+      resendLink.style.opacity = '0.5';
 
-        fetch('/login/recuperar_correo/verificar_codigo.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `verification_code=${codigo}`
-        })
+      let seconds = 60;
+      resendLink.textContent = `Reenviar código (${seconds}s)`;
+
+      const interval = setInterval(() => {
+        seconds--;
+        resendLink.textContent = `Reenviar código (${seconds}s)`;
+
+        if (seconds <= 0) {
+          clearInterval(interval);
+          cooldown = false;
+          resendLink.classList.remove('disabled');
+          resendLink.style.pointerEvents = '';
+          resendLink.style.opacity = '1';
+          resendLink.textContent = 'Reenviar código';
+        }
+      }, 1000);
+    }
+
+    // Envío del formulario para verificar código
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const codigo = Array.from(inputs).map(input => input.value).join('');
+
+      fetch('/login/recuperar_correo/verificar_codigo.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `verification_code=${codigo}`
+      })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
@@ -145,12 +173,14 @@
             title: 'Error de conexión con el servidor'
           });
         });
-      });
+    });
 
-      // Reenviar código
-      document.querySelector('a[href="#"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        fetch('/login/recuperar_correo/reenviar_codigo.php')
+    // Reenviar código con control de tiempo
+    resendLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (cooldown) return;
+
+      fetch('/login/recuperar_correo/reenviar_codigo.php')
         .then(response => response.json())
         .then(data => {
           if (data.success) {
@@ -158,15 +188,23 @@
               icon: 'success',
               title: 'Nuevo código enviado a tu correo'
             });
+            startCooldown();
           } else {
             Toast.fire({
               icon: 'error',
               title: data.message || 'Error al reenviar código'
             });
           }
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: 'error',
+            title: 'Error al contactar con el servidor'
+          });
         });
-      });
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>

@@ -164,4 +164,7 @@ body {
     height: 2em;
   }
   
-  
+  a.disabled {
+  cursor: not-allowed;
+  text-decoration: none;
+}
