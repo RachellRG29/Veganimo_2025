@@ -48,6 +48,15 @@
     const email = document.getElementById('email').value;
     const msg = document.getElementById('msg');
 
+    // Mostrar alerta de carga
+    Swal.fire({
+      title: 'Enviando código...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     try {
       const response = await fetch('/Login/recuperar_correo/enviar_codigo.php', {
         method: 'POST',
@@ -55,11 +64,9 @@
         body: `email=${encodeURIComponent(email)}`
       });
 
-      if (!response.ok) {
-        throw new Error('Error del servidor');
-      }
-
       const data = await response.json();
+
+      Swal.close(); // Cerrar la alerta de carga
 
       if (data.success) {
         localStorage.setItem('fromRecovery', 'true');
@@ -71,6 +78,8 @@
         msg.className = 'text-danger text-center mb-3';
       }
     } catch (error) {
+      Swal.close(); // Cerrar la alerta de carga si hay error
+
       // Mostrar toast no invasivo en la esquina inferior derecha
       const Toast = Swal.mixin({
         toast: true,

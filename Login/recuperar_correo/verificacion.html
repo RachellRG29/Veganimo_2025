@@ -76,22 +76,35 @@
 
   <!-- script para que números de verificación avancen automáticamente -->
   <script>
-    const inputs = document.querySelectorAll('.input');
+  const inputs = document.querySelectorAll('.inp .input');
 
-    inputs.forEach((input, index) => {
-      input.addEventListener('input', () => {
-        if (input.value.length === 1 && index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
-      });
+  inputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+      let value = input.value;
 
-      input.addEventListener('keydown', (e) => {
-        if (e.key === "Backspace" && input.value === '' && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
+      // Eliminar cualquier carácter que no sea número
+      value = value.replace(/\D/g, '');
+      input.value = value;
+
+      // Si se ingresó un número válido, avanzar al siguiente input
+      if (value && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
     });
-  </script>
+
+    input.addEventListener('keydown', (e) => {
+      // Retroceder si está vacío y presiona Backspace
+      if (e.key === "Backspace" && input.value === '' && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    input.addEventListener('paste', (e) => {
+      e.preventDefault(); // Bloquear pegar
+    });
+  });
+</script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -116,6 +129,18 @@
     let cooldown = false;
     let intentos = 0;
     const MAX_INTENTOS = 10;
+
+     document.querySelectorAll('.inp .input').forEach((input) => {
+    input.addEventListener('input', (e) => {
+      // Eliminar cualquier carácter que no sea número
+      e.target.value = e.target.value.replace(/\D/g, '');
+    });
+
+    input.addEventListener('paste', (e) => {
+      // Bloquear pegado directo
+      e.preventDefault();
+    });
+  });
 
     // Función para iniciar el temporizador de 60 segundos
     function startCooldown() {
@@ -144,41 +169,96 @@
       }, 1000);
     }
 
-    // Envío del formulario para verificar código
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const codigo = Array.from(inputs).map(input => input.value).join('');
 
-      fetch('/login/recuperar_correo/verificar_codigo.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `verification_code=${codigo}`
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            Toast.fire({
-              icon: data.icon || 'success',
-              title: data.message
-            }).then(() => {
-              if (data.redirect) {
-                window.location.href = data.redirect;
-              }
-            });
-          } else {
-            Toast.fire({
-              icon: data.icon || 'error',
-              title: data.message
-            });
-          }
-        })
-        .catch(() => {
-          Toast.fire({
-            icon: 'error',
-            title: 'Error de conexión con el servidor'
-          });
-        });
+        let intentosFallidos = 0;
+    const MAX_INTENTOS_CODIGO = 7;
+
+    // Envío del formulario para verificar código
+      form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const now = Date.now();
+  const bloqueadoHasta = localStorage.getItem('bloqueadoHasta');
+
+  if (bloqueadoHasta && now < parseInt(bloqueadoHasta)) {
+    const restante = Math.ceil((parseInt(bloqueadoHasta) - now) / 60000); // en minutos
+    Swal.fire({
+      icon: 'error',
+      title: 'Bloqueado',
+      text: `Has excedido el número de intentos. Intenta de nuevo en ${restante} minuto(s).`,
     });
+    return;
+  }
+
+  const codigo = Array.from(inputs).map(input => input.value).join('');
+
+  fetch('/login/recuperar_correo/verificar_codigo.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `verification_code=${codigo}`
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        localStorage.removeItem('bloqueadoHasta');
+        intentosFallidos = 0;
+        Toast.fire({
+          icon: data.icon || 'success',
+          title: data.message
+        }).then(() => {
+          if (data.redirect) {
+            window.location.href = data.redirect;
+          }
+        });
+      } else {
+        intentosFallidos++;
+
+        const intentosRestantes = MAX_INTENTOS_CODIGO - intentosFallidos;
+
+        if (intentosRestantes === 3) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: '¡Solo te quedan 3 intentos!',
+          });
+        } else if (intentosRestantes === 2) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Advertencia',
+            text: '¡Solo te quedan 2 intentos!',
+          });
+        } else if (intentosRestantes === 1) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Último intento',
+            text: '¡Este es tu último intento!',
+          });
+        } else if (intentosFallidos >= MAX_INTENTOS_CODIGO) {
+          const diezMinutos = 10 * 60 * 1000;
+          const desbloqueo = Date.now() + diezMinutos;
+          localStorage.setItem('bloqueadoHasta', desbloqueo.toString());
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Demasiados intentos',
+            text: 'Has sido bloqueado por 10 minutos.',
+          });
+          return;
+        } else {
+          Toast.fire({
+            icon: data.icon || 'error',
+            title: data.message
+          });
+        }
+      }
+    })
+    .catch(() => {
+      Toast.fire({
+        icon: 'error',
+        title: 'Error de conexión con el servidor'
+      });
+    });
+});
 
     // Reenviar código con límite de intentos
     resendLink.addEventListener('click', function (e) {
