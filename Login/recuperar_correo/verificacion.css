@@ -164,7 +164,9 @@ body {
     height: 2em;
   }
   
-  a.disabled {
+ a.disabled {
   cursor: not-allowed;
   text-decoration: none;
+  color: gray;
 }
+

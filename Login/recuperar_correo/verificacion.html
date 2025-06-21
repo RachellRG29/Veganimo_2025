@@ -112,7 +112,10 @@
     const form = document.querySelector('form');
     const inputs = document.querySelectorAll('.input');
     const resendLink = document.querySelector('a[href="#"]');
+
     let cooldown = false;
+    let intentos = 0;
+    const MAX_INTENTOS = 10;
 
     // Función para iniciar el temporizador de 60 segundos
     function startCooldown() {
@@ -130,11 +133,13 @@
 
         if (seconds <= 0) {
           clearInterval(interval);
-          cooldown = false;
-          resendLink.classList.remove('disabled');
-          resendLink.style.pointerEvents = '';
-          resendLink.style.opacity = '1';
-          resendLink.textContent = 'Reenviar código';
+          if (intentos < MAX_INTENTOS) {
+            cooldown = false;
+            resendLink.classList.remove('disabled');
+            resendLink.style.pointerEvents = '';
+            resendLink.style.opacity = '1';
+            resendLink.textContent = 'Reenviar código';
+          }
         }
       }, 1000);
     }
@@ -175,10 +180,19 @@
         });
     });
 
-    // Reenviar código con control de tiempo
+    // Reenviar código con límite de intentos
     resendLink.addEventListener('click', function (e) {
       e.preventDefault();
-      if (cooldown) return;
+      if (cooldown || intentos >= MAX_INTENTOS) return;
+
+      intentos++;
+
+      if (intentos === MAX_INTENTOS) {
+        Toast.fire({
+          icon: 'warning',
+          title: 'Este es tu último intento para reenviar el código.'
+        });
+      }
 
       fetch('/login/recuperar_correo/reenviar_codigo.php')
         .then(response => response.json())
@@ -189,6 +203,15 @@
               title: 'Nuevo código enviado a tu correo'
             });
             startCooldown();
+
+            // Si ya alcanzó el máximo, desactivar definitivamente el enlace
+            if (intentos >= MAX_INTENTOS) {
+              resendLink.classList.add('disabled');
+              resendLink.style.pointerEvents = 'none';
+              resendLink.style.opacity = '0.5';
+              resendLink.textContent = 'Límite alcanzado';
+            }
+
           } else {
             Toast.fire({
               icon: 'error',
@@ -205,6 +228,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>
