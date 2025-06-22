@@ -24,29 +24,79 @@ function enviarCodigoVerificacion($email, $codigoDeVerificacion, $tipo = 'regist
 
         $mail->CharSet = 'UTF-8'; // para que las letras se muestren correctas y no con signos 
 
-        // Correo en formato HTML
-        $mail->isHTML(true);
+      // Correo en formato HTML
+$mail->isHTML(true);
 
-        // Contenido personalizado según tipo
-        if ($tipo === 'recuperacion') {
-            $mail->Subject = 'Código para recuperar tu contraseña';
-            $mail->Body = '
-                <h2>Solicitud de recuperación de contraseña</h2>
-                <p>Has solicitado recuperar tu contraseña en Veganimo.</p>
-                <p>Tu código es: <strong>' . $codigoDeVerificacion . '</strong></p>
-                <p>Si no solicitaste esto, ignora este mensaje.</p>
-            ';
-            $mail->AltBody = 'Código de recuperación: ' . $codigoDeVerificacion;
-        } else {
-            $mail->Subject = 'Código de Verificación para Veganimo';
-            $mail->Body = '
-                <h2>¡Gracias por registrarte en Veganimo!</h2>
-                <p>Tu código de verificación es: <strong>' . $codigoDeVerificacion . '</strong></p>
-                <p>Por favor ingresa este código en la página de verificación para completar tu registro.</p>
-                <p>Si no solicitaste este registro, por favor ignora este mensaje.</p>
-            ';
-            $mail->AltBody = 'Tu código de verificación es: ' . $codigoDeVerificacion;
-        }
+// Contenido personalizado según tipo
+if ($tipo === 'recuperacion') {
+    $mail->Subject = 'Código para recuperar tu contraseña';
+    $mail->Body = '
+        <div style="
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: auto; 
+            padding: 20px; 
+            background-color: #f9f9f9; 
+            border-radius: 8px; 
+            border: 2px solid #007848;
+        ">
+            <h2 style="color: #007848; text-align: center;">Solicitud de recuperación de contraseña</h2>
+            <p style="font-size: 16px; color: #333;">Has solicitado recuperar tu contraseña en <strong>Veganimo</strong>.</p>
+            <p style="
+                font-size: 18px; 
+                font-weight: bold; 
+                text-align: center; 
+                background-color: #E99A3C; 
+                color: white; 
+                padding: 15px 0; 
+                border-radius: 5px; 
+                letter-spacing: 4px; 
+                margin: 20px 0;
+            ">
+                ' . $codigoDeVerificacion . '
+            </p>
+            <p style="font-size: 14px; color: #777;">Si no solicitaste esto, ignora este mensaje.</p>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+            <p style="font-size: 12px; color: #aaa; text-align: center;">Este correo fue enviado automáticamente. Por favor no respondas.</p>
+        </div>
+    ';
+    $mail->AltBody = 'Código de recuperación: ' . $codigoDeVerificacion;
+
+} else {
+    $mail->Subject = 'Código de Verificación para Veganimo';
+    $mail->Body = '
+        <div style="
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: auto; 
+            padding: 20px; 
+            background-color: #f9f9f9; 
+            border-radius: 8px; 
+            border: 2px solid #007848;
+        ">
+            <h2 style="color: #007848; text-align: center;">¡Gracias por registrarte en Veganimo!</h2>
+            <p style="font-size: 16px; color: #333;">Tu código de verificación es:</p>
+            <p style="
+                font-size: 24px; 
+                font-weight: bold; 
+                text-align: center; 
+                background-color: #007848; 
+                color: white; 
+                padding: 15px 0; 
+                border-radius: 5px; 
+                letter-spacing: 6px; 
+                margin: 20px 0;
+            ">
+                ' . $codigoDeVerificacion . '
+            </p>
+            <p style="font-size: 16px; color: #333;">Por favor ingresa este código en la página de verificación para completar tu registro.</p>
+            <p style="font-size: 14px; color: #777;">Si no solicitaste este registro, por favor ignora este mensaje.</p>
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
+            <p style="font-size: 12px; color: #aaa; text-align: center;">Este correo fue enviado automáticamente. Por favor no respondas.</p>
+        </div>
+    ';
+    $mail->AltBody = 'Tu código de verificación es: ' . $codigoDeVerificacion;
+}
 
         // Enviar correo
         $mail->send();
