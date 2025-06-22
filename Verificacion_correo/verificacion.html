@@ -81,28 +81,35 @@
 
   
   <!-- script para que números de verificación avancen automáticamente -->
-  <script>
-    const inputs = document.querySelectorAll('.input');
-  
-    inputs.forEach((input, index) => {
-      input.addEventListener('input', () => {
-        if (input.value.length === 1 && index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
-      });
-  
-      input.addEventListener('keydown', (e) => {
-        if (e.key === "Backspace" && input.value === '' && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
-    });
-  </script>
+ <script>
+  const inputs = document.querySelectorAll('.input');
 
- 
+  inputs.forEach((input, index) => {
+    input.addEventListener('input', (e) => {
+      // Solo permitir números
+      let value = e.target.value.replace(/\D/g, '');
+      input.value = value;
+
+      // Avanzar automáticamente al siguiente input
+      if (value && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === "Backspace" && input.value === '' && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+
+    input.addEventListener('paste', (e) => {
+      e.preventDefault(); // Bloquear pegar
+    });
+  });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-// Configuración global de SweetAlert
 const Toast = Swal.mixin({
   toast: true,
   position: 'bottom-end',
@@ -113,28 +120,82 @@ const Toast = Swal.mixin({
     toast.addEventListener('mouseenter', Swal.stopTimer)
     toast.addEventListener('mouseleave', Swal.resumeTimer)
   }
-})
+});
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const form = document.querySelector('form');
   const inputs = document.querySelectorAll('.input');
-  
-  // Manejo de inputs de código...
-  
-  form.addEventListener('submit', function(e) {
+  const resendLink = document.querySelector('a[href="#"]');
+
+  let cooldown = false;
+  let intentos = 0;
+  const MAX_INTENTOS = 7;
+
+  function startCooldown() {
+    cooldown = true;
+    resendLink.classList.add('disabled');
+    resendLink.style.pointerEvents = 'none';
+    resendLink.style.opacity = '0.5';
+
+    let seconds = 60;
+    resendLink.textContent = `Reenviar código (${seconds}s)`;
+
+    const interval = setInterval(() => {
+      seconds--;
+      resendLink.textContent = `Reenviar código (${seconds}s)`;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        if (intentos < MAX_INTENTOS) {
+          cooldown = false;
+          resendLink.classList.remove('disabled');
+          resendLink.style.pointerEvents = '';
+          resendLink.style.opacity = '1';
+          resendLink.textContent = 'Reenviar código';
+        }
+      }
+    }, 1000);
+  }
+
+  let intentosFallidos = 0;
+  const MAX_INTENTOS_CODIGO = 7;
+
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    const vacios = Array.from(inputs).some(input => input.value.trim() === '');
+    if (vacios) {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Completa todos los dígitos del código.'
+      });
+      return;
+    }
+
+    const now = Date.now();
+    const bloqueadoHasta = localStorage.getItem('bloqueadoHasta');
+
+    if (bloqueadoHasta && now < parseInt(bloqueadoHasta)) {
+      const restante = Math.ceil((parseInt(bloqueadoHasta) - now) / 60000);
+      Swal.fire({
+        icon: 'error',
+        title: 'Bloqueado',
+        text: `Has excedido los intentos. Intenta en ${restante} minuto(s).`
+      });
+      return;
+    }
+
     const codigo = Array.from(inputs).map(input => input.value).join('');
-    
+
     fetch('/Register/registro.php', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: `verification_code=${codigo}`
     })
     .then(response => response.json())
     .then(data => {
       if (data.success) {
+        localStorage.removeItem('bloqueadoHasta');
+        intentosFallidos = 0;
         Toast.fire({
           icon: data.icon || 'success',
           title: data.message
@@ -144,10 +205,27 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         });
       } else {
-        Toast.fire({
-          icon: data.icon || 'error',
-          title: data.message
-        });
+        intentosFallidos++;
+        const restantes = MAX_INTENTOS_CODIGO - intentosFallidos;
+
+        if (restantes === 3) {
+          Swal.fire({ icon: 'warning', title: '¡Cuidado!', text: 'Solo te quedan 3 intentos.' });
+        } else if (restantes === 2) {
+          Swal.fire({ icon: 'warning', title: 'Advertencia', text: 'Solo 2 intentos restantes.' });
+        } else if (restantes === 1) {
+          Swal.fire({ icon: 'warning', title: 'Último intento', text: '¡Este es tu último intento!' });
+        } else if (intentosFallidos >= MAX_INTENTOS_CODIGO) {
+          const bloqueo = Date.now() + 10 * 60 * 1000;
+          localStorage.setItem('bloqueadoHasta', bloqueo.toString());
+          Swal.fire({
+            icon: 'error',
+            title: 'Demasiados intentos',
+            text: 'Has sido bloqueado por 10 minutos.'
+          });
+          return;
+        } else {
+          Toast.fire({ icon: 'error', title: data.message });
+        }
       }
     })
     .catch(() => {
@@ -158,24 +236,56 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Reenviar código
-  document.querySelector('a[href="#"]').addEventListener('click', function(e) {
+  resendLink.addEventListener('click', function (e) {
     e.preventDefault();
+    if (cooldown || intentos >= MAX_INTENTOS) return;
+
+    intentos++;
+
+    if (intentos === MAX_INTENTOS) {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Este es tu último intento para reenviar el código.'
+      });
+    }
+
+    Swal.fire({
+      title: 'Reenviando código...',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading(); }
+    });
+
     fetch('/Verificacion_correo/reenviar_codigo.php')
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        Toast.fire({
-          icon: 'success',
-          title: 'Nuevo código enviado a tu correo'
-        });
-      } else {
+      .then(response => response.json())
+      .then(data => {
+        Swal.close();
+        if (data.success) {
+          Toast.fire({
+            icon: 'success',
+            title: 'Nuevo código enviado a tu correo'
+          });
+          startCooldown();
+
+          if (intentos >= MAX_INTENTOS) {
+            resendLink.classList.add('disabled');
+            resendLink.style.pointerEvents = 'none';
+            resendLink.style.opacity = '0.5';
+            resendLink.textContent = 'Límite alcanzado';
+          }
+
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: data.message || 'Error al reenviar código'
+          });
+        }
+      })
+      .catch(() => {
         Toast.fire({
           icon: 'error',
-          title: data.message || 'Error al reenviar código'
+          title: 'Error al contactar con el servidor'
         });
-      }
-    });
+      });
   });
 });
 </script>
