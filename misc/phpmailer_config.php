@@ -56,6 +56,7 @@ function enviarCodigoVerificacion($email, $codigoDeVerificacion, $tipo = 'regist
                     ">
                         ' . $codigoDeVerificacion . '
                     </p>
+                    <p style="font-size: 16px; color: #333;">Por favor ingresa este codigo para recuperar tu contraseña.</p>
                     <p style="font-size: 14px; color: #777;">Si no solicitaste esto, ignora este mensaje.</p>
                     <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
                     <p style="font-size: 12px; color: #aaa; text-align: center;">Este correo fue enviado automáticamente. Por favor no respondas.</p>
