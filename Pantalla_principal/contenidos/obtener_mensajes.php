@@ -11,7 +11,7 @@ try {
 
     $mensajes = [];
     foreach ($cursor as $doc) {
-        $mensajes[] = [
+        $mensaje = [
             '_id' => (string)$doc->_id,
             'mensaje' => $doc->mensaje,
             'autor' => $doc->autor,
@@ -19,6 +19,15 @@ try {
                 '$date' => $doc->fecha->toDateTime()->format('c')
             ]
         ];
+
+        // Agregar imagen si existe
+if (isset($doc->imagen_url)) {
+    $mensaje['imagen_url'] = $doc->imagen_url;
+}
+
+
+
+        $mensajes[] = $mensaje;
     }
 
     echo json_encode($mensajes);
@@ -26,4 +35,3 @@ try {
     http_response_code(500);
     echo json_encode(['error' => $e->getMessage()]);
 }
-?>

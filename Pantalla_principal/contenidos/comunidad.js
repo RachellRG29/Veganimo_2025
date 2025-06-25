@@ -33,7 +33,6 @@ const patronesProhibidos = [
 // VALIDACIÓN DE MENSAJES
 // ==============================
 function validarMensaje(mensaje) {
-
   const mensajeLimpio = mensaje.normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
@@ -64,6 +63,7 @@ function inicializarChatComunidad() {
   const btnIrAbajo = document.getElementById('btn-ir-abajo');
   const form = document.getElementById('form-enviar-mensaje');
   const mensajeInput = document.getElementById('mensaje');
+  const imagenInput = document.getElementById('imagen');
   const errorDiv = document.getElementById('error-mensaje');
   const mensajesNotificados = new Set();
   const mensajesVistos = new Set();
@@ -74,101 +74,42 @@ function inicializarChatComunidad() {
     return;
   }
 
-
-// Función para verificar si el botón debe mostrarse
-function verificarBotonIrAbajo() {
-  const estaAbajo = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
-  btnIrAbajo.style.display = estaAbajo ? 'none' : 'flex';
-}
-
-// Función para mostrar mensajes y verificar el botón
-function mostrarMensajes(mensajes) {
-  chatMensajes.innerHTML = ''; // Limpiar antes
-  mensajes.forEach(mensaje => {
-    const div = document.createElement('div');
-    div.textContent = mensaje.texto;
-    chatMensajes.appendChild(div);
-  });
-  verificarBotonIrAbajo(); // Verifica al mostrar mensajes
-}
-
-// Simulación de carga (sustituye por tu función real que obtiene los mensajes)
-function cargarMensajes() {
-  // Simula una llamada AJAX o fetch que obtiene los mensajes
-  const mensajes = [
-    { texto: 'Hola' },
-    { texto: '¿Cómo estás?' },
-    { texto: 'Todo bien por aquí' }
-  ];
-  mostrarMensajes(mensajes);
-}
-
-
-// Detecta cuando el usuario hace scroll
-chatMensajes.addEventListener('scroll', verificarBotonIrAbajo);
-
-// Acciones al hacer clic en el botón
-btnIrAbajo.addEventListener('click', () => {
-  chatMensajes.scrollTop = chatMensajes.scrollHeight;
-  btnIrAbajo.style.display = 'none';
-});
-
-  // ✅ VALIDACIÓN EN TIEMPO REAL
-  mensajeInput.addEventListener('input', () => {
-    const mensaje = mensajeInput.value.trim();
-    const validacion = validarMensaje(mensaje);
-
-    if (!validacion.valido) {
-      mensajeInput.style.borderColor = 'red';
-      errorDiv.style.display = 'block';
-      errorDiv.textContent = `⚠️ ${validacion.razon}`;
-    } else {
-      mensajeInput.style.borderColor = '';
-      errorDiv.style.display = 'none';
-      errorDiv.textContent = '';
-    }
-  });
-
- async function obtenerNombreUsuario() {
-  try {
-    const res = await fetch('/Login/check_session.php');
-    const data = await res.json();
-
-    // Si no está logueado, redirige al login
-    if (!data.logged_in) {
-      window.location.href = '/Login/login.html'; // Cambia esta ruta si tu archivo de login tiene otro nombre o ubicación
-      return;
-    }
-
-    // Devuelve el nombre si está logueado
-    return data.display_name || 'Usuario'; // Puedes cambiar "Usuario" si quieres un texto alternativo
-  } catch (error) {
-    console.error('Error al obtener nombre de usuario:', error);
-    window.location.href = '/Login/login.html';
+  function verificarBotonIrAbajo() {
+    const estaAbajo = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
+    btnIrAbajo.style.display = estaAbajo ? 'none' : 'flex';
   }
-}
 
-
-  function actualizarContador() {
-    const contador = document.querySelector('.contador-noti');
-    const point = document.querySelector('.point');
-    const noVistos = document.querySelectorAll('.notificacion-item:not(.vista)').length;
-
-    contador.textContent = noVistos;
-    point.style.display = noVistos > 0 ? 'flex' : 'none';
+  async function obtenerNombreUsuario() {
+    try {
+      const res = await fetch('/Login/check_session.php');
+      const data = await res.json();
+      if (!data.logged_in) {
+        window.location.href = '/Login/login.html';
+        return;
+      }
+      return data.display_name || 'Usuario';
+    } catch (error) {
+      console.error('Error al obtener nombre de usuario:', error);
+      window.location.href = '/Login/login.html';
+    }
   }
 
   async function mostrarMensajes(mensajes) {
     const usuario = await obtenerNombreUsuario();
     const alFinal = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
     const scrollPrevio = chatMensajes.scrollTop;
-
     chatMensajes.innerHTML = '';
 
+     // <-- base para ruta absoluta
+    const baseUrl = 'http://localhost:8000';
     mensajes.forEach(msg => {
       const fecha = new Date(msg.fecha.$date).toLocaleString();
       const esMio = msg.autor === usuario;
       const clase = esMio ? 'mensaje-yo' : 'mensaje-otro';
+
+      // Construimos el HTML con ruta absoluta para la imagen
+      const imagenHTML = msg.imagen_url ? 
+        `<img src="${baseUrl}${msg.imagen_url}" class="imagen-chat" style="max-width: 200px; border-radius: 6px; margin-top: 5px;">` : '';
 
       const div = document.createElement('div');
       div.classList.add('mensaje-chat', clase);
@@ -177,7 +118,8 @@ btnIrAbajo.addEventListener('click', () => {
       div.innerHTML = `
         <div class="mensaje-burbuja">
           <p class="mensaje-autor"><strong>${msg.autor}</strong></p>
-          <p class="mensaje-texto">${msg.mensaje}</p>
+          ${msg.mensaje ? `<p class="mensaje-texto">${msg.mensaje}</p>` : ''}
+          ${imagenHTML}
           <p class="mensaje-info"><span class="mensaje-hora">${fecha}</span></p>
         </div>
       `;
@@ -216,7 +158,7 @@ btnIrAbajo.addEventListener('click', () => {
       <div class="contenido-notificacion">
         <h3 class="notificacion-titulo">Nuevo mensaje en el chat</h3>
         <p class="notificacion-descripcion">
-          <strong>${mensaje.autor}:</strong> ${mensaje.mensaje.substring(0, 50)}${mensaje.mensaje.length > 50 ? '...' : ''}
+          <strong>${mensaje.autor}:</strong> ${mensaje.mensaje?.substring(0, 50) ?? '[Imagen]'}
         </p>
         <small class="notificacion-hora">Visto: ${new Date().toLocaleTimeString()}</small>
       </div>
@@ -242,6 +184,14 @@ btnIrAbajo.addEventListener('click', () => {
     }
   }
 
+  function actualizarContador() {
+    const contador = document.querySelector('.contador-noti');
+    const point = document.querySelector('.point');
+    const noVistos = document.querySelectorAll('.notificacion-item:not(.vista)').length;
+    contador.textContent = noVistos;
+    point.style.display = noVistos > 0 ? 'flex' : 'none';
+  }
+
   async function cargarMensajes() {
     try {
       const res = await fetch('/Pantalla_principal/contenidos/obtener_mensajes.php');
@@ -255,14 +205,26 @@ btnIrAbajo.addEventListener('click', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const mensaje = mensajeInput.value.trim();
-    const validacion = validarMensaje(mensaje);
+    const imagen = imagenInput?.files?.[0];
 
-    if (!validacion.valido) {
-      mensajeInput.style.borderColor = 'red';
+    const tieneTexto = mensaje.length > 0;
+    const tieneImagen = !!imagen;
+
+    if (!tieneTexto && !tieneImagen) {
       errorDiv.style.display = 'block';
-      errorDiv.textContent = `⚠️ ${validacion.razon}`;
-      mensajeInput.focus();
+      errorDiv.textContent = '⚠️ Debes enviar un mensaje o seleccionar una imagen.';
       return;
+    }
+
+    if (tieneTexto) {
+      const validacion = validarMensaje(mensaje);
+      if (!validacion.valido) {
+        mensajeInput.style.borderColor = 'red';
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = `⚠️ ${validacion.razon}`;
+        mensajeInput.focus();
+        return;
+      }
     }
 
     mensajeInput.style.borderColor = '';
@@ -271,6 +233,7 @@ btnIrAbajo.addEventListener('click', () => {
 
     const formData = new FormData();
     formData.append('mensaje', mensaje);
+    if (tieneImagen) formData.append('imagen', imagen);
 
     try {
       const resp = await fetch('/Pantalla_principal/contenidos/insertar_mensaje.php', {
@@ -281,12 +244,33 @@ btnIrAbajo.addEventListener('click', () => {
 
       if (resultado.success) {
         mensajeInput.value = '';
+        if (imagenInput) imagenInput.value = '';
         await cargarMensajes();
       } else {
         alertify.error('Error al enviar el mensaje. Inténtalo de nuevo.');
       }
     } catch (error) {
       alertify.error('Error de conexión. Inténtalo de nuevo.');
+    }
+  });
+
+  chatMensajes.addEventListener('scroll', verificarBotonIrAbajo);
+  btnIrAbajo.addEventListener('click', () => {
+    chatMensajes.scrollTop = chatMensajes.scrollHeight;
+    btnIrAbajo.style.display = 'none';
+  });
+
+  mensajeInput.addEventListener('input', () => {
+    const mensaje = mensajeInput.value.trim();
+    const validacion = validarMensaje(mensaje);
+    if (!validacion.valido) {
+      mensajeInput.style.borderColor = 'red';
+      errorDiv.style.display = 'block';
+      errorDiv.textContent = `⚠️ ${validacion.razon}`;
+    } else {
+      mensajeInput.style.borderColor = '';
+      errorDiv.style.display = 'none';
+      errorDiv.textContent = '';
     }
   });
 

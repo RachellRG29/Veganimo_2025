@@ -68,32 +68,33 @@
 
   <div id="chat-comunidad" class="chat-container">
     <div id="chat-mensajes" class="mensajes"></div>
-<form id="form-enviar-mensaje" style="display: flex; flex-direction: column; gap: 5px;">
-  <div style="display: flex; gap: 10px; align-items: center;">
-   <div class="inputGroup">
-  <input 
-    type="text" 
-    id="mensaje" 
-    name="mensaje" 
-    required 
-    autocomplete="off"
-  />
-  <label for="mensaje">Escribe tu mensaje...</label>
-</div>
+<form id="form-enviar-mensaje">
+  <!-- Botón de adjuntar archivo -->
+  <label class="custom-file-input" title="Agregar imagen">
+    <input type="file" id="imagen" name="imagen" accept="image/*" />
+  </label>
 
-    <button 
-      type="submit" 
-      id="btn-enviar"
-      style="padding: 8px 16px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;"
-    >
-      Enviar
-    </button>
+  <!-- Campo de texto -->
+  <div class="inputGroup">
+    <input 
+      type="text" 
+      id="mensaje" 
+      name="mensaje" 
+      required 
+      autocomplete="off"
+    />
+    <label for="mensaje">Escribe tu mensaje...</label>
   </div>
-  <small 
-    id="error-mensaje" 
-    style="color: red; display: none; margin-top: 0; font-size: 0.8em; padding-left: 5px;"
-  ></small>
+
+  <!-- Botón de enviar -->
+  <button type="submit" id="btn-enviar">
+    Enviar
+  </button>
+
+  <!-- Mensaje de error -->
+  <small id="error-mensaje"></small>
 </form>
+
     <button id="btn-ir-abajo" class="boton-ir-abajo" title="Ir al final">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
     <path d="M12 5v14M5 12l7 7 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
