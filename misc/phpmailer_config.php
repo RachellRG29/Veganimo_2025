@@ -25,7 +25,7 @@ function enviarCodigoVerificacion($email, $codigoDeVerificacion, $tipo = 'regist
         $mail->isHTML(true);
 
         // Incrustar imagen del logo
-        $mail->addEmbeddedImage(__DIR__ . '/../images/logo_veganimoo.png', 'logoVeganimo');
+        $mail->addEmbeddedImage(__DIR__ . '/../images/correo.png', 'logoVeganimo');
 
         // Contenido personalizado según tipo
         if ($tipo === 'recuperacion') {
