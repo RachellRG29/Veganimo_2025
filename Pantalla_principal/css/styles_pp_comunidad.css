@@ -132,52 +132,82 @@
 }
 
 
-#form-enviar-mensaje input[type="text"] {
+.inputGroup {
+  font-family: 'Comfortaa', 'Segoe UI', sans-serif;
+  position: relative;
+  margin: 1em 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.inputGroup input[type="text"] {
   flex: 1;
   padding: 12px 15px;
   font-size: 1em;
-  border: 2px solid #b9a7a7;
+  border: 2px solid #ccc;
   border-radius: 20px;
   outline: none;
-  background: #fff;
-  margin-right: 10px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.inputGroup label {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 6px;
+  color: #888;
+  font-size: 1em;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  border-radius: 8px;
+}
+
+.inputGroup input:focus ~ label,
+.inputGroup input:valid ~ label {
+  top: -10px;
+  left: 12px;
+  font-size: 0.8em;
+  color: #007848;
+  background: white;
 }
 
 
 
 #form-enviar-mensaje button {
-  
+  display: inline-block;
   padding: 12px 28px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  
-  
-  /* Estilo personalizado */
-  border-radius: 25px; 
-  background: linear-gradient(135deg, #E99A3C, #007848); 
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: "Comfortaa";
-  
-  letter-spacing: 1px;
-  
-  /* Efectos interactivos */
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Comfortaa", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #E99A3C, #007848);
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px #000;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(233, 154, 60, 0.3);
+  cursor: pointer;
+  letter-spacing: 1px;
 }
 
 #form-enviar-mensaje button:hover {
-  background: linear-gradient(135deg, #E99A3C, #007848); 
-  box-shadow: 0 6px 12px rgba(233, 154, 60, 0.4);
-  transform: translateY(-2px); 
+  background: #fff;
+  color: #007848;
+  border: 2px solid #007848;
+  box-shadow: 5px 5px 0px #007848;
 }
 
 #form-enviar-mensaje button:active {
-  transform: translateY(1px) scale(0.98); 
-  box-shadow: 0 2px 4px rgba(233, 154, 60, 0.3);
+  background-color: #fcf414;
+  color: #000;
+  box-shadow: none;
+  transform: translateY(4px);
 }
+
 
 .mensaje-otro .mensaje-burbuja .mensaje-autor,
 .mensaje-otro .mensaje-burbuja .mensaje-texto,

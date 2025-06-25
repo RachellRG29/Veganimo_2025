@@ -70,15 +70,17 @@
     <div id="chat-mensajes" class="mensajes"></div>
 <form id="form-enviar-mensaje" style="display: flex; flex-direction: column; gap: 5px;">
   <div style="display: flex; gap: 10px; align-items: center;">
-    <input 
-      type="text" 
-      id="mensaje" 
-      name="mensaje" 
-      placeholder="Escribe tu mensaje..." 
-      autocomplete="off" 
-      required
-      style="flex: 1; padding: 8px 12px; border: 1px solid #ccc; border-radius: 4px;"
-    >
+   <div class="inputGroup">
+  <input 
+    type="text" 
+    id="mensaje" 
+    name="mensaje" 
+    required 
+    autocomplete="off"
+  />
+  <label for="mensaje">Escribe tu mensaje...</label>
+</div>
+
     <button 
       type="submit" 
       id="btn-enviar"
