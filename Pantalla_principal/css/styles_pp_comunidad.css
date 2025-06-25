@@ -192,7 +192,7 @@
 .inputGroup input:focus ~ label,
 .inputGroup input:valid ~ label {
   top: -10px;
-  left: 12px;
+  left: 50px;
   font-size: 0.8em;
   color: #007848;
   background: white;
@@ -281,4 +281,55 @@
   font-size: 0.8em;
   padding-left: 5px;
   width: 100%;
+}
+
+
+.preview-modal {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.preview-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 6px;
+}
+
+.oculto {
+  display: none;
+}
+
+.cerrar-preview {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: bold;
+  border: 1px solid #000;
+  border-radius: 50%;
+  background-color: #ee1b1b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background-color 0.2s;
+}
+
+.cerrar-preview:hover {
+  background-color: #953333;
 }

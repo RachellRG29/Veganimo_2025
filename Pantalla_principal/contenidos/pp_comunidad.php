@@ -70,9 +70,12 @@
     <div id="chat-mensajes" class="mensajes"></div>
 <form id="form-enviar-mensaje">
   <!-- Botón de adjuntar archivo -->
-  <label class="custom-file-input" title="Agregar imagen">
-    <input type="file" id="imagen" name="imagen" accept="image/*" />
-  </label>
+  <label id="btn-adjuntar" class="custom-file-input" title="Agregar imagen">
+  <input type="file" id="imagen" name="imagen" accept="image/*" />
+</label>
+
+
+
 
   <!-- Campo de texto -->
   <div class="inputGroup">
@@ -103,6 +106,12 @@
 
 
   </div>
+
+  <div id="preview-modal" class="preview-modal oculto">
+  <span id="cerrar-preview" class="cerrar-preview">&times;</span>
+  <img id="preview-img" src="" alt="Vista previa">
+</div>
+
 </section>
 
 

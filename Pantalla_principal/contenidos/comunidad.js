@@ -68,11 +68,48 @@ function inicializarChatComunidad() {
   const mensajesNotificados = new Set();
   const mensajesVistos = new Set();
   let ultimoMensajeId = null;
+  let usuarioAcabaDeEnviar = false;
 
   if (!chatMensajes || !form || !mensajeInput) {
     console.error("❌ Elementos del chat no encontrados.");
     return;
   }
+
+
+const previewModal = document.getElementById('preview-modal');
+const previewImg = document.getElementById('preview-img');
+const cerrarPreview = document.getElementById('cerrar-preview');
+const btnAdjuntar = document.getElementById('btn-adjuntar');
+
+// Mostrar imagen flotante justo arriba del botón
+imagenInput.addEventListener('change', function () {
+  const file = this.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImg.src = e.target.result;
+      const rect = btnAdjuntar.getBoundingClientRect();
+
+      // Posiciona justo arriba del botón
+      previewModal.style.top = `${window.scrollY + rect.top - 110}px`; // 100px + margen
+      previewModal.style.left = `${window.scrollX + rect.left}px`;
+      previewModal.classList.remove('oculto');
+    };
+    reader.readAsDataURL(file);
+  } else {
+    previewModal.classList.add('oculto');
+    previewImg.src = '';
+  }
+});
+
+// Cierra manualmente
+cerrarPreview.addEventListener('click', () => {
+  previewModal.classList.add('oculto');
+  previewImg.src = '';
+  imagenInput.value = '';
+});
+
 
   function verificarBotonIrAbajo() {
     const estaAbajo = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
@@ -95,50 +132,73 @@ function inicializarChatComunidad() {
   }
 
   async function mostrarMensajes(mensajes) {
-    const usuario = await obtenerNombreUsuario();
-    const alFinal = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
-    const scrollPrevio = chatMensajes.scrollTop;
-    chatMensajes.innerHTML = '';
+  const usuario = await obtenerNombreUsuario();
+  const alFinal = chatMensajes.scrollTop + chatMensajes.clientHeight >= chatMensajes.scrollHeight - 50;
+  const scrollPrevio = chatMensajes.scrollTop;
+  chatMensajes.innerHTML = '';
 
-     // <-- base para ruta absoluta
-    const baseUrl = 'http://localhost:8000';
-    mensajes.forEach(msg => {
-      const fecha = new Date(msg.fecha.$date).toLocaleString();
-      const esMio = msg.autor === usuario;
-      const clase = esMio ? 'mensaje-yo' : 'mensaje-otro';
+  const baseUrl = 'http://localhost:8000';
+  mensajes.forEach(msg => {
+    const fecha = new Date(msg.fecha.$date).toLocaleString();
+    const esMio = msg.autor === usuario;
+    const clase = esMio ? 'mensaje-yo' : 'mensaje-otro';
 
-      // Construimos el HTML con ruta absoluta para la imagen
-      const imagenHTML = msg.imagen_url ? 
-        `<img src="${baseUrl}${msg.imagen_url}" class="imagen-chat" style="max-width: 200px; border-radius: 6px; margin-top: 5px;">` : '';
+    const imagenHTML = msg.imagen_url ? 
+      `<img src="${baseUrl}${msg.imagen_url}" class="imagen-chat" style="max-width: 200px; border-radius: 6px; margin-top: 5px;">` : '';
 
-      const div = document.createElement('div');
-      div.classList.add('mensaje-chat', clase);
-      div.dataset.id = msg._id;
+    const div = document.createElement('div');
+    div.classList.add('mensaje-chat', clase);
+    div.dataset.id = msg._id;
 
-      div.innerHTML = `
-        <div class="mensaje-burbuja">
-          <p class="mensaje-autor"><strong>${msg.autor}</strong></p>
-          ${msg.mensaje ? `<p class="mensaje-texto">${msg.mensaje}</p>` : ''}
-          ${imagenHTML}
-          <p class="mensaje-info"><span class="mensaje-hora">${fecha}</span></p>
-        </div>
-      `;
+    div.innerHTML = `
+      <div class="mensaje-burbuja">
+        <p class="mensaje-autor"><strong>${msg.autor}</strong></p>
+        ${msg.mensaje ? `<p class="mensaje-texto">${msg.mensaje}</p>` : ''}
+        ${imagenHTML}
+        <p class="mensaje-info"><span class="mensaje-hora">${fecha}</span></p>
+      </div>
+    `;
 
-      chatMensajes.appendChild(div);
-    });
+    chatMensajes.appendChild(div);
+  });
 
-    if (alFinal) chatMensajes.scrollTop = chatMensajes.scrollHeight;
-    else chatMensajes.scrollTop = scrollPrevio;
-
-    if (mensajes.length > 0) {
-      const ultimo = mensajes.at(-1);
-      if (ultimo.autor !== usuario && !mensajesNotificados.has(ultimo._id)) {
-        mostrarNotificacionChat(ultimo);
-        mensajesNotificados.add(ultimo._id);
-      }
-      ultimoMensajeId = ultimo._id;
+  if (usuarioAcabaDeEnviar) {
+  const imagenes = Array.from(chatMensajes.querySelectorAll('img'));
+  if (imagenes.length > 0) {
+    let pendientes = imagenes.filter(img => !img.complete);
+    if (pendientes.length === 0) {
+      requestAnimationFrame(() => {
+        chatMensajes.scrollTop = chatMensajes.scrollHeight;
+        usuarioAcabaDeEnviar = false;
+      });
+    } else {
+      let cargadas = 0;
+      pendientes.forEach(img => {
+        img.onload = img.onerror = () => {
+          cargadas++;
+          if (cargadas === pendientes.length) {
+            requestAnimationFrame(() => {
+              chatMensajes.scrollTop = chatMensajes.scrollHeight;
+              usuarioAcabaDeEnviar = false;
+            });
+          }
+        };
+      });
     }
+  } else {
+    requestAnimationFrame(() => {
+      chatMensajes.scrollTop = chatMensajes.scrollHeight;
+      usuarioAcabaDeEnviar = false;
+    });
   }
+} else if (alFinal) {
+  chatMensajes.scrollTop = chatMensajes.scrollHeight;
+} else {
+  chatMensajes.scrollTop = scrollPrevio;
+}
+
+}
+
 
   function mostrarNotificacionChat(mensaje) {
     const modal = document.getElementById('modal_notificacion');
@@ -215,6 +275,11 @@ function inicializarChatComunidad() {
       errorDiv.textContent = '⚠️ Debes enviar un mensaje o seleccionar una imagen.';
       return;
     }
+
+previewModal.classList.add('oculto');
+previewImg.src = '';
+
+
 
     if (tieneTexto) {
       const validacion = validarMensaje(mensaje);
