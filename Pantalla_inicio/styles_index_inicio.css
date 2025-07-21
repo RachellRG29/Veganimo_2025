@@ -7,7 +7,7 @@
   animation: fadeIn 1.5s ease-out;
   position: relative;
   padding-top: 2rem; /* Espacio superior general */
-  left: 20px;
+  
 }
 
 .inicio_contenido {
@@ -148,6 +148,7 @@
   pointer-events: none;
   z-index: 10;
   overflow: hidden;
+   animation: hideLeaves 22s forwards;
 }
 
 .leaf {
@@ -209,6 +210,13 @@
   }
 }
 
+@keyframes hideLeaves {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 
 /* Optimización para animaciones */
 @media (prefers-reduced-motion: no-preference) {
@@ -220,7 +228,7 @@
 /*---------------------------- BOTON EXPLORAR --------------------------------------------------------------*/
 /*Boton de explorar*/
   .btn-explorar {
-    margin: 20px -40px 40px 20px; /*Top-right-bottom-left*/
+    margin: 20px -40px 40px 0; /*Top-right-bottom-left*/
     position: relative;
     background-image: linear-gradient(to bottom right, #F8C78C 40%, #E99A3C 60%);
     width: 200px;
