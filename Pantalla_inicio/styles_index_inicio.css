@@ -148,7 +148,7 @@
   pointer-events: none;
   z-index: 10;
   overflow: hidden;
-   animation: hideLeaves 22s forwards;
+   animation: hideLeaves 10s forwards;
 }
 
 .leaf {
