@@ -21,6 +21,8 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario --> 
 
+        <link rel="stylesheet" href="/Pantalla_principal/css/style_crear_receta.css"> <!-- Estilos para crear recetas -->
+
 </head>
 
 <body>

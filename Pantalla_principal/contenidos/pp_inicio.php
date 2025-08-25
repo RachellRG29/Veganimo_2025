@@ -1,29 +1,86 @@
 <?php
 session_start();
-
-// Ruta corregida al archivo de configuración
-require_once __DIR__ . '/../../misc/db_config.php';
+require_once __DIR__ . '/../../misc/db_config.php'; // Debe definir $cliente = new MongoDB\Driver\Manager(...)
 
 $perfilExistente = false;
 
+function esAdmin($cliente, $userId) {
+    if (!$userId) return false;
+
+    try {
+        $ors = [];
+
+        // Si viene como string de 24 hex, intentamos ObjectId
+        if (is_string($userId) && preg_match('/^[a-f0-9]{24}$/i', $userId)) {
+            $ors[] = ['_id' => new MongoDB\BSON\ObjectId($userId)];
+        }
+
+        // Buscar tal cual (por si _id es string en tu colección)
+        $ors[] = ['_id' => $userId];
+
+        // Buscar por user_id (como la otra colección)
+        $ors[] = ['user_id' => $userId];
+
+        $filter = ['$or' => $ors];
+        $query  = new MongoDB\Driver\Query($filter, ['limit' => 1]);
+        $cursor = $cliente->executeQuery('Veganimo.Usuarios', $query);
+        $doc    = current($cursor->toArray());
+
+        if (!$doc) return false;
+
+        // Normalizamos posibles nombres de campo
+        $role = null;
+        if (isset($doc->role)) $role = strtolower((string)$doc->role);
+        elseif (isset($doc->rol)) $role = strtolower((string)$doc->rol);
+        elseif (isset($doc->tipo)) $role = strtolower((string)$doc->tipo);
+
+        if ($role) {
+            return in_array($role, ['admin','administrador','administrator'], true);
+        }
+
+        if (isset($doc->is_admin)) return (bool)$doc->is_admin;
+        if (isset($doc->admin))   return (bool)$doc->admin;
+
+        return false;
+    } catch (Throwable $e) {
+        return false;
+    }
+}
+
+$isAdmin = false;
+
+// 1) Perfil nutricional (como ya lo tenías)
 if (isset($_SESSION['user_id'])) {
     try {
-        $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
-        $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
-        $perfil = current($cursor->toArray());
+        $query   = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
+        $cursor  = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
+        $perfil  = current($cursor->toArray());
         $perfilExistente = $perfil ? true : false;
     } catch (Exception $e) {
         $perfilExistente = false;
+    }
+
+    // 2) Determinar admin (preferimos sesión si ya viene seteada)
+    if (isset($_SESSION['role'])) {
+        $isAdmin = in_array(strtolower((string)$_SESSION['role']), ['admin','administrador','administrator'], true);
+    } else {
+        $isAdmin = esAdmin($cliente, $_SESSION['user_id']);
     }
 }
 ?>
 
 <div class="menu_perfil" id="menu_popup" style="display: none;">
     <ul>
-        <?php if ($perfilExistente): ?>
-            <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
-        <?php else: ?>
-            <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional</a></li>
+        <?php if (!$isAdmin): ?>  
+            <?php if ($perfilExistente): ?>
+                <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
+            <?php else: ?>
+                <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional</a></li>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($isAdmin): ?>
+            <li><a href="/Portal_administrador/portal_adm.html">Perfil administrador</a></li>
         <?php endif; ?>
 
         <li>
@@ -34,6 +91,9 @@ if (isset($_SESSION['user_id'])) {
         </li>
     </ul>
 </div>
+
+
+
 
 
 <!-- pp_inicio.php y css: styles_pp_inicio.css -->
@@ -101,7 +161,7 @@ if (isset($_SESSION['user_id'])) {
           </div>
         </div>
 
-        <!-- Menu perfil popup -->
+        <!-- Menu perfil popup 
         <div class="menu_perfil" id="menu_popup" style="display: none;">
           <ul>
             <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional </a></li>
@@ -111,7 +171,8 @@ if (isset($_SESSION['user_id'])) {
               </a>
             </li>
           </ul>
-        </div>
+        </div>-->
+
       </div>
     </div>
 
