@@ -71,13 +71,11 @@ if (isset($_SESSION['user_id'])) {
 
 <div class="menu_perfil" id="menu_popup" style="display: none;">
     <ul>
-        <?php if (!$isAdmin): ?>  
-            <?php if ($perfilExistente): ?>
-                <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil del usuario</a></li>
-            <?php else: ?>
-                <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional</a></li>
-            <?php endif; ?>
+
+        <?php if (!$isAdmin): ?>
+          <li><a href="/Portal_usuario/portal_usuario.html">Perfil de usuario</a></li>
         <?php endif; ?>
+        
 
         <?php if ($isAdmin): ?>
             <li><a href="/Portal_administrador/portal_adm.html">Perfil administrador</a></li>

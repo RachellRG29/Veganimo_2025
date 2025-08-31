@@ -1,0 +1,367 @@
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        border: 1px solid yellow;
+    }
+
+    body {
+        font-family: 'Comfortaa', cursive;
+        color: #1A1C1C;
+        position: relative;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23E0FFF2" width="100" height="100"/><path fill="%23ffffff" opacity="0.2" d="M0 0h100v50H0z"/><path fill="%23ffffff" opacity="0.2" d="M0 50h100v50H0z"/></svg>');
+        background-size: 300px;
+        z-index: -1;
+    }
+
+    .barra_volver{
+        position: relative;
+        gap: 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+        background-color: #154734;
+        height: 68px;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 100;
+    }
+
+    .logo svg{
+        width: 45px;
+        height: 54px;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        fill: #F6FFFE;
+        font-weight: bold;
+    }
+
+    /* Botón Volver */
+    .back-button {
+        position: fixed;
+        top: 18px;
+        left: 20px;
+        background-color: #E0FFF2;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        font-family: 'Comfortaa', cursive;
+        font-size: 16px;
+        color: #1A1C1C;
+        box-shadow: inset 0 0 8px #007848;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .back-button .icon {
+        width: 10px;
+        height: 17px;
+        background-color: #0E9863;
+        clip-path: polygon(0 50%, 100% 0, 100% 100%);
+        margin-right: 8px;
+    }
+
+    /* Contenedor principal */
+    .main-container {
+        display: grid;
+        grid-template-columns: 680px 620px;
+        grid-template-rows: 400px 46px 240px;
+        gap: 12px;
+        padding: 90px 40px 40px; /*top-*/
+        justify-content: center;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    /* Secciones comunes */
+    .section {
+        background-color: #007848;
+        border-radius: 24px;
+        padding: 24px;
+        color: #F6FFFE;
+        position: relative;
+    }
+
+    .section-title {
+        font-family: 'Gloock', serif;
+        font-size: 28px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        margin-bottom: 12px;  
+    }
+
+    .decorative-line {
+        width: 172px;
+        height: 3px;
+        background-color: #E99A3C;
+        margin-bottom: 20px;
+    }
+
+    /* Datos Personales */
+    .personal-data {
+        grid-column: 1;
+        grid-row: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .avatar-container {
+        position: absolute;
+        left: 24px;
+        top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .avatar {
+        width: 229px;
+        height: 229px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f6fffe, #E99A3C);
+        border: 3px solid #F6FFFE;
+    }
+
+    .edit-avatar {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 48px;
+        height: 48px;
+        background-color: #F6FFFE;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .edit-icon {
+        width: 38px;
+        height: 38px;
+        background-color: #154734;
+        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>');
+        -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>');
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+    }
+
+    .info-box {
+        position: absolute;
+        right: 24px;
+        top: 80px;
+        width: 352px;
+        height: 300px;
+        background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
+        border-radius: 16px;
+        padding: 20px;
+        color: #1A1C1C;
+    }
+
+    .info-item {
+        margin-bottom: 10px;
+    }
+
+    .info-label {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .info-value {
+        font-size: 16px;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    /* ----------Perfil Nutricional Vista sin perfil---------------------------------------------------------------------------*/
+    .nutritional-profile {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+    }
+
+    .profile-content {
+        background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
+        border-radius: 16px;
+        height: 642px;
+        padding: 20px;
+        color: #1A1C1C;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .profile-subtitle {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #1A1C1C;
+        align-self: flex-start;
+        margin-top: -150px;
+    }
+
+    .profile-description {
+        font-size: 15px;
+        margin-bottom: 20px;
+        color: #1A1C1C;
+        align-self: flex-start;
+        text-align: left;
+    }
+
+    .create-button {
+        background: linear-gradient(to right, #F6FFFE, #FFE24F);
+        border: none;
+        border-radius: 50px;
+        padding: 8px 20px;
+        font-family: 'Comfortaa', cursive;
+        font-size: 13px;
+        color: #1A1C1C;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        align-self: flex-start;
+        text-decoration: none;
+    }
+
+    .arrow-icon {
+        width: 20px;
+        height: 20px;
+        background-color: #1A1C1C;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+        margin-left: 10px;
+    }
+
+    .profile-illustration {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(135deg, #f6fffe, #E99A3C);
+        border-radius: 20px;
+        margin-top: 30px;
+        align-self: center;
+    }
+
+    /* Nivel */
+    .user-level {
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+    }
+
+    .level-title {
+        font-family: 'Gloock', serif;
+        font-size: 26px;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+
+    .level-value {
+        font-family: 'Comfortaa', cursive;
+        font-size: 20px;
+    }
+
+    /* Próximamente */
+    .coming-soon {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    /* ---------------------------Grid para perfil nutricional con datos------------------------------------------------ */
+    .profile-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        gap: 15px;
+        height: 520px; /*alto tarjetita dinamica*/
+        max-height: 500px;
+        margin-top: -150px;
+        
+    }
+
+    .grid-item {
+        background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
+        border-radius: 23px;
+        padding: 15px;
+        color: #1A1C1C;
+        position: relative;
+    }
+
+    .grid-item-large {
+        grid-column: span 1;
+    }
+
+    .see-more {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background: linear-gradient(to right, #F6FFFE, #FFE24F);
+        border: none;
+        border-radius: 50px;
+        padding: 5px 15px;
+        font-family: 'Comfortaa', cursive;
+        font-size: 13px;
+        color: #1A1C1C;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .item-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .item-content {
+        font-size: 13px;
+    }
+
+    /* Estado de carga */
+    .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #007848;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+
