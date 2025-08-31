@@ -73,7 +73,7 @@ if (isset($_SESSION['user_id'])) {
     <ul>
         <?php if (!$isAdmin): ?>  
             <?php if ($perfilExistente): ?>
-                <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
+                <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil del usuario</a></li>
             <?php else: ?>
                 <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional</a></li>
             <?php endif; ?>
