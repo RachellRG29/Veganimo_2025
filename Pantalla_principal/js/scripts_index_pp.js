@@ -342,13 +342,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    arrow.addEventListener("click", (e) => {
-      e.stopPropagation();
-      item.classList.toggle("open-submenu");
-    });
+    //esta es la flecha de informate que desplega el submenu
+  arrow.addEventListener("click", (e) => {
+  e.stopPropagation();
+  item.classList.toggle("open-submenu");
+  selectItem(item);  // marca como seleccionado "Infórmate"
+
+  // 👇 carga la página padre directamente
+  if (item.hasAttribute("data-page")) {
+    cargarContenido(item.getAttribute("data-page"));
+  }
+});
   });
 
-  // Configurar subitems
+  // Configurar subitems de informate 
   subItems.forEach(subItem => {
     subItem.addEventListener("click", (e) => {
       e.stopPropagation();
