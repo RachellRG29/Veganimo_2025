@@ -98,7 +98,9 @@ function previewLista(lista) {
   return lista.slice(0, 2).join(', ') + (lista.length > 2 ? '...' : '');
 }
 
-/* -------- MODAL -------- */
+
+
+/* -------- MODAL DE VER MAS DEL PORTAL DEL USUARIO  -------- */
 function mostrarModal(tipo) {
   const title = document.getElementById('modal-title');
   const body = document.getElementById('modal-body');

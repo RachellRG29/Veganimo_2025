@@ -450,4 +450,76 @@ body.modal-open {
   animation: modal-fade 0.3s ease;
 }
 
+/* -------- MODAL ESTILOS -------- */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
 
+.modal.show {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal .modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  width: min(500px, 90vw);
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* versión ancha para resumen */
+.modal .modal-content.resumen-completo {
+  width: min(1000px, 96vw);
+}
+
+.modal .close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* estilo dividido en bloques con líneas */
+#modal-body h4 {
+  margin-top: 20px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #ddd;
+  color: #444;
+}
+
+#modal-body p {
+  margin: 8px 0;
+  padding: 8px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+#modal-body ul {
+  list-style: none;
+  padding: 0;
+}
+
+#modal-body ul li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+#modal-body ul li:last-child {
+  border-bottom: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
