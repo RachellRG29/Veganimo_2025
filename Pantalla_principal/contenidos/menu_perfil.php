@@ -60,10 +60,8 @@ if (isset($_SESSION['user_id'])) {
 <!-- Menú perfil global -->
 <div class="menu_perfil" id="menu_popup" style="display: none;">
     <ul>
-        <?php if (!$isAdmin): ?>
-            <?php if ($perfilExistente): ?>
-                <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
-            <?php endif; ?>
+
+        <?php if ($perfilExistente): ?>
             <li><a href="/Portal_usuario/portal_usuario.html">Perfil de usuario</a></li>
         <?php endif; ?>
 
