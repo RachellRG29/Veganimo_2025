@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . '/menu_perfil.php'; ?>
+
 <!-- pp_comunidad.php -->
 <section class="section_comunidad">
   <h1 class="lbl_bienvenida_vg">Bienvenido a Chat Comunidad Veganimo 🌱</h1>

@@ -603,3 +603,61 @@ input[type="checkbox"]#dietaCheckbox:checked {
   transform: rotate(180deg);
 }
 
+/* Estilo botón volver */
+.btn-volver {
+  position: fixed;   /* Siempre fijo en pantalla */
+  top: 20px;
+  left: 20px;
+
+  display: inline-block;
+  width: 150px;
+  height: 50px;
+  border-radius: 30px; /* Redondeado pill */
+  border: 2px solid #007848;
+  background: #fff; /* Fondo blanco */
+  cursor: pointer;
+
+  overflow: hidden;
+  transition: all 0.5s ease-in;
+  z-index: 1000; /* Siempre visible */
+}
+
+.btn-volver::before,
+.btn-volver::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 100%;
+  transform: skew(15deg);
+  transition: all 0.5s;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.btn-volver::before {
+  left: -10px;
+  background: #007848; /* Verde */
+}
+
+.btn-volver::after {
+  right: -10px;
+  background: #005f36; /* Verde oscuro */
+}
+
+.btn-volver:hover::before,
+.btn-volver:hover::after {
+  width: 58%;
+}
+
+.btn-volver span {
+  color: #007848; /* Texto verde */
+  font-size: 18px;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: bold;
+  transition: all 0.3s ease-in;
+}
+
+.btn-volver:hover span {
+  color: #fff; /* Texto blanco en hover */
+}
