@@ -15,7 +15,8 @@ $userId = $_SESSION['user_id'];
 // --- Obtener datos personales ---
 try {
     $queryUser = new MongoDB\Driver\Query(
-        ['_id' => new MongoDB\BSON\ObjectId($userId)]
+        ['_id' => new MongoDB\BSON\ObjectId($userId)],
+        ['limit' => 1]
     );
     $cursorUser = $cliente->executeQuery('Veganimo.Usuarios', $queryUser);
     $usuario = current($cursorUser->toArray());
@@ -25,11 +26,15 @@ try {
         exit;
     }
 
+    // ⚡ Obtener avatar o predeterminado
+    $avatar = $usuario->avatar ?? 'predeterminado.png';
+
     $datosUsuario = [
         "nombre_completo"   => $usuario->fullname ?? '',
         "email"             => $usuario->email ?? '',
         "fecha_nacimiento"  => $usuario->birthdate ?? '',
-        "genero"            => $usuario->gender ?? ''
+        "genero"            => $usuario->gender ?? '',
+        "avatar"            => $avatar
     ];
 } catch (Exception $e) {
     echo json_encode(["success" => false, "message" => "Error al consultar usuario: " . $e->getMessage()]);
@@ -49,7 +54,7 @@ try {
         $perfil->_id = (string)$perfil->_id;
         $perfil->fecha_creacion = $perfil->fecha_creacion->toDateTime()->format('Y-m-d H:i:s');
     } else {
-        $perfil = null; // puede no existir
+        $perfil = null;
     }
 
     echo json_encode([

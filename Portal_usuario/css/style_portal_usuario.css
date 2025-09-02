@@ -11,19 +11,10 @@ body {
     position: relative;
     min-height: 100vh;
     overflow-x: hidden;
+    background: url('/Images/fondo_pu_claro.png') ;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../images/fondo_pu_claro.png');
-    background-size: 300px;
-    z-index: -1;
-}
+
 
 .barra_volver{
     position: relative;
@@ -34,7 +25,7 @@ body::before {
 .navbar {
     background-color: #154734;
     height: 68px;
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
     padding: 0 20px;
@@ -43,17 +34,21 @@ body::before {
     right: 0;
     z-index: 100;
 }
+/* Logo de veganimmo*/
+.logo {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    width: 100%; 
+}
 
-.logo svg{
+.logo svg {
     width: 45px;
     height: 54px;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
     fill: #F6FFFE;
     font-weight: bold;
 }
+
 
 /* Botón Volver */
 .back-button {

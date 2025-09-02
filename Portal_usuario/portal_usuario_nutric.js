@@ -1,25 +1,43 @@
 let datosUsuario = {};
 let perfilNutricional = {};
 
-fetch('cargar_datos_usuario.php')
-  .then(res => res.json())
-  .then(data => {
-    if (!data.success) {
-      console.error(data.message);
-      return;
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const editAvatarBtn = document.querySelector(".edit-avatar");
+  const avatarDisplay = document.getElementById("avatar-display");
 
-    datosUsuario = data.usuario;
-    perfilNutricional = data.perfil;
+  // Abrir modal de selección de avatar
+  if (editAvatarBtn) editAvatarBtn.addEventListener("click", abrirModalAvatar);
 
-    renderDatosPersonales();
-    renderPerfilNutricional();
+  // Mostrar avatar grande al hacer clic
+  if (avatarDisplay) {
+    avatarDisplay.addEventListener("click", () => {
+      const img = avatarDisplay.querySelector("img");
+      if (img) mostrarAvatarGrande(img.src);
+    });
+  }
 
-    document.getElementById('user-level').textContent = data.nivel || "No definido";
-  })
-  .catch(err => {
-    console.error('Error al cargar datos:', err);
-  });
+  // ⚡ Cargar datos del usuario y perfil nutricional
+  fetch('cargar_datos_usuario.php')
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        console.error(data.message);
+        return;
+      }
+
+      datosUsuario = data.usuario;
+      perfilNutricional = data.perfil || {};
+
+      // ⚡ Obtener avatar persistente desde la sesión o DB
+      const avatar = datosUsuario.avatar || 'predeterminado.png';
+      datosUsuario.avatar = avatar;
+
+      renderDatosPersonales();
+      renderPerfilNutricional();
+      document.getElementById('user-level').textContent = data.nivel || "No definido";
+    })
+    .catch(err => console.error('Error al cargar datos:', err));
+});
 
 /* -------- DATOS PERSONALES -------- */
 function renderDatosPersonales() {
@@ -28,6 +46,10 @@ function renderDatosPersonales() {
   document.getElementById('user-email').textContent = d.email || "Email";
   document.getElementById('user-birthdate').textContent = d.fecha_nacimiento || "Fecha nacimiento";
   document.getElementById('user-gender').textContent = d.genero || "Género";
+
+  // Mostrar avatar
+  const avatarDisplay = document.getElementById("avatar-display");
+  avatarDisplay.innerHTML = `<img src="../Images/Avatares/${d.avatar}" alt="Avatar usuario">`;
 }
 
 /* -------- PERFIL NUTRICIONAL -------- */
@@ -35,22 +57,20 @@ function renderPerfilNutricional() {
   const d = perfilNutricional;
   const container = document.getElementById('nutritional-content');
 
-  if (!d) {
+  if (!d || Object.keys(d).length === 0) {
     container.innerHTML = `
       <div class="profile-content">
         <h3 class="profile-subtitle">🌱 Crea tu Perfil Nutricional</h3>
         <p class="profile-description">
           Personaliza tu experiencia vegana creando tu perfil nutricional.<br><br>
-          Aquí podrás registrar tus objetivos, preferencias y necesidades alimenticias para recibir recomendaciones que se adapten a tu estilo de vida. <br>
+          Aquí podrás registrar tus objetivos, preferencias y necesidades alimenticias para recibir recomendaciones que se adapten a tu estilo de vida.
           ¡Empieza ahora y descubre una forma más fácil y saludable de mantener tu alimentación vegana!
         </p>
         <a href="../Perfil_nutricional/crear_perfil_nutric.html" class="create-button">
           Crear perfil nutricional
-          <i class="ph ph-arrow-circle-right arrow-icon"></i>
+          <span class="arrow-icon"></span>
         </a>
-        <div class="profile-illustration">
-            <img src="../Images/Avatares/predeterminado.png" alt="" class="illustration-image">
-        </div>
+        <div class="profile-illustration"></div>
       </div>
     `;
     return;
@@ -100,40 +120,11 @@ function previewLista(lista) {
   return lista.slice(0, 2).join(', ') + (lista.length > 2 ? '...' : '');
 }
 
-
-document.addEventListener("DOMContentLoaded", () => {
-  const editAvatarBtn = document.querySelector(".edit-avatar");
-  const avatarDisplay = document.getElementById("avatar-display");
-
-  // Abrir modal al hacer clic en el botón
-  if (editAvatarBtn) {
-    editAvatarBtn.addEventListener("click", abrirModalAvatar);
-  }
-
-  // Mostrar avatar grande al hacer clic en el avatar
-  if (avatarDisplay) {
-    avatarDisplay.addEventListener("click", () => {
-      const img = avatarDisplay.querySelector("img");
-      if (img) mostrarAvatarGrande(img.src);
-    });
-  }
-
-  // ⚡ Cargar avatar desde sesión al iniciar la página
-  fetch('Portal_usuario/check_session.php')
-    .then(res => res.json())
-    .then(data => {
-      if (data.logged_in && data.avatar) {
-        avatarDisplay.innerHTML = `<img src="../Images/Avatares/${data.avatar}" alt="Avatar usuario">`;
-      }
-    })
-    .catch(err => console.error('Error cargando avatar de sesión:', err));
-});
-
+/* -------- AVATARES (Diseño Mejorado) -------- */
 function abrirModalAvatar() {
   const modal = document.getElementById("modal-avatar");
   const gridContainer = document.getElementById("avatar-grid");
 
-  // Organizar avatares según la estructura solicitada
   const avataresMasculinos = [
     {file: "mr_mango.png", name: "Mr. Mango"},
     {file: "mr_uva.png", name: "Mr. Uva"},
@@ -153,10 +144,9 @@ function abrirModalAvatar() {
   const avatarPredeterminado = {file: "predeterminado.png", name: "Predeterminado"};
   const rutaAvatares = "../Images/Avatares/";
 
-  // Generar HTML con la estructura específica solicitada
-  const html = `
+  gridContainer.innerHTML = `
     <div class="avatar-grid-container">
-      <!-- Avatar predeterminado a la izquierda -->
+      <!-- Avatar predeterminado -->
       <div class="avatar-predeterminado">
         <div class="avatar-item">
           <img src="${rutaAvatares}${avatarPredeterminado.file}" alt="${avatarPredeterminado.name}" onclick="seleccionarAvatar('${avatarPredeterminado.file}')">
@@ -164,27 +154,27 @@ function abrirModalAvatar() {
         </div>
       </div>
       
-      <!-- Avatares masculinos (fila superior) -->
+      <!-- Masculinos -->
       <div class="avatar-masculinos">
         <div class="avatar-section-title">Avatares Masculinos</div>
         <div class="avatar-grid">
-          ${avataresMasculinos.map(avatar => `
+          ${avataresMasculinos.map(a => `
             <div class="avatar-item">
-              <img src="${rutaAvatares}${avatar.file}" alt="${avatar.name}" onclick="seleccionarAvatar('${avatar.file}')">
-              <div class="avatar-name">${avatar.name}</div>
+              <img src="${rutaAvatares}${a.file}" alt="${a.name}" onclick="seleccionarAvatar('${a.file}')">
+              <div class="avatar-name">${a.name}</div>
             </div>
           `).join('')}
         </div>
       </div>
       
-      <!-- Avatares femeninos (fila inferior) -->
+      <!-- Femeninos -->
       <div class="avatar-femeninos">
         <div class="avatar-section-title">Avatares Femeninos</div>
         <div class="avatar-grid">
-          ${avataresFemeninos.map(avatar => `
+          ${avataresFemeninos.map(a => `
             <div class="avatar-item">
-              <img src="${rutaAvatares}${avatar.file}" alt="${avatar.name}" onclick="seleccionarAvatar('${avatar.file}')">
-              <div class="avatar-name">${avatar.name}</div>
+              <img src="${rutaAvatares}${a.file}" alt="${a.name}" onclick="seleccionarAvatar('${a.file}')">
+              <div class="avatar-name">${a.name}</div>
             </div>
           `).join('')}
         </div>
@@ -192,7 +182,6 @@ function abrirModalAvatar() {
     </div>
   `;
 
-  gridContainer.innerHTML = html;
   modal.style.display = "flex";
   requestAnimationFrame(() => modal.classList.add("show"));
 }
@@ -207,14 +196,12 @@ function seleccionarAvatar(file) {
   const avatarDisplay = document.getElementById("avatar-display");
   const rutaAvatares = "../Images/Avatares/";
 
-  // Mostrar avatar seleccionado
   avatarDisplay.innerHTML = `<img src="${rutaAvatares}${file}" alt="Avatar seleccionado">`;
+  datosUsuario.avatar = file;
 
-  // Cerrar modal
   cerrarModalAvatar();
 
-  // ⚡ Guardar avatar en MongoDB
-  fetch('Portal_usuario/update_avatar.php', {
+  fetch('update_avatar.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `avatar=${encodeURIComponent(file)}`
@@ -240,24 +227,7 @@ function cerrarAvatarGrande() {
   setTimeout(() => modal.style.display = "none", 300);
 }
 
-// Cerrar modales con Escape
-window.addEventListener("keydown", e => {
-  if (e.key === "Escape") {
-    cerrarModalAvatar();
-    cerrarAvatarGrande();
-  }
-});
-
-// Cerrar modales al hacer clic fuera
-window.addEventListener("click", e => {
-  if (e.target === document.getElementById("modal-avatar")) cerrarModalAvatar();
-  if (e.target === document.getElementById("avatar-large-modal")) cerrarAvatarGrande();
-});
-
-
-
-
-/* -------- MODAL DE VER MAS DEL PORTAL DEL USUARIO  -------- */
+/* -------- MODALES DE PERFIL -------- */
 function mostrarModal(tipo) {
   const title = document.getElementById('modal-title');
   const body = document.getElementById('modal-body');
@@ -265,7 +235,6 @@ function mostrarModal(tipo) {
   body.innerHTML = '';
 
   const d = perfilNutricional;
-
   const titulos = {
     nutricionales: 'Datos nutricionales',
     clinica: 'Historia clínica',
@@ -321,9 +290,7 @@ function mostrarModal(tipo) {
   }
 
   modal.style.display = 'flex';
-  requestAnimationFrame(() => {
-    modal.classList.add('show');
-  });
+  requestAnimationFrame(() => modal.classList.add('show'));
 }
 
 function crearListaHTML(lista) {
@@ -334,20 +301,20 @@ function crearListaHTML(lista) {
 function cerrarModal() {
   const modal = document.getElementById('modal');
   modal.classList.remove('show');
-  setTimeout(() => {
-    modal.style.display = 'none';
-  }, 300);
+  setTimeout(() => modal.style.display = 'none', 300);
 }
 
+/* -------- EVENTOS GLOBALES -------- */
 window.addEventListener('keydown', e => {
-  if (e.key === 'Escape') cerrarModal();
+  if (e.key === 'Escape') {
+    cerrarModal();
+    cerrarModalAvatar();
+    cerrarAvatarGrande();
+  }
 });
 
 window.addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) cerrarModal();
+  if (e.target === document.getElementById('modal-avatar')) cerrarModalAvatar();
+  if (e.target === document.getElementById('avatar-large-modal')) cerrarAvatarGrande();
 });
-
-
-
-document.querySelector('.close').addEventListener('click', cerrarModal);
-
