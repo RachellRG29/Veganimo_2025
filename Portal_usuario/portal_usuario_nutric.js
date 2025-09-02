@@ -41,14 +41,16 @@ function renderPerfilNutricional() {
         <h3 class="profile-subtitle">🌱 Crea tu Perfil Nutricional</h3>
         <p class="profile-description">
           Personaliza tu experiencia vegana creando tu perfil nutricional.<br><br>
-          Aquí podrás registrar tus objetivos, preferencias y necesidades alimenticias para recibir recomendaciones que se adapten a tu estilo de vida.
+          Aquí podrás registrar tus objetivos, preferencias y necesidades alimenticias para recibir recomendaciones que se adapten a tu estilo de vida. <br>
           ¡Empieza ahora y descubre una forma más fácil y saludable de mantener tu alimentación vegana!
         </p>
         <a href="../Perfil_nutricional/crear_perfil_nutric.html" class="create-button">
           Crear perfil nutricional
-          <span class="arrow-icon"></span>
+          <i class="ph ph-arrow-circle-right arrow-icon"></i>
         </a>
-        <div class="profile-illustration"></div>
+        <div class="profile-illustration">
+            <img src="../Images/Avatares/predeterminado.png" alt="" class="illustration-image">
+        </div>
       </div>
     `;
     return;
@@ -129,24 +131,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function abrirModalAvatar() {
   const modal = document.getElementById("modal-avatar");
-  const grid = document.getElementById("avatar-grid");
+  const gridContainer = document.getElementById("avatar-grid");
 
-  const avatares = [
-    "miss_berenjena.png","miss_fresa.png","miss_izote.png",
-    "miss_pera.png","miss_piña.png","mr_brocoli.png",
-    "mr_chile.png","mr_coco.png","mr_mango.png",
-    "mr_uva.png","predeterminado.png"
+  // Organizar avatares según la estructura solicitada
+  const avataresMasculinos = [
+    {file: "mr_mango.png", name: "Mr. Mango"},
+    {file: "mr_uva.png", name: "Mr. Uva"},
+    {file: "mr_coco.png", name: "Mr. Coco"},
+    {file: "mr_brocoli.png", name: "Mr. Brocoli"},
+    {file: "mr_chile.png", name: "Mr. Chile"}
   ];
 
+  const avataresFemeninos = [
+    {file: "miss_pera.png", name: "Miss Pera"},
+    {file: "miss_fresa.png", name: "Miss Fresa"},
+    {file: "miss_berenjena.png", name: "Miss Berenjena"},
+    {file: "miss_izote.png", name: "Miss Izote"},
+    {file: "miss_piña.png", name: "Miss Piña"}
+  ];
+
+  const avatarPredeterminado = {file: "predeterminado.png", name: "Predeterminado"};
   const rutaAvatares = "../Images/Avatares/";
 
-  // Generar grid de avatares
-  grid.innerHTML = avatares.map(file => `
-    <div class="avatar-item">
-      <img src="${rutaAvatares}${file}" alt="Avatar" onclick="seleccionarAvatar('${file}')">
+  // Generar HTML con la estructura específica solicitada
+  const html = `
+    <div class="avatar-grid-container">
+      <!-- Avatar predeterminado a la izquierda -->
+      <div class="avatar-predeterminado">
+        <div class="avatar-item">
+          <img src="${rutaAvatares}${avatarPredeterminado.file}" alt="${avatarPredeterminado.name}" onclick="seleccionarAvatar('${avatarPredeterminado.file}')">
+          <div class="avatar-name">${avatarPredeterminado.name}</div>
+        </div>
+      </div>
+      
+      <!-- Avatares masculinos (fila superior) -->
+      <div class="avatar-masculinos">
+        <div class="avatar-section-title">Avatares Masculinos</div>
+        <div class="avatar-grid">
+          ${avataresMasculinos.map(avatar => `
+            <div class="avatar-item">
+              <img src="${rutaAvatares}${avatar.file}" alt="${avatar.name}" onclick="seleccionarAvatar('${avatar.file}')">
+              <div class="avatar-name">${avatar.name}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      
+      <!-- Avatares femeninos (fila inferior) -->
+      <div class="avatar-femeninos">
+        <div class="avatar-section-title">Avatares Femeninos</div>
+        <div class="avatar-grid">
+          ${avataresFemeninos.map(avatar => `
+            <div class="avatar-item">
+              <img src="${rutaAvatares}${avatar.file}" alt="${avatar.name}" onclick="seleccionarAvatar('${avatar.file}')">
+              <div class="avatar-name">${avatar.name}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
     </div>
-  `).join("");
+  `;
 
+  gridContainer.innerHTML = html;
   modal.style.display = "flex";
   requestAnimationFrame(() => modal.classList.add("show"));
 }

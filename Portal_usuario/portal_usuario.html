@@ -54,17 +54,17 @@
             <div class="decorative-line"></div>
             
            <div class="avatar-container">
-  <div class="avatar" id="avatar-display"></div>
-  <div class="edit-avatar">
-    <div class="edit-icon"></div>
-  </div>
-</div>
+                <div class="avatar" id="avatar-display"></div>
+                <div class="edit-avatar">
+                    <i class="ph ph-note-pencil edit-icon"></i>
+                </div>
+            </div>
 
-<!-- Modal para ver avatar grande -->
-<div id="avatar-large-modal" class="modal">
-  <span class="close" onclick="cerrarAvatarGrande()">&times;</span>
-  <img id="avatar-large-img" src="" alt="Avatar Grande">
-</div>
+        <!-- Modal para ver avatar grande -->
+        <div id="avatar-large-modal" class="modal">
+        <span class="close" onclick="cerrarAvatarGrande()">&times;</span>
+        <img id="avatar-large-img" src="" alt="Avatar Grande">
+        </div>
 
             
             <div class="info-box">
@@ -123,14 +123,19 @@
 <div id="modal-avatar" class="modal">
   <div class="modal-content">
     <span class="close" onclick="cerrarModalAvatar()">&times;</span>
-    <h3>Elige tu avatar</h3>
+    <h3 style="font-family: 'Gloock'; letter-spacing: 1px; font-weight: 300; color: #154734; font-size: 25px;">Elige tu avatar</h3>
     <div id="avatar-grid" class="avatar-grid"></div>
   </div>
 </div>
 
 
 
+
     <script src="../Portal_usuario/portal_usuario_nutric.js"></script>
+
+    <!-- SCRIPTS DE LA PANTALLA PRINCIPAL -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
+  <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
     
 </body>
 </html>
