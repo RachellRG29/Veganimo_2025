@@ -1,8 +1,8 @@
 <?php
 // Archivo: misc/db_config.php
 
-$usuario = "naquiel";
-$contrasena = "HPIGu0PFTuv47ZFD";
+$usuario = "";
+$contrasena = "";
 
 try {
     $cliente = new MongoDB\Driver\Manager(

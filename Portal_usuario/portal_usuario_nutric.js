@@ -99,6 +99,117 @@ function previewLista(lista) {
 }
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const editAvatarBtn = document.querySelector(".edit-avatar");
+  const avatarDisplay = document.getElementById("avatar-display");
+
+  // Abrir modal al hacer clic en el botón
+  if (editAvatarBtn) {
+    editAvatarBtn.addEventListener("click", abrirModalAvatar);
+  }
+
+  // Mostrar avatar grande al hacer clic en el avatar
+  if (avatarDisplay) {
+    avatarDisplay.addEventListener("click", () => {
+      const img = avatarDisplay.querySelector("img");
+      if (img) mostrarAvatarGrande(img.src);
+    });
+  }
+
+  // ⚡ Cargar avatar desde sesión al iniciar la página
+  fetch('Portal_usuario/check_session.php')
+    .then(res => res.json())
+    .then(data => {
+      if (data.logged_in && data.avatar) {
+        avatarDisplay.innerHTML = `<img src="../Images/Avatares/${data.avatar}" alt="Avatar usuario">`;
+      }
+    })
+    .catch(err => console.error('Error cargando avatar de sesión:', err));
+});
+
+function abrirModalAvatar() {
+  const modal = document.getElementById("modal-avatar");
+  const grid = document.getElementById("avatar-grid");
+
+  const avatares = [
+    "miss_berenjena.png","miss_fresa.png","miss_izote.png",
+    "miss_pera.png","miss_piña.png","mr_brocoli.png",
+    "mr_chile.png","mr_coco.png","mr_mango.png",
+    "mr_uva.png","predeterminado.png"
+  ];
+
+  const rutaAvatares = "../Images/Avatares/";
+
+  // Generar grid de avatares
+  grid.innerHTML = avatares.map(file => `
+    <div class="avatar-item">
+      <img src="${rutaAvatares}${file}" alt="Avatar" onclick="seleccionarAvatar('${file}')">
+    </div>
+  `).join("");
+
+  modal.style.display = "flex";
+  requestAnimationFrame(() => modal.classList.add("show"));
+}
+
+function cerrarModalAvatar() {
+  const modal = document.getElementById("modal-avatar");
+  modal.classList.remove("show");
+  setTimeout(() => modal.style.display = "none", 300);
+}
+
+function seleccionarAvatar(file) {
+  const avatarDisplay = document.getElementById("avatar-display");
+  const rutaAvatares = "../Images/Avatares/";
+
+  // Mostrar avatar seleccionado
+  avatarDisplay.innerHTML = `<img src="${rutaAvatares}${file}" alt="Avatar seleccionado">`;
+
+  // Cerrar modal
+  cerrarModalAvatar();
+
+  // ⚡ Guardar avatar en MongoDB
+  fetch('Portal_usuario/update_avatar.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `avatar=${encodeURIComponent(file)}`
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success) console.error('Error guardando avatar:', data.message);
+  })
+  .catch(err => console.error('Error de conexión al guardar avatar:', err));
+}
+
+function mostrarAvatarGrande(src) {
+  const modal = document.getElementById("avatar-large-modal");
+  const img = document.getElementById("avatar-large-img");
+  img.src = src;
+  modal.style.display = "flex";
+  requestAnimationFrame(() => modal.classList.add("show"));
+}
+
+function cerrarAvatarGrande() {
+  const modal = document.getElementById("avatar-large-modal");
+  modal.classList.remove("show");
+  setTimeout(() => modal.style.display = "none", 300);
+}
+
+// Cerrar modales con Escape
+window.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    cerrarModalAvatar();
+    cerrarAvatarGrande();
+  }
+});
+
+// Cerrar modales al hacer clic fuera
+window.addEventListener("click", e => {
+  if (e.target === document.getElementById("modal-avatar")) cerrarModalAvatar();
+  if (e.target === document.getElementById("avatar-large-modal")) cerrarAvatarGrande();
+});
+
+
+
 
 /* -------- MODAL DE VER MAS DEL PORTAL DEL USUARIO  -------- */
 function mostrarModal(tipo) {
@@ -190,4 +301,7 @@ window.addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) cerrarModal();
 });
 
+
+
 document.querySelector('.close').addEventListener('click', cerrarModal);
+
