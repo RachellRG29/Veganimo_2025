@@ -86,7 +86,7 @@ body {
     padding: 90px 40px 40px; /*top-*/
     justify-content: center;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 /* Secciones comunes */
@@ -750,7 +750,7 @@ body.modal-open {
     }
     
     .profile-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 2fr;
         height: auto;
         margin-top: 0;
         gap: 12px;
@@ -775,6 +775,10 @@ body.modal-open {
         text-align: center;
         margin-top: 20px;
     }
+
+    .nutritional-profile{
+        height: max-content;
+    }
 }
 
 /* Para móviles (mejoras específicas) */
@@ -786,21 +790,6 @@ body.modal-open {
         justify-content: space-between;
     }
     
-    .barra_volver {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 15px;
-        background-color: #154734;
-    }
-    
-    .back-button {
-        position: relative;
-        margin-bottom: 0;
-        padding: 6px 12px;
-        font-size: 12px;
-        z-index: 5001;
-    }
     
     .main-container {
         padding: 70px 10px 20px;
@@ -822,20 +811,6 @@ body.modal-open {
         margin-bottom: 15px;
     }
     
-
-    
-    .edit-avatar {
-        width: 25px;
-        height: 25px;
-        bottom: 8px;
-        right: 8px;
-    }
-    
-    .edit-icon {
-        font-size: 12px !important;
-        width: 12px !important;
-        height: 12px !important;
-    }
     
     .info-box {
         padding: 12px;
@@ -897,7 +872,7 @@ body.modal-open {
     }
     
     .profile-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 2fr;
         gap: 10px;
     }
     
@@ -969,23 +944,31 @@ body.modal-open {
     }
     
     .avatar-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
     
     .modal .modal-content {
         padding: 12px;
     }
-    
-    /* Ajuste especial para el botón de volver en móviles muy pequeños */
-    .back-button {
-        padding: 5px 10px;
-        font-size: 11px;
+
+    .nutritional-profile{
+        max-height: 1600px;
+        height: max-content;
     }
-    
-    .back-button .icon {
-        width: 6px;
-        height: 12px;
-        margin-right: 5px;
+
+}
+
+
+@media (min-width: 300px) {
+    .avatar-grid {
+        grid-template-columns: repeat(1, 1fr);
+        max-height: 500px;       /* altura máxima antes de activar scroll */
+        overflow-y: auto;        /* scroll vertical */
+        overflow-x: hidden;      /* evita scroll horizontal innecesario */
+        padding-right: 10px;     /* deja espacio para que el scroll no tape */
+        box-sizing: content-box; /* asegura que el padding no corte el grid */
+        scrollbar-gutter: stable;/* mantiene el scroll siempre en el borde derecho */
+        margin-right: -40px;
     }
 }
 
@@ -1016,5 +999,9 @@ body.modal-open {
     
     .main-container {
         padding-top: 80px; /* Aumentado para evitar solapamiento */
+    }
+
+    .nutritional-profile{
+        height: max-content;
     }
 }

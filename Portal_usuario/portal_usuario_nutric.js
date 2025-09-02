@@ -252,7 +252,7 @@ function mostrarModal(tipo) {
       <p><strong>Altura:</strong> ${d.altura} cm</p>
       <p><strong>Objetivo:</strong> ${d.objetivo}</p>
       <p><strong>Meta:</strong> ${d.nivel_meta}</p>
-      <p><strong>Descripción:</strong> ${d.descripcion_dieta || 'N/A'}</p>
+      
     `;
   } else if (tipo === 'clinica') {
     const lista = [...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])];
