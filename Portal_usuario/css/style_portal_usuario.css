@@ -893,11 +893,7 @@ body.modal-open {
         font-size: 11px;
     }
     
-    /* Modal de avatares responsive */
-    .avatar-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
+    
     
     .avatar-grid img {
         width: 70px;
@@ -942,9 +938,16 @@ body.modal-open {
         width: 100px;
         height: 100px;
     }
-    
+
     .avatar-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+        max-height: 500px;       /* altura máxima antes de activar scroll */
+        overflow-y: auto;        /* scroll vertical */
+        overflow-x: hidden;      /* evita scroll horizontal innecesario */
+        padding-right: 10px;     /* deja espacio para que el scroll no tape */
+        box-sizing: content-box; /* asegura que el padding no corte el grid */
+        scrollbar-gutter: stable;/* mantiene el scroll siempre en el borde derecho */
+        margin-right: -40px;
     }
     
     .modal .modal-content {
@@ -956,20 +959,6 @@ body.modal-open {
         height: max-content;
     }
 
-}
-
-
-@media (min-width: 300px) {
-    .avatar-grid {
-        grid-template-columns: repeat(1, 1fr);
-        max-height: 500px;       /* altura máxima antes de activar scroll */
-        overflow-y: auto;        /* scroll vertical */
-        overflow-x: hidden;      /* evita scroll horizontal innecesario */
-        padding-right: 10px;     /* deja espacio para que el scroll no tape */
-        box-sizing: content-box; /* asegura que el padding no corte el grid */
-        scrollbar-gutter: stable;/* mantiene el scroll siempre en el borde derecho */
-        margin-right: -40px;
-    }
 }
 
 /* Corrección específica para la navbar en móviles */

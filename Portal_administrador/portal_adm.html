@@ -24,75 +24,61 @@
     <link rel="website icon" href="/Images/Icono_veganimo.svg">
 
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="/Portal_administrador/style_crear_receta.css"> <!-- Estilos para el perfil de usuario --> 
-  <style>
-    body {
-      font-family: 'Comfortaa', sans-serif;
-      background-color: #f8f9fa;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      background: #007848;
-      color: white;
-    }
-    .topbar h2 {
-      margin: 0;
-      font-size: 20px;
-    }
-    .btn-logout {
-      background: #fff;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn-logout:hover {
-      background: #e9ecef;
-    }
-    .content {
-      margin: 20px;
-    }
-    .hidden {
-      display: none;
-    }
-    .radio-group {
-      margin: 20px;
-      display: flex;
-      gap: 20px;
-    }
-  </style>
+    <link rel="stylesheet" href="/Portal_administrador/css/style_portal_admi.css"> <!-- Estilos para el perfil de usuario --> 
 </head>
 
 <body>
 
-  <!-- Barra superior -->
-  <div class="topbar">
-    <h2>Panel de Administrador</h2>
 
-    <!-- Radios para cambiar contenido -->
-    <div class="radio-group">
-      <label>
-        <input type="radio" name="panel" value="usuarios" checked>
-        Usuarios
-      </label>
-      <label>
-        <input type="radio" name="panel" value="recetas">
-        Recetas
-      </label>
+      <!-- nabvar + boton para regresar o volver -->
+    <div class="barra_volver">
+         <!-- Botón Volver -->
+        <button class="back-button" onclick="window.location.href = '../Pantalla_principal/index_pantalla_principal.html'">
+            <div class="icon"></div>
+            Volver
+        </button>
+
+         <!-- Navbar -->
+        <nav class="navbar">
+          <h5 style="margin-left: 60px;">Panel de Administrador</h5>
+
+            <!-- Radios para cambiar contenido -->
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="panel" value="usuarios" checked>
+                Usuarios
+              </label>
+              <label>
+                <input type="radio" name="panel" value="recetas">
+                Recetas
+              </label>
+            </div>
+
+            <div class="logo">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168.68 199.52">
+                <g id="Veganimo">
+                    <g>
+                    <path class="cls-1" d="M86.29,80.26c-.7-.61-1.28-1.32-1.77-2.05,3.86,9,7.35,17.37,8.89,21.71l8.39-17.96c-5.41,2.01-11.23,2.03-15.51-1.7Z"/>
+                    <path class="cls-1" d="M136.3,0H32.38C14.5,0,0,14.49,0,32.38V167.13c0,17.89,14.5,32.39,32.38,32.39h103.92c17.88,0,32.38-14.5,32.38-32.39V32.38c0-17.89-14.5-32.38-32.38-32.38Zm6.77,33.9c-6.17-.63-10.49,1.22-14.22,4.34-3.91,3.28-5.37,7.22-6.64,10.77-2.46,6.91-3.56,14.68-6.72,21.31-1.54,3.22-4.54,6.39-8.17,8.8l-20.9,44.76h15.89c-1.85-10.13,1.45-20.96,9.71-28.35,7.33-6.55,16.95-8.94,25.92-7.28,1.27,1.45-6.95,10.87-10.25,13.82,3.3-2.95,13.58-10.07,14.89-8.63,.63,9.1-2.8,18.38-10.14,24.94-2.66,2.39-5.63,4.21-8.76,5.5h14.16c3.04,0,5.45,2.6,5.17,5.62-1.57,16.65-10.06,31.28-22.55,41.01-4.3,3.34-9.6,5.13-15.04,5.13-.31,0-.55,.25-.55,.55v2.33c0,1.71-1.39,3.1-3.1,3.1h-34.82c-1.71,0-3.1-1.39-3.1-3.1v-2.33c0-.31-.25-.55-.55-.55h-.25c-5.44,0-10.75-1.79-15.05-5.13-12.49-9.73-20.98-24.36-22.54-41.01-.29-3.02,2.13-5.62,5.16-5.62h23.36c-2.31-.91-4.47-2.3-6.33-4.18-4.77-4.83-6.3-11.64-4.62-17.74,6.13-1.59,12.9,.03,17.67,4.86,4.6,4.66,6.18,11.14,4.8,17.06h14.23L42.97,44.17c-4.22-9.35-8.99-14.02-14.29-14.02h-.45v-1.29h49.92v1.29h-.61c-4.52,0-7.51,1.17-8.98,3.53-1.48,2.36-1.23,5.64,.74,9.84,0,0,6.93,15.5,13.49,30.68,1.45,.76,5.37,.96,6.1,.91,1.77-.12,3.93-.58,5.38-1.45,3.79-2.3,6.64-7.11,7.97-10.94,1.54-4.33,2.59-9.32,4.44-13.83,2.15-5.32,5.27-10.6,10.29-14.42,5.17-4.09,13.11-6.26,20.38-4.16,2.31,.68,4.43,1.79,5.92,3.27l-.2,.32Z"/>
+                    </g>
+                </g>
+                </svg>
+            </div>
+        </nav>
+
+
     </div>
 
-    
-  </div>
+
 
   
 
   <!-- Contenedor dinámico -->
   <div class="content">
 
+     <!-- SE TIENE Q MODIFICAR Q ADMIN NO PODRA ELIMINARSE PERO SI EDITARSE
+      USUARIOS SOLO BLOQUEAR Y ELIMINAR-->
     <!-- CRUD USUARIOS -->
     <div id="panel-usuarios">
 
@@ -145,214 +131,8 @@
 
     <!-- CRUD RECETAS -->
     <div id="panel-recetas" class="hidden">
-
-        <form action="guardar_recetas.php" id="form-receta" class="form-receta" method="POST" enctype="multipart/form-data">
-
-            <!-- Sección 1: Crear receta -->
-            <div class="section active" id="section1">
-                <h1 class="main-title">Crear recetas</h1>
-                <div class="title-decoration"></div>
-
-                <h2 class="section-title" style=" margin-bottom: 40px;">Datos de receta</h2>
-
-                <div class="form-group centered-group">
-                <div class="zona-principal">
-                    <!-- Zona izquierda -->
-                    <div class="zona-izquierda">
-                    <div class="mb-3">
-                        <label for="name-receta" class="form-label">Nombre de receta:</label>
-                        <input type="text" id="name-receta" name="name-receta" class="form-control input-border" placeholder="Ingrese el nombre de la receta">
-                    </div>
-                
-                    <div class="mb-3">
-                        <label for="description-receta" class="form-label">Descripción:</label>
-                        <textarea id="description-receta" name="description-receta" class="form-control input-border textarea-fija" rows="3" placeholder="Describa la receta"></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <!-- Categoría -->
-                        <div class="categoria">
-                        <label for="categoria-receta" class="form-label">Categoría:</label>
-                        <select id="categoria-receta" name="categoria-receta" class="form-control input-border select-categoria">
-                            <option value="" disabled selected>Seleccionar categoría</option>
-                            <option value="cat_transc">Transicionista</option>
-                            <option value="cat_veget">Vegetariano</option>
-                            <option value="cat_vegan">Vegano</option>
-                        </select>
-                        </div>
-                    </div>
-
-                    </div>
-
-                    <!-- Zona derecha: Imagen, estrellas y categoria -->
-                    <div class="zona_tarjeta_calif">
-                        <label for="lbl_imagen" class="form-label">Imagen de receta:</label>
-                    <div class="zona-derecha">
-                        
-                        <!-- Imagen -->
-                        <div class="img-container" onclick="document.getElementById('input-imagen-receta').click()">
-                            <i class="ph ph-image icono-placeholder"></i>
-                            <img id="preview-imagen-receta" class="img-preview" style="display: none;">
-                        </div>
-                        <input 
-                            type="file" 
-                            id="input-imagen-receta" 
-                            name="imagen" 
-                            accept="image/*" 
-                            style="display: none;" 
-                            onchange="mostrarPreviewReceta(this, document.getElementById('preview-imagen-receta'))"
-                        >
-                        <!-- Estrellas -->
-                        <label for="estrella_rating" style="color: #F6FFFE; margin: 6px 0;"  class="form-label">Calificación con estrellas:</label>
-                        <div class="rating">
-                            <input type="radio" id="star-1" name="star-radio[]" value="5">
-                            <label for="star-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-2" name="star-radio[]" value="4">
-                            <label for="star-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-3" name="star-radio[]" value="3">
-                            <label for="star-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-4" name="star-radio[]" value="2">
-                            <label for="star-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-5" name="star-radio[]" value="1">
-                            <label for="star-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                        </div>
-
-                    </div>
-
-                    </div>
-
-
-
-                </div>
-                    
-                </div>
-                
-
-                <div class="buttons-container center-button">
-                <button type="button" class="form-button next-button">Siguiente</button>
-                </div>
-
-                <div class="progress-container">
-                    <div class="progress-step active"></div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step inactive"></div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step inactive"></div>
-                </div>
-
-            </div>
-
-            <!-- Sección 2: Caracteristicas + Ingredientes -->
-            <div class="section" id="section2">
-
-            <h2 class="section-title">Características de la receta</h2>
-            <div class="caracteristicas_recetas">
-                <div class="tiempo-dificultad">
-                <div class="tiempo">
-                    <label for="time-receta" class="form-label">Tiempo de preparación:</label>
-                    <div class="tiempo-inputs">
-                    <input type="number" id="time-receta" name="time-receta" class="form-control input-border" placeholder="Ej: 30" min="1">
-                    <!-- <select id="unidad-tiempo" name="unidad-tiempo" class="form-control input-border">
-                        <option value="minutos">Minutos</option>
-                    </select>-->
-                    <label for="minutos" id="unidad-tiempo" name="unidad-tiempo" class="form-control">Minutos</label>
-                    </div>
-                </div>
-
-                <div class="separador-vertical"></div>
-
-                <div class="dificultad">
-                    <label class="form-label">Dificultad:</label>
-                    <div class="dificultad-con-icono">
-                    <i class="ph ph-square-fill" id="icon-dificultad" style="font-size: 24px; color: #1A1C1C;"></i>
-                    <select id="select-dificultad" name="dificultad" class="form-control input-border" onchange="cambiarColorIcono()">
-                        <option value="" disabled selected class="select_dif">Seleccionar dificultad</option>
-                        <option value="Baja">Baja</option>
-                        <option value="Media">Media</option>
-                        <option value="Alta">Alta</option>
-                    </select>
-                    </div>
-                </div>
-
-                </div>
-            </div>
-                
-            <br>
-            <br>
-            <h2 class="section-title">Ingredientes</h2>
-            <div class="zona-ingredientes">
-                <div id="lista-ingredientes" class="lista-dinamica">
-                <div class="ingrediente-item sin-boton">
-                    <input type="text" class="form-control input-border" name="ingredientes[]" placeholder="Ingrediente 1">
-                </div>
-                </div>
-                <button type="button" onclick="agregarIngrediente()" class="btn-agregar btn-agregar-ingrediente">Añadir más</button>
-            </div>
-
-                <div class="buttons-container">
-                    <button type="button" class="form-button prev-button" onclick="prevSectionCR(2)">Atrás</button>
-                    <button type="button" class="form-button next-button">Siguiente</button>
-                </div>
-
-                <div class="progress-container2">
-                    <div class="progress-step2 active"></div>
-                    <div class="progress-line2"></div>
-                    <div class="progress-step2 active"></div>
-                    <div class="progress-line2"></div>
-                    <div class="progress-step2 inactive"></div>
-                </div>
-
-            </div>
-
-            <!-- Sección 3: Pasos -->
-            <div class="section" id="section3">
-
-                <!-- Pasos -->
-                <h2 class="section-title">Pasos</h2>
-                <div class="zona-pasos">
-                    <div id="lista-pasos" class="lista-dinamica">
-                    <div class="paso-item sin-boton">
-                        <div class="paso-imagen-small" onclick="this.querySelector('input').click()">
-                        <i class="ph ph-image icono-placeholder"></i>
-                        <img class="img-preview" style="display:none;">
-                        <input type="file" accept="image/*" name="imagen-paso[]" style="display:none;" onchange="mostrarPreviewPaso(this, this.previousElementSibling)">
-                        </div>
-                        <input type="text" name="pasos[]" class="form-control input-border paso-input" placeholder="Paso 1">
-                    </div>
-                    </div>
-                    <button type="button" onclick="agregarPaso()" class="btn-agregar btn-agregar-paso">Añadir más</button>
-                </div>
-
-                <div class="progress-container3">
-                    <div class="progress-step3 active"></div>
-                    <div class="progress-line3"></div>
-                    <div class="progress-step3 active"></div>
-                    <div class="progress-line3"></div>
-                    <div class="progress-step3 active"></div>
-                </div>
-
-                <!-- Botón de Guardar -->
-                <div class="buttons-container">
-                    <button type="button" class="form-button prev-button" onclick="prevSectionCR(3)">Atrás</button>
-                    <button type="submit" class="form-button btn-crear-receta">Guardar receta</button>
-                </div>
-                
-            
-
-            </div>
-
-
-        </form>
+       <!-- AQUI IRIA LA TABLA DE LAS RECETAS Q TOCARIA CREAR DESDE 0 -->
+        
 
     </div>
 
@@ -401,9 +181,7 @@
     }
   </script>
 
-      <!-- SCRIPTS DE CREAR RECETAS -->
-      <!-- Cropper -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+      <!-- SCRIPTS PARA PORTAL ADMINISTRADOR -->
       <!-- SweetAlert -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <!-- Iconos -->
@@ -411,16 +189,6 @@
       <!-- jQuery -->
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-
-  <script src="../Portal_administrador/js/validacion_receta.js"></script>  <!-- metodos de interfaz de crear receta -->
-
-  <script src="../Portal_administrador/js/guardar_recetas.js"></script>  <!-- Guardar recetas -->
-  <script src="../Portal_administrador/js/scripts_crear_receta.js"></script>  <!-- scripts -->
-  <script src="../Portal_administrador/js/validacion_crear_receta.js"></script>  
-
-  <script src="../Portal_administrador/js/cargar_recetas.js"></script> 
-  <script src="../Portal_administrador/js/crear_receta.js"></script>   
 
 
 

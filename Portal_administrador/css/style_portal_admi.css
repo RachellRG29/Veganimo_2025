@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Comfortaa', sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* Contenedor principal */
+.barra_volver {
+  width: 100%;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #154734;
+  height: 68px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuye título, radios y logo */
+  padding: 0 80px 0 100px; /* deja espacio al botón */
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  color: white;
+}
+
+.titulo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Radios */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  color: #F6FFFE;
+}
+
+.radio-group label {
+  cursor: pointer;
+}
+
+.content {
+    margin: 20px;
+    margin-top: 7%;
+}
+.hidden {
+    display: none;
+}
+.radio-group {
+    margin: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+/* Logo */
+.logo svg {
+  width: 45px;
+  height: 54px;
+  fill: #F6FFFE;
+}
+
+/* Botón Volver */
+.back-button {
+  position: fixed;
+  top: 12px;
+  left: 20px;
+  background-color: #E0FFF2;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #1A1C1C;
+  box-shadow: inset 0 0 8px #007848;
+  cursor: pointer;
+  z-index: 200;
+}
+
+.back-button .icon {
+  width: 10px;
+  height: 17px;
+  background-color: #0E9863;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  margin-right: 8px;
+}
