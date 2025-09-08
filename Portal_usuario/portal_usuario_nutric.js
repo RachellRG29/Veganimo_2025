@@ -120,7 +120,7 @@ function previewLista(lista) {
   return lista.slice(0, 2).join(', ') + (lista.length > 2 ? '...' : '');
 }
 
-/* -------- AVATARES (Diseño Mejorado) -------- */
+/* -------- AVATARES -------- */
 function abrirModalAvatar() {
   const modal = document.getElementById("modal-avatar");
   const gridContainer = document.getElementById("avatar-grid");
@@ -226,13 +226,17 @@ function cerrarAvatarGrande() {
   modal.classList.remove("show");
   setTimeout(() => modal.style.display = "none", 300);
 }
-
 /* -------- MODALES DE PERFIL -------- */
 function mostrarModal(tipo) {
   const title = document.getElementById('modal-title');
   const body = document.getElementById('modal-body');
   const modal = document.getElementById('modal');
+  const editBtn = document.getElementById('edit-modal-btn');
+
   body.innerHTML = '';
+  title.textContent = '';
+  editBtn.style.display = 'none'; // ocultar por defecto
+  editBtn.onclick = null;
 
   const d = perfilNutricional;
   const titulos = {
@@ -252,41 +256,21 @@ function mostrarModal(tipo) {
       <p><strong>Altura:</strong> ${d.altura} cm</p>
       <p><strong>Objetivo:</strong> ${d.objetivo}</p>
       <p><strong>Meta:</strong> ${d.nivel_meta}</p>
-      
     `;
   } else if (tipo === 'clinica') {
-    const lista = [...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])];
-    body.innerHTML = crearListaHTML(lista);
+    body.innerHTML = crearListaHTML([...(d.patologicos||[]), ...(d.familiares||[]), ...(d.quirurgicos||[])]);
   } else if (tipo === 'afecciones') {
-    const lista = [...(d.intolerancias || []), ...(d.alergias || [])];
-    body.innerHTML = crearListaHTML(lista);
+    body.innerHTML = crearListaHTML([...(d.intolerancias||[]), ...(d.alergias||[])]);
   } else if (tipo === 'sintomas') {
     body.innerHTML = crearListaHTML(d.sintomas || []);
   } else if (tipo === 'completo') {
-    body.innerHTML = `
-      <h4>Datos personales</h4>
-      <p><strong>Nombre:</strong> ${datosUsuario.nombre_completo}</p>
-      <p><strong>Email:</strong> ${datosUsuario.email}</p>
-      <p><strong>Fecha de nacimiento:</strong> ${datosUsuario.fecha_nacimiento}</p>
-      <p><strong>Género:</strong> ${datosUsuario.genero}</p>
+    body.innerHTML = '...'; // opcional
+  }
 
-      <h4>Datos nutricionales</h4>
-      <p><strong>Dieta:</strong> ${d.dieta_actual}</p>
-      <p><strong>Peso:</strong> ${d.peso} kg</p>
-      <p><strong>Altura:</strong> ${d.altura} cm</p>
-      <p><strong>Objetivo:</strong> ${d.objetivo}</p>
-      <p><strong>Meta:</strong> ${d.nivel_meta}</p>
-      <p><strong>Descripción:</strong> ${d.descripcion_dieta || 'N/A'}</p>
-
-      <h4>Historia clínica</h4>
-      ${crearListaHTML([...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])])}
-
-      <h4>Afecciones personales</h4>
-      ${crearListaHTML([...(d.intolerancias || []), ...(d.alergias || [])])}
-
-      <h4>Síntomas gastrointestinales</h4>
-      ${crearListaHTML(d.sintomas || [])}
-    `;
+  // Mostrar botón editar solo para secciones específicas
+  if (['clinica', 'afecciones', 'sintomas'].includes(tipo)) {
+    editBtn.style.display = 'inline-block';
+    editBtn.onclick = () => abrirModalEdicion(tipo);
   }
 
   modal.style.display = 'flex';
@@ -304,12 +288,188 @@ function cerrarModal() {
   setTimeout(() => modal.style.display = 'none', 300);
 }
 
+
+/* -------- MODAL DE EDICIÓN -------- */
+function abrirModalEdicion(tipo) {
+  const tiposPermitidos = ['clinica', 'afecciones', 'sintomas'];
+  if (!tiposPermitidos.includes(tipo)) return; // Solo permitir estos tipos
+
+  const form = document.getElementById('modal-edit-form');
+  const title = document.getElementById('modal-edit-title');
+  form.innerHTML = ''; // limpiar antes
+  let d = perfilNutricional;
+
+  // --- Historia clínica ---
+  if (tipo === 'clinica') {
+    title.textContent = 'Editar historia clínica';
+
+    const patologicos = [
+      "Hipertensión arterial","Diabetes mellitus","Asma bronquial","Alergia a medicamentos",
+      "Alergia a picaduras","Colesterol alto","Triglicéridos altos","Obesidad",
+      "Sobrepeso","Hipotiroidismo","Hipertiroidismo","Infarto","Insuficiencia cardíaca",
+      "EPOC","Tuberculosis","Epilepsia","Migraña","ACV","Depresión","Ansiedad",
+      "Esquizofrenia","VIH","Hepatitis B","Hepatitis C","Gastritis","Úlcera","Colitis"
+    ];
+
+    const familiares = [
+      "Diabetes mellitus","Hipertensión arterial","Cáncer de mama","Cáncer de colon",
+      "Cáncer de próstata","Cáncer de pulmón","Infarto","Angina","Muerte súbita",
+      "ACV","Asma","Enfermedades alérgicas","Hemofilia","Fibrosis quística",
+      "Otra enfermedad genética","Depresión","Ansiedad","Esquizofrenia","Artritis reumatoide","Lupus"
+    ];
+
+    const quirurgicos = [
+      "Apendicectomía","Colecistectomía","Cesárea","Herniorrafia inguinal",
+      "Herniorrafia umbilical","Amigdalectomía","Cirugía de rodilla","Cirugía de columna",
+      "Histerectomía","Cirugía oftálmica","Cirugías por fracturas","Cirugías con prótesis",
+      "Cirugías cardiovasculares"
+    ];
+
+    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
+      return arr.map(item => {
+        const checked = seleccionados.includes(item) ? 'checked' : '';
+        return `<label><input type="checkbox" name="${nombreCampo}[]" value="${item}" ${checked}> ${item}</label>`;
+      }).join('');
+    };
+
+    form.innerHTML = `
+      <h3>Antecedentes patológicos</h3>
+      <div class="custom-select-options">${crearCheckboxes(patologicos, 'patologicos', d.patologicos || [])}</div>
+      <h3>Antecedentes familiares</h3>
+      <div class="custom-select-options">${crearCheckboxes(familiares, 'familiares', d.familiares || [])}</div>
+      <h3>Antecedentes quirúrgicos</h3>
+      <div class="custom-select-options">${crearCheckboxes(quirurgicos, 'quirurgicos', d.quirurgicos || [])}</div>
+    `;
+  }
+
+  // --- Afecciones personales ---
+  if (tipo === 'afecciones') {
+    title.textContent = 'Editar afecciones personales';
+    const intolerancias = [
+      "Lactosa","Gluten (no celíaca)","Fructosa","Sorbitol","Caseína","Suero de leche",
+      "FODMAPs","Huevos","Pescado o mariscos","Trigo","Maíz","Soya","Ajo","Cebolla",
+      "Tomate","Chocolate","Cafeína","Alcohol","Maní o nueces","GMS","Vinagre",
+      "Colorantes artificiales","Edulcorantes artificiales","Legumbres","Miel"
+    ];
+    const alergias = [
+      "Maní","Nueces","Huevo","Leche de vaca","Pescado","Mariscos","Trigo","Soya",
+      "Sésamo","Mostaza","Frutas frescas","Latex-frutas","Gelatina","Colorantes artificiales","Preservantes"
+    ];
+
+    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
+      return arr.map(item => {
+        const checked = seleccionados.includes(item) ? 'checked' : '';
+        return `<label><input type="checkbox" name="${nombreCampo}[]" value="${item}" ${checked}> ${item}</label>`;
+      }).join('');
+    };
+
+    form.innerHTML = `
+      <h3>Intolerancias</h3>
+      <div class="custom-select-options">${crearCheckboxes(intolerancias, 'intolerancias', d.intolerancias || [])}</div>
+      <h3>Alergias</h3>
+      <div class="custom-select-options">${crearCheckboxes(alergias, 'alergias', d.alergias || [])}</div>
+    `;
+  }
+
+  // --- Síntomas gastrointestinales ---
+  if (tipo === 'sintomas') {
+    title.textContent = 'Editar síntomas gastrointestinales';
+    const sintomas = [
+      "Dolor abdominal","Distensión abdominal","Gases o flatulencias","Náuseas","Vómitos",
+      "Diarrea","Estreñimiento","Reflujo gastroesofágico","Acidez estomacal","Eructos frecuentes",
+      "Pérdida de apetito","Sensación de llenura precoz","Cambio en el color de las heces","Heces con moco o sangre",
+      "Tenesmo rectal","Incontinencia fecal","Dolor rectal o anal","Ictericia","Sabor amargo en la boca"
+    ];
+
+    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
+      return arr.map(item => {
+        const checked = seleccionados.includes(item) ? 'checked' : '';
+        return `<label><input type="checkbox" name="${nombreCampo}[]" value="${item}" ${checked}> ${item}</label>`;
+      }).join('');
+    };
+
+    form.innerHTML = `
+      <h3>Síntomas</h3>
+      <div class="custom-select-options">${crearCheckboxes(sintomas, 'sintomas', d.sintomas || [])}</div>
+    `;
+  }
+
+  // Agregar dataset
+  form.dataset.tipo = tipo;
+
+  const modal = document.getElementById('modal-edit');
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => modal.classList.add('show'));
+
+  // Inicializar navegación por secciones si es necesario (igual que en crear perfil)
+  const sections = form.querySelectorAll('.section');
+  let currentSection = 1;
+
+  form.querySelectorAll('.next-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (currentSection === 2 && !validarSeccionNutricional()) return;
+      sections[currentSection - 1].classList.remove('active');
+      currentSection++;
+      sections[currentSection - 1].classList.add('active');
+      updateProgressBar(currentSection);
+    });
+  });
+
+  form.querySelectorAll('.prev-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      sections[currentSection - 1].classList.remove('active');
+      currentSection--;
+      sections[currentSection - 1].classList.add('active');
+      updateProgressBar(currentSection);
+    });
+  });
+}
+
+/* -------- GUARDAR EDICIÓN -------- */
+function guardarEdicion() {
+  const form = document.getElementById('modal-edit-form');
+  const tipo = form.dataset.tipo;
+  const data = new FormData(form);
+  data.append('tipo', tipo);
+
+  fetch('update_perfil.php', {
+    method: 'POST',
+    body: data
+  })
+  .then(res => res.json())
+  .then(resp => {
+    if (resp.success) {
+      perfilNutricional = {...perfilNutricional, ...resp.actualizado};
+      renderPerfilNutricional();
+      cerrarModalEdit();
+      cerrarModal();
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: resp.message,
+        confirmButtonText: 'Entendido'
+      });
+    }
+  })
+  .catch(err => console.error('Error en la conexión:', err));
+}
+
+/* -------- CERRAR MODAL -------- */
+function cerrarModalEdit() {
+  const modal = document.getElementById('modal-edit');
+  modal.classList.remove('show');
+  setTimeout(() => modal.style.display = 'none', 300);
+}
+
+
 /* -------- EVENTOS GLOBALES -------- */
 window.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     cerrarModal();
     cerrarModalAvatar();
     cerrarAvatarGrande();
+    cerrarModalEdit();
   }
 });
 
@@ -317,4 +477,5 @@ window.addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) cerrarModal();
   if (e.target === document.getElementById('modal-avatar')) cerrarModalAvatar();
   if (e.target === document.getElementById('avatar-large-modal')) cerrarAvatarGrande();
+  if (e.target === document.getElementById('modal-edit')) cerrarModalEdit();
 });

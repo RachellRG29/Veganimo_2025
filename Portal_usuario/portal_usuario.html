@@ -110,14 +110,93 @@
         </section>
     </div>
 
-      <!-- Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <h3 id="modal-title">Detalles</h3>
-      <div id="modal-body"></div>
+<!-- Modal de lectura -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <!-- Botón Editar, inicialmente oculto -->
+    <button id="edit-modal-btn" class="edit-button" style="display:none;" onclick="">Editar</button>
+
+    <h3 id="modal-title">Detalles</h3>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- Modal de Edición -->
+<div id="modal-edit" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalEdit()">&times;</span>
+    <h2 id="modal-edit-title">Editar</h2>
+
+    <form id="modal-edit-form">
+      <!-- Contenido dinámico generado desde JS -->
+    </form>
+
+    <div class="buttons-container">
+      <button type="button" class="form-button" onclick="cerrarModalEdit()">Cancelar</button>
+      <button type="button" class="form-button" onclick="guardarEdicion()">Guardar</button>
     </div>
   </div>
+</div>
+
+<style>
+/* Estilo modal lectura */
+.modal-content {
+  position: relative; /* necesario para posicionar botones dentro */
+  padding: 20px;
+}
+
+/* Botón cerrar */
+.modal-content .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+/* Botón editar al lado izquierdo del cerrar */
+.modal-content .edit-button {
+  position: absolute;
+  top: 15px;
+  right: 60px; /* ajustar según espacio */
+  padding: 5px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #007848;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Checkboxes en modal de edición */
+#modal-edit-form .custom-select-options input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+    accent-color: #007848;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#modal-edit-form .custom-select-options label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 15px;
+    color: #1A1C1C;
+}
+
+#modal-edit-form .custom-select-options {
+    background-color: #F6FFFE;
+    border: 1.5px solid #707070;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+</style>
 
 <!-- Modal de Avatares -->
 <div id="modal-avatar" class="modal">
