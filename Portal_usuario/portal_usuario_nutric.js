@@ -5,10 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const editAvatarBtn = document.querySelector(".edit-avatar");
   const avatarDisplay = document.getElementById("avatar-display");
 
-  // Abrir modal de selección de avatar
   if (editAvatarBtn) editAvatarBtn.addEventListener("click", abrirModalAvatar);
 
-  // Mostrar avatar grande al hacer clic
   if (avatarDisplay) {
     avatarDisplay.addEventListener("click", () => {
       const img = avatarDisplay.querySelector("img");
@@ -16,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ⚡ Cargar datos del usuario y perfil nutricional
   fetch('cargar_datos_usuario.php')
     .then(res => res.json())
     .then(data => {
@@ -28,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
       datosUsuario = data.usuario;
       perfilNutricional = data.perfil || {};
 
-      // ⚡ Obtener avatar persistente desde la sesión o DB
       const avatar = datosUsuario.avatar || 'predeterminado.png';
       datosUsuario.avatar = avatar;
 
@@ -47,7 +43,6 @@ function renderDatosPersonales() {
   document.getElementById('user-birthdate').textContent = d.fecha_nacimiento || "Fecha nacimiento";
   document.getElementById('user-gender').textContent = d.genero || "Género";
 
-  // Mostrar avatar
   const avatarDisplay = document.getElementById("avatar-display");
   avatarDisplay.innerHTML = `<img src="../Images/Avatares/${d.avatar}" alt="Avatar usuario">`;
 }
@@ -146,7 +141,6 @@ function abrirModalAvatar() {
 
   gridContainer.innerHTML = `
     <div class="avatar-grid-container">
-      <!-- Avatar predeterminado -->
       <div class="avatar-predeterminado">
         <div class="avatar-item">
           <img src="${rutaAvatares}${avatarPredeterminado.file}" alt="${avatarPredeterminado.name}" onclick="seleccionarAvatar('${avatarPredeterminado.file}')">
@@ -154,7 +148,6 @@ function abrirModalAvatar() {
         </div>
       </div>
       
-      <!-- Masculinos -->
       <div class="avatar-masculinos">
         <div class="avatar-section-title">Avatares Masculinos</div>
         <div class="avatar-grid">
@@ -167,7 +160,6 @@ function abrirModalAvatar() {
         </div>
       </div>
       
-      <!-- Femeninos -->
       <div class="avatar-femeninos">
         <div class="avatar-section-title">Avatares Femeninos</div>
         <div class="avatar-grid">
@@ -226,6 +218,7 @@ function cerrarAvatarGrande() {
   modal.classList.remove("show");
   setTimeout(() => modal.style.display = "none", 300);
 }
+
 /* -------- MODALES DE PERFIL -------- */
 function mostrarModal(tipo) {
   const title = document.getElementById('modal-title');
@@ -235,7 +228,7 @@ function mostrarModal(tipo) {
 
   body.innerHTML = '';
   title.textContent = '';
-  editBtn.style.display = 'none'; // ocultar por defecto
+  editBtn.style.display = 'none';
   editBtn.onclick = null;
 
   const d = perfilNutricional;
@@ -244,7 +237,8 @@ function mostrarModal(tipo) {
     clinica: 'Historia clínica',
     afecciones: 'Afecciones personales',
     sintomas: 'Síntomas gastrointestinales',
-    completo: 'Resumen completo del perfil'
+    completo: 'Resumen completo del perfil',
+    resumen: 'Resumen completo del perfil'
   };
 
   title.textContent = titulos[tipo] || 'Detalle';
@@ -263,11 +257,30 @@ function mostrarModal(tipo) {
     body.innerHTML = crearListaHTML([...(d.intolerancias||[]), ...(d.alergias||[])]);
   } else if (tipo === 'sintomas') {
     body.innerHTML = crearListaHTML(d.sintomas || []);
-  } else if (tipo === 'completo') {
-    body.innerHTML = '...'; // opcional
+  } else if (tipo === 'completo' || tipo === 'resumen') {
+    const dato = (v, suf = '') => (v !== undefined && v !== null && v !== '') ? `${v}${suf}` : '—';
+    const bloque = (t, contenido) => `<section class="modal-section"><h4>${t}</h4>${contenido}</section>`;
+
+    const top = `
+      <p><strong>Dieta actual:</strong> ${dato(d.dieta_actual)}</p>
+      <p><strong>Peso:</strong> ${dato(d.peso, ' kg')}</p>
+      <p><strong>Altura:</strong> ${dato(d.altura, ' cm')}</p>
+      <p><strong>Objetivo:</strong> ${dato(d.objetivo)}</p>
+      <p><strong>Meta:</strong> ${dato(d.nivel_meta)}</p>
+    `;
+
+    const html =
+      bloque('Datos generales', top) +
+      bloque('Antecedentes patológicos', crearListaHTML(d.patologicos)) +
+      bloque('Antecedentes familiares', crearListaHTML(d.familiares)) +
+      bloque('Antecedentes quirúrgicos', crearListaHTML(d.quirurgicos)) +
+      bloque('Intolerancias', crearListaHTML(d.intolerancias)) +
+      bloque('Alergias', crearListaHTML(d.alergias)) +
+      bloque('Síntomas gastrointestinales', crearListaHTML(d.sintomas));
+
+    body.innerHTML = html;
   }
 
-  // Mostrar botón editar solo para secciones específicas
   if (['clinica', 'afecciones', 'sintomas'].includes(tipo)) {
     editBtn.style.display = 'inline-block';
     editBtn.onclick = () => abrirModalEdicion(tipo);
@@ -287,6 +300,7 @@ function cerrarModal() {
   modal.classList.remove('show');
   setTimeout(() => modal.style.display = 'none', 300);
 }
+
 
 
 /* -------- MODAL DE EDICIÓN -------- */
