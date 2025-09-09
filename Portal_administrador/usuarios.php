@@ -57,10 +57,25 @@ try {
     // Eliminar usuario
     elseif ($method === 'DELETE') {
         $id = $_GET['id'];
+
+        // Primero obtener el usuario para verificar su rol
+        $query = new MongoDB\Driver\Query(['_id' => new MongoDB\BSON\ObjectId($id)]);
+        $cursor = $cliente->executeQuery('Veganimo.Usuarios', $query);
+        $usuario = current($cursor->toArray());
+
+        if (!$usuario) {
+            throw new Exception("Usuario no encontrado");
+        }
+
+        if (isset($usuario->role) && $usuario->role === 'admin') {
+            throw new Exception("No se puede eliminar a un administrador");
+        }
+
+        // Si no es admin, proceder a eliminar
         $bulk = new MongoDB\Driver\BulkWrite;
         $bulk->delete(['_id' => new MongoDB\BSON\ObjectId($id)]);
         $result = $cliente->executeBulkWrite('Veganimo.Usuarios', $bulk);
-        
+
         echo json_encode(['success' => true, 'deleted' => $result->getDeletedCount()]);
     }
     

@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <td>${usuario.gender}</td>
                 <td>${new Date(usuario.created_at).toLocaleString()}</td>
                 <td class="text-center">
-                    <button class="btn btn-sm ${usuario.banned ? 'btn-success' : 'btn-warning'} btn-baneo" data-id="${usuario._id}">
+                    <button class="btn btn-sm ${usuario.banned ? 'btn-success' : 'btn-warning'} btn-baneo" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
                         <i class="fas ${usuario.banned ? 'fa-unlock' : 'fa-ban'}"></i> 
                         ${usuario.banned ? 'Desbanear' : 'Banear'}
                     </button>
-                    <button class="btn btn-sm btn-danger btn-eliminar" data-id="${usuario._id}">
+                    <button class="btn btn-sm btn-danger btn-eliminar" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </td>
@@ -77,6 +77,21 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     function toggleBaneo(idUsuario) {
         const usuario = usuariosData.find(u => u._id === idUsuario);
+
+        // Verificar si es admin antes de banear
+        if (usuario.role === 'admin') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No permitido',
+                text: 'No puedes banear a un administrador',
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            return;
+        }
+
         const nuevoEstado = !usuario.banned;
 
         fetch('/Portal_administrador/baneo.php', {
@@ -97,7 +112,6 @@ document.addEventListener('DOMContentLoaded', async function() {
                 });
                 cargarUsuarios();
             } else {
-                // Mostrar mensaje específico si no se puede banear admin
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -115,6 +129,23 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function confirmarEliminacion(idUsuario) {
+        const usuario = usuariosData.find(u => u._id === idUsuario);
+
+        // Verificar si es admin antes de continuar
+        if (usuario.role === 'admin') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'No permitido',
+                text: 'No puedes eliminar a un administrador',
+                toast: true,
+                position: 'bottom-end',
+                showConfirmButton: false,
+                timer: 3000
+            });
+            return; // salir de la función
+        }
+
+        // Si no es admin, mostrar confirmación normal
         Swal.fire({
             title: '¿Eliminar usuario?',
             text: 'Esta acción no se puede deshacer',
