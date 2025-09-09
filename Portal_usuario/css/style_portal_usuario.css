@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*border: 1px solid yellow;  */
+   /* border: 1px solid yellow;  */
 }
 
 body {
@@ -13,8 +13,6 @@ body {
     overflow-x: hidden;
     background: url('/Images/fondo_pu_claro.png') ;
 }
-
-
 
 .barra_volver{
     position: relative;
@@ -66,7 +64,7 @@ body {
     color: #1A1C1C;
     box-shadow: inset 0 0 8px #007848;
     cursor: pointer;
-    z-index: 5000;
+    z-index: 1000;
 }
 
 .back-button .icon {
@@ -81,7 +79,7 @@ body {
 .main-container {
     display: grid;
     grid-template-columns: 680px 620px;
-    grid-template-rows: 400px 46px 240px;
+    grid-template-rows: 400px 46px 150px;
     gap: 12px;
     padding: 90px 40px 40px; /*top-*/
     justify-content: center;
@@ -154,6 +152,7 @@ body {
 .nutritional-profile {
     grid-column: 2;
     grid-row: 1 / span 3;
+    gap:20px;
 }
 
 .profile-content {
@@ -221,8 +220,6 @@ body {
     margin-left: 5px;
 }
 
-
-
 /* Nivel */
 .user-level {
     grid-column: 1;
@@ -230,6 +227,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0 24px;
+    border-radius: 14px;
 }
 
 .level-title {
@@ -258,7 +256,7 @@ body {
     gap: 15px;
     height: 520px; /*alto tarjetita dinamica*/
     max-height: 500px;
-    margin-top: -150px;
+    margin-top: -90px;
     
 }
 
@@ -271,14 +269,15 @@ body {
 }
 
 .grid-item-large {
-    grid-column: span 1;
+    grid-column: span 2;
 }
 
 .see-more {
     position: absolute;
     bottom: 15px;
     right: 15px;
-    background: linear-gradient(to right, #F6FFFE, #FFE24F);
+    
+    background-image: linear-gradient(to right, #FFE24F 0%, #F6FFFE 51%, #FFE24F 100%);
     border: none;
     border-radius: 50px;
     padding: 5px 15px;
@@ -288,6 +287,19 @@ body {
     display: flex;
     align-items: center;
     cursor: pointer;
+}
+
+.see {
+  flex: 1 1 auto;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+ }
+
+.see-more:hover{
+     background-position: right center;
 }
 
 .item-title {
@@ -465,7 +477,7 @@ body.modal-open {
     padding: 8px 12px;
     border: 1px solid #e5e5e5;
     border-radius: 6px;
-    background: #fafafa;
+    background: #f3fdf9;
 }
 
 #modal-body ul {
@@ -572,12 +584,13 @@ body.modal-open {
 
 /* ===== MODAL DE AVATARES CON ESTRUCTURA ESPECÍFICA ===== */
 #modal-avatar .modal-content {
-  max-width: 1200px; /* Aumentado de 1200px a 1400px para hacerlo más ancho */
-  width: 95vw; /* Ocupa el 95% del ancho de la ventana */
+  max-width: 1200px;
+  width: 95vw;
   padding: 30px;
-  max-height: 90vh; /* Limita la altura máxima */
-  overflow: hidden; /* Elimina el scroll */
-  align-content: center;
+  max-height: 90vh; 
+  overflow-y: auto;    /* ✅ Scroll vertical */
+  overflow-x: hidden;  /* ✅ Sin scroll horizontal */
+  align-content: flex-start;
 
 }
 
@@ -711,17 +724,187 @@ body.modal-open {
 
 /* =========================== RESPONSIVE DESIGN =========================== */
 
-/* ===== MEJORAS DE RESPONSIVIDAD ===== */
+/* ===== 1025px a 1440px (Laptops grandes / PC) ===== */
+@media (min-width: 1231px) and (max-width: 1440px) {
+    .main-container {
+        grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
+        gap: 12px;
+        max-width: 1400px;
+    }
 
-/* Para tablets */
-@media (max-width: 1024px) {
+    .personal-data {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+     .user-level {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .coming-soon {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    /*AVATAR MODAL*/
+      .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+        gap: 20px;
+        justify-items: center;
+    }
+
+
+}
+
+
+@media (min-width: 1025px) and (max-width: 1230px) {
+    .main-container {
+        grid-template-columns: minmax(200px, 60%) minmax(250px, 40%);
+        gap: 12px;
+        max-width: 1400px;
+    }
+
+
+    .profile-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        height: auto;
+    }
+
+    .info-box {
+        width: 330px;
+        min-width: 100px;
+        height: auto;
+        justify-content: center;
+
+    }
+
+      .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+        gap: 18px;
+        justify-items: center;
+    }
+
+
+}
+
+@media (min-width: 800px) and (max-width: 1024px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 700px auto auto auto;
+    }
+
+
+    .create-button {
+        font-size: 11px;
+        padding: 6px 15px;
+        align-self: center;
+        margin: 10px 0;
+    }
+
+   .section {
+        grid-template-columns: repeat(3, 2fr);
+        margin-bottom: 15px;
+    }
+
+    .section.personal-data{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+    }
+    .illustration-image {
+        width: 120px;
+        height: 120px;
+        margin-top: 10px;
+    }
+
+    .profile-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nutritional-profile {
+        grid-row: auto !important;
+        min-height: 500px;
+    }
+
+
+     .avatar-container {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0 auto 20px;
+    }
+    .info-box {
+        position: relative;
+        width: 100%;
+        height: auto;
+        right: 0;
+        top: 0;
+
+    }
+    
+    .item-title {
+        font-size: 16px;
+    }
+    
+    .item-content {
+        font-size: 12px;
+    }
+    
+    .see-more {
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+
+    .profile-subtitle {
+        font-size: 16px;
+        text-align: center;
+        align-self: center;
+    }
+    
+    .profile-description {
+        font-size: 13px;
+        text-align: center;
+        align-self: center;
+    }
+
+    .illustration-image {
+        width: 120px;
+        height: 120px;
+        margin-top: 10px;
+    }
+
+    .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+        gap: 18px;
+        justify-items: center;
+    }
+
+
+}
+
+@media (min-width: 600px) and (max-width: 799px) {
+    .navbar {
+        width: 100%;
+        height: 60px;
+        padding: 0 15px;
+        justify-content: space-between;
+    }
+
     .main-container {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto auto;
         gap: 15px;
         padding: 80px 20px 30px;
     }
-    
+
     .section {
         grid-column: 1 !important;
         grid-row: auto !important;
@@ -732,16 +915,7 @@ body.modal-open {
         grid-row: auto !important;
         min-height: 500px;
     }
-    
-    .info-box {
-        position: relative;
-        width: 100%;
-        height: auto;
-        right: 0;
-        top: 0;
-        margin-top: 20px;
-    }
-    
+
     .avatar-container {
         position: relative;
         left: 0;
@@ -753,14 +927,37 @@ body.modal-open {
         grid-template-columns: 2fr;
         height: auto;
         margin-top: 0;
-        gap: 12px;
     }
-    
-    /* Ajustes para perfil sin datos en tablet */
+
+    .info-box {
+        position: relative;
+        width: 100%;
+        height: auto;
+        right: 0;
+        top: 0;
+        margin-top: 20px;
+    }
+
+
+    .create-button {
+        font-size: 11px;
+        padding: 6px 15px;
+        align-self: center;
+        margin: 10px 0;
+    }
+
+    .section.personal-data{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+        /* Ajustes para perfil sin datos en tablet */
     .profile-content {
         height: auto;
         min-height: 500px;
-        padding: 15px;
+
     }
     
     .create-button {
@@ -779,218 +976,132 @@ body.modal-open {
     .nutritional-profile{
         height: max-content;
     }
+
+    .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+        gap: 18px;
+        justify-items: center;
+    }
+
+
+
 }
 
-/* Para móviles (mejoras específicas) */
-@media (max-width: 768px) {
+@media (min-width: 250px) and (max-width: 798px) {
     .navbar {
         width: 100%;
         height: 60px;
         padding: 0 15px;
         justify-content: space-between;
     }
-    
-    
+
     .main-container {
-        padding: 70px 10px 20px;
-        gap: 12px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
     }
-    
+
     .section {
-        padding: 15px;
-        border-radius: 12px;
-    }
-    
-    .section-title {
-        font-size: 20px;
-        margin-bottom: 8px;
-    }
-    
-    .decorative-line {
-        width: 100px;
+        grid-column: 1 !important;
+        grid-row: auto !important;
         margin-bottom: 15px;
     }
-    
-    
-    .info-box {
-        padding: 12px;
-    }
-    
-    .info-label {
-        font-size: 12px;
-    }
-    
-    .info-value {
-        font-size: 13px;
-        padding: 5px 8px;
-    }
-    
-    /* Perfil sin datos en móvil */
-    .profile-content {
-        padding: 12px;
-        min-height: 400px;
-    }
-    
-    .profile-subtitle {
-        font-size: 16px;
-        text-align: center;
-        align-self: center;
-    }
-    
-    .profile-description {
-        font-size: 13px;
-        text-align: center;
-        align-self: center;
-    }
-    
-    .create-button {
-        font-size: 11px;
-        padding: 6px 15px;
-        align-self: center;
-        margin: 10px 0;
-    }
-    
-    .illustration-image {
-        width: 120px;
-        height: 120px;
-        margin-top: 10px;
-    }
-    
-    .user-level {
+
+    .profile-grid {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        padding: 12px;
+        margin-top: -5px;
     }
-    
-    .level-title {
-        font-size: 18px;
-        margin-bottom: 5px;
+
+    .nutritional-profile {
+        grid-row: auto !important;
+        min-height: 600px;
     }
-    
-    .level-value {
-        font-size: 16px;
+
+    .avatar-container {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0 auto 20px;
     }
     
     .profile-grid {
-        grid-template-columns: 2fr;
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     
     .grid-item {
         padding: 10px;
     }
-    
-    .item-title {
-        font-size: 16px;
-    }
-    
-    .item-content {
-        font-size: 12px;
-    }
-    
-    .see-more {
-        padding: 4px 10px;
-        font-size: 11px;
-    }
-    
-    
-    
-    .avatar-grid img {
-        width: 70px;
-        height: 70px;
-    }
-    
-    .avatar-name {
-        font-size: 10px;
-    }
-}
 
-/* Para móviles muy pequeños */
-@media (max-width: 480px) {
-    .section-title {
-        font-size: 18px;
-    }
-    
-    
     .info-box {
-        padding: 10px;
+        position: relative;
+        width: 100%;
+        height: auto;
+        right: 0;
+        top: 0;
+        margin-top: 20px;
     }
-    
+
+
+    .create-button {
+        font-size: 11px;
+        padding: 6px 15px;
+        align-self: center;
+        margin: 10px 0;
+    }
+
+    .section.personal-data{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+        /* Ajustes para perfil sin datos en tablet */
     .profile-content {
-        padding: 10px;
-        min-height: 350px;
-    }
-    
-    .profile-subtitle {
-        font-size: 15px;
-    }
-    
-    .profile-description {
-        font-size: 12px;
+        height: auto;
+        min-height: 500px;
+
     }
     
     .create-button {
-        font-size: 10px;
-        padding: 5px 12px;
+        align-self: center;
+        margin: 15px 0;
     }
     
-    .illustration-image {
-        width: 100px;
-        height: 100px;
+    .profile-illustration {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        margin-top: 20px;
     }
 
+    .nutritional-profile{
+        height: max-content;
+    }
+
+
+    .avatar-container {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0 auto 20px;
+    }
+
+
+    /*AVATAR MODAL*/
     .avatar-grid {
-        grid-template-columns: repeat(1, 1fr);
-        max-height: 500px;       /* altura máxima antes de activar scroll */
-        overflow-y: auto;        /* scroll vertical */
-        overflow-x: hidden;      /* evita scroll horizontal innecesario */
-        padding-right: 10px;     /* deja espacio para que el scroll no tape */
-        box-sizing: content-box; /* asegura que el padding no corte el grid */
-        scrollbar-gutter: stable;/* mantiene el scroll siempre en el borde derecho */
-        margin-right: -40px;
-    }
+    grid-template-columns: 1fr; /* 1 columna */
+  }
+  .avatar-item img {
+    width: 100px;
+    height: 100px;
+  }
+  .avatar-section-title {
+    display: none; /* opcional ocultar títulos */
+  }
     
-    .modal .modal-content {
-        padding: 12px;
-    }
 
-    .nutritional-profile{
-        max-height: 1600px;
-        height: max-content;
-    }
-
-}
-
-/* Corrección específica para la navbar en móviles */
-@media (max-width: 768px) {
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        padding: 0 15px;
-    }
-    
-    .barra_volver {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 60px;
-        padding: 0 15px;
-        background-color: #154734;
-        z-index: 1000;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    
-    .main-container {
-        padding-top: 80px; /* Aumentado para evitar solapamiento */
-    }
-
-    .nutritional-profile{
-        height: max-content;
-    }
 }

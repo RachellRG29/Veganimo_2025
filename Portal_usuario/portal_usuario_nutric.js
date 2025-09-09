@@ -80,31 +80,31 @@ function renderPerfilNutricional() {
           <strong>Peso:</strong> ${d.peso} kg<br>
           <strong>Altura:</strong> ${d.altura} cm
         </div>
-        <button class="see-more" onclick="mostrarModal('nutricionales')">Ver más</button>
+        <button class="see see-more" onclick="mostrarModal('nutricionales')">Ver más</button>
       </div>
 
       <div class="grid-item">
         <div class="item-title">Historia clínica</div>
         <div class="item-content">${previewLista([...(d.patologicos || []), ...(d.familiares || []), ...(d.quirurgicos || [])])}</div>
-        <button class="see-more" onclick="mostrarModal('clinica')">Ver más</button>
+        <button class="see see-more" onclick="mostrarModal('clinica')">Ver más</button>
       </div>
 
       <div class="grid-item">
         <div class="item-title">Afecciones personales</div>
         <div class="item-content">${previewLista([...(d.intolerancias || []), ...(d.alergias || [])])}</div>
-        <button class="see-more" onclick="mostrarModal('afecciones')">Ver más</button>
+        <button class="see see-more" onclick="mostrarModal('afecciones')">Ver más</button>
       </div>
 
       <div class="grid-item">
         <div class="item-title">Síntomas gastrointestinales</div>
         <div class="item-content">${previewLista(d.sintomas || [])}</div>
-        <button class="see-more" onclick="mostrarModal('sintomas')">Ver más</button>
+        <button class="see see-more" onclick="mostrarModal('sintomas')">Ver más</button>
       </div>
 
       <div class="grid-item grid-item-large">
         <div class="item-title">Resumen completo</div>
         <div class="item-content">Visualiza todos los datos del perfil en una sola vista.</div>
-        <button class="see-more" onclick="mostrarModal('completo')">Ver más</button>
+        <button class="see see-more" onclick="mostrarModal('completo')">Ver más</button>
       </div>
     </div>
   `;
@@ -219,7 +219,7 @@ function cerrarAvatarGrande() {
   setTimeout(() => modal.style.display = "none", 300);
 }
 
-/* -------- MODALES DE PERFIL -------- */
+/* --------//////////////////// MODALES DE PERFIL //////////////////////-------- */
 function mostrarModal(tipo) {
   const title = document.getElementById('modal-title');
   const body = document.getElementById('modal-body');
@@ -244,19 +244,47 @@ function mostrarModal(tipo) {
   title.textContent = titulos[tipo] || 'Detalle';
 
   if (tipo === 'nutricionales') {
-    body.innerHTML = `
-      <p><strong>Dieta actual:</strong> ${d.dieta_actual}</p>
-      <p><strong>Peso:</strong> ${d.peso} kg</p>
+   body.innerHTML = `
+    <section class="modal-section">
+      <p>Dieta actual: ${d.dieta_actual}</p>
+      <p>Peso: ${d.peso} kg</p>
       <p><strong>Altura:</strong> ${d.altura} cm</p>
       <p><strong>Objetivo:</strong> ${d.objetivo}</p>
       <p><strong>Meta:</strong> ${d.nivel_meta}</p>
+    </section>
+  `;
+    } else if (tipo === 'clinica') {
+    body.innerHTML = `
+      <section class="modal-section">
+        <h4>Antecedentes patológicos</h4>
+        ${crearListaHTML(d.patologicos)}
+      </section>
+      <section class="modal-section">
+        <h4>Antecedentes familiares</h4>
+        ${crearListaHTML(d.familiares)}
+      </section>
+      <section class="modal-section">
+        <h4>Antecedentes quirúrgicos</h4>
+        ${crearListaHTML(d.quirurgicos)}
+      </section>
     `;
-  } else if (tipo === 'clinica') {
-    body.innerHTML = crearListaHTML([...(d.patologicos||[]), ...(d.familiares||[]), ...(d.quirurgicos||[])]);
-  } else if (tipo === 'afecciones') {
-    body.innerHTML = crearListaHTML([...(d.intolerancias||[]), ...(d.alergias||[])]);
+} else if (tipo === 'afecciones') {
+  body.innerHTML = `
+    <section class="modal-section">
+      <h4>Intolerancias</h4>
+      ${crearListaHTML(d.intolerancias)}
+    </section>
+    <section class="modal-section">
+      <h4>Alergias</h4>
+      ${crearListaHTML(d.alergias)}
+    </section>
+  `;
   } else if (tipo === 'sintomas') {
-    body.innerHTML = crearListaHTML(d.sintomas || []);
+  body.innerHTML = `
+    <section class="modal-section">
+      ${crearListaHTML(d.sintomas)}
+    </section>
+  `;
   } else if (tipo === 'completo' || tipo === 'resumen') {
     const dato = (v, suf = '') => (v !== undefined && v !== null && v !== '') ? `${v}${suf}` : '—';
     const bloque = (t, contenido) => `<section class="modal-section"><h4>${t}</h4>${contenido}</section>`;
@@ -468,6 +496,15 @@ function guardarEdicion() {
   })
   .catch(err => console.error('Error en la conexión:', err));
 }
+
+function evitarCerrarEdit(e) {
+  const modalContent = document.querySelector("#modal-edit .modal-content");
+  if (!modalContent.contains(e.target)) {
+    e.stopPropagation(); // Evita que se cierre al hacer clic fuera
+  }
+}
+
+
 
 /* -------- CERRAR MODAL -------- */
 function cerrarModalEdit() {

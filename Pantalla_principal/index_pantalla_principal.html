@@ -177,14 +177,21 @@
   <script src="../Pantalla_principal/contenidos/comunidad.js"></script>
  
 
-  <!-- MENU Y POPUP PERFIL NUTRC -->
+  <!-- MENU Y POPUP PERFIL NUTRC + CONFIGURACIÓN -->
   <script src="../perfil_nutric_popup.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       await actualizarPerfilUsuario();
       await verificarRolUsuario();
     });
+
+    function toggleConfig() {
+      const submenu = document.getElementById("submenu-config");
+      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+    }
   </script>
+
+
   
 
 </body>
