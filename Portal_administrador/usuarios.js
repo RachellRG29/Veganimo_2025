@@ -4,28 +4,21 @@ document.addEventListener('DOMContentLoaded', async function() {
     const sessionData = await response.json();
     
     if (!sessionData.logged_in || sessionData.role !== 'admin') {
-        // Ocultar o eliminar la tabla si no es admin
         const tablaContainer = document.querySelector('[data-admin-only]');
-        if (tablaContainer) {
-            tablaContainer.style.display = 'none';
-        }
-        return; // Salir si no es admin
+        if (tablaContainer) tablaContainer.style.display = 'none';
+        return;
     }
 
-    // Declarar variables en el ámbito superior
     const tablaUsuarios = document.getElementById('tablaUsuarios');
     const busquedaInput = document.getElementById('busquedaUsuarios');
     let usuariosData = [];
 
-    // Cargar usuarios al iniciar
     cargarUsuarios();
 
     function cargarUsuarios() {
         fetch('usuarios.php')
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('No autorizado');
-                }
+                if (!response.ok) throw new Error('No autorizado');
                 return response.json();
             })
             .then(data => {
@@ -38,7 +31,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
     }
 
-    // Función para renderizar la tabla
     function renderizarTabla(usuarios) {
         if (usuarios.length === 0) {
             tablaUsuarios.innerHTML = `<tr><td colspan="6" class="text-center">No hay usuarios registrados</td></tr>`;
@@ -53,8 +45,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <td>${usuario.gender}</td>
                 <td>${new Date(usuario.created_at).toLocaleString()}</td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-primary btn-editar" data-id="${usuario._id}">
-                        <i class="fas fa-edit"></i>
+                    <button class="btn btn-sm ${usuario.banned ? 'btn-success' : 'btn-warning'} btn-baneo" data-id="${usuario._id}">
+                        <i class="fas ${usuario.banned ? 'fa-unlock' : 'fa-ban'}"></i> 
+                        ${usuario.banned ? 'Desbanear' : 'Banear'}
                     </button>
                     <button class="btn btn-sm btn-danger btn-eliminar" data-id="${usuario._id}">
                         <i class="fas fa-trash-alt"></i>
@@ -63,9 +56,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             </tr>
         `).join('');
 
-        // Agregar eventos a los botones
-        document.querySelectorAll('.btn-editar').forEach(btn => {
-            btn.addEventListener('click', () => abrirModalEdicion(btn.dataset.id));
+        document.querySelectorAll('.btn-baneo').forEach(btn => {
+            btn.addEventListener('click', () => toggleBaneo(btn.dataset.id));
         });
 
         document.querySelectorAll('.btn-eliminar').forEach(btn => {
@@ -73,7 +65,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // Función para buscar usuarios
     busquedaInput.addEventListener('input', function() {
         const termino = this.value.toLowerCase();
         const resultados = usuariosData.filter(usuario => 
@@ -84,88 +75,21 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderizarTabla(resultados);
     });
 
-    // Función para abrir modal de edición
-    function abrirModalEdicion(idUsuario) {
+    function toggleBaneo(idUsuario) {
         const usuario = usuariosData.find(u => u._id === idUsuario);
-        
-        Swal.fire({
-            title: 'Editar Usuario',
-            html: `
-                <form id="formEditarUsuario">
-                    <input type="hidden" name="_id" value="${usuario._id}">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre completo</label>
-                        <input type="text" name="fullname" class="form-control" value="${usuario.fullname}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" value="${usuario.email}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Fecha de nacimiento</label>
-                        <input type="date" name="birthdate" class="form-control" value="${usuario.birthdate}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Género</label>
-                        <select name="gender" class="form-control" required>
-                            <option value="Femenino" ${usuario.gender === 'Femenino' ? 'selected' : ''}>Femenino</option>
-                            <option value="Masculino" ${usuario.gender === 'Masculino' ? 'selected' : ''}>Masculino</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Nueva contraseña (opcional)</label>
-                        <input type="password" name="password" class="form-control" placeholder="Dejar vacío para no cambiar">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Confirmar contraseña</label>
-                        <input type="password" name="confirmPassword" class="form-control" placeholder="Confirmar nueva contraseña">
-                    </div>
-                </form>
-            `,
-            showCancelButton: true,
-            confirmButtonText: 'Guardar',
-            cancelButtonText: 'Cancelar',
-            focusConfirm: false,
-            preConfirm: () => {
-                const form = document.getElementById('formEditarUsuario');
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
-                
-                // Validaciones básicas
-                if (!data.fullname || !data.email || !data.birthdate || !data.gender) {
-                    Swal.showValidationMessage('Complete todos los campos obligatorios');
-                    return false;
-                }
-                
-                if (data.password && data.password !== data.confirmPassword) {
-                    Swal.showValidationMessage('Las contraseñas no coinciden');
-                    return false;
-                }
-                
-                return data;
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                actualizarUsuario(result.value);
-            }
-        });
-    }
+        const nuevoEstado = !usuario.banned;
 
-    // Función para actualizar usuario
-    function actualizarUsuario(datos) {
-        fetch('usuarios.php', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datos)
+        fetch('/Portal_administrador/baneo.php', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ _id: idUsuario, banned: nuevoEstado })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Usuario actualizado',
+                    title: nuevoEstado ? 'Usuario baneado' : 'Usuario desbaneado',
                     toast: true,
                     position: 'bottom-end',
                     showConfirmButton: false,
@@ -173,19 +97,23 @@ document.addEventListener('DOMContentLoaded', async function() {
                 });
                 cargarUsuarios();
             } else {
-                throw new Error('Error al actualizar usuario');
+                // Mostrar mensaje específico si no se puede banear admin
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.error || 'No se pudo actualizar el estado del usuario'
+                });
             }
         })
         .catch(error => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: error.message || 'No se pudo actualizar el usuario'
+                text: error.message || 'No se pudo actualizar el estado del usuario'
             });
         });
     }
 
-    // Función para confirmar eliminación
     function confirmarEliminacion(idUsuario) {
         Swal.fire({
             title: '¿Eliminar usuario?',
@@ -196,45 +124,39 @@ document.addEventListener('DOMContentLoaded', async function() {
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                eliminarUsuario(idUsuario);
-            }
+        }).then(result => {
+            if (result.isConfirmed) eliminarUsuario(idUsuario);
         });
     }
 
-    // Función para eliminar usuario
     function eliminarUsuario(idUsuario) {
-        fetch(`usuarios.php?id=${idUsuario}`, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
+        fetch(`usuarios.php?id=${idUsuario}`, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Usuario eliminado',
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                    cargarUsuarios();
+                } else {
+                    throw new Error('Error al eliminar usuario');
+                }
+            })
+            .catch(error => {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Usuario eliminado',
-                    toast: true,
-                    position: 'bottom-end',
-                    showConfirmButton: false,
-                    timer: 3000
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'No se pudo eliminar el usuario'
                 });
-                cargarUsuarios();
-            } else {
-                throw new Error('Error al eliminar usuario');
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error.message || 'No se pudo eliminar el usuario'
             });
-        });
     }
 
-    // Escuchar cambios en el formulario de registro para actualizar la tabla
     document.getElementById('formRegistro')?.addEventListener('submit', function() {
-        setTimeout(cargarUsuarios, 3500); // Esperar 3.5 segundos (tiempo de redirección)
+        setTimeout(cargarUsuarios, 3500);
     });
 });

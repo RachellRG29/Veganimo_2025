@@ -129,10 +129,43 @@
 
     </div>
 
-    <!-- CRUD RECETAS -->
-    <div id="panel-recetas" class="hidden">
-       <!-- AQUI IRIA LA TABLA DE LAS RECETAS Q TOCARIA CREAR DESDE 0 -->
-        
+<!-- CRUD RECETAS -->
+<div id="panel-recetas" class="hidden">
+    <div class="row justify-content-center mt-5">
+        <div class="col-xxl-10 col-12 px-4 pb-5">
+            <div class="card shadow-lg">
+                <div class="card-header bg-dark text-white text-center">
+                    <h5 class="mb-0">Recetas Registradas</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="table-dark text-center">
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Tiempo Prep.</th>
+                                <th>Dificultad</th>
+                                <th>Categoría</th>
+                               
+                                <th>Fecha Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaRecetas">
+                            <tr>
+                                <td colspan="8" class="text-center">Cargando recetas...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     </div>
 
@@ -195,6 +228,7 @@
   <!-- Solo cargar estos scripts si es admin -->
   <?php if (isAdmin()): ?>
     <script src="/Portal_administrador/usuarios.js"></script>
+     <script src="/Portal_administrador/recetas.js"></script>
   <?php endif; ?>
  
 

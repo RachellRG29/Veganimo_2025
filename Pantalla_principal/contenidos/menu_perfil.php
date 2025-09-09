@@ -61,35 +61,35 @@ if (isset($_SESSION['user_id'])) {
 <div class="menu_perfil" id="menu_popup" style="display: none;">
     <ul>
 
-        <?php if ($perfilExistente): ?>
-            <li><a href="/Portal_usuario/portal_usuario.html">Perfil de usuario</a></li>
+        <?php if (isset($_SESSION['user_id']) && !$isAdmin): ?>
+            <li><a href="/Portal_usuario/portal_usuario.html">Portal del usuario</a></li>
         <?php endif; ?>
 
         <?php if ($isAdmin): ?>
-            <li><a href="/Portal_administrador/portal_adm.html">Perfil administrador</a></li>
+            <li><a href="/Portal_administrador/portal_adm.html">Portal del administrador</a></li>
         <?php endif; ?>
 
-            <!-- Sección Configuración -->
+        <!-- Sección Configuración -->
         <li class="configuracion">
-        <button class="config-btn" onclick="toggleConfig()">⚙️ Configuración</button>
-        <ul class="submenu-config" id="submenu-config">
-            <li>
-            <span>Modo tema:</span>
-            <label class="switch">
-                <input type="checkbox" id="switch-tema">
-                <span class="slider round"></span>
-            </label>
-            <span class="switch-label">Claro / Oscuro</span>
-            </li>
-            <li>
-            <span>Idioma:</span>
-            <label class="switch">
-                <input type="checkbox" id="switch-idioma">
-                <span class="slider round"></span>
-            </label>
-            <span class="switch-label">Español / Inglés</span>
-            </li>
-        </ul>
+            <button class="config-btn" onclick="toggleConfig()">⚙️ Configuración</button>
+            <ul class="submenu-config" id="submenu-config">
+                <li>
+                    <span>Modo tema:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="switch-tema">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="switch-label">Claro / Oscuro</span>
+                </li>
+                <li>
+                    <span>Idioma:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="switch-idioma">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="switch-label">Español / Inglés</span>
+                </li>
+            </ul>
         </li>
 
         <li>
@@ -100,6 +100,7 @@ if (isset($_SESSION['user_id'])) {
         </li>
     </ul>
 </div>
+
 
 
 
