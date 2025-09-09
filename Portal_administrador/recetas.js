@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderizarTabla(recetasData);
             })
             .catch(error => {
-                tablaRecetas.innerHTML = `<tr><td colspan="9" class="text-center text-danger">Error al cargar recetas: ${error.message}</td></tr>`;
+                tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center text-danger">Error al cargar recetas: ${error.message}</td></tr>`;
             });
     }
 
@@ -25,20 +25,31 @@ document.addEventListener('DOMContentLoaded', function() {
     // =======================================
     function renderizarTabla(recetas) {
         if (recetas.length === 0) {
-            tablaRecetas.innerHTML = `<tr><td colspan="9" class="text-center">No hay recetas registradas</td></tr>`;
+            tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center">No hay recetas registradas</td></tr>`;
             return;
         }
 
         tablaRecetas.innerHTML = recetas.map(receta => `
             <tr data-id="${receta._id}">
                 <td>
-                    <img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:60px;height:60px;border-radius:5px;object-fit:cover;">
+                    <img src="${receta.imagen}" alt="${receta.nombre_receta}" 
+                         style="width:60px;height:60px;border-radius:5px;object-fit:cover;">
                 </td>
                 <td>${receta.nombre_receta}</td>
                 <td>${receta.descripcion.length > 50 ? receta.descripcion.substr(0, 50) + '...' : receta.descripcion}</td>
                 <td>${receta.tiempo_preparacion || '-'}</td>
                 <td>${receta.dificultad || '-'}</td>
                 <td>${receta.categoria || '-'}</td>
+                <td>
+                    ${Array.isArray(receta.ingredientes_array) 
+                        ? receta.ingredientes_array.join(", ") 
+                        : (receta.ingredientes || "-")}
+                </td>
+                <td class="text-center">
+                    ${receta.calificacion && receta.calificacion > 0
+                        ? '⭐'.repeat(Math.round(receta.calificacion))
+                        : 'Sin calificar'}
+                </td>
                 <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>
                 <td class="text-center">
                     <button class="btn btn-sm btn-primary btn-editar" data-id="${receta._id}">
@@ -109,94 +120,106 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // =======================================
-    // Editar receta modal 
+    // Editar receta modal
     // =======================================
-function abrirModalEditar(idReceta) {
-    const receta = recetasData.find(r => r._id === idReceta);
-    if (!receta) return;
+    function abrirModalEditar(idReceta) {
+        const receta = recetasData.find(r => r._id === idReceta);
+        if (!receta) return;
 
-    Swal.fire({
-        title: `<span style="font-weight:bold; color:#333;">Editar receta</span>`,
-        width: '70%',
-        heightAuto: false,
-        padding: '20px 40px',
-        background: '#f8f9fa',
-        showCancelButton: true,
-        confirmButtonText: 'Guardar cambios',
-        cancelButtonText: 'Cancelar',
-        showCloseButton: true,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        html: `
-            <div style="width:100%; display:flex; flex-direction:column; align-items:center;">
-                
-                <!-- Imagen de la receta -->
-                <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:25px;">
-                    <img src="${receta.imagen}" alt="${receta.nombre_receta}" 
-                         style="width:180px; height:180px; object-fit:cover; border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.25); margin-bottom:10px;">
-                    <span style="font-size:22px; font-weight:700; color:#333;">${receta.nombre_receta}</span>
+        const ingredientesTexto = Array.isArray(receta.ingredientes_array) 
+            ? receta.ingredientes_array.join("\n") 
+            : receta.ingredientes;
+
+        Swal.fire({
+            title: `<span style="font-weight:bold; color:#333;">Editar receta</span>`,
+            width: '70%',
+            heightAuto: false,
+            padding: '20px 40px',
+            background: '#f8f9fa',
+            showCancelButton: true,
+            confirmButtonText: 'Guardar cambios',
+            cancelButtonText: 'Cancelar',
+            showCloseButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            html: `
+                <div style="width:100%; display:flex; flex-direction:column; align-items:center;">
+                    <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:25px;">
+                        <img src="${receta.imagen}" alt="${receta.nombre_receta}" 
+                             style="width:180px; height:180px; object-fit:cover; border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.25); margin-bottom:10px;">
+                        <span style="font-size:22px; font-weight:700; color:#333;">${receta.nombre_receta}</span>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%;">
+                        <div style="display:flex; flex-direction:column;">
+                            <label>Nombre</label>
+                            <input id="swal-nombre" class="swal2-input" value="${receta.nombre_receta}">
+                        </div>
+
+                        <div style="display:flex; flex-direction:column;">
+                            <label>Tiempo preparación</label>
+                            <input id="swal-tiempo" class="swal2-input" value="${receta.tiempo_preparacion}">
+                        </div>
+
+                       <div style="display:flex; flex-direction:column;">
+                       <label>Dificultad</label>
+                   <select id="swal-dificultad" class="swal2-select">
+                      <option value="" disabled ${!receta.dificultad ? 'selected' : ''}>Seleccionar dificultad</option>
+                       <option value="Baja" ${receta.dificultad === 'Baja' ? 'selected' : ''}>Baja</option>
+                     <option value="Media" ${receta.dificultad === 'Media' ? 'selected' : ''}>Media</option>
+                       <option value="Alta" ${receta.dificultad === 'Alta' ? 'selected' : ''}>Alta</option>
+                    </select>
+                             </div>
+
+
+                        <div style="display:flex; flex-direction:column;">
+                            <label>Categoría</label>
+                            <select id="swal-categoria" class="swal2-select">
+                                <option value="" disabled ${!receta.categoria ? 'selected' : ''}>Seleccionar categoría</option>
+                                <option value="cat_transc" ${receta.categoria === 'cat_transc' ? 'selected' : ''}>Transicionista</option>
+                                <option value="cat_veget" ${receta.categoria === 'cat_veget' ? 'selected' : ''}>Vegetariano</option>
+                                <option value="cat_vegan" ${receta.categoria === 'cat_vegan' ? 'selected' : ''}>Vegano</option>
+                            </select>
+                        </div>
+
+                        <div style="grid-column:1 / span 2; display:flex; flex-direction:column;">
+                            <label>Ingredientes (uno por línea)</label>
+                            <textarea id="swal-ingredientes" class="swal2-textarea">${ingredientesTexto}</textarea>
+                        </div>
+
+                        <div style="grid-column:1 / span 2; display:flex; flex-direction:column;">
+                            <label>Descripción</label>
+                            <textarea id="swal-descripcion" class="swal2-textarea">${receta.descripcion}</textarea>
+                        </div>
+
+                        <div style="grid-column:1 / span 2; display:flex; flex-direction:column; align-items:flex-start;">
+                            <label>Calificación</label>
+                            <select id="swal-calificacion" class="swal2-select" style="width:150px;">
+                                <option value="1" ${receta.calificacion == 1 ? 'selected' : ''}>⭐ 1</option>
+                                <option value="2" ${receta.calificacion == 2 ? 'selected' : ''}>⭐⭐ 2</option>
+                                <option value="3" ${receta.calificacion == 3 ? 'selected' : ''}>⭐⭐⭐ 3</option>
+                                <option value="4" ${receta.calificacion == 4 ? 'selected' : ''}>⭐⭐⭐⭐ 4</option>
+                                <option value="5" ${receta.calificacion == 5 ? 'selected' : ''}>⭐⭐⭐⭐⭐ 5</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Inputs -->
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%;">
-                    
-                    <div style="display:flex; flex-direction:column;">
-                        <label style="margin-bottom:6px; color:#555; font-weight:600;">Nombre</label>
-                        <input id="swal-nombre" class="swal2-input" value="${receta.nombre_receta}" 
-                               style="padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column;">
-                        <label style="margin-bottom:6px; color:#555; font-weight:600;">Tiempo preparación</label>
-                        <input id="swal-tiempo" class="swal2-input" value="${receta.tiempo_preparacion}" 
-                               style="padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column;">
-                        <label style="margin-bottom:6px; color:#555; font-weight:600;">Dificultad</label>
-                        <input id="swal-dificultad" class="swal2-input" value="${receta.dificultad}" 
-                               style="padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px;">
-                    </div>
-
-                    <div style="display:flex; flex-direction:column;">
-                        <label style="margin-bottom:6px; color:#555; font-weight:600;">Categoría</label>
-                        <select id="swal-categoria" class="swal2-select" 
-                                style="padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px;">
-                            <option value="" disabled ${!receta.categoria ? 'selected' : ''}>Seleccionar categoría</option>
-                            <option value="cat_transc" ${receta.categoria === 'cat_transc' ? 'selected' : ''}>Transicionista</option>
-                            <option value="cat_veget" ${receta.categoria === 'cat_veget' ? 'selected' : ''}>Vegetariano</option>
-                            <option value="cat_vegan" ${receta.categoria === 'cat_vegan' ? 'selected' : ''}>Vegano</option>
-                        </select>
-                    </div>
-
-                    <div style="grid-column:1 / span 2; display:flex; flex-direction:column;">
-                        <label style="margin-bottom:6px; color:#555; font-weight:600;">Descripción</label>
-                        <textarea id="swal-descripcion" class="swal2-textarea" 
-                                  style="padding:12px; border-radius:10px; border:1px solid #ccc; font-size:16px; resize:none; height:140px;">${receta.descripcion}</textarea>
-                    </div>
-
-                </div>
-
-            </div>
-        `,
-        preConfirm: () => {
-            return {
+            `,
+            preConfirm: () => ({
                 _id: receta._id,
                 nombre_receta: document.getElementById('swal-nombre').value,
                 descripcion: document.getElementById('swal-descripcion').value,
                 tiempo_preparacion: document.getElementById('swal-tiempo').value,
                 dificultad: document.getElementById('swal-dificultad').value,
-                categoria: document.getElementById('swal-categoria').value
-            };
-        }
-    }).then(result => {
-        if (result.isConfirmed) {
-            guardarEdicion(result.value);
-        }
-    });
-}
-
-
+                categoria: document.getElementById('swal-categoria').value,
+                ingredientes: document.getElementById('swal-ingredientes').value
+                                .split("\n").map(i => i.trim()).filter(i => i !== ""),
+                calificacion: parseInt(document.getElementById('swal-calificacion').value)
+            })
+        }).then(result => {
+            if (result.isConfirmed) guardarEdicion(result.value);
+        });
+    }
 
     // =======================================
     // Guardar edición
@@ -218,7 +241,7 @@ function abrirModalEditar(idReceta) {
                     showConfirmButton: false,
                     timer: 3000
                 });
-                cargarRecetas();
+                cargarRecetas(); // recargar para reflejar cambios
             } else {
                 Swal.fire({
                     icon: 'error',

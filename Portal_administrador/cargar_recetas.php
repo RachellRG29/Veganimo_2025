@@ -4,16 +4,16 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
 try {
-    // Ordenar por fecha de creación descendente
+    // Obtener todas las recetas ordenadas por fecha de creación descendente
     $query = new MongoDB\Driver\Query([], ['sort' => ['fecha_creacion' => -1]]);
     $cursor = $cliente->executeQuery('Veganimo.Recetas', $query);
 
     $recetas = [];
 
     foreach ($cursor as $doc) {
-        // Formatear pasos
+        // Pasos
         $pasos = [];
-        if (isset($doc->pasos) && is_iterable($doc->pasos)) {
+        if (!empty($doc->pasos) && is_iterable($doc->pasos)) {
             foreach ($doc->pasos as $paso) {
                 $pasos[] = [
                     'texto' => $paso->texto ?? '',
@@ -22,18 +22,33 @@ try {
             }
         }
 
-        // Calcular calificación promedio
+        // Ingredientes
+        $ingredientesArray = [];
+        if (!empty($doc->ingredientes) && is_iterable($doc->ingredientes)) {
+            foreach ($doc->ingredientes as $ing) {
+                $ingredientesArray[] = (string)$ing;
+            }
+        }
+        $ingredientesTexto = !empty($ingredientesArray) ? implode(', ', $ingredientesArray) : 'No especificados';
+
+        // Calificación promedio
         $calificacion = 0;
-        if (isset($doc->calificaciones) && is_array($doc->calificaciones) && count($doc->calificaciones) > 0) {
-            $calificacion = array_sum($doc->calificaciones) / count($doc->calificaciones);
+        if (!empty($doc->calificaciones) && is_iterable($doc->calificaciones)) {
+            $suma = 0;
+            $count = 0;
+            foreach ($doc->calificaciones as $c) {
+                $suma += intval($c);
+                $count++;
+            }
+            if ($count > 0) $calificacion = round($suma / $count);
         }
 
-        // Formatear fecha de creación
+        // Fecha de creación
         $fecha_creacion = isset($doc->fecha_creacion) && $doc->fecha_creacion instanceof MongoDB\BSON\UTCDateTime
             ? $doc->fecha_creacion->toDateTime()->format('Y-m-d H:i:s')
             : date('Y-m-d H:i:s');
 
-        // Armar receta completa
+        // Armar objeto de receta
         $recetas[] = [
             '_id' => (string)$doc->_id,
             'nombre_receta' => $doc->nombre_receta ?? 'Sin nombre',
@@ -42,13 +57,12 @@ try {
             'dificultad' => $doc->dificultad ?? 'No especificada',
             'categoria' => $doc->categoria ?? '',
             'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png',
-            'ingredientes' => isset($doc->ingredientes) && is_iterable($doc->ingredientes)
-                ? iterator_to_array($doc->ingredientes)
-                : [],
+            'ingredientes' => $ingredientesTexto,      // Para mostrar en la tabla
+            'ingredientes_array' => $ingredientesArray, // Para edición
             'pasos' => $pasos,
             'calificacion' => $calificacion,
-            'fecha_creacion' => $fecha_creacion,
-            'autor' => $doc->autor ?? 'Anónimo'
+            'fecha_creacion' => $fecha_creacion
+           
         ];
     }
 
