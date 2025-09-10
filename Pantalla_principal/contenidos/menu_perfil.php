@@ -79,15 +79,16 @@ if (isset($_SESSION['user_id'])) {
             <ul class="submenu-config" id="submenu-config">
                 <!-- Modo Tema -->
                 <li>
-                    <span>Modo tema:</span>
-                    <div id="firstFilter" class="filter-switch">
-                        <input checked id="option1" name="theme-options" type="radio" />
-                        <label class="option" for="option1">Claro</label>
-                        <input id="option2" name="theme-options" type="radio" />
-                        <label class="option" for="option2">Oscuro</label>
-                        <span id="bgTheme" class="background"></span>
-                    </div>
+                <span>Modo tema:</span>
+                <div id="firstFilter" class="filter-switch">
+                    <input checked id="theme-light" name="theme-options" type="radio" />
+                    <label class="option" for="theme-light">Claro</label>
+                    <input id="theme-dark" name="theme-options" type="radio" />
+                    <label class="option" for="theme-dark">Oscuro</label>
+                    <span id="bgTheme" class="background"></span>
+                </div>
                 </li>
+
 
                 <!-- Idioma -->
                 <li>

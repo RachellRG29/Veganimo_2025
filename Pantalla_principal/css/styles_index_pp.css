@@ -25,13 +25,11 @@ body , html{
     right: 0 !important;
 }
 
-/* Contenido */
 .contenido {
   flex: 1;
   padding: 25px;
-  background-color: #F6FFFE;
+  background-color: var(--background-light);
   min-height: 100vh;
-  margin-right: 0 !important;
 }
 
 .logo-isotipo {
@@ -40,6 +38,31 @@ body , html{
   color: #E99A3C;
   margin: 25px auto;
 }
+
+/* PARA MODO OSCURO/CLARO*/
+:root {
+  --background-light: #F6FFFE;  /* Fondo claro */
+  --backg-blur-light: #eafcfab8;
+  --backg-tarjetaplan: #154734; /*inicio*/
+  --backg-cat-rect: linear-gradient(135deg, #ffffff, #f7f7f7); /*recetas*/
+  --backg-cat-rect-hover: linear-gradient(135deg, #fafafa, #f0f0f0); /*recetas*/
+  --text-sub-inf: #007848; /*informate*/
+  --text-tit-inf: #2E7D32; /*informate*/
+  --text-light: #1a1a1a;
+}
+
+body.dark-mode {
+  --background-light: #103426;  /* Fondo oscuro */
+  --backg-blur-light: #103d2da3; 
+  --backg-tarjetaplan: #007848; /*inicio*/
+  --backg-cat-rect: linear-gradient(135deg, #103d2d, #114936); /*recetas*/
+  --backg-cat-rect-hover: linear-gradient(135deg, #134131, #154e3b); /*recetas*/
+  --text-sub-inf: #c5f8e4;
+  --text-tit-inf: #b8fbbc;
+  --text-light: #f6fffe;
+}
+
+/************************************************************/
 
 /* SIDEBAR / MENU LATERAL */
 /* Sidebar */

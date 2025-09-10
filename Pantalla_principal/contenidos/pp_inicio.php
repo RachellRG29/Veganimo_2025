@@ -1,8 +1,6 @@
 <?php include_once __DIR__ . '/menu_perfil.php'; ?>
 
 
-
-
 <!-- pp_inicio.php y css: styles_pp_inicio.css -->
 <section class="section_inicio">
     <h1 class="lbl_bienvenida_vg">Bienvenido a Vegánimo 🌱</h1>

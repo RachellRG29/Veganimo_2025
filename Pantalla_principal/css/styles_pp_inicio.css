@@ -3,20 +3,17 @@ body, html {
     height: 100%;
   }
 
-.contenido::after{
-    background-color: #007848;
-}
 
 .lbl_bienvenida_vg{
   font-family: 'Gloock', Verdana;
   font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
-  color: #F6FFFE;
+  color: var(--text-light) !important;
+
 }
 
 .lbl_user_bienvenida{
   margin-top: 10px;
   font-size: 18px;
-  color: #F6FFFE;
 }
 
 /*-------------------------------------------------------------------------------------------------*/
@@ -28,14 +25,16 @@ body, html {
   margin: 50px 0 20px 0; /*top-right-bottom-left*/
 }
 
+
+
 .tarjeta_inic_plan{
-  --background: #154734;
+  
   width: 90%;
   height: 400px;
   padding: 14px;
   border-radius: 01rem;
   overflow: visible;
-  background: var(--background);
+  background: var(--backg-tarjetaplan);
   position: relative;
   z-index: 1;
 } 

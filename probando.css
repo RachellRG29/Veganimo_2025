@@ -1,6 +1,10 @@
 
-
-
+/*function aplicarEstilosFondo(pagina) {
+  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html", "pp_comunidad.php","pp_crear_receta.php"];
+  document.getElementById("contenido-principal").style.backgroundColor = 
+    paginasVerdes.includes(pagina) ? "#F6FFFE" : "#F6FFFE";
+}
+*/
 
 
 /***/

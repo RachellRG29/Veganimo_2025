@@ -1,3 +1,4 @@
+<?php include_once __DIR__ . '/menu_perfil.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
