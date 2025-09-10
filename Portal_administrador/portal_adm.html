@@ -32,25 +32,27 @@
 
       <!-- nabvar + boton para regresar o volver -->
     <div class="barra_volver">
-         <!-- Botón Volver -->
+
+         <!-- Navbar -->
+        <nav class="navbar">
+
+        <!-- Botón Volver -->
         <button class="back-button" onclick="window.location.href = '../Pantalla_principal/index_pantalla_principal.html'">
             <div class="icon"></div>
             Volver
         </button>
 
-         <!-- Navbar -->
-        <nav class="navbar">
-          <h5 style="margin-left: 60px;">Panel de Administrador</h5>
+          <h5>Panel de Administrador</h5>
 
             <!-- Radios para cambiar contenido -->
             <div class="radio-group">
               <label>
                 <input type="radio" name="panel" value="usuarios" checked>
-                Usuarios
+                <span>Usuarios</span> 
               </label>
               <label>
                 <input type="radio" name="panel" value="recetas">
-                Recetas
+                <span>Recetas</span> 
               </label>
             </div>
 
@@ -71,9 +73,6 @@
     </div>
 
 
-
-  
-
   <!-- Contenedor dinámico -->
   <div class="content">
 
@@ -81,92 +80,92 @@
       USUARIOS SOLO BLOQUEAR Y ELIMINAR-->
     <!-- CRUD USUARIOS -->
     <div id="panel-usuarios">
+      <?php if (isAdmin()): ?>
+      <!-- Sección de la tabla de usuarios segun administrador -->
+      <div data-admin-only>
+        <div class="row justify-content-center mt-5">
+          <div class="col-xxl-10 col-12 px-4 pb-5">
+            <div class="card shadow-lg">
+              <!-- Header con buscador -->
+              <div class="card-header d-flex align-items-center" style="background-color: #007848; color: white;">
+                
+                <div class="search-bar d-flex align-items-center" style="background-color: white; padding: 5px 30px;">
+                  <i class="ph-fill ph-magnifying-glass" style="font-size: 18px; margin-right: 8px;"></i>
+                  <input type="text" id="busquedaUsuarios" class="form-control border-0" 
+                        placeholder="Buscar por nombre, email o género..." 
+                        style="box-shadow: none; outline: none;">
+                </div>
+              </div>
 
-          <?php if (isAdmin()): ?>
-    <!-- Sección de la tabla de usuarios segun administrador -->
-    <div data-admin-only>
-      <!-- Sección de la tabla de usuarios -->
-      <div class="row justify-content-center mt-5">
-        <div class="col-xxl-10 col-12 px-4 pb-5">
-          <div class="card shadow-lg">
-            <div class="card-header bg-dark text-white text-center">
-                <h5 class="mb-0">Usuarios Registrados</h5>
+              <!-- Tabla -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover mb-0 text-white">
+                    <thead>
+                      <tr class="text-center">
+                        <th style="background-color:#154734;">Nombre</th>
+                        <th style="background-color:#0E9863;">Email</th>
+                        <th style="background-color:#0E9863;">Fecha Nacimiento</th>
+                        <th style="background-color:#0E9863;">Género</th>
+                        <th style="background-color:#0E9863;">Fecha Registro</th>
+                        <th style="background-color:#0E9863;">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios">
+                      <tr>
+                        <td colspan="7" class="text-center text-white">Cargando usuarios...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-          </div>
-          <div class="card-body">
-            <div class="row mb-3">
-              <div class="col-md-6 position-relative mx-auto">
-                <i class="fas fa-search position-absolute" style="top: 50%; left: 15px; transform: translateY(-50%); color: #888;"></i>
-                <input type="text" id="busquedaUsuarios" class="form-control ps-4" placeholder="Buscar por nombre, email o género...">
-              </div>
-            </div>
-            <div class="table-responsive">
-              <table class="table table-bordered table-striped table-hover">
-                <thead class="table-dark text-center">
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Género</th>
-                    <th>Fecha Registro</th>
-                    <th>Acciones</th>
-                  </tr>
-                </thead>
-                <tbody id="tablaUsuarios">
-                  <tr>
-                    <td colspan="7" class="text-center">Cargando usuarios...</td>
-                  </tr>
-                </tbody>
-              </table>
+
             </div>
           </div>
         </div>
       </div>
-    </div>
-  <?php endif; ?>
-      
-
-
+      <?php endif; ?>
     </div>
 
-<!-- CRUD RECETAS -->
-<div id="panel-recetas" class="hidden">
-    <div class="row justify-content-center mt-5">
-        <div class="col-xxl-10 col-12 px-4 pb-5">
-            <div class="card shadow-lg">
-                <div class="card-header bg-dark text-white text-center">
-                    <h5 class="mb-0">Recetas Registradas</h5>
+
+    <!-- CRUD RECETAS -->
+    <div id="panel-recetas" class="hidden">
+        <div class="row justify-content-center mt-5">
+            <div class="col-xxl-10 col-12 px-4 pb-5">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-dark text-white text-center">
+                        <h5 class="mb-0">Recetas Registradas</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover">
-                       <thead class="table-dark text-center">
-                       <tr>
-                       <th>Imagen</th>
-                       <th>Nombre</th>
-                       <th>Descripción</th>
-                       <th>Tiempo de Preparación</th>
-                       <th>Dificultad</th>
-                       <th>Categoría</th>
-                       <th>Ingredientes</th>
-                       <th>Calificación</th>
-                        <th>Fecha Creación</th>
-                     <th>Acciones</th>
-                     </tr>
-                       </thead>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover">
+                          <thead class="table-dark text-center">
+                          <tr>
+                          <th>Imagen</th>
+                          <th>Nombre</th>
+                          <th>Descripción</th>
+                          <th>Tiempo de Preparación</th>
+                          <th>Dificultad</th>
+                          <th>Categoría</th>
+                          <th>Ingredientes</th>
+                          <th>Calificación</th>
+                            <th>Fecha Creación</th>
+                        <th>Acciones</th>
+                        </tr>
+                          </thead>
 
-                        <tbody id="tablaRecetas">
-                            <tr>
-                                <td colspan="8" class="text-center">Cargando recetas...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            <tbody id="tablaRecetas">
+                                <tr>
+                                    <td colspan="8" class="text-center">Cargando recetas...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
     </div>

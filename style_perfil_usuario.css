@@ -147,7 +147,7 @@
   display: flex;
   align-items: center;
   height: 32px;   /* más bajo */
-  width: 180px;   /* más angosto */
+  width: 200px;   /* más angosto */
   overflow: hidden;
 }
 
