@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: '20px 40px',
             background: '#f8f9fa',
             showCancelButton: true,
-            confirmButtonText: 'Guardar cambios',
+            confirmButtonText: 'Actualizar',
             cancelButtonText: 'Cancelar',
             showCloseButton: true,
             allowOutsideClick: false,
