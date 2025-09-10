@@ -169,6 +169,11 @@ body {
   color: #E99A3C; /* placeholder naranja */
 }
 
+.card-body {
+  background-color: transparent !important; /* o #0E9863 si prefieres verde */
+  padding: 0; /* opcional: elimina espacio extra */
+}
+
 /* Tabla */
 .table {
   border-collapse: separate; /* Para separar filas y aplicar solo línea horizontal */

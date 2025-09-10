@@ -42,7 +42,7 @@
             Volver
         </button>
 
-          <h5>Panel de Administrador</h5>
+          <h5>Portal de Administrador</h5>
 
             <!-- Radios para cambiar contenido -->
             <div class="radio-group">
@@ -130,47 +130,53 @@
 
     <!-- CRUD RECETAS -->
     <div id="panel-recetas" class="hidden">
-        <div class="row justify-content-center mt-5">
-            <div class="col-xxl-10 col-12 px-4 pb-5">
-                <div class="card shadow-lg">
-                    <div class="card-header bg-dark text-white text-center">
-                        <h5 class="mb-0">Recetas Registradas</h5>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-hover">
-                          <thead class="table-dark text-center">
-                          <tr>
-                          <th>Imagen</th>
-                          <th>Nombre</th>
-                          <th>Descripción</th>
-                          <th>Tiempo de Preparación</th>
-                          <th>Dificultad</th>
-                          <th>Categoría</th>
-                          <th>Ingredientes</th>
-                          <th>Calificación</th>
-                            <th>Fecha Creación</th>
-                        <th>Acciones</th>
-                        </tr>
+      <div class="row justify-content-center mt-5">
+          <div class="col-xxl-10 col-12 px-4 pb-5">
+              <div class="card shadow-lg">
+                <!-- Header con buscador -->
+                  <div class="card-header d-flex align-items-center" style="background-color: #007848; color: white;">
+                      <div class="search-bar d-flex align-items-center" style=" padding: 5px 40px;">
+                          <i class="ph-fill ph-magnifying-glass" style="font-size: 18px; margin-right: 8px;"></i>
+                          <input type="text" id="busquedaRecetas" class="form-control border-0"
+                                placeholder="Buscar por nombre, descripción..."
+                                style="box-shadow: none; outline: none;">
+                      </div>
+                  </div>
+              <div class="card-body">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-hover mb-0 text-white">
+                          <thead>
+                              <tr class="text-center">
+                                  <th style="background-color:#154734;">Imagen</th>
+                                  <th style="background-color:#0E9863;">Nombre</th>
+                                  <th style="background-color:#0E9863;">Descripción</th>
+                                  <th style="background-color:#0E9863;">Tiempo de Preparación</th>
+                                  <th style="background-color:#0E9863;">Dificultad</th>
+                                  <th style="background-color:#0E9863;">Categoría</th>
+                                  <th style="background-color:#0E9863;">Ingredientes</th>
+                                  <th style="background-color:#0E9863;">Calificación</th>
+                                  <th style="background-color:#0E9863;">Fecha Creación</th>
+                                  <th style="background-color:#0E9863;">Acciones</th>
+                              </tr>
                           </thead>
-
-                            <tbody id="tablaRecetas">
-                                <tr>
-                                    <td colspan="8" class="text-center">Cargando recetas...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+                          <tbody id="tablaRecetas">
+                              <tr>
+                                  <td colspan="10" class="text-center text-white">Cargando recetas...</td>
+                                
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
 
     </div>
 
   </div>
+
+
 
   <script>
     // Cambio de panel dinámico
