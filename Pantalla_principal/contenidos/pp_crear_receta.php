@@ -103,7 +103,9 @@
       </div>
     </div>
 
-    <form action="guardar_recetas.php" id="form-receta" class="form-receta" method="POST" enctype="multipart/form-data">
+    <div class="tarj_crear_receta">
+      <!-- NFORMULARIO CREAR RECETA -->
+      <form action="guardar_recetas.php" id="form-receta" class="form-receta" method="POST" enctype="multipart/form-data">
 
         <!-- Sección 1: Crear receta -->
         <div class="section active" id="section1">
@@ -308,8 +310,10 @@
 
         </div>
 
+      </form>
 
-    </form>
+    </div>
+
 
     
 

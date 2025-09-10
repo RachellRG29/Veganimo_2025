@@ -91,7 +91,6 @@ async function cargarContenido(pagina) {
     console.log("✅ Contenido recibido");
     
     document.getElementById("contenido-principal").innerHTML = data;
-    /*aplicarEstilosFondo(pagina);*/
     
     // Actualización inmediata
     await actualizarPerfilUsuario();

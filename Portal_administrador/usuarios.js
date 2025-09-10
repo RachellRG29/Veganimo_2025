@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <td class="text-center">
                     <button class="btn btn-sm ${usuario.banned ? 'btn-success' : 'btn-warning'} btn-baneo" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
                         <i class="fas ${usuario.banned ? 'fa-unlock' : 'fa-ban'}"></i> 
-                        ${usuario.banned ? 'Desbanear' : 'Banear'}
+                        ${usuario.banned ? 'Desbloquear' : 'Bloquear'}
                     </button>
                     <button class="btn btn-sm btn-danger btn-eliminar" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
                         <i class="fas fa-trash-alt"></i>
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             Swal.fire({
                 icon: 'warning',
                 title: 'No permitido',
-                text: 'No puedes banear a un administrador',
+                text: 'No puedes bloquear a un administrador',
                 toast: true,
                 position: 'bottom-end',
                 showConfirmButton: false,
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (data.success) {
                 Swal.fire({
                     icon: 'success',
-                    title: nuevoEstado ? 'Usuario baneado' : 'Usuario desbaneado',
+                    title: nuevoEstado ? 'Usuario bloqueado' : 'Usuario desbloqueado',
                     toast: true,
                     position: 'bottom-end',
                     showConfirmButton: false,

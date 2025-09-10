@@ -42,10 +42,21 @@ body , html{
 /* PARA MODO OSCURO/CLARO*/
 :root {
   --background-light: #F6FFFE;  /* Fondo claro */
-  --backg-blur-light: #eafcfab8;
+  --backg-blur-light: #f6fffef9;
   --backg-tarjetaplan: #154734; /*inicio*/
   --backg-cat-rect: linear-gradient(135deg, #ffffff, #f7f7f7); /*recetas*/
   --backg-cat-rect-hover: linear-gradient(135deg, #fafafa, #f0f0f0); /*recetas*/
+  --backg-gradient-crearec:  /*crear receta*/
+    radial-gradient(
+        at 88% 40%,
+        #103426 0px,
+        transparent 85%
+      ),
+      radial-gradient(at 49% 30%, #103d2d 0px, transparent 85%),
+      radial-gradient(at 14% 26%, #103426 0px, transparent 85%),
+      radial-gradient(at 0% 64%, #E99A3C 0px, transparent 85%),
+      radial-gradient(at 41% 94%, #007848 0px, transparent 85%),
+      radial-gradient(at 100% 99%, #2E7D32 0px, transparent 85%);
   --text-sub-inf: #007848; /*informate*/
   --text-tit-inf: #2E7D32; /*informate*/
   --text-light: #1a1a1a;
@@ -53,12 +64,23 @@ body , html{
 
 body.dark-mode {
   --background-light: #103426;  /* Fondo oscuro */
-  --backg-blur-light: #103d2da3; 
+  --backg-blur-light: #103d2df9; 
   --backg-tarjetaplan: #007848; /*inicio*/
   --backg-cat-rect: linear-gradient(135deg, #103d2d, #114936); /*recetas*/
   --backg-cat-rect-hover: linear-gradient(135deg, #134131, #154e3b); /*recetas*/
-  --text-sub-inf: #c5f8e4;
-  --text-tit-inf: #b8fbbc;
+  --backg-gradient-crearec: /*crear receta*/
+    radial-gradient(
+        at 88% 40%,
+        #103426 0px,
+        transparent 85%
+      ),
+      radial-gradient(at 49% 30%, #DCFFE5 0px, transparent 85%),
+      radial-gradient(at 14% 26%, #CAFFCD 0px, transparent 85%),
+      radial-gradient(at 0% 64%, #E99A3C 0px, transparent 85%),
+      radial-gradient(at 41% 94%, #007848 0px, transparent 85%),
+      radial-gradient(at 100% 99%, #2E7D32 0px, transparent 85%);
+  --text-sub-inf: #DCFFE5;
+  --text-tit-inf: #CAFFCD;
   --text-light: #f6fffe;
 }
 
