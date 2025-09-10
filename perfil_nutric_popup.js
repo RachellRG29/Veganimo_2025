@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const tarjetaPerfil = document.querySelector(".tarjeta-perfil");
     const popup = document.getElementById("menu_popup");
 
+    // Ajustar ancho del popup al mismo que la tarjeta
+    popup.style.minWidth = tarjetaPerfil.offsetWidth + "px";
+
+
     if (!tarjetaPerfil || !popup) return;
 
     // Función para mostrar/ocultar el popup

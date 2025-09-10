@@ -68,17 +68,7 @@
           </div>
         </div>
 
-        <!-- Menu perfil popup 
-        <div class="menu_perfil" id="menu_popup" style="display: none;">
-          <ul>
-            <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional </a></li>
-            <li>
-              <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
-                <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
-              </a>
-            </li>
-          </ul>
-        </div>-->
+
 
       </div>
     </div>

@@ -11,27 +11,27 @@ class ComposerStaticInitc970f1a266f43a2118de462ce989b839
     );
 
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
-        'M' => 
+        'M' =>
         array (
             'MongoDB\\' => 8,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'PHPMailer\\PHPMailer\\' => 
+        'PHPMailer\\PHPMailer\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'MongoDB\\' => 
+        'MongoDB\\' =>
         array (
             0 => __DIR__ . '/..' . '/mongodb/mongodb/src',
         ),

@@ -70,28 +70,40 @@ if (isset($_SESSION['user_id'])) {
         <?php endif; ?>
 
         <!-- Sección Configuración -->
+ 
         <li class="configuracion">
-            <button class="config-btn" onclick="toggleConfig()">⚙️ Configuración</button>
+            <button class="config-btn" onclick="toggleConfig()">
+                Configuración <i class="ph ph-caret-down"></i>
+            </button>
+
             <ul class="submenu-config" id="submenu-config">
+                <!-- Modo Tema -->
                 <li>
                     <span>Modo tema:</span>
-                    <label class="switch">
-                        <input type="checkbox" id="switch-tema">
-                        <span class="slider round"></span>
-                    </label>
-                    <span class="switch-label">Claro / Oscuro</span>
+                    <div id="firstFilter" class="filter-switch">
+                        <input checked id="option1" name="theme-options" type="radio" />
+                        <label class="option" for="option1">Claro</label>
+                        <input id="option2" name="theme-options" type="radio" />
+                        <label class="option" for="option2">Oscuro</label>
+                        <span id="bgTheme" class="background"></span>
+                    </div>
                 </li>
+
+                <!-- Idioma -->
                 <li>
                     <span>Idioma:</span>
-                    <label class="switch">
-                        <input type="checkbox" id="switch-idioma">
-                        <span class="slider round"></span>
-                    </label>
-                    <span class="switch-label">Español / Inglés</span>
+                    <div id="secondFilter" class="filter-switch">
+                        <input checked id="lang1" name="lang-options" type="radio" />
+                        <label class="option" for="lang1">Español</label>
+                        <input id="lang2" name="lang-options" type="radio" />
+                        <label class="option" for="lang2">Inglés</label>
+                        <span id="bgLang" class="background"></span>
+                    </div>
                 </li>
             </ul>
         </li>
 
+        <!-- Cerrar sesión -->
         <li>
             <a href="#" class="pop-cerrar-sesion">
                 Cerrar sesión 

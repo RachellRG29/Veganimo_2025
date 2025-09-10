@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-   /* border: 1px solid yellow;  */
+   /*border: 1px solid yellow;  */
 }
 
 body {
@@ -181,6 +181,7 @@ body {
     color: #1A1C1C;
     align-self: flex-start;
     text-align: left;
+    word-spacing: 2px;
 }
 
 .create-button {
@@ -206,10 +207,27 @@ body {
     bottom: 20px;
 }
 
+.illus_sperf{
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
 /*imagen avatar predeterminado*/
 .illustration-image {
     width: 240px;
     height: 240px;
+    aspect-ratio: 1;
+	clip-path: shape(from 85.35% 14.65%,arc by -70.74% 0% of 50.03% 50.01% small ccw,arc by -7.65% 60.77% of 50.03% 50.01% small ccw,line by -5.88% 23.48%,line by 23.45% -5.86%,arc by 60.82% -7.66% of 50.03% 50.01% small ccw,arc by 0% -70.73% of 50.03% 50.01% small ccw,close);
+}
+
+/*menu img*/
+.illustration-menu{
+    position: relative;
+    width: 120px;
+    height: auto;
+    rotate: -10deg;
+    margin-left: 200px;
 }
 
 .arrow-icon {
@@ -724,8 +742,85 @@ body.modal-open {
 
 /* =========================== RESPONSIVE DESIGN =========================== */
 
+@media (min-width: 1440px) and (max-width: 2000px) {
+    .main-container {
+        grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
+        gap: 12px;
+        max-width: 1400px;
+    }
+
+    .personal-data {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .info-box {
+        width: 460px !important;
+        height: 300px !important;
+        min-height: 300px;
+        min-width: 100px;
+        height: auto;
+        justify-content: center;
+    }
+
+     .user-level {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .coming-soon {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    /*AVATAR MODAL*/
+      .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+        gap: 20px;
+        justify-items: center;
+    }
+
+    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
+    .profile-content {
+        height: auto;
+        min-height: 500px;
+        padding: 15px;
+    }
+    
+    .create-button {
+        align-self: flex-end;
+        margin: 10px 0;
+    }
+    
+    .profile-illustration {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /*imagen avatar predeterminado*/
+    .illustration-image {
+        width: 190px;
+        height: 190px;
+        position: absolute;
+        left: 0;
+        top: -40px;   
+    }
+
+    .illustration-menu{
+        position: relative;
+        width: 100px;
+        height: auto;
+        rotate: -10deg;
+        margin-left: 190px;
+    }
+
+}
 /* ===== 1025px a 1440px (Laptops grandes / PC) ===== */
-@media (min-width: 1231px) and (max-width: 1440px) {
+@media (min-width: 1230px) and (max-width: 1440px) {
     .main-container {
         grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
         gap: 12px;
@@ -755,6 +850,42 @@ body.modal-open {
         justify-items: center;
     }
 
+    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
+    .profile-content {
+        height: auto;
+        min-height: 500px;
+        padding: 15px;
+    }
+    
+    .create-button {
+        align-self: flex-end;
+        margin: 10px 0;
+    }
+    
+    .profile-illustration {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /*imagen avatar predeterminado*/
+    .illustration-image {
+        width: 190px;
+        height: 190px;
+        position: absolute;
+        left: 0;
+        top: -40px;   
+    }
+
+    .illustration-menu{
+        position: relative;
+        width: 100px;
+        height: auto;
+        rotate: -10deg;
+        margin-left: 190px;
+    }
 
 }
 
@@ -775,11 +906,12 @@ body.modal-open {
     }
 
     .info-box {
-        width: 330px;
-        min-width: 100px;
-        height: auto;
+        width: 350px;
+        min-width: 340px !important;
+        max-width: 390px !important;
+        min-height: 250px; 
+       
         justify-content: center;
-
     }
 
       .avatar-grid {
@@ -787,6 +919,49 @@ body.modal-open {
         grid-template-columns: repeat(4, 1fr); /* 4 columnas */
         gap: 18px;
         justify-items: center;
+    }
+
+
+    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
+    /* SIN PERFIL NUTRICIONAL */
+    .profile-content {
+        height: auto;
+        min-height: 500px;
+        padding: 15px;
+    }
+
+    .profile-description{
+        font-size: 14px;
+    }
+
+    .create-button {
+        align-self: flex-end;
+        margin: 10px 0;
+        font-size: 13px;
+    }
+    
+    .profile-illustration {
+        position: relative;
+        left: 0;
+        bottom: 40px !important;
+        text-align: center;
+
+    }
+
+    /*imagen avatar predeterminado*/
+    .illustration-image {
+        width: 180px;
+        height: auto;
+        position: absolute;
+        left: 0;
+        top: -50px !important;   
+    }
+
+    .illustration-menu{
+        position: relative;
+        width: 90px;
+        height: auto;
+        margin-left: 150px;
     }
 
 
@@ -816,16 +991,6 @@ body.modal-open {
         display: flex;
         flex-direction: column;
 
-    }
-    .illustration-image {
-        width: 120px;
-        height: 120px;
-        margin-top: 10px;
-    }
-
-    .profile-grid {
-        display: flex;
-        flex-direction: column;
     }
 
     .nutritional-profile {
@@ -862,29 +1027,48 @@ body.modal-open {
         font-size: 13px;
     }
 
-    .profile-subtitle {
-        font-size: 16px;
-        text-align: center;
-        align-self: center;
-    }
-    
-    .profile-description {
-        font-size: 13px;
-        text-align: center;
-        align-self: center;
-    }
-
-    .illustration-image {
-        width: 120px;
-        height: 120px;
-        margin-top: 10px;
-    }
 
     .avatar-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* 3 columnas */
         gap: 18px;
         justify-items: center;
+    }
+
+    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
+    /* SIN PERFIL NUTRICIONAL */
+
+    .profile-description{
+        font-size: 15px;
+    }
+
+    .create-button {
+        align-self: flex-end;
+        font-size: 16px;
+    }
+    
+    .profile-illustration {
+        position: relative;
+        left: 0;
+        bottom: 40px !important;
+        text-align: center;
+
+    }
+
+    /*imagen avatar predeterminado*/
+    .illustration-image {
+        width: 160px;
+        height: auto;
+        position: absolute;
+        left: 0;
+        top: -20px !important;   
+    }
+
+    .illustration-menu{
+        position: relative;
+        width: 90px;
+        height: auto;
+        margin-left: 150px;
     }
 
 
@@ -910,10 +1094,15 @@ body.modal-open {
         grid-row: auto !important;
         margin-bottom: 15px;
     }
-    
-    .nutritional-profile {
-        grid-row: auto !important;
-        min-height: 500px;
+
+    .profile-subtitle{
+        font-size: 22px;
+    }
+
+    .profile-description{
+        font-size: 16px;
+        margin-top: 6px;
+        text-align: start !important;
     }
 
     .avatar-container {
@@ -939,13 +1128,6 @@ body.modal-open {
     }
 
 
-    .create-button {
-        font-size: 11px;
-        padding: 6px 15px;
-        align-self: center;
-        margin: 10px 0;
-    }
-
     .section.personal-data{
         position: relative;
         display: flex;
@@ -953,28 +1135,10 @@ body.modal-open {
 
     }
 
-        /* Ajustes para perfil sin datos en tablet */
-    .profile-content {
+    .nutritional-profile .section{
+        display: flex;
+        flex-direction: column;
         height: auto;
-        min-height: 500px;
-
-    }
-    
-    .create-button {
-        align-self: center;
-        margin: 15px 0;
-    }
-    
-    .profile-illustration {
-        position: relative;
-        left: 0;
-        bottom: 0;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .nutritional-profile{
-        height: max-content;
     }
 
     .avatar-grid {
@@ -984,11 +1148,55 @@ body.modal-open {
         justify-items: center;
     }
 
+    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
+    /* SIN PERFIL NUTRICIONAL */
+    
+    .profile-description{
+        font-size: 15px;
+    }
+
+    .create-button {
+        align-self: center;
+        font-size: 16px !important;
+        padding: 14px 20px;
+    }
+
+    .profile-content{
+        margin-top: 10px !important;
+        bottom: 10px;
+    }
+    
+    .profile-illustration{
+        position: absolute;
+        bottom: -40px !important;
+    }
+    
+
+    .illus_sperf{
+        position: absolute;
+       
+    }
+
+    /*imagen avatar predeterminado*/
+    .illustration-image {
+        width: 200px !important;
+        height: auto;
+        bottom: 0 !important;
+    }
+
+    .illustration-menu{
+        position: absolute;
+        width: 120px;
+        height: auto;
+        margin-left: 200px;
+        bottom: 0 !important;
+    }
+
 
 
 }
 
-@media (min-width: 250px) and (max-width: 798px) {
+@media (min-width: 500px) and (max-width: 798px) {
     .navbar {
         width: 100%;
         height: 60px;
@@ -999,12 +1207,23 @@ body.modal-open {
     .main-container {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto auto auto;
+        padding: 60px 15px 15px;
     }
 
     .section {
         grid-column: 1 !important;
         grid-row: auto !important;
         margin-bottom: 15px;
+    }
+
+    .profile-subtitle{
+        font-size: 22px;
+    }
+
+    .profile-description{
+        font-size: 16px;
+        margin-top: 6px;
+        text-align: start !important;
     }
 
     .profile-grid {
@@ -1025,10 +1244,6 @@ body.modal-open {
         margin: 0 auto 20px;
     }
     
-    .profile-grid {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
     
     .grid-item {
         padding: 10px;
@@ -1044,11 +1259,149 @@ body.modal-open {
     }
 
 
+    .section.personal-data{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .nutritional-profile{
+        height: max-content;
+    }
+
+
+     /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
+      .profile-content{
+        margin-top: 10px !important;
+        bottom: 10px;
+    }
+
+    .profile-description {
+        font-size: 15px;
+        text-align: center;
+    }
+
     .create-button {
+        align-self: flex-end;
+        font-size: 16px !important;
+        padding: 14px 20px;
+        margin-bottom: 20px; 
+    }
+
+    /* Contenedor de imágenes en columna debajo del botón */
+    .illus_sperf {
+        bottom: 0 !important;
+    }
+
+    .profile-illustration{
+        margin-bottom: 60px;
+    }
+
+    .illustration-image {
+        width: 200px;
+        height: auto;
+    }
+
+    .illustration-menu {
+        width: 100px;
+        height: auto;
+        bottom: 0 !important;
+        left: -90px;
+    }
+
+    
+
+
+/*AVATAR*/
+    .avatar-container {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0 auto 20px;
+    }
+
+
+    /*AVATAR MODAL*/
+    .avatar-grid {
+    grid-template-columns: 1fr; /* 1 columna */
+  }
+  .avatar-item img {
+    width: 100px;
+    height: 100px;
+  }
+  .avatar-section-title {
+    display: none; /* opcional ocultar títulos */
+  }
+    
+
+}
+
+/*telefonos */
+@media (min-width: 250px) and (max-width: 500px) {
+    .navbar {
+        width: 100%;
+        height: 60px;
+        padding: 0 15px;
+        justify-content: space-between;
+    }
+
+    .main-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+        padding: 60px 8px 8px; 
+        width: 90%;
+    }
+
+    .section {
+        grid-column: 1 !important;
+        grid-row: auto !important;
+        margin-bottom: 15px;
+    }
+
+    .profile-subtitle{
+        font-size: 20px;
+    }
+
+    .profile-description{
+        font-size: 14px;
+        margin-top: 6px;
+        text-align: start !important;
+    }
+
+    .profile-grid {
+        display: flex;
+        flex-direction: column;
+        margin-top: -5px;
+    }
+
+    .nutritional-profile {
+        grid-row: auto !important;
+        min-height: 600px;
+        font-size: 12px !important;
+    }
+    
+    .grid-item {
+        padding: 10px;
+        height: 120px !important;
+        width: 300px !important;
+    }
+
+    .item-title {
+        font-size: 13px;
+    }
+
+    .item-content{
         font-size: 11px;
-        padding: 6px 15px;
-        align-self: center;
-        margin: 10px 0;
+    }
+
+    .info-box {
+        position: relative;
+        width: 98%;
+        height: auto;
+        right: 0;
+        top: 0;
+        margin-top: 18px;
     }
 
     .section.personal-data{
@@ -1058,31 +1411,61 @@ body.modal-open {
 
     }
 
-        /* Ajustes para perfil sin datos en tablet */
-    .profile-content {
-        height: auto;
-        min-height: 500px;
-
-    }
-    
-    .create-button {
-        align-self: center;
-        margin: 15px 0;
-    }
-    
-    .profile-illustration {
-        position: relative;
-        left: 0;
-        bottom: 0;
-        text-align: center;
-        margin-top: 20px;
-    }
-
     .nutritional-profile{
         height: max-content;
     }
 
+    .avatar-container {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0 auto 20px;
+    }
 
+
+     /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
+      .profile-content{
+        margin-top: 10px !important;
+        bottom: 10px;
+    }
+
+    .profile-description {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .create-button {
+        align-self: flex-end;
+        font-size: 14px !important;
+        padding: 14px 20px;
+        margin-bottom: 20px; 
+    }
+
+    /* Contenedor de imágenes en columna debajo del botón */
+    .illus_sperf {
+        bottom: 0 !important;
+    }
+
+    .profile-illustration{
+        margin-bottom: -5px !important;
+    }
+
+    .illustration-image {
+        width: 160px;
+        height: auto;
+    }
+
+    .illustration-menu {
+        width: 90px;
+        height: auto;
+        bottom: 0 !important;
+        left: -90px;
+    }
+
+    
+
+
+/*AVATAR*/
     .avatar-container {
         position: relative;
         left: 0;

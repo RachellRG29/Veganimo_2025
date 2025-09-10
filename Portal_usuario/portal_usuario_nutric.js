@@ -62,10 +62,13 @@ function renderPerfilNutricional() {
           ¡Empieza ahora y descubre una forma más fácil y saludable de mantener tu alimentación vegana!
         </p>
         <a href="../Perfil_nutricional/crear_perfil_nutric.html" class="create-button">
-          Crear perfil nutricional
-          <span class="arrow-icon"></span>
+          Crear perfil nutricional 
+          <i class="ph ph-arrow-circle-right"></i>
         </a>
-        <div class="profile-illustration"></div>
+        <div class="illus_sperf">
+          <div class="profile-illustration"><img src="/Images/Avatares/predeterminado.png" alt="" class="illustration-image"></div>
+          <div class="profile-illustration"><img src="/Images/menu_veg.png" alt="" class="illustration-menu"></div>
+        </div>
       </div>
     `;
     return;
