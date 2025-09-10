@@ -176,7 +176,52 @@
 
   </div>
 
+<style>
+  /* Contenedor general */
+.content {
+  width: 100%;
+  max-width: 1800px; /* aumentamos ancho máximo */
+  margin: 0 auto; /* centrado */
+  padding: 0 15px; /* un poco de padding lateral */
+}
 
+/* Tablas dentro del card-body */
+.table-responsive {
+  overflow-x: auto; /* mantiene scroll si se hace muy grande */
+}
+
+.table {
+  width: 100%; /* ocupa todo el ancho del contenedor */
+  min-width: 1200px; /* ancho mínimo para que las columnas */
+}
+
+/* Scroll horizontal de las tablas */
+.table-responsive::-webkit-scrollbar {
+  height: 8px; /* altura del scroll horizontal */
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f0f0f0; /* color del track */
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: #FF7F00; /* color naranja del scroll */
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background-color: #e66a00; /* naranja más oscuro al pasar el mouse */
+}
+
+/* Firefox */
+.table-responsive {
+  scrollbar-width: thin;
+  scrollbar-color: #FF7F00 #f0f0f0;
+}
+
+
+</style>
 
   <script>
     // Cambio de panel dinámico

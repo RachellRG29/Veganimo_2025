@@ -174,12 +174,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 </td>
                 <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-primary btn-editar" data-id="${receta._id}">
-                        <i class="fas fa-edit"></i>
+                    <div class="btn-group">
+                    <!-- Botón Editar -->
+                    <button class="btn btn-baneo btn-primary btn-editar" data-id="${receta._id}">
+                        <i class="ph ph-pencil-line editar-icon"></i>
+                        <span class="baneo-text">Editar</span>
                     </button>
-                    <button class="btn btn-sm btn-danger btn-eliminar" data-id="${receta._id}">
-                        <i class="fas fa-trash-alt"></i>
+
+                    <!-- Botón Eliminar -->
+                    <button class="btn btn-danger btn-eliminar" data-id="${receta._id}">
+                        <i class="ph ph-trash eliminar-icon"></i>
+                        <span class="eliminar-text">Eliminar</span>
                     </button>
+                    </div>
+
                 </td>
             </tr>
         `).join('');
@@ -192,6 +200,67 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.addEventListener('click', () => confirmarEliminacion(btn.dataset.id));
         });
     }
+
+        /* css botones de bloquear y eliminar*/
+        document.addEventListener("DOMContentLoaded", () => {
+        const style = document.createElement("style");
+        style.textContent = `
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Botones comunes (reutilizando estilo usuarios) */
+        .btn-editar, .btn-eliminar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 34px;       /* altura igual a btn-sm */
+            min-width: 34px;    /* ancho inicial cuadrado */
+            padding: 0 8px;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        /* Expandir al hover (solo ancho) */
+        .btn-editar:hover, .btn-eliminar:hover {
+            width: 20px;
+            justify-content: flex-start;
+            padding-left: 8px;
+        }
+
+        /* Iconos siempre visibles */
+        .baneo-icon, .eliminar-icon, .editar-icon {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Rotar icono editar al hover */
+        .btn-baneo.btn-editar:hover .editar-icon {
+            transform: rotate(360deg);
+        }
+
+        /* Texto siempre visible */
+        .baneo-text, .eliminar-text {
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+
+        /* Evitar que los botones se desborden en tablas */
+        .btn-group .btn {
+            flex-shrink: 0;
+        }
+        `;
+        document.head.appendChild(style);
+        });
+
+
 
     // =======================================
     // Confirmar eliminación

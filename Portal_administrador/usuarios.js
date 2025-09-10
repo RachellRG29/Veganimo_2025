@@ -45,13 +45,19 @@ document.addEventListener('DOMContentLoaded', async function() {
                 <td>${usuario.gender}</td>
                 <td>${new Date(usuario.created_at).toLocaleString()}</td>
                 <td class="text-center">
-                    <button class="btn btn-sm ${usuario.banned ? 'btn-success' : 'btn-warning'} btn-baneo" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
-                        <i class="fas ${usuario.banned ? 'fa-unlock' : 'fa-ban'}"></i> 
-                        ${usuario.banned ? 'Desbloquear' : 'Bloquear'}
+                    <div class="btn-group">
+                    <!-- Botón Baneo -->
+                    <button class="btn btn-baneo ${usuario.banned ? 'btn-success' : 'btn-warning'} ${usuario.role === 'admin' ? 'disabled' : ''}" data-id="${usuario._id}">
+                        <i class="ph ${usuario.banned ? 'ph-lock-open' : 'ph-prohibit'} baneo-icon"></i>
+                        <span class="baneo-text">${usuario.banned ? 'Desbloquear' : 'Bloquear'}</span>
                     </button>
-                    <button class="btn btn-sm btn-danger btn-eliminar" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
+
+                    <!-- Botón Eliminar -->
+                    <button class="btn btn-danger btn-eliminar" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
                         <i class="fas fa-trash-alt"></i>
+                        <span class="eliminar-text">Eliminar</span>
                     </button>
+                    </div>
                 </td>
             </tr>
         `).join('');
@@ -191,3 +197,63 @@ document.addEventListener('DOMContentLoaded', async function() {
         setTimeout(cargarUsuarios, 3500);
     });
 });
+
+
+/* diseño css */
+document.addEventListener("DOMContentLoaded", () => {
+  const style = document.createElement("style");
+  style.textContent = `
+  .btn-group {
+    display: flex;
+    gap: 6px; /* espacio entre botones */
+    align-items: center;
+  }
+
+  /* Botones comunes */
+  .btn-baneo, .btn-eliminar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 34px; /* mismo alto para ambos */
+    min-width: 34px; /* mismo ancho inicial */
+    padding: 0 8px;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* Botón baneo: animación al hover */
+  .btn-baneo:hover {
+    width: 120px; /* ancho expandido */
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+
+  /* Iconos */
+  .baneo-icon, .btn-eliminar i {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Animación icono baneo al hover */
+  .btn-baneo:hover .baneo-icon {
+    transform: rotate(360deg);
+  }
+
+  /* Texto siempre visible */
+  .baneo-text, .eliminar-text {
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 6px;
+  }
+
+  /* Evitar que los botones se desborden en tablas */
+  .btn-group .btn {
+    flex-shrink: 0;
+  }
+  `;
+  document.head.appendChild(style);
+});
+
