@@ -40,13 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .swal2-confirm:hover { transform: translateY(-2px) !important; box-shadow: 0 4px 8px rgba(0,120,72,0.3) !important; }
         .swal2-toast .swal2-close { display: none !important; }
 
-        .btn-group { display: flex; gap: 6px; align-items: center; }
-        .btn-editar, .btn-eliminar { display: flex; align-items: center; justify-content: center; gap: 6px; height: 34px; min-width: 34px; padding: 0 8px; border-radius: 0.25rem; transition: all 0.3s ease; flex-shrink: 0; }
-        .btn-editar:hover, .btn-eliminar:hover { width: 20px; justify-content: flex-start; padding-left: 8px; }
-        .baneo-icon, .eliminar-icon, .editar-icon { font-size: 16px; transition: transform 0.3s ease; }
-        .btn-baneo.btn-editar:hover .editar-icon { transform: rotate(360deg); }
-        .baneo-text, .eliminar-text { white-space: nowrap; font-size: 14px; font-weight: bold; margin-left: 6px; }
-        .btn-group .btn { flex-shrink: 0; }
     `;
     document.head.appendChild(style);
 
@@ -109,7 +102,7 @@ inputBusqueda.addEventListener('input', () => {
                 <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>
                 <td class="text-center">
                     <div class="btn-group">
-                        <button class="btn btn-baneo btn-primary btn-editar" data-id="${receta._id}">
+                        <button class="btn btn-edit btn-primary btn-editar" data-id="${receta._id}">
                             <i class="ph ph-pencil-line editar-icon"></i><span class="baneo-text">Editar</span>
                         </button>
                         <button class="btn btn-danger btn-eliminar" data-id="${receta._id}">
@@ -124,65 +117,7 @@ inputBusqueda.addEventListener('input', () => {
         document.querySelectorAll('.btn-eliminar').forEach(btn => btn.addEventListener('click', ()=> confirmarEliminacion(btn.dataset.id)));
     }
 
-
-    /* css botones de bloquear y eliminar*/
-        document.addEventListener("DOMContentLoaded", () => {
-        const style = document.createElement("style");
-        style.textContent = `
-        .btn-group {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        /* Botones comunes (reutilizando estilo usuarios) */
-        .btn-editar, .btn-eliminar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            height: 34px;       /* altura igual a btn-sm */
-            min-width: 34px;    /* ancho inicial cuadrado */
-            padding: 0 8px;
-            border-radius: 0.25rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        /* Expandir al hover (solo ancho) */
-        .btn-editar:hover, .btn-eliminar:hover {
-            width: 20px;
-            justify-content: flex-start;
-            padding-left: 8px;
-        }
-
-        /* Iconos siempre visibles */
-        .eliminar-icon, .eliminar-icon, .editar-icon {
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Rotar icono editar al hover */
-        .btn-eliminar.btn-editar:hover .editar-icon {
-            transform: rotate(360deg);
-        }
-
-        /* Texto siempre visible */
-        .eliminar-text, .eliminar-text {
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: bold;
-            margin-left: 6px;
-        }
-
-        /* Evitar que los botones se desborden en tablas */
-        .btn-group .btn {
-            flex-shrink: 0;
-        }
-        `;
-        document.head.appendChild(style);
-        });
+    
     // =======================================
     // Confirmar eliminación
     // =======================================
@@ -333,3 +268,5 @@ inputBusqueda.addEventListener('input', () => {
         });
     }
 });
+
+

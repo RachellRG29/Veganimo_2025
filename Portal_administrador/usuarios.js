@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
                     <!-- Botón Eliminar -->
                     <button class="btn btn-danger btn-eliminar" data-id="${usuario._id}" ${usuario.role === 'admin' ? 'disabled' : ''}>
-                        <i class="fas fa-trash-alt"></i>
+                        <i class="ph-fill ph-trash eliminar-icon"></i>
                         <span class="eliminar-text">Eliminar</span>
                     </button>
                     </div>
@@ -71,65 +71,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    
-        /* css botones de bloquear y eliminar*/
-        document.addEventListener("DOMContentLoaded", () => {
-        const style = document.createElement("style");
-        style.textContent = `
-        .btn-group {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        /* Botones comunes (reutilizando estilo usuarios) */
-        .btn-editar, .btn-eliminar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            height: 34px;       /* altura igual a btn-sm */
-            min-width: 34px;    /* ancho inicial cuadrado */
-            padding: 0 8px;
-            border-radius: 0.25rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        /* Expandir al hover (solo ancho) */
-        .btn-editar:hover, .btn-eliminar:hover {
-            width: 20px;
-            justify-content: flex-start;
-            padding-left: 8px;
-        }
-
-        /* Iconos siempre visibles */
-        .baneo-icon, .eliminar-icon, .editar-icon {
-            font-size: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Rotar icono editar al hover */
-        .btn-baneo.btn-editar:hover .editar-icon {
-            transform: rotate(360deg);
-        }
-
-        /* Texto siempre visible */
-        .baneo-text, .eliminar-text {
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: bold;
-            margin-left: 6px;
-        }
-
-        /* Evitar que los botones se desborden en tablas */
-        .btn-group .btn {
-            flex-shrink: 0;
-        }
-        `;
-        document.head.appendChild(style);
-        });
+        
     // =========================
     // BUSCADOR EN TIEMPO REAL
     // =========================
@@ -281,56 +223,92 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 
-// =========================
-// DISEÑO CSS DINÁMICO
-// =========================
-document.addEventListener("DOMContentLoaded", () => {
-  const style = document.createElement("style");
-  style.textContent = `
-  .btn-group {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-  }
+    // =========================
+    // DISEÑO CSS DINÁMICO portal usuarios y recetas
+    // =========================
+    document.addEventListener("DOMContentLoaded", () => {
+    const style = document.createElement("style");
+    style.textContent = `
+    .btn-group {
+        display: flex;
+        align-items: center;
+    }
 
-  .btn-baneo, .btn-eliminar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    height: 34px;
-    min-width: 34px;
-    padding: 0 8px;
-    border-radius: 0.25rem;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
+    /*Usuarios*/
+    /* Botón de baneo */
+        .btn-baneo {
+            font-size: 0.85rem;
+            background: linear-gradient(to right, #FABC3F, #ECE852);
+            border: 2px solid #F6FFFE;
+            padding: 0.35rem 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            border-radius: 0.35rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
 
-  .btn-baneo:hover {
-    width: 120px;
-    justify-content: flex-start;
-    padding-left: 8px;
-  }
+        .baneo-icon, 
+        .eliminar-icon,
+        .editar-icon{
+            font-size: 18px;
+            font-style: bold;
+        }
 
-  .baneo-icon, .btn-eliminar i {
-    font-size: 16px;
-    transition: transform 0.3s ease;
-  }
+        .btn-baneo:hover .baneo-icon{
+            animation: rotationBack 1s linear infinite reverse;
+        }
 
-  .btn-baneo:hover .baneo-icon {
-    transform: rotate(360deg);
-  }
+        @keyframes rotationBack {
+        0% {
+            transform: rotate(0deg);
+        }
 
-  .baneo-text, .eliminar-text {
-    white-space: nowrap;
-    font-size: 14px;
-    font-weight: bold;
-    margin-left: 6px;
-  }
+        100% {
+            transform: rotate(-360deg);
+        }
+        }  
 
-  .btn-group .btn {
-    flex-shrink: 0;
-  }
-  `;
-  document.head.appendChild(style);
-});
+        /* Botón eliminar */
+        .btn-eliminar {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.7rem;
+            display: flex;
+            background: linear-gradient(to right, #c72e2eff, #D32F2F);
+            border: 2px solid #F6FFFE;
+            align-items: center;
+            gap: 0.3rem;
+            border-radius: 0.35rem;
+            transition: all 0.2s ease;
+        }
+
+        /* Iconos dentro de los botones */
+        .baneo-icon, .eliminar-text {
+            vertical-align: middle;
+        }
+
+        /* Para no afectar la tabla */
+        td .btn-group {
+            justify-content: flex-start; /* que los botones se alineen a la izquierda en la celda */
+        }
+
+
+        /*boton editar/modificar de recetas*/
+        .btn-edit {
+            font-size: 0.85rem;
+            background: linear-gradient(to right, #157bd4ff, #1E88E5);
+            border: 2px solid #F6FFFE;
+            padding: 0.35rem 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            border-radius: 0.35rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+
+    `;
+    document.head.appendChild(style);
+    });
