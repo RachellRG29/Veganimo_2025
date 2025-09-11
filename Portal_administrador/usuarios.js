@@ -71,20 +71,85 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
+    
+        /* css botones de bloquear y eliminar*/
+        document.addEventListener("DOMContentLoaded", () => {
+        const style = document.createElement("style");
+        style.textContent = `
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Botones comunes (reutilizando estilo usuarios) */
+        .btn-editar, .btn-eliminar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 34px;       /* altura igual a btn-sm */
+            min-width: 34px;    /* ancho inicial cuadrado */
+            padding: 0 8px;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        /* Expandir al hover (solo ancho) */
+        .btn-editar:hover, .btn-eliminar:hover {
+            width: 20px;
+            justify-content: flex-start;
+            padding-left: 8px;
+        }
+
+        /* Iconos siempre visibles */
+        .baneo-icon, .eliminar-icon, .editar-icon {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Rotar icono editar al hover */
+        .btn-baneo.btn-editar:hover .editar-icon {
+            transform: rotate(360deg);
+        }
+
+        /* Texto siempre visible */
+        .baneo-text, .eliminar-text {
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+
+        /* Evitar que los botones se desborden en tablas */
+        .btn-group .btn {
+            flex-shrink: 0;
+        }
+        `;
+        document.head.appendChild(style);
+        });
+    // =========================
+    // BUSCADOR EN TIEMPO REAL
+    // =========================
     busquedaInput.addEventListener('input', function() {
         const termino = this.value.toLowerCase();
         const resultados = usuariosData.filter(usuario => 
             usuario.fullname.toLowerCase().includes(termino) ||
             usuario.email.toLowerCase().includes(termino) ||
-            usuario.gender.toLowerCase().includes(termino)
+            usuario.gender.toLowerCase().includes(termino) ||
+            usuario._id.toLowerCase().includes(termino)
         );
         renderizarTabla(resultados);
     });
 
+    // =========================
+    // BLOQUEAR / DESBLOQUEAR
+    // =========================
     function toggleBaneo(idUsuario) {
         const usuario = usuariosData.find(u => u._id === idUsuario);
 
-        // Verificar si es admin antes de banear
         if (usuario.role === 'admin') {
             Swal.fire({
                 icon: 'warning',
@@ -99,45 +164,60 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         const nuevoEstado = !usuario.banned;
+        const accion = nuevoEstado ? 'bloquear' : 'desbloquear';
 
-        fetch('/Portal_administrador/baneo.php', {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ _id: idUsuario, banned: nuevoEstado })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: nuevoEstado ? 'Usuario bloqueado' : 'Usuario desbloqueado',
-                    toast: true,
-                    position: 'bottom-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-                cargarUsuarios();
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: data.error || 'No se pudo actualizar el estado del usuario'
+        Swal.fire({
+            title: `¿Desea ${accion} a este usuario?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: nuevoEstado ? '#d33' : '#28a745',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then(result => {
+            if (result.isConfirmed) {
+                fetch('/Portal_administrador/baneo.php', {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ _id: idUsuario, banned: nuevoEstado })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: nuevoEstado ? 'Usuario bloqueado' : 'Usuario desbloqueado',
+                            toast: true,
+                            position: 'bottom-end',
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                        cargarUsuarios();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: data.error || 'No se pudo actualizar el estado del usuario'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: error.message || 'No se pudo actualizar el estado del usuario'
+                    });
                 });
             }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: error.message || 'No se pudo actualizar el estado del usuario'
-            });
         });
     }
 
+    // =========================
+    // ELIMINAR USUARIO
+    // =========================
     function confirmarEliminacion(idUsuario) {
         const usuario = usuariosData.find(u => u._id === idUsuario);
 
-        // Verificar si es admin antes de continuar
         if (usuario.role === 'admin') {
             Swal.fire({
                 icon: 'warning',
@@ -148,10 +228,9 @@ document.addEventListener('DOMContentLoaded', async function() {
                 showConfirmButton: false,
                 timer: 3000
             });
-            return; // salir de la función
+            return;
         }
 
-        // Si no es admin, mostrar confirmación normal
         Swal.fire({
             title: '¿Eliminar usuario?',
             text: 'Esta acción no se puede deshacer',
@@ -193,55 +272,55 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
     }
 
+    // =========================
+    // RECARGA TRAS REGISTRO
+    // =========================
     document.getElementById('formRegistro')?.addEventListener('submit', function() {
         setTimeout(cargarUsuarios, 3500);
     });
 });
 
 
-/* diseño css */
+// =========================
+// DISEÑO CSS DINÁMICO
+// =========================
 document.addEventListener("DOMContentLoaded", () => {
   const style = document.createElement("style");
   style.textContent = `
   .btn-group {
     display: flex;
-    gap: 6px; /* espacio entre botones */
+    gap: 6px;
     align-items: center;
   }
 
-  /* Botones comunes */
   .btn-baneo, .btn-eliminar {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    height: 34px; /* mismo alto para ambos */
-    min-width: 34px; /* mismo ancho inicial */
+    height: 34px;
+    min-width: 34px;
     padding: 0 8px;
     border-radius: 0.25rem;
     overflow: hidden;
     transition: all 0.3s ease;
   }
 
-  /* Botón baneo: animación al hover */
   .btn-baneo:hover {
-    width: 120px; /* ancho expandido */
+    width: 120px;
     justify-content: flex-start;
     padding-left: 8px;
   }
 
-  /* Iconos */
   .baneo-icon, .btn-eliminar i {
     font-size: 16px;
     transition: transform 0.3s ease;
   }
 
-  /* Animación icono baneo al hover */
   .btn-baneo:hover .baneo-icon {
     transform: rotate(360deg);
   }
 
-  /* Texto siempre visible */
   .baneo-text, .eliminar-text {
     white-space: nowrap;
     font-size: 14px;
@@ -249,11 +328,9 @@ document.addEventListener("DOMContentLoaded", () => {
     margin-left: 6px;
   }
 
-  /* Evitar que los botones se desborden en tablas */
   .btn-group .btn {
     flex-shrink: 0;
   }
   `;
   document.head.appendChild(style);
 });
-
