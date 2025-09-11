@@ -1,4 +1,5 @@
-<?php include_once __DIR__ . '/menu_perfil.php'; ?>
+<?php include_once __DIR__ . '/menu_perfil.php'; 
+ require_once __DIR__ . '/auth_middleware.php';?>
 
 
 <!-- pp_inicio.php y css: styles_pp_inicio.css -->
@@ -103,6 +104,14 @@
 </section>
 
 <script src="/Pantalla_principal/js/pp_inicio.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            // Si se accede desde el caché (por botón atrás), forzar recarga
+            window.location.reload();
+        }
+    });
+</script>
 
 <!--
     <div class="contenedor_recomendaciones">

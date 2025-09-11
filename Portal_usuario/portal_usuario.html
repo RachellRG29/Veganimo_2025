@@ -132,7 +132,8 @@
 <!-- Modal de Edición -->
 <div id="modal-edit" class="modal" onclick="evitarCerrarEdit(event)">
   <div class="modal-content">
-    <span class="close" onclick="cerrarModalEdit()">&times;</span>
+    <!-- Aquí cambiamos cerrarModalEdit() por cancelarEdicion() -->
+    <span class="close" onclick="cancelarEdicion()">&times;</span>
     <h2 id="modal-edit-title">Modificar</h2>
 
     <form id="modal-edit-form">
@@ -140,7 +141,7 @@
     </form>
 
     <div class="buttons-container">
-      <button type="button" class="form-button btn-canc" onclick="cerrarModalEdit()">Cancelar</button>
+      <button type="button" class="form-button btn-canc" onclick="cancelarEdicion()">Cancelar</button>
       <button type="button" class="form-button btn-guar" onclick="guardarEdicion()">Actualizar</button>
     </div>
   </div>

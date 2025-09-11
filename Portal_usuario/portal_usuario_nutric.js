@@ -334,20 +334,22 @@ function cerrarModal() {
 
 
 
+/* -------- VARIABLES GLOBALES -------- */
+let datosIniciales = {}; // guardamos el estado original del formulario
+
 /* -------- MODAL DE EDICIÓN -------- */
 function abrirModalEdicion(tipo) {
   const tiposPermitidos = ['clinica', 'afecciones', 'sintomas'];
-  if (!tiposPermitidos.includes(tipo)) return; // Solo permitir estos tipos
+  if (!tiposPermitidos.includes(tipo)) return;
 
   const form = document.getElementById('modal-edit-form');
   const title = document.getElementById('modal-edit-title');
-  form.innerHTML = ''; // limpiar antes
+  form.innerHTML = ''; 
   let d = perfilNutricional;
 
-  // --- Historia clínica ---
+  // === historia clínica ===
   if (tipo === 'clinica') {
     title.textContent = 'Editar historia clínica';
-
     const patologicos = [
       "Hipertensión arterial","Diabetes mellitus","Asma bronquial","Alergia a medicamentos",
       "Alergia a picaduras","Colesterol alto","Triglicéridos altos","Obesidad",
@@ -355,14 +357,12 @@ function abrirModalEdicion(tipo) {
       "EPOC","Tuberculosis","Epilepsia","Migraña","ACV","Depresión","Ansiedad",
       "Esquizofrenia","VIH","Hepatitis B","Hepatitis C","Gastritis","Úlcera","Colitis"
     ];
-
     const familiares = [
       "Diabetes mellitus","Hipertensión arterial","Cáncer de mama","Cáncer de colon",
       "Cáncer de próstata","Cáncer de pulmón","Infarto","Angina","Muerte súbita",
       "ACV","Asma","Enfermedades alérgicas","Hemofilia","Fibrosis quística",
       "Otra enfermedad genética","Depresión","Ansiedad","Esquizofrenia","Artritis reumatoide","Lupus"
     ];
-
     const quirurgicos = [
       "Apendicectomía","Colecistectomía","Cesárea","Herniorrafia inguinal",
       "Herniorrafia umbilical","Amigdalectomía","Cirugía de rodilla","Cirugía de columna",
@@ -387,7 +387,7 @@ function abrirModalEdicion(tipo) {
     `;
   }
 
-  // --- Afecciones personales ---
+  // === afecciones personales ===
   if (tipo === 'afecciones') {
     title.textContent = 'Editar afecciones personales';
     const intolerancias = [
@@ -400,7 +400,6 @@ function abrirModalEdicion(tipo) {
       "Maní","Nueces","Huevo","Leche de vaca","Pescado","Mariscos","Trigo","Soya",
       "Sésamo","Mostaza","Frutas frescas","Latex-frutas","Gelatina","Colorantes artificiales","Preservantes"
     ];
-
     const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
       return arr.map(item => {
         const checked = seleccionados.includes(item) ? 'checked' : '';
@@ -416,7 +415,7 @@ function abrirModalEdicion(tipo) {
     `;
   }
 
-  // --- Síntomas gastrointestinales ---
+  // === síntomas gastrointestinales ===
   if (tipo === 'sintomas') {
     title.textContent = 'Editar síntomas gastrointestinales';
     const sintomas = [
@@ -425,7 +424,6 @@ function abrirModalEdicion(tipo) {
       "Pérdida de apetito","Sensación de llenura precoz","Cambio en el color de las heces","Heces con moco o sangre",
       "Tenesmo rectal","Incontinencia fecal","Dolor rectal o anal","Ictericia","Sabor amargo en la boca"
     ];
-
     const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
       return arr.map(item => {
         const checked = seleccionados.includes(item) ? 'checked' : '';
@@ -439,75 +437,101 @@ function abrirModalEdicion(tipo) {
     `;
   }
 
-  // Agregar dataset
-  form.dataset.tipo = tipo;
+  // Guardar estado inicial
+  datosIniciales = new FormData(form);
 
+  // Deshabilitar botón actualizar hasta que haya cambios
+  const btnActualizar = document.querySelector('.btn-guar');
+  btnActualizar.disabled = true;
+
+  // Escuchar cambios
+  form.addEventListener('input', () => {
+    btnActualizar.disabled = !hayCambios(form);
+  });
+
+  form.dataset.tipo = tipo;
   const modal = document.getElementById('modal-edit');
   modal.style.display = 'flex';
   requestAnimationFrame(() => modal.classList.add('show'));
+}
 
-  // Inicializar navegación por secciones si es necesario (igual que en crear perfil)
-  const sections = form.querySelectorAll('.section');
-  let currentSection = 1;
+/* -------- COMPROBAR CAMBIOS -------- */
+function hayCambios(form) {
+  const datosActuales = new FormData(form);
+  for (let [clave, valor] of datosActuales.entries()) {
+    if (!datosIniciales.has(clave) || datosIniciales.getAll(clave).toString() !== datosActuales.getAll(clave).toString()) {
+      return true;
+    }
+  }
+  return false;
+}
 
-  form.querySelectorAll('.next-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (currentSection === 2 && !validarSeccionNutricional()) return;
-      sections[currentSection - 1].classList.remove('active');
-      currentSection++;
-      sections[currentSection - 1].classList.add('active');
-      updateProgressBar(currentSection);
+/* -------- CANCELAR / CERRAR -------- */
+function cancelarEdicion() {
+  const form = document.getElementById('modal-edit-form');
+  if (hayCambios(form)) {
+    Swal.fire({
+      title: '¿Salir sin guardar?',
+      text: "Si sales de esta ventana se perderán todos los datos modificados ¿Estás seguro de salir?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        cerrarModalEdit();
+        document.getElementById('modal').style.display = 'flex'; 
+      }
     });
-  });
-
-  form.querySelectorAll('.prev-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      sections[currentSection - 1].classList.remove('active');
-      currentSection--;
-      sections[currentSection - 1].classList.add('active');
-      updateProgressBar(currentSection);
-    });
-  });
+  } else {
+    cerrarModalEdit();
+    document.getElementById('modal').style.display = 'flex'; 
+  }
 }
 
 /* -------- GUARDAR EDICIÓN -------- */
 function guardarEdicion() {
   const form = document.getElementById('modal-edit-form');
-  const tipo = form.dataset.tipo;
-  const data = new FormData(form);
-  data.append('tipo', tipo);
 
-  fetch('update_perfil.php', {
-    method: 'POST',
-    body: data
-  })
-  .then(res => res.json())
-  .then(resp => {
-    if (resp.success) {
-      perfilNutricional = {...perfilNutricional, ...resp.actualizado};
-      renderPerfilNutricional();
-      cerrarModalEdit();
-      cerrarModal();
-    } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: resp.message,
-        confirmButtonText: 'Entendido'
-      });
+  if (!hayCambios(form)) return; // botón está deshabilitado si no hay cambios
+
+  Swal.fire({
+    title: '¿Confirmar actualización?',
+    text: "Los cambios que hagas modificarán tus dietas recomendadas. ¿Deseas continuar?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Confirmar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const tipo = form.dataset.tipo;
+      const data = new FormData(form);
+      data.append('tipo', tipo);
+
+      fetch('update_perfil.php', {
+        method: 'POST',
+        body: data
+      })
+      .then(res => res.json())
+      .then(resp => {
+        if (resp.success) {
+          perfilNutricional = {...perfilNutricional, ...resp.actualizado};
+          renderPerfilNutricional();
+          cerrarModalEdit();
+          cerrarModal();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: resp.message,
+            confirmButtonText: 'Entendido'
+          });
+        }
+      })
+      .catch(err => console.error('Error en la conexión:', err));
     }
-  })
-  .catch(err => console.error('Error en la conexión:', err));
+  });
 }
-
-function evitarCerrarEdit(e) {
-  const modalContent = document.querySelector("#modal-edit .modal-content");
-  if (!modalContent.contains(e.target)) {
-    e.stopPropagation(); // Evita que se cierre al hacer clic fuera
-  }
-}
-
-
 
 /* -------- CERRAR MODAL -------- */
 function cerrarModalEdit() {
@@ -515,6 +539,7 @@ function cerrarModalEdit() {
   modal.classList.remove('show');
   setTimeout(() => modal.style.display = 'none', 300);
 }
+
 
 
 /* -------- EVENTOS GLOBALES -------- */
@@ -533,3 +558,4 @@ window.addEventListener('click', e => {
   if (e.target === document.getElementById('avatar-large-modal')) cerrarAvatarGrande();
   if (e.target === document.getElementById('modal-edit')) cerrarModalEdit();
 });
+
