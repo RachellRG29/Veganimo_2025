@@ -249,8 +249,8 @@ function mostrarModal(tipo) {
   if (tipo === 'nutricionales') {
    body.innerHTML = `
     <section class="modal-section">
-      <p>Dieta actual: ${d.dieta_actual}</p>
-      <p>Peso: ${d.peso} kg</p>
+      <p><strong>Dieta actual:</strong> ${d.dieta_actual}</p>
+      <p><strong>Peso:</strong> ${d.peso} kg</p>
       <p><strong>Altura:</strong> ${d.altura} cm</p>
       <p><strong>Objetivo:</strong> ${d.objetivo}</p>
       <p><strong>Meta:</strong> ${d.nivel_meta}</p>

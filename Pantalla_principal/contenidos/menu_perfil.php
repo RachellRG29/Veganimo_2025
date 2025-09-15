@@ -91,7 +91,7 @@ if (isset($_SESSION['user_id'])) {
 
 
                 <!-- Idioma -->
-                <li>
+                <!--<li>
                     <span>Idioma:</span>
                     <div id="secondFilter" class="filter-switch">
                         <input checked id="lang1" name="lang-options" type="radio" />
@@ -100,7 +100,7 @@ if (isset($_SESSION['user_id'])) {
                         <label class="option" for="lang2">Inglés</label>
                         <span id="bgLang" class="background"></span>
                     </div>
-                </li>
+                </li>-->
             </ul>
         </li>
 

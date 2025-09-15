@@ -75,6 +75,10 @@
   margin: 0 20px;
 }
 
+.menu_perfil span{
+  text-align: left;
+}
+
 /* --- ERRORES --- */
 .input-error {
   border: 2px solid #e74c3c !important;
@@ -153,6 +157,7 @@
 
 #firstFilter{
   background-color: #212121;
+  margin-bottom: 16px;
 }
 
 .filter-switch input {
@@ -184,7 +189,7 @@
 /* Fondo Modo Tema */
 #bgTheme {
   position: absolute;
-  width: 50%;
+  width: 48%;
   height: 24px;
   background: linear-gradient(to right, #E99A3C, #ffba67);/* color diferente para tema */
   top: 4px;
@@ -194,7 +199,7 @@
 }
 
 /* Movimiento del fondo */
-#theme-dark:checked ~ #bgTheme { left: 50%; }
+#theme-dark:checked ~ #bgTheme { left: 30%; }
 
 /* Activos */
 #theme-light:checked + label[for="theme-light"],
