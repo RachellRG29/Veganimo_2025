@@ -185,10 +185,20 @@
       await verificarRolUsuario();
     });
 
-    function toggleConfig() {
-      const submenu = document.getElementById("submenu-config");
-      submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  function toggleConfig() {
+    const submenu = document.getElementById("submenu-config");
+    const arrow = document.getElementById("config-arrow");
+
+    // Alternar visibilidad del submenú
+    if (submenu.style.display === "block") {
+      submenu.style.display = "none";
+      arrow.classList.remove("rotated");
+    } else {
+      submenu.style.display = "block";
+      arrow.classList.add("rotated");
     }
+}
+
   </script>
 <script>
     window.addEventListener('pageshow', function(event) {

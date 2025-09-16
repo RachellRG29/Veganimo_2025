@@ -117,10 +117,17 @@
   padding: 8px 20px;
 }
 
+/* Animación de la flecha */
 .config-btn i {
   font-size: 18px;
   margin-left: 6px;
+    transition: transform 0.3s ease; /* animación suave */
 }
+
+.config-btn i.rotated {
+  transform: rotate(180deg); /* gira hacia arriba */
+}
+
 
 /* Submenú configuración */
 .submenu-config {

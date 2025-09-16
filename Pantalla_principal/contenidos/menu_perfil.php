@@ -73,13 +73,13 @@ if (isset($_SESSION['user_id'])) {
  
         <li class="configuracion">
             <button class="config-btn" onclick="toggleConfig()">
-                Configuración <i class="ph ph-caret-down"></i>
+                Configuración <i class="ph ph-caret-down"id="config-arrow"> </i>
             </button>
 
             <ul class="submenu-config" id="submenu-config">
                 <!-- Modo Tema -->
                 <li>
-                <span>Modo tema:</span>
+                <span>- Modo tema:</span>
                 <div id="firstFilter" class="filter-switch">
                     <input checked id="theme-light" name="theme-options" type="radio" />
                     <label class="option" for="theme-light">Claro</label>
