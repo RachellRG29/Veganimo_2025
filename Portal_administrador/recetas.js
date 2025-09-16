@@ -155,118 +155,182 @@ inputBusqueda.addEventListener('input', () => {
     }
 
     // =======================================
-    // Editar receta modal
-    // =======================================
-    function abrirModalEditar(idReceta) {
-        const receta = recetasData.find(r => r._id===idReceta);
-        if(!receta) return;
+// ===============================
+// =======================================
+// VARIABLES GLOBALES
+// =======================================
+let recetaEditando = null;
+let datosIniciales = {};
 
-        const ingredientesTexto = Array.isArray(receta.ingredientes_array) ? receta.ingredientes_array.join("\n") : receta.ingredientes;
+// =======================================
+// ABRIR MODAL DE EDICIÓN
+// =======================================
+function abrirModalEditar(idReceta) {
+  const receta = recetasData.find(r => r._id === idReceta);
+  if (!receta) return;
+  recetaEditando = receta;
 
-        Swal.fire({
-            title: `<span style="font-weight:bold; color:#007848;">Editar receta</span>`,
-            width:'70%',
-            heightAuto:false,
-            padding:'28px 32px',
-            background:'#fdfdfd',
-            showCancelButton:true,
-            confirmButtonText:'Actualizar',
-            cancelButtonText:'Cancelar',
-            showCloseButton:true,
-            closeButtonHtml:'&times;',
-            allowOutsideClick:false, // NO se cierra si clic fuera
-            allowEscapeKey:false,
-            html: `
-                <div style="width:100%; display:flex; flex-direction:column; align-items:center;">
-                    <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:25px;">
-                        <img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:180px;height:180px; object-fit:cover; border-radius:15px; box-shadow:0 4px 20px rgba(0,0,0,0.25); margin-bottom:10px;">
-                        <span style="font-size:22px; font-weight:700; color:#007848;">${receta.nombre_receta}</span>
-                    </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%;">
-                        <div class="input-group"><label class="swal2-label">Nombre</label><input id="swal-nombre" class="swal2-input" value="${receta.nombre_receta}"></div>
-                        <div class="input-group"><label class="swal2-label">Tiempo preparación</label><input id="swal-tiempo" class="swal2-input" value="${receta.tiempo_preparacion}"></div>
-                        <div class="input-group"><label class="swal2-label">Dificultad</label>
-                            <select id="swal-dificultad" class="swal2-select">
-                                <option value="" disabled ${!receta.dificultad?'selected':''}>Seleccionar dificultad</option>
-                                <option value="Baja" ${receta.dificultad==='Baja'?'selected':''}>Baja</option>
-                                <option value="Media" ${receta.dificultad==='Media'?'selected':''}>Media</option>
-                                <option value="Alta" ${receta.dificultad==='Alta'?'selected':''}>Alta</option>
-                            </select>
-                        </div>
-                        <div class="input-group"><label class="swal2-label">Categoría</label>
-                            <select id="swal-categoria" class="swal2-select">
-                                <option value="" disabled ${!receta.categoria?'selected':''}>Seleccionar categoría</option>
-                                <option value="cat_transc" ${receta.categoria==='cat_transc'?'selected':''}>Transicionista</option>
-                                <option value="cat_veget" ${receta.categoria==='cat_veget'?'selected':''}>Vegetariano</option>
-                                <option value="cat_vegan" ${receta.categoria==='cat_vegan'?'selected':''}>Vegano</option>
-                            </select>
-                        </div>
-                        <div class="input-group" style="grid-column:1 / span 2;"><label class="swal2-label">Ingredientes (uno por línea)</label><textarea id="swal-ingredientes" class="swal2-textarea">${ingredientesTexto}</textarea></div>
-                        <div class="input-group" style="grid-column:1 / span 2;"><label class="swal2-label">Descripción</label><textarea id="swal-descripcion" class="swal2-textarea">${receta.descripcion}</textarea></div>
-                        <div class="input-group" style="grid-column:1 / span 2;"><label class="swal2-label">Calificación</label>
-                            <select id="swal-calificacion" class="swal2-select" style="width:150px;">
-                                <option value="1" ${receta.calificacion==1?'selected':''}>⭐ 1</option>
-                                <option value="2" ${receta.calificacion==2?'selected':''}>⭐⭐ 2</option>
-                                <option value="3" ${receta.calificacion==3?'selected':''}>⭐⭐⭐ 3</option>
-                                <option value="4" ${receta.calificacion==4?'selected':''}>⭐⭐⭐⭐ 4</option>
-                                <option value="5" ${receta.calificacion==5?'selected':''}>⭐⭐⭐⭐⭐ 5</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            `,
-            preConfirm: () => {
-                const nombre = document.getElementById('swal-nombre').value.trim();
-                const descripcion = document.getElementById('swal-descripcion').value.trim();
-                const tiempo = document.getElementById('swal-tiempo').value.trim();
-                const dificultad = document.getElementById('swal-dificultad').value;
-                const categoria = document.getElementById('swal-categoria').value;
-                const ingredientes = document.getElementById('swal-ingredientes').value.split("\n").map(i=>i.trim()).filter(i=>i!=="");
-                const calificacion = parseInt(document.getElementById('swal-calificacion').value);
+  const form = document.getElementById('modal-edit-form');
+  const title = document.getElementById('modal-edit-title');
+  form.innerHTML = '';
+  title.textContent = 'Editar receta';
 
-                // Validaciones básicas
-                if(!nombre || !descripcion || !dificultad || !categoria || ingredientes.length===0){
-                    Swal.showValidationMessage('Por favor completa todos los campos requeridos');
-                    return false;
-                }
+  const ingredientesTexto = Array.isArray(receta.ingredientes_array)
+    ? receta.ingredientes_array.join("\n")
+    : receta.ingredientes;
 
-                return { _id: receta._id, nombre_receta:nombre, descripcion, tiempo_preparacion:tiempo, dificultad, categoria, ingredientes, calificacion };
-            }
-        }).then(result=>{
-            if(result.isConfirmed){
-                Swal.fire({
-                    title:'Desea modificar estos datos?',
-                    icon:'question',
-                    showCancelButton:true,
-                    confirmButtonText:'Sí',
-                    cancelButtonText:'No'
-                }).then(res=>{
-                    if(res.isConfirmed) guardarEdicion(result.value);
-                });
-            }
-        });
+  // INYECTAR FORMULARIO CON DISEÑO
+  form.innerHTML = `
+    <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:20px;">
+      <img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:180px;height:180px;object-fit:cover;border-radius:15px;box-shadow:0 4px 20px rgba(0,0,0,0.25);margin-bottom:10px;">
+      <span style="font-size:22px;font-weight:700;color:#007848;">${receta.nombre_receta}</span>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%;">
+      <div class="input-group"><label>Nombre</label><input type="text" name="nombre_receta" value="${receta.nombre_receta}"></div>
+      <div class="input-group"><label>Tiempo preparación</label><input type="text" name="tiempo_preparacion" value="${receta.tiempo_preparacion}"></div>
+      <div class="input-group"><label>Dificultad</label>
+        <select name="dificultad">
+          <option value="" disabled ${!receta.dificultad?'selected':''}>Seleccionar</option>
+          <option value="Baja" ${receta.dificultad==='Baja'?'selected':''}>Baja</option>
+          <option value="Media" ${receta.dificultad==='Media'?'selected':''}>Media</option>
+          <option value="Alta" ${receta.dificultad==='Alta'?'selected':''}>Alta</option>
+        </select>
+      </div>
+      <div class="input-group"><label>Categoría</label>
+        <select name="categoria">
+          <option value="" disabled ${!receta.categoria?'selected':''}>Seleccionar</option>
+          <option value="cat_transc" ${receta.categoria==='cat_transc'?'selected':''}>Transicionista</option>
+          <option value="cat_veget" ${receta.categoria==='cat_veget'?'selected':''}>Vegetariano</option>
+          <option value="cat_vegan" ${receta.categoria==='cat_vegan'?'selected':''}>Vegano</option>
+        </select>
+      </div>
+      <div class="input-group" style="grid-column:1 / span 2;"><label>Ingredientes</label><textarea name="ingredientes">${ingredientesTexto}</textarea></div>
+      <div class="input-group" style="grid-column:1 / span 2;"><label>Descripción</label><textarea name="descripcion">${receta.descripcion}</textarea></div>
+      <div class="input-group" style="grid-column:1 / span 2;"><label>Calificación</label>
+        <select name="calificacion">
+          <option value="1" ${receta.calificacion==1?'selected':''}>⭐ 1</option>
+          <option value="2" ${receta.calificacion==2?'selected':''}>⭐⭐ 2</option>
+          <option value="3" ${receta.calificacion==3?'selected':''}>⭐⭐⭐ 3</option>
+          <option value="4" ${receta.calificacion==4?'selected':''}>⭐⭐⭐⭐ 4</option>
+          <option value="5" ${receta.calificacion==5?'selected':''}>⭐⭐⭐⭐⭐ 5</option>
+        </select>
+      </div>
+    </div>
+  `;
+
+  // GUARDAR ESTADO INICIAL
+  datosIniciales = new FormData(form);
+
+  // BOTÓN ACTUALIZAR
+  const btnGuar = document.querySelector('.btn-guar');
+  btnGuar.disabled = true;
+  form.addEventListener('input', () => {
+    btnGuar.disabled = !hayCambios(form);
+  });
+
+  // MOSTRAR MODAL
+  const modal = document.getElementById('modal-edit');
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => modal.classList.add('show'));
+}
+
+// =======================================
+// DETECTAR CAMBIOS
+// =======================================
+function hayCambios(form) {
+  const actuales = new FormData(form);
+  for (let [k,v] of actuales.entries()) {
+    if (datosIniciales.get(k) !== v) return true;
+  }
+  return false;
+}
+
+// =======================================
+// CANCELAR EDICIÓN
+// =======================================
+function cancelarEdicion() {
+  const form = document.getElementById('modal-edit-form');
+  if (hayCambios(form)) {
+    Swal.fire({
+      icon: 'warning',
+      title: '¿Salir sin guardar?',
+      text: 'Si sales se perderán los cambios.',
+      showCancelButton: true,
+      confirmButtonText: 'Si salir',
+      cancelButtonText: 'Volver',
+      allowOutsideClick: false
+    }).then(res => {
+      if (res.isConfirmed) cerrarModalEdit();
+    });
+  } else {
+    cerrarModalEdit();
+  }
+}
+
+// =======================================
+// GUARDAR EDICIÓN
+// =======================================
+function guardarEdicion() {
+  const form = document.getElementById('modal-edit-form');
+  if (!hayCambios(form)) return;
+
+  Swal.fire({
+    title: '¿Confirmar actualización?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'No'
+  }).then(res => {
+    if (res.isConfirmed) {
+      const data = Object.fromEntries(new FormData(form).entries());
+      data._id = recetaEditando._id;
+      data.ingredientes = data.ingredientes.split("\n").map(i => i.trim()).filter(i => i !== "");
+
+      fetch(`/Portal_administrador/recetas.php?id=${data._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(r => r.json())
+      .then(r => {
+        if (r.success) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Receta actualizada',
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+          });
+          cargarRecetas();
+          cerrarModalEdit();
+        } else {
+          Swal.fire({ icon:'error', title:'Error', text:r.error || 'No se pudo actualizar' });
+        }
+      })
+      .catch(err => Swal.fire({ icon:'error', title:'Error', text:err.message }));
     }
+  });
+}
 
-    // =======================================
-    // Guardar edición
-    // =======================================
-    function guardarEdicion(datos) {
-        fetch(`/Portal_administrador/recetas.php?id=${datos._id}`, {
-            method:'PATCH',
-            headers:{ 'Content-Type':'application/json' },
-            body:JSON.stringify(datos)
-        }).then(resp=>resp.json())
-        .then(data=>{
-            if(data.success){
-                Swal.fire({ icon:'success', title:'Receta actualizada', toast:true, position:'bottom-end', showConfirmButton:false, timer:3000 });
-                cargarRecetas();
-            } else {
-                Swal.fire({ icon:'error', title:'Error', text:data.error||'No se pudo actualizar la receta', showCloseButton:true });
-            }
-        }).catch(error=>{
-            Swal.fire({ icon:'error', title:'Error', text:error.message||'No se pudo actualizar la receta', showCloseButton:true });
-        });
-    }
+// =======================================
+// CERRAR MODAL
+// =======================================
+function cerrarModalEdit() {
+  const modal = document.getElementById('modal-edit');
+  modal.classList.remove('show');
+  setTimeout(() => modal.style.display = 'none', 300);
+}
+
+// =======================================
+// EVENTOS GLOBALES
+// =======================================
+document.querySelector('.btn-cancel').addEventListener('click', cancelarEdicion);
+document.querySelector('.btn-guar').addEventListener('click', guardarEdicion);
+document.getElementById('modal-edit-close').addEventListener('click', cancelarEdicion);
+window.addEventListener('keydown', e => {
+  if (e.key === 'Escape') cancelarEdicion();
+  if (e.target === document.getElementById('modal-edit')) cancelarEdicion();
 });
-
-
+});

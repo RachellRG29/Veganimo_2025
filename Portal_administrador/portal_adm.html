@@ -175,8 +175,217 @@
     </div>
 
   </div>
+<!-- MODAL DE EDICIÓN -->
+<div id="modal-edit" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modal-edit-title">Editar receta</h2>
+      <span id="modal-edit-close" class="modal-close">&times;</span>
+    </div>
+
+    <form id="modal-edit-form" class="modal-form">
+      <!-- Inputs inyectados por JS -->
+    </form>
+
+    <div class="modal-footer">
+      <button type="button" class="btn-cancel">Cancelar</button>
+      <button type="button" class="btn-guar" disabled>Actualizar</button>
+    </div>
+  </div>
+</div>
 
 <style>
+  /* Fondo oscuro para modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* Contenedor del modal */
+.modal-content {
+  background: #fdfdfd;
+  padding: 28px 32px;
+  border-radius: 12px;
+  width: 70%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-header h2 {
+  color: #007848;
+  font-weight: bold;
+  font-size: 24px;
+}
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+  color: #555;
+}
+
+/* Inputs */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.input-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.input-group input,
+.input-group select,
+.input-group textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Textarea específico para ingredientes y descripción */
+.input-group textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+/* Footer con botones */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  gap: 10px;
+}
+.btn-cancel {
+  background: #ccc;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-guar {
+  background: #007848;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-guar:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Imagen dentro del modal */
+.modal-content img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  margin-bottom: 10px;
+}
+
+/* Nombre de la receta dentro del modal */
+.modal-content .receta-nombre {
+  font-size: 22px;
+  font-weight: 700;
+  color: #007848;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Grid para inputs */
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Inputs que ocupan toda la fila */
+.modal-grid .full-width {
+  grid-column: 1 / span 2;
+}
+
+/* Para asegurarse que SweetAlert (si lo usas) quede encima */
+.swal2-container {
+  z-index: 3000 !important;
+}
+
+</style>
+
+
+<style>
+
+  /* Forzar SweetAlert2 por encima de cualquier modal */
+.swal2-container {
+  z-index: 3000 !important;
+}
+
+  .modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.modal-overlay.show { display: flex; }
+
+.modal-content {
+  background: #fff;
+  width: 500px;
+  max-width: 90%;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.modal-close {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
   /* Contenedor general */
 .content {
   width: 100%;
