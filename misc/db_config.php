@@ -1,7 +1,7 @@
 <?php
 // Archivo: misc/db_config.php
 
-$usuario = "";
+$usuario = "n";
 $contrasena = "";
 
 try {
