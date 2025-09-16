@@ -1,0 +1,12 @@
+
+/*function aplicarEstilosFondo(pagina) {
+  const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html", "pp_comunidad.php","pp_crear_receta.php"];
+  document.getElementById("contenido-principal").style.backgroundColor = 
+    paginasVerdes.includes(pagina) ? "#F6FFFE" : "#F6FFFE";
+}
+*/
+
+
+/***/
+/* hoja
+clip-path: polygon(52% 0%, 73% 16%, 67% 20%, 76% 20%, 82% 30%, 71% 37%, 67% 38%, 81% 36%, 85% 33%, 87% 41%, 92% 53%, 73% 59%, 92% 58%, 88% 74%, 80% 82%, 67% 89%, 55% 92%, 55% 99%, 49% 99%, 48% 91%, 34% 89%, 18% 81%, 9% 69%, 6% 56%, 33% 59%, 10% 50%, 12% 37%, 25% 39%, 33% 42%, 20% 34%, 16% 27%, 22% 17%, 32% 21%, 30% 13%);

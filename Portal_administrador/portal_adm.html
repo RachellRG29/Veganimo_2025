@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Administrador</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet" />
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet"/>
+
+
+    <link rel="website icon" href="/Images/Icono_veganimo.svg">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="/Portal_administrador/css/style_portal_admi.css"> <!-- Estilos para el perfil de usuario --> 
+</head>
+
+<body>
+
+
+      <!-- nabvar + boton para regresar o volver -->
+    <div class="barra_volver">
+
+         <!-- Navbar -->
+        <nav class="navbar">
+
+        <!-- Botón Volver -->
+        <button class="back-button" onclick="window.location.href = '../Pantalla_principal/index_pantalla_principal.html'">
+            <div class="icon"></div>
+            Volver
+        </button>
+
+          <h5>Portal de Administrador</h5>
+
+            <!-- Radios para cambiar contenido -->
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="panel" value="usuarios" checked>
+                <span>Usuarios</span> 
+              </label>
+              <label>
+                <input type="radio" name="panel" value="recetas">
+                <span>Recetas</span> 
+              </label>
+            </div>
+
+            <div class="logo">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168.68 199.52">
+                <g id="Veganimo">
+                    <g>
+                    <path class="cls-1" d="M86.29,80.26c-.7-.61-1.28-1.32-1.77-2.05,3.86,9,7.35,17.37,8.89,21.71l8.39-17.96c-5.41,2.01-11.23,2.03-15.51-1.7Z"/>
+                    <path class="cls-1" d="M136.3,0H32.38C14.5,0,0,14.49,0,32.38V167.13c0,17.89,14.5,32.39,32.38,32.39h103.92c17.88,0,32.38-14.5,32.38-32.39V32.38c0-17.89-14.5-32.38-32.38-32.38Zm6.77,33.9c-6.17-.63-10.49,1.22-14.22,4.34-3.91,3.28-5.37,7.22-6.64,10.77-2.46,6.91-3.56,14.68-6.72,21.31-1.54,3.22-4.54,6.39-8.17,8.8l-20.9,44.76h15.89c-1.85-10.13,1.45-20.96,9.71-28.35,7.33-6.55,16.95-8.94,25.92-7.28,1.27,1.45-6.95,10.87-10.25,13.82,3.3-2.95,13.58-10.07,14.89-8.63,.63,9.1-2.8,18.38-10.14,24.94-2.66,2.39-5.63,4.21-8.76,5.5h14.16c3.04,0,5.45,2.6,5.17,5.62-1.57,16.65-10.06,31.28-22.55,41.01-4.3,3.34-9.6,5.13-15.04,5.13-.31,0-.55,.25-.55,.55v2.33c0,1.71-1.39,3.1-3.1,3.1h-34.82c-1.71,0-3.1-1.39-3.1-3.1v-2.33c0-.31-.25-.55-.55-.55h-.25c-5.44,0-10.75-1.79-15.05-5.13-12.49-9.73-20.98-24.36-22.54-41.01-.29-3.02,2.13-5.62,5.16-5.62h23.36c-2.31-.91-4.47-2.3-6.33-4.18-4.77-4.83-6.3-11.64-4.62-17.74,6.13-1.59,12.9,.03,17.67,4.86,4.6,4.66,6.18,11.14,4.8,17.06h14.23L42.97,44.17c-4.22-9.35-8.99-14.02-14.29-14.02h-.45v-1.29h49.92v1.29h-.61c-4.52,0-7.51,1.17-8.98,3.53-1.48,2.36-1.23,5.64,.74,9.84,0,0,6.93,15.5,13.49,30.68,1.45,.76,5.37,.96,6.1,.91,1.77-.12,3.93-.58,5.38-1.45,3.79-2.3,6.64-7.11,7.97-10.94,1.54-4.33,2.59-9.32,4.44-13.83,2.15-5.32,5.27-10.6,10.29-14.42,5.17-4.09,13.11-6.26,20.38-4.16,2.31,.68,4.43,1.79,5.92,3.27l-.2,.32Z"/>
+                    </g>
+                </g>
+                </svg>
+            </div>
+        </nav>
+
+
+    </div>
+
+
+  <!-- Contenedor dinámico -->
+  <div class="content">
+
+     <!-- SE TIENE Q MODIFICAR Q ADMIN NO PODRA ELIMINARSE PERO SI EDITARSE
+      USUARIOS SOLO BLOQUEAR Y ELIMINAR-->
+    <!-- CRUD USUARIOS -->
+    <div id="panel-usuarios">
+      <?php if (isAdmin()): ?>
+      <!-- Sección de la tabla de usuarios segun administrador -->
+      <div data-admin-only>
+        <div class="row justify-content-center mt-5">
+          <div class="col-xxl-10 col-12 px-4 pb-5">
+            <div class="card shadow-lg">
+              <!-- Header con buscador -->
+              <div class="card-header d-flex align-items-center" style="background-color: #007848; color: white;">
+                
+                <div class="search-bar d-flex align-items-center" style="background-color: white; padding: 5px 30px;">
+                  <i class="ph-fill ph-magnifying-glass" style="font-size: 18px; margin-right: 8px;"></i>
+                  <input type="text" id="busquedaUsuarios" class="form-control border-0" 
+                        placeholder="Buscar por nombre, email o género..." 
+                        style="box-shadow: none; outline: none;">
+                </div>
+              </div>
+
+              <!-- Tabla -->
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover mb-0 text-white">
+                    <thead>
+                      <tr class="text-center">
+                        <th style="background-color:#154734;">Nombre</th>
+                        <th style="background-color:#0E9863;">Email</th>
+                        <th style="background-color:#0E9863;">Fecha Nacimiento</th>
+                        <th style="background-color:#0E9863;">Género</th>
+                        <th style="background-color:#0E9863;">Fecha Registro</th>
+                        <th style="background-color:#0E9863;">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios">
+                      <tr>
+                        <td colspan="7" class="text-center text-white">Cargando usuarios...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endif; ?>
+    </div>
+
+
+    <!-- CRUD RECETAS -->
+    <div id="panel-recetas" class="hidden">
+      <div class="row justify-content-center mt-5">
+          <div class="col-xxl-10 col-12 px-4 pb-5">
+              <div class="card shadow-lg">
+                <!-- Header con buscador -->
+                  <div class="card-header d-flex align-items-center" style="background-color: #007848; color: white;">
+                      <div class="search-bar d-flex align-items-center" style=" padding: 5px 40px;">
+                          <i class="ph-fill ph-magnifying-glass" style="font-size: 18px; margin-right: 8px;"></i>
+                          <input type="text" id="busquedaRecetas" class="form-control border-0"
+                                placeholder="Buscar por nombre, descripción..."
+                                style="box-shadow: none; outline: none;">
+                      </div>
+                  </div>
+              <div class="card-body">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-hover mb-0 text-white">
+                          <thead>
+                              <tr class="text-center">
+                                  <th style="background-color:#154734;">Imagen</th>
+                                  <th style="background-color:#0E9863;">Nombre</th>
+                                  <th style="background-color:#0E9863;">Descripción</th>
+                                  <th style="background-color:#0E9863;">Tiempo de Preparación</th>
+                                  <th style="background-color:#0E9863;">Dificultad</th>
+                                  <th style="background-color:#0E9863;">Categoría</th>
+                                  <th style="background-color:#0E9863;">Ingredientes</th>
+                                  <th style="background-color:#0E9863;">Calificación</th>
+                                  <th style="background-color:#0E9863;">Fecha Creación</th>
+                                  <th style="background-color:#0E9863;">Acciones</th>
+                              </tr>
+                          </thead>
+                          <tbody id="tablaRecetas">
+                              <tr>
+                                  <td colspan="10" class="text-center text-white">Cargando recetas...</td>
+                                
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    </div>
+
+  </div>
+
+<style>
+  /* Contenedor general */
+.content {
+  width: 100%;
+  max-width: 1800px; /* aumentamos ancho máximo */
+  margin: 0 auto; /* centrado */
+  padding: 0 15px; /* un poco de padding lateral */
+}
+
+/* Tablas dentro del card-body */
+.table-responsive {
+  overflow-x: auto; /* mantiene scroll si se hace muy grande */
+}
+
+.table {
+  width: 100%; /* ocupa todo el ancho del contenedor */
+  min-width: 1200px; /* ancho mínimo para que las columnas */
+}
+
+/* Scroll horizontal de las tablas */
+.table-responsive::-webkit-scrollbar {
+  height: 8px; /* altura del scroll horizontal */
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f0f0f0; /* color del track */
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: #FF7F00; /* color naranja del scroll */
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background-color: #e66a00; /* naranja más oscuro al pasar el mouse */
+}
+
+/* Firefox */
+.table-responsive {
+  scrollbar-width: thin;
+  scrollbar-color: #FF7F00 #f0f0f0;
+}
+
+
+</style>
+
+  <script>
+    // Cambio de panel dinámico
+    const radios = document.querySelectorAll('input[name="panel"]');
+    const panelUsuarios = document.getElementById('panel-usuarios');
+    const panelRecetas = document.getElementById('panel-recetas');
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === "usuarios") {
+          panelUsuarios.classList.remove("hidden");
+          panelRecetas.classList.add("hidden");
+        } else {
+          panelUsuarios.classList.add("hidden");
+          panelRecetas.classList.remove("hidden");
+        }
+      });
+    });
+  </script>
+
+  <script>
+    await verificarRolUsuario();
+    async function verificarRolUsuario() {
+      try {
+        const response = await fetch('/Login/check_session.php');
+        if (!response.ok) throw new Error('Error verificando sesión');
+        const data = await response.json();
+        
+        // Mostrar/ocultar elementos de admin
+        const adminElements = document.querySelectorAll('[data-admin-only]');
+        const isAdmin = data.role === 'admin';
+        
+        adminElements.forEach(el => {
+          el.style.display = isAdmin ? '' : 'none';
+        });
+        
+        return data.role;
+      } catch (error) {
+        console.error('Error verificando rol:', error);
+        return 'user'; // Por defecto
+      }
+    }
+  </script>
+
+      <!-- SCRIPTS PARA PORTAL ADMINISTRADOR -->
+      <!-- SweetAlert -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <!-- Iconos -->
+      <script src="https://unpkg.com/phosphor-icons"></script>
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+  <!-- Solo cargar estos scripts si es admin -->
+  <?php if (isAdmin()): ?>
+    <script src="/Portal_administrador/usuarios.js"></script>
+     <script src="/Portal_administrador/recetas.js"></script>
+  <?php endif; ?>
+ 
+
+</body>
+</html>

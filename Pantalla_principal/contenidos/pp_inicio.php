@@ -1,39 +1,5 @@
-<?php
-session_start();
-
-// Ruta corregida al archivo de configuración
-require_once __DIR__ . '/../../misc/db_config.php';
-
-$perfilExistente = false;
-
-if (isset($_SESSION['user_id'])) {
-    try {
-        $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
-        $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
-        $perfil = current($cursor->toArray());
-        $perfilExistente = $perfil ? true : false;
-    } catch (Exception $e) {
-        $perfilExistente = false;
-    }
-}
-?>
-
-<div class="menu_perfil" id="menu_popup" style="display: none;">
-    <ul>
-        <?php if ($perfilExistente): ?>
-            <li><a href="/Perfil_nutricional/perfil_nutricional.html">Perfil nutricional</a></li>
-        <?php else: ?>
-            <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional</a></li>
-        <?php endif; ?>
-
-        <li>
-            <a href="#" class="pop-cerrar-sesion">
-                Cerrar sesión 
-                <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
-            </a>
-        </li>
-    </ul>
-</div>
+<?php include_once __DIR__ . '/menu_perfil.php'; 
+ require_once __DIR__ . '/auth_middleware.php';?>
 
 
 <!-- pp_inicio.php y css: styles_pp_inicio.css -->
@@ -101,17 +67,8 @@ if (isset($_SESSION['user_id'])) {
           </div>
         </div>
 
-        <!-- Menu perfil popup -->
-        <div class="menu_perfil" id="menu_popup" style="display: none;">
-          <ul>
-            <li><a href="/Perfil_nutricional/crear_perfil_nutric.html" id="btn_crear_perfil">Crear perfil nutricional </a></li>
-            <li>
-              <a href="#" class="pop-cerrar-sesion">Cerrar sesión 
-                <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+
+
       </div>
     </div>
 
@@ -147,6 +104,14 @@ if (isset($_SESSION['user_id'])) {
 </section>
 
 <script src="/Pantalla_principal/js/pp_inicio.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            // Si se accede desde el caché (por botón atrás), forzar recarga
+            window.location.reload();
+        }
+    });
+</script>
 
 <!--
     <div class="contenedor_recomendaciones">
