@@ -1,3 +1,4 @@
+<?php include_once __DIR__ . '/menu_perfil.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +21,8 @@
 
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario --> 
+
+        <link rel="stylesheet" href="/Pantalla_principal/css/style_crear_receta.css"> <!-- Estilos para crear recetas -->
 
 </head>
 
@@ -100,7 +103,9 @@
       </div>
     </div>
 
-    <form action="guardar_recetas.php" id="form-receta" class="form-receta" method="POST" enctype="multipart/form-data">
+    <div class="tarj_crear_receta">
+      <!-- NFORMULARIO CREAR RECETA -->
+      <form action="guardar_recetas.php" id="form-receta" class="form-receta" method="POST" enctype="multipart/form-data">
 
         <!-- Sección 1: Crear receta -->
         <div class="section active" id="section1">
@@ -305,8 +310,10 @@
 
         </div>
 
+      </form>
 
-    </form>
+    </div>
+
 
     
 

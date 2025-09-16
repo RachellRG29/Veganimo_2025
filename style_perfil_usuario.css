@@ -1,16 +1,12 @@
-/*
-* {
-  outline: 1px solid rgb(208, 223, 8);
-}*/
+/* * { outline: 1px solid rgb(208, 223, 8); } */
 
-/* Tarjeta Perfil usuario esquina superior derecha*/
+/* --- TARJETA PERFIL USUARIO --- */
 .tarjeta_menu {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
 }
 
-/*Perfil usuario vegano*/
 .tarjeta-perfil {
   display: flex;
   padding: 2px 20px;
@@ -22,7 +18,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.circulo_perfil{
+.circulo_perfil {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -30,33 +26,34 @@
   left: 10px;
 }
 
-.img_perfil{
+.img_perfil {
   width: 100%;
   height: 100%;
   object-fit: cover; 
   border-radius: 50%;
 }
 
-.lbl_nombre_user{
+.lbl_nombre_user {
   font-family: 'Comfortaa', Verdana;
   font-size: 16px;
   text-align: center !important;
   margin-top: 11px;
 }
 
-
-/* Menu perfil popup */
+/* --- MENU PERFIL POPUP --- */
 .menu_perfil {
   position: fixed !important;
   right: 1rem;
-  top: 4.2rem; /* ✅ esta línea asegura que el menú se muestre debajo */
-  padding: 2px 38px;
+  top: 4.2rem; 
+  padding: 2px 0;
   background-color: #E99A3C;
   border-radius: 0.5rem;
   z-index: 999;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    min-width: max-content;       /* ✅ ancho dinámico según contenido */
+  text-align: center !important;  
+  justify-content: center !important;
 }
-
 
 .menu_perfil ul {
   list-style: none;
@@ -65,8 +62,7 @@
 }
 
 .menu_perfil li {
-  margin-top: 10px;
-  margin-bottom: 8px;
+  margin: 8px 0;
   text-align: left;
 }
 
@@ -75,18 +71,203 @@
   font-family: 'Comfortaa', Verdana;
   font-size: 16px;
   text-decoration: none;
+  text-align: center !important;
+  margin: 0 20px;
 }
 
-  .input-error {
-    border: 2px solid #e74c3c !important; /* Rojo */
-    background-color: #fff6f6;
-  }
+.menu_perfil span{
+  text-align: left;
+}
+
+/* --- ERRORES --- */
+.input-error {
+  border: 2px solid #e74c3c !important;
+  background-color: #fff6f6;
+}
 
 .rating.error {
   border: 2px solid #FFDDD3;
   border-radius: 6px;
   padding: 4px;
   background-color: #FE4D3E;
+}
+
+/* --- CONFIGURACIÓN --- */
+.configuracion {
+  background-color: #FFCD91;
+  border-radius: 6px;
+  padding: 0; /* padding se maneja en el botón y submenú */
+  width: 100%; /* ocupa todo el ancho del popup */
+  box-sizing: border-box;
+  margin: 0 5px;
+}
+
+.config-btn {
+  background: none;
+  border: none;
+  font-family: 'Comfortaa', Verdana;
+  font-size: 16px;
+  color: #1A1C1C;
+  cursor: pointer;
+  width: 100%; /* ocupa todo el ancho */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+}
+
+/* Animación de la flecha */
+.config-btn i {
+  font-size: 18px;
+  margin-left: 6px;
+    transition: transform 0.3s ease; /* animación suave */
+}
+
+.config-btn i.rotated {
+  transform: rotate(180deg); /* gira hacia arriba */
+}
+
+
+/* Submenú configuración */
+.submenu-config {
+  display: none;
+  margin: 0;
+  padding: 8px 12px 12px;
+  list-style: none;
+  width: 100%;
+  box-sizing: border-box;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+.submenu-config li {
+  margin: 10px 0;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'Comfortaa', Verdana;
+}
+
+/* --- RADIOBUTTON ESTILO (más pequeños) --- */
+.filter-switch {
+  /*border: 2px solid #e0f0ff;*/
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;   /* más bajo */
+  width: 200px;   /* más angosto */
+  overflow: hidden;
+}
+
+#firstFilter{
+  background-color: #212121;
+  margin-bottom: 16px;
+}
+
+.filter-switch input {
+  display: none;
+}
+
+.filter-switch label {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+  font-weight: 500;
+  font-size: 15px; /* más chico */
+}
+
+.filter-switch .background {
+  position: absolute;
+  width: 50%;
+  height: 24px;
+  background-color: #ffc000;
+  top: 4px;
+  left: 4px;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+}
+
+/* Fondo Modo Tema */
+#bgTheme {
+  position: absolute;
+  width: 48%;
+  height: 24px;
+  background: linear-gradient(to right, #E99A3C, #ffba67);/* color diferente para tema */
+  top: 4px;
+  left: 4px;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+}
+
+/* Movimiento del fondo */
+#theme-dark:checked ~ #bgTheme { left: 30%; }
+
+/* Activos */
+#theme-light:checked + label[for="theme-light"],
+#theme-dark:checked + label[for="theme-dark"] {
+  color: #f6fffe;
+  font-weight: bold;
+}
+
+/* Inactivos */
+#theme-light:not(:checked) + label[for="theme-light"],
+#theme-dark:not(:checked) + label[for="theme-dark"] {
+  color: #c2c0c0;
+}
+
+
+
+
+
+
+
+/* ----------------Fondo Idioma --------------*/
+
+/*lang - idioma*/
+ #secondFilter{
+  background-color: #154734;
+  margin-bottom: 10px;
+}
+
+#bgLang {
+  position: absolute;
+  width: 50%;
+  height: 24px;
+  background: linear-gradient(to right, #1a7f5a, #2aa87a);/* color diferente para idioma */
+  top: 4px;
+  left: 4px;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+}
+
+/* Movimiento del fondo Idioma */
+#lang2:checked ~ #bgLang { left: 50%; }
+
+/* Movimiento del fondo */
+#option2:checked ~ .background { left: 50%; }
+#lang2:checked ~ .background { left: 50%; }
+
+/* Activos */
+#option1:checked + label[for="option1"],
+#option2:checked + label[for="option2"],
+#lang1:checked + label[for="lang1"],
+#lang2:checked + label[for="lang2"] {
+  color: #f6fffe;
+  font-weight: bold;
+}
+
+/* Inactivos */
+#option1:not(:checked) + label[for="option1"],
+#option2:not(:checked) + label[for="option2"],
+#lang1:not(:checked) + label[for="lang1"],
+#lang2:not(:checked) + label[for="lang2"] {
+  color: #c2c0c0;
 }
 
 

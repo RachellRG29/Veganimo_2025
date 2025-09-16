@@ -22,7 +22,7 @@
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     z-index: 999; 
-    background-color: #F6FFFE;
+    background: var(--backg-blur-light);
   }
   
   
@@ -73,9 +73,6 @@
     transition: transform 0.3s ease;
   }
   
-  /*.ph-magnifying-glass:hover {
-    transform: scale(1.1);
-  }*/
   
 /* Select de categorías (estilo mejorado) */
 .input-busq-categoria select {
@@ -84,11 +81,11 @@
     padding: 0 20px;
     border: none;
     border-radius: 14px;
-    background: linear-gradient(135deg, #ffffff, #f7f7f7);
-    color: #333;
+    background: var(--backg-cat-rect);
+    color: var(--text-light);
     font-size: 1em;
     font-family: 'Comfortaa', Verdana;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     appearance: none;
     -webkit-appearance: none;
@@ -101,15 +98,23 @@
   }
   
   .input-busq-categoria select:hover {
-    background: linear-gradient(135deg, #fafafa, #f0f0f0);
+    background: var(--backg-cat-rect-hover);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   }
    
   .lbl_title_recetas{
-    color: #1A1C1C;
+    color: var(--text-light);
     font-size: 1.6rem;
   }
-  
+
+/* Estilo para las opciones (solo funciona en algunos navegadores) */
+.input-busq-categoria option {
+  background-color: #f6fffe;
+  color: #1a1c1c;
+  padding: 12px;
+  font-family: 'Comfortaa', Verdana;
+  font-size: 0.95em;
+}  
 
   
 /*Importante para el diseño*/

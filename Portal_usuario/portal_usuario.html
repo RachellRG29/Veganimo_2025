@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <!-- Gloock y Comfortaa fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet">
+
+    <!-- Iconos de Phosphor -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/phosphor.css">
+    <!-- Estilos del portal de usuario -->
+    <link rel="stylesheet" href="../Portal_usuario/css/style_portal_usuario.css">
+
+    <link rel="website icon" href="/Images/Icono_veganimo.svg">
+    <title>Portal Usuario</title>
+    
+    
+</head>
+
+<body >
+
+    <!-- nabvar + boton para regresar o volver -->
+    <div class="barra_volver">
+         <!-- Botón Volver -->
+        <button class="back-button" onclick="window.location.href = '../Pantalla_principal/index_pantalla_principal.html'">
+            <div class="icon"></div>
+            Volver
+        </button>
+
+         <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 168.68 199.52">
+                <g id="Veganimo">
+                    <g>
+                    <path class="cls-1" d="M86.29,80.26c-.7-.61-1.28-1.32-1.77-2.05,3.86,9,7.35,17.37,8.89,21.71l8.39-17.96c-5.41,2.01-11.23,2.03-15.51-1.7Z"/>
+                    <path class="cls-1" d="M136.3,0H32.38C14.5,0,0,14.49,0,32.38V167.13c0,17.89,14.5,32.39,32.38,32.39h103.92c17.88,0,32.38-14.5,32.38-32.39V32.38c0-17.89-14.5-32.38-32.38-32.38Zm6.77,33.9c-6.17-.63-10.49,1.22-14.22,4.34-3.91,3.28-5.37,7.22-6.64,10.77-2.46,6.91-3.56,14.68-6.72,21.31-1.54,3.22-4.54,6.39-8.17,8.8l-20.9,44.76h15.89c-1.85-10.13,1.45-20.96,9.71-28.35,7.33-6.55,16.95-8.94,25.92-7.28,1.27,1.45-6.95,10.87-10.25,13.82,3.3-2.95,13.58-10.07,14.89-8.63,.63,9.1-2.8,18.38-10.14,24.94-2.66,2.39-5.63,4.21-8.76,5.5h14.16c3.04,0,5.45,2.6,5.17,5.62-1.57,16.65-10.06,31.28-22.55,41.01-4.3,3.34-9.6,5.13-15.04,5.13-.31,0-.55,.25-.55,.55v2.33c0,1.71-1.39,3.1-3.1,3.1h-34.82c-1.71,0-3.1-1.39-3.1-3.1v-2.33c0-.31-.25-.55-.55-.55h-.25c-5.44,0-10.75-1.79-15.05-5.13-12.49-9.73-20.98-24.36-22.54-41.01-.29-3.02,2.13-5.62,5.16-5.62h23.36c-2.31-.91-4.47-2.3-6.33-4.18-4.77-4.83-6.3-11.64-4.62-17.74,6.13-1.59,12.9,.03,17.67,4.86,4.6,4.66,6.18,11.14,4.8,17.06h14.23L42.97,44.17c-4.22-9.35-8.99-14.02-14.29-14.02h-.45v-1.29h49.92v1.29h-.61c-4.52,0-7.51,1.17-8.98,3.53-1.48,2.36-1.23,5.64,.74,9.84,0,0,6.93,15.5,13.49,30.68,1.45,.76,5.37,.96,6.1,.91,1.77-.12,3.93-.58,5.38-1.45,3.79-2.3,6.64-7.11,7.97-10.94,1.54-4.33,2.59-9.32,4.44-13.83,2.15-5.32,5.27-10.6,10.29-14.42,5.17-4.09,13.11-6.26,20.38-4.16,2.31,.68,4.43,1.79,5.92,3.27l-.2,.32Z"/>
+                    </g>
+                </g>
+                </svg>
+            </div>
+        </nav>
+
+
+    </div>
+
+    <!-- Contenedor Principal -->
+    <div class="main-container">
+        <!-- Datos Personales -->
+        <section class="section personal-data">
+            <h2 class="section-title">Datos personales</h2>
+            <div class="decorative-line"></div>
+            
+           <div class="avatar-container">
+                <div class="avatar" id="avatar-display"></div>
+                <div class="edit-avatar">
+                    <i class="ph ph-note-pencil edit-icon"></i>
+                </div>
+            </div>
+
+        <!-- Modal para ver avatar grande -->
+        <div id="avatar-large-modal" class="modal">
+        <span class="close" onclick="cerrarAvatarGrande()">&times;</span>
+        <img id="avatar-large-img" src="" alt="Avatar Grande">
+        </div>
+
+            
+            <div class="info-box">
+                <div class="info-item">
+                    <div class="info-label">Nombre</div>
+                    <div class="info-value" id="user-name">Cargando...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value" id="user-email">Cargando...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Fecha de nacimiento</div>
+                    <div class="info-value" id="user-birthdate">Cargando...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Género</div>
+                    <div class="info-value" id="user-gender">Cargando...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perfil Nutricional (Se cargará dinámicamente) -->
+        <section class="section nutritional-profile">
+            <h2 class="section-title">Perfil nutricional</h2>
+            <div class="decorative-line"></div>
+            
+            <div id="nutritional-content" class="loading">
+                <div class="spinner"></div>
+            </div>
+        </section>
+
+        <!-- Nivel de Usuario -->
+        <section class="section user-level">
+            <h3 class="level-title">Nivel:</h3>
+            <span class="level-value" id="user-level">Cargando...</span>
+        </section>
+
+        <!-- Próximamente -->
+        <section class="section coming-soon">
+            <h2 class="section-title">Próximamente</h2>
+            <div class="decorative-line"></div>
+        </section>
+    </div>
+
+<!-- Modal de lectura -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModal()">&times;</span>
+    <!-- Botón Editar -->
+    <button id="edit-modal-btn" class="edit-button" style="display:none;">
+      <i class="edit-svgIcon ph ph-pencil-line"></i>
+      <span class="edit-text">Modificar</span>
+    </button>
+
+    <h3 id="modal-title" class="modal-header">Detalles</h3>
+    
+    <div id="modal-body" class="modal-body">
+      <!-- Contenido dinámico desde JS -->
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal de Edición -->
+<div id="modal-edit" class="modal" onclick="evitarCerrarEdit(event)">
+  <div class="modal-content">
+    <!-- Aquí cambiamos cerrarModalEdit() por cancelarEdicion() -->
+    <span class="close" onclick="cancelarEdicion()">&times;</span>
+    <h2 id="modal-edit-title">Modificar</h2>
+
+    <form id="modal-edit-form">
+      <!-- Contenido dinámico generado desde JS -->
+    </form>
+
+    <div class="buttons-container">
+      <button type="button" class="form-button btn-canc" onclick="cancelarEdicion()">Cancelar</button>
+      <button type="button" class="form-button btn-guar" onclick="guardarEdicion()">Actualizar</button>
+    </div>
+  </div>
+</div>
+
+
+<style>
+/* Estilo modal lectura */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Animación de entrada */
+.modal.show .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+.modal-content {
+  position: relative;
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+  font-family: 'Comfortaa', sans-serif;
+  box-shadow: 0px 6px 20px rgba(0,0,0,0.2);
+
+  /* Animación */
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+/* Encabezado */
+.modal-header {
+  font-size: 20px;
+  font-weight: 700;
+  color: #007848;
+  margin-bottom: 15px;
+  text-align: start;
+}
+
+/* Cuerpo organizado en secciones */
+.modal-body .modal-section {
+  margin-bottom: 18px;
+  padding: 12px 15px;
+  border-radius: 12px;
+  background: #f3fdf9;
+  border: 1.5px solid #ddd;
+}
+
+
+.modal-body .modal-section h4 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #1A1C1C;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.modal-body .modal-section p {
+  font-size: 16px;
+  margin: 6px 0;
+  line-height: 1.5;
+}
+
+
+/* Listas dentro de secciones */
+.modal-body ul {
+  list-style: disc;
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+.modal-body li {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 4px 0;
+}
+
+
+/* Botón editar al lado izquierdo del cerrar */
+.modal-content .edit-button {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  top: 15px;
+  right: 60px;
+  cursor: pointer;
+  background-color: #FFE24F;
+  color: #1A1C1C;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Comfortaa', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+
+  /* oculta el texto al inicio */
+  overflow: hidden;
+  width: 34px; 
+  height: 34px;
+  justify-content: center;
+}
+
+.modal-content .edit-button:hover {
+  background-image: linear-gradient(to left, #FFE24F , #faffa4);
+  padding: 6px 10px;
+}
+
+/* texto oculto al inicio */
+.edit-text {
+  white-space: nowrap;
+  margin-top: -10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* al hacer hover aparece el texto */
+.edit-button:hover .edit-text {
+  opacity: 1;
+}
+
+.edit-svgIcon{
+  font-size: 20px;
+  margin-top: 5px;
+  transition-duration: 0.3s;
+}
+
+.edit-button:hover {
+  width: 120px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: #FFE24F;
+  align-items: center;
+}
+
+.edit-button:hover .edit-svgIcon {
+  width: 20px;
+  color: #1A1C1C;
+  margin-top: -2px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+
+
+/* Checkboxes en modal de edición */
+/* ===== Igualar estilo entre lectura y edición ===== */
+#modal-edit-title{
+  color: #cc7f20;
+}
+
+#modal-edit-form h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #1A1C1C;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  font-weight: 600;
+}
+
+#modal-edit-form h3,
+#modal-edit-form .custom-select-options {
+  display: block;
+  width: 100%;
+}
+
+/* Envolver h3 + .custom-select-options como si fueran una caja */
+#modal-edit-form h3 {
+  margin-top: 18px; /* separación entre secciones */
+}
+
+/* -----------------///MODAL EDICION ///////---------------- */
+#modal-edit-form .custom-select-options {
+  background: #f3fdf9;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+
+  scrollbar-width: thin;        
+  scrollbar-color: #007848b4 #f3fdf9; /* color del pulgar y track en Firefox */
+}
+
+#modal-edit-form .custom-select-options label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: #1A1C1C;
+  cursor: pointer;
+}
+
+#modal-edit-form .custom-select-options input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  accent-color: #007848;
+  cursor: pointer;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.btn-canc{
+    background-color: #F6FFFE;
+    color: #007848;
+    border: 2px solid #007848;
+    font-size: 14px;
+
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-family: 'Comfortaa';
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.btn-guar{
+   background-color: #E99A3C;
+    color: #1A1C1C;
+    font-family: "Comfortaa";
+    font-size: 14px;
+
+    border-radius: 12px;
+    padding: 10px 25px;
+    font-family: 'Comfortaa';
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 120px;
+    margin-left: 20px;
+}
+
+
+</style>
+
+<!-- Modal de Avatares -->
+<div id="modal-avatar" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarModalAvatar()" style="z-index: 9999;">&times;</span>
+    <h3 style="font-family: 'Gloock'; letter-spacing: 1px; font-weight: 300; color: #154734; font-size: 25px;">Elige tu avatar</h3>
+    <div id="avatar-grid" class="avatar-grid"></div>
+  </div>
+</div>
+
+
+
+
+    <script src="../Portal_usuario/portal_usuario_nutric.js"></script>
+
+    <!-- SCRIPTS DE LA PANTALLA PRINCIPAL -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
+  <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
+  <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+</body>
+</html>

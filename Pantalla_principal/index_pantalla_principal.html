@@ -74,7 +74,7 @@
           <i class="ph ph-book-open" style="font-size: 24px;"></i><span>Recetas</span>
         </li>
       
-        <li class="nav-item">
+        <li class="nav-item" data-page="pp_dieta_vegana.php">
           <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Dietas veganas</span>
         </li>
       
@@ -82,7 +82,7 @@
           <i class="ph ph-users-three" style="font-size: 24px;"></i><span>Comunidad</span>
         </li>
       
-        <li class="nav-item has-submenu" data-page="pp_informate.html">
+        <li class="nav-item has-submenu" data-page="pp_informate.php">
           <div class="nav-trigger">
             <i class="ph ph-info" style="font-size: 24px;"></i><span>Infórmate</span><i class="ph ph-caret-down"></i>
           </div>
@@ -93,11 +93,7 @@
           </ul>
         </li>
       
-        <li class="nav-item">
-          <i class="ph ph-gear-six" style="font-size: 24px;"></i><span>Configuración</span>
-        </li>
-      
-        <li class="nav-item">
+        <li class="nav-item" data-page="pp_ayuda.php">
           <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
         </li>
 
@@ -135,7 +131,7 @@
     <!-- Columna izquierda: Logo y descripción -->
     <div class="logoarea">
         <div class="logo-container">
-        <img class="logoFooter" src="/Images/isotipo_veganimo.svg" alt="Logo Vegánimo" style="width: 40px;" ondragstart="return false;">
+        <img class="logoFooter" src="/Images/isotipo_slogan.png" alt="Logo Vegánimo" style="width: auto; height: 60px; margin-left: 0px;" ondragstart="return false;">
         </div>
         <p class="nosotros">
         Somos una empresa que crea dietas y recetas con la finalidad de mejorar la salud y el veganismo.
@@ -181,14 +177,38 @@
   <script src="../Pantalla_principal/contenidos/comunidad.js"></script>
  
 
-  <!-- MENU Y POPUP PERFIL NUTRC -->
+  <!-- MENU Y POPUP PERFIL NUTRC + CONFIGURACIÓN -->
   <script src="../perfil_nutric_popup.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       await actualizarPerfilUsuario();
       await verificarRolUsuario();
     });
+
+  function toggleConfig() {
+    const submenu = document.getElementById("submenu-config");
+    const arrow = document.getElementById("config-arrow");
+
+    // Alternar visibilidad del submenú
+    if (submenu.style.display === "block") {
+      submenu.style.display = "none";
+      arrow.classList.remove("rotated");
+    } else {
+      submenu.style.display = "block";
+      arrow.classList.add("rotated");
+    }
+}
+
   </script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            // Si se accede desde el caché (por botón atrás), forzar recarga
+            window.location.reload();
+        }
+    });
+</script>
+
   
 
 </body>

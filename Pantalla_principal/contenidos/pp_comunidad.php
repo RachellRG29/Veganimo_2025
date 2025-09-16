@@ -1,3 +1,7 @@
+<?php include_once __DIR__ . '/menu_perfil.php'; 
+require_once __DIR__ . '/auth_middleware.php';
+?>
+
 <!-- pp_comunidad.php -->
 <section class="section_comunidad">
   <h1 class="lbl_bienvenida_vg">Bienvenido a Chat Comunidad Veganimo 🌱</h1>
@@ -114,7 +118,14 @@
 
 </section>
 
-
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            // Si se accede desde el caché (por botón atrás), forzar recarga
+            window.location.reload();
+        }
+    });
+</script>
 
 
 

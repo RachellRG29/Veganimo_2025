@@ -8,7 +8,7 @@ if (empty($_POST['email']) || empty($_POST['password'])) {
     echo json_encode([
         "success" => false,
         "message" => "Debes ingresar el correo y la contraseña",
-        "icon" => "warning"
+        "icon"    => "warning"
     ]);
     exit;
 }
@@ -23,7 +23,17 @@ try {
         echo json_encode([
             "success" => false,
             "message" => "Correo no registrado",
-            "icon" => "error"
+            "icon"    => "error"
+        ]);
+        exit;
+    }
+
+    // Verificar si está baneado
+    if (isset($usuario->banned) && $usuario->banned === true) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Tu cuenta ha sido baneada. Contacta al administrador.",
+            "icon"    => "error"
         ]);
         exit;
     }
@@ -33,7 +43,7 @@ try {
         echo json_encode([
             "success" => false,
             "message" => "Contraseña incorrecta",
-            "icon" => "error"
+            "icon"    => "error"
         ]);
         exit;
     }
@@ -42,24 +52,23 @@ try {
     $nombreParts = preg_split('/\s+/', trim($usuario->fullname));
     $nombreMostrar = $nombreParts[0] . (isset($nombreParts[1]) ? ' ' . $nombreParts[1] : '');
     
-    $_SESSION['user_id'] = (string)$usuario->_id;
-    $_SESSION['email'] = $usuario->email;
+    $_SESSION['user_id']      = (string)$usuario->_id;
+    $_SESSION['email']        = $usuario->email;
     $_SESSION['display_name'] = $nombreMostrar;
-    $_SESSION['user_role'] = $usuario->role ?? 'user';
+    $_SESSION['user_role']    = $usuario->role ?? 'user';
 
     echo json_encode([
-        "success" => true,
-        "message" => "Sesión iniciada correctamente",
-        "icon" => "success",
-        "redirect" => "/Pantalla_principal/index_pantalla_principal.html",
-        "display_name" => $nombreMostrar
+        "success"       => true,
+        "message"       => "Sesión iniciada correctamente",
+        "icon"          => "success",
+        "redirect"      => "/Pantalla_principal/index_pantalla_principal.html",
+        "display_name"  => $nombreMostrar
     ]);
     
 } catch (MongoDB\Driver\Exception\Exception $e) {
     echo json_encode([
         "success" => false,
         "message" => "Error en el servidor",
-        "icon" => "error"
+        "icon"    => "error"
     ]);
 }
-?>
