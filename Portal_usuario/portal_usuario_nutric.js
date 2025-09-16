@@ -556,6 +556,5 @@ window.addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) cerrarModal();
   if (e.target === document.getElementById('modal-avatar')) cerrarModalAvatar();
   if (e.target === document.getElementById('avatar-large-modal')) cerrarAvatarGrande();
-  if (e.target === document.getElementById('modal-edit')) cerrarModalEdit();
 });
 
