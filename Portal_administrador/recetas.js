@@ -334,3 +334,4 @@ window.addEventListener('keydown', e => {
   if (e.target === document.getElementById('modal-edit')) cancelarEdicion();
 });
 });
+
