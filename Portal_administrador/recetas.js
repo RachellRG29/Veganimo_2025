@@ -256,8 +256,8 @@ function cancelarEdicion() {
       title: '¿Salir sin guardar?',
       text: 'Si sales se perderán los cambios.',
       showCancelButton: true,
-      confirmButtonText: 'Si salir',
-      cancelButtonText: 'Volver',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
       allowOutsideClick: false
     }).then(res => {
       if (res.isConfirmed) cerrarModalEdit();
@@ -275,7 +275,7 @@ function guardarEdicion() {
   if (!hayCambios(form)) return;
 
   Swal.fire({
-    title: '¿Confirmar actualización?',
+    title: '¿Desea modificar estos datos?',
     icon: 'question',
     showCancelButton: true,
     confirmButtonText: 'Sí',
