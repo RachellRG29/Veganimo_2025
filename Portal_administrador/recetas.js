@@ -204,7 +204,7 @@ function abrirModalEditar(idReceta) {
           <option value="cat_vegan" ${receta.categoria==='cat_vegan'?'selected':''}>Vegano</option>
         </select>
       </div>
-      <div class="input-group" style="grid-column:1 / span 2;"><label>Ingredientes</label><textarea name="ingredientes">${ingredientesTexto}</textarea></div>
+      <div class="input-group" style="grid-column:1 / span 2;"><label>Ingredientes (Uno por linea)</label><textarea name="ingredientes">${ingredientesTexto}</textarea></div>
       <div class="input-group" style="grid-column:1 / span 2;"><label>Descripción</label><textarea name="descripcion">${receta.descripcion}</textarea></div>
       <div class="input-group" style="grid-column:1 / span 2;"><label>Calificación</label>
         <select name="calificacion">
@@ -256,8 +256,8 @@ function cancelarEdicion() {
       title: '¿Salir sin guardar?',
       text: 'Si sales se perderán los cambios.',
       showCancelButton: true,
-      confirmButtonText: 'Si salir',
-      cancelButtonText: 'Volver',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
       allowOutsideClick: false
     }).then(res => {
       if (res.isConfirmed) cerrarModalEdit();
@@ -275,7 +275,7 @@ function guardarEdicion() {
   if (!hayCambios(form)) return;
 
   Swal.fire({
-    title: '¿Confirmar actualización?',
+    title: '¿Desea modificar estos datos?',
     icon: 'question',
     showCancelButton: true,
     confirmButtonText: 'Sí',
