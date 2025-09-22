@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Administrador</title>
+    <link rel="website icon" href="/Images/Icono_veganimo.svg">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Iconos -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet" />
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet"/>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="/Portal_de_administrador/css/style_portal_admi.css"> <!-- Estilos para el perfil de usuario -->
+    <link rel="stylesheet" href="/Portal_de_administrador/css/style_portal_modal.css"> <!-- modal administrador editar recetas  -->
+
+
+</head>
+
+<body>
+
+    <div class="container-admin">
+
+        <!-- Sidebar -->
+        <nav class="sidebar-admin">
+        <!-- Botón Volver -->
+        <button class="back-button" onclick="window.location.href = '../Pantalla_principal/index_pantalla_principal.html'">
+            <div class="icon"></div>
+            Volver
+        </button>  
+
+        <ul class="nav-links-admin">
+            <li class="nav-item-admin" data-page="pp_perfil.html" data-admin-only>
+            <i class="ph ph-house-simple"></i><span>Perfil</span>
+            </li>
+            <li class="nav-item-admin" data-page="pp_usuario.html" data-admin-only>
+            <i class="ph ph-users"></i><span>Usuarios</span>
+            </li>
+            <li class="nav-item-admin" data-page="pp_usuarios_pro.html" data-admin-only>
+            <i class="ph ph-users-three"></i><span>Usuarios Pro</span>
+            </li>
+            <li class="nav-item-admin" data-page="pp_dieta_vegana.php" data-admin-only>
+            <i class="ph ph-envelope-simple"></i><span>Solicitudes</span>
+            </li>
+            <li class="nav-item-admin" data-page="pp_recetas.html" data-admin-only>
+            <i class="ph ph-book-open"></i><span>Recetas</span>
+            </li>
+        </ul>
+        </nav>
+
+        <!-- Contenido dinámico -->
+        <main class="contenido-admin" id="contenido-admin">
+        <p>Selecciona una opción del menú para comenzar.</p>
+        </main>
+    </div>
+
+    <!-- MODAL DE EDICIÓN -->
+    <div id="modal-edit" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h2 id="modal-edit-title">Editar receta</h2>
+        <span id="modal-edit-close" class="modal-close">&times;</span>
+        </div>
+
+        <form id="modal-edit-form" class="modal-form">
+        <!-- Inputs inyectados por JS -->
+        </form>
+
+        <div class="modal-footer">
+        <button type="button" class="btn-cancel">Cancelar</button>
+        <button type="button" class="btn-guar" disabled>Actualizar</button>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- SCRIPTS DE PORTAL ADMINISTRADOR  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
+    <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
+
+
+    <script src="../Portal_de_administrador/js/script_portal_adm.js"></script>   <!-- portal adm, js global - Importante -->
+
+
+    <script src="/Portal_de_administrador/js/usuarios.js"></script>
+    <script src="/Portal_de_administrador/js/recetas.js"></script>
+
+ 
+
+<script>
+    async function verificarRolUsuario() {
+        try {
+            const response = await fetch('/Login/check_session.php');
+            if (!response.ok) throw new Error('Error verificando sesión');
+            const data = await response.json();
+            
+            // Mostrar/ocultar elementos de admin
+            const adminElements = document.querySelectorAll('[data-admin-only]');
+            const isAdmin = data.role === 'admin';
+            
+            adminElements.forEach(el => {
+                el.style.display = isAdmin ? '' : 'none';
+            });
+            
+            return data.role;
+        } catch (error) {
+            console.error('Error verificando rol:', error);
+            return 'user';
+        }
+    }
+    
+    // Ejecutar después de que todo esté cargado
+    document.addEventListener('DOMContentLoaded', verificarRolUsuario);
+</script>
+
+
+
+    
+</body>
+
+<style>
+
+  /* Forzar SweetAlert2 por encima de cualquier modal */
+    .swal2-container {
+    z-index: 3000 !important;
+    }
+
+    .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    }
+    .modal-overlay.show { display: flex; }
+
+    .modal-content {
+    background: #fff;
+    width: 500px;
+    max-width: 90%;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    }
+
+    .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    }
+    .modal-close {
+    cursor: pointer;
+    font-size: 24px;
+    }
+
+    .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    }
+
+    /* Contenedor general */
+    .content {
+    width: 100%;
+    max-width: 1800px; /* aumentamos ancho máximo */
+    margin: 0 auto; /* centrado */
+    padding: 0 15px; /* un poco de padding lateral */
+    }
+
+    /* Tablas dentro del card-body */
+    .table-responsive {
+    overflow-x: auto; /* mantiene scroll si se hace muy grande */
+    }
+
+    .table {
+    width: 100%; /* ocupa todo el ancho del contenedor */
+    min-width: 1200px; /* ancho mínimo para que las columnas */
+    }
+
+    /* Scroll horizontal de las tablas */
+    .table-responsive::-webkit-scrollbar {
+    height: 8px; /* altura del scroll horizontal */
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+    background: #f0f0f0; /* color del track */
+    border-radius: 4px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+    background-color: #FF7F00; /* color naranja del scroll */
+    border-radius: 4px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+    background-color: #e66a00; /* naranja más oscuro al pasar el mouse */
+    }
+
+    /* Firefox */
+    .table-responsive {
+    scrollbar-width: thin;
+    scrollbar-color: #FF7F00 #f0f0f0;
+    }
+
+
+</style>
+
+
+</html>

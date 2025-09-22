@@ -66,7 +66,7 @@ if (isset($_SESSION['user_id'])) {
         <?php endif; ?>
 
         <?php if ($isAdmin): ?>
-            <li><a href="/Portal_administrador/portal_adm.html">Portal del administrador</a></li>
+            <li><a href="/Portal_de_administrador/index_portal_adm.html">Portal del administrador</a></li>
         <?php endif; ?>
 
         <!-- Sección Configuración -->

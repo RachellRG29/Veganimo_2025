@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /*outline: 1px solid red;*/
+}
+
+body {
+  font-family: 'Comfortaa', sans-serif;
+  background-color: #f8f9fa;
+
+}
+
+/* Contenedor principal */
+.barra_volver {
+  width: 100%;
+}
+
+
+/* Contenedor principal con layout en dos columnas */
+.container-admin {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* Sidebar fija de 220px + contenido flexible */
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+/* SIDEBAR / MENU LATERAL */
+/* Sidebar */
+.sidebar-admin {
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  height: auto;
+  min-height: 100vh;
+  width: 220px !important;
+  background-color: #154734;
+  color: #F6FFFE;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  font-family: 'Comfortaa', Verdana !important;
+}
+
+.nav-links-admin {
+  list-style: none;
+  width: 100%;
+  padding: 10px; margin: 0; gap: 12px;
+  margin-top: 90px;
+}
+
+.nav-item-admin {
+  position: relative;
+  border-radius: 0 8px 8px 0; /*top-right-bottom-left / borde de la barra lateral */
+  left: -10px;
+  margin: -8px 0 16px 0; /*top right bottom left*/
+  padding: 8px 0 8px 0 ; /*top right bottom left / menu importante */
+  width: 96%; /*ancho de la barra lateral*/
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow: hidden;
+}
+
+
+/* Mantener el estilo visual */
+.nav-item-admin:hover {
+  background-color: #007848; color: #F6FFFE;
+}
+
+/* Para items SIN submenú, mantiene el estilo original */
+.nav-item-admin:not(.has-submenu) {
+  display: flex; box-sizing: border-box;
+  align-items: center; gap: 12px;
+  padding: 10px;  
+}
+
+/* --- HOVER --- */
+.nav-item-admin:hover {
+  background-color: #007848; color: #F6FFFE;
+}
+
+/* --- ACTIVE ITEM --- */
+.nav-item-admin.active,
+.nav-trigger.active {
+  background-color: #F6FFFE; color: #007848;
+  font-weight: bold;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-left: 20px;
+}
+
+/* Línea naranja solo cuando tenga la clase highlight */
+.nav-item-admin.highlight::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  left: 5px; /*LINEA MENU*/
+  bottom: 50%;
+  transform: translateY(50%);
+  height: 100%;
+  background-color: orange;
+  border-radius: 4px;
+}
+
+
+/* --- Span --- */
+.nav-item-admin span,
+.has-submenu span,
+.submenu span {
+  font-size: 1rem;
+}
+
+
+
+/* Logo */
+.logo svg {
+  width: 40px;
+  height: auto;
+  fill: #F6FFFE;
+}
+
+
+/*-----------------------------------------------------------------------------*/
+/* Botón Volver */
+.back-button {
+  position: absolute; /* ahora relativo a .barra_volver */
+  top: 12px;
+  left: 20px;
+  background-color: #E0FFF2;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #1A1C1C;
+  box-shadow: inset 0 0 8px #007848;
+  cursor: pointer;
+  z-index: 200;
+}
+
+.back-button .icon {
+  width: 10px;
+  height: 17px;
+  background-color: #0E9863;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  margin-right: 8px;
+}
+/*-----------------------------------------------------------------------------*/
+/* Buscador dentro del header */
+.search-bar {
+  background-color: white;
+  border-radius: 10px; 
+  padding: 4px 30px;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar i {
+  color: #E99A3C; /* icono naranja */
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.search-bar input {
+  width: 320px;
+  font-size: 14px;
+  color: #154734;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.search-bar input::placeholder {
+  color: #E99A3C; /* placeholder naranja */
+}
+
+.card-body {
+  background-color: transparent !important; /* o #0E9863 si prefieres verde */
+  padding: 0; /* opcional: elimina espacio extra */
+}
+
+/* Tabla */
+.table {
+  border-collapse: separate; /* Para separar filas y aplicar solo línea horizontal */
+  border-spacing: 0 1px; /* Línea horizontal blanca entre filas */
+  width: 100%;
+}
+
+/* Encabezado */
+.table th {
+  background-color: #154734b8; /* Encabezado oscuro */
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Filas */
+.table tbody tr {
+  background-color: #0E9863; /* Fondo de filas */
+  color: white;
+}
+
+/* Línea horizontal entre filas */
+.table tbody tr + tr {
+  border-top: 1px solid white;
+}
+
+/* Celdas */
+.table td {
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 16px 8px;
+  background-color: #0E9863;
+  border: none; /* Elimina líneas verticales */
+}
+
+ 
+
+
+/* Columna nombre más oscuro */
+.table td:first-child {
+  background-color: #154734b8;
+}
+
+.table th:first-child {
+  background-color: #154734b8; /* Encabezado columna nombre también */
+}
+
+
+
+
+
+/****--------------------------RESPONSIVIDAD---------------------------------------------------*/
+
+@media (max-width: 992px) {
+
+
+}
+
+@media (max-width: 576px) {
+
+
+}

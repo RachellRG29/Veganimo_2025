@@ -86,13 +86,14 @@
                     cuentanos un poco sobre ti. <br>
                     Comparte tus datos nutricionales y 
                     armamos un plan que se adapte a ti. <br>
-                    ¡Así te conocemos mejor y te hechamos una mano desde el día uno!
+                    ¡Así te conocemos mejor y te hechamos una mano desde el día uno!<br>
+                    Para activar tu plan personalizado, solo necesitas tu suscripción.
                 </p>
 
-               <!-- <button class="btn_iniciar_plan"> Iniciar plan 
+                <button class="btn_iniciar_plan"> Suscríbete
                     <i class="ph ph-caret-right" 
                     style="font-size: 24px;"></i>
-                </button> -->
+                </button> 
 
             </div>
         </div>

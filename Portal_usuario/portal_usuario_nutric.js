@@ -58,8 +58,8 @@ function renderPerfilNutricional() {
         <h3 class="profile-subtitle">🌱 Crea tu Perfil Nutricional</h3>
         <p class="profile-description">
           Personaliza tu experiencia vegana creando tu perfil nutricional.<br><br>
-          Aquí podrás registrar tus objetivos, preferencias y necesidades alimenticias para recibir recomendaciones que se adapten a tu estilo de vida.
-          ¡Empieza ahora y descubre una forma más fácil y saludable de mantener tu alimentación vegana!
+          Aquí podrás registrar tus objetivos, preferencias y necesidades alimenticias para recibir recomendaciones que se adapten a tu estilo de vida. <br>
+          ¡Empieza ahora y desbloquea tu experiencia completa con tu <strong>suscripción nutricional vegana!</strong>
         </p>
         <a href="../Perfil_nutricional/crear_perfil_nutric.html" class="create-button">
           Crear perfil nutricional 
