@@ -1,0 +1,73 @@
+
+
+    <!-- Contenedor Principal -->
+    <div class="main-container">
+        <!-- Datos Personales -->
+        <section class="section personal-data">
+            <h2 class="section-title">Datos personales</h2>
+            <div class="decorative-line"></div>
+            
+           <div class="avatar-container">
+                <div class="avatar" id="avatar-display"></div>
+                <div class="edit-avatar">
+                    <i class="ph ph-note-pencil edit-icon"></i>
+                </div>
+            </div>
+
+        <!-- Modal para ver avatar grande -->
+        <div id="avatar-large-modal" class="modal">
+        <span class="close" onclick="cerrarAvatarGrande()">&times;</span>
+        <img id="avatar-large-img" src="" alt="Avatar Grande">
+        </div>
+
+            
+            <div class="info-box">
+                <div class="info-item">
+                    <div class="info-label">Nombre</div>
+                    <div class="info-value" id="user-name">Cargando...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Email</div>
+                    <div class="info-value" id="user-email">Cargando...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Fecha de nacimiento</div>
+                    <div class="info-value" id="user-birthdate">Cargando...</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Género</div>
+                    <div class="info-value" id="user-gender">Cargando...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perfil Nutricional (Se cargará dinámicamente) -->
+        <section class="section nutritional-profile">
+            <h2 class="section-title">Perfil nutricional</h2>
+            <div class="decorative-line"></div>
+            
+            <div id="nutritional-content" class="loading">
+                <div class="spinner"></div>
+            </div>
+        </section>
+
+        <!-- Nivel de Usuario -->
+        <section class="section user-level">
+            <h3 class="level-title">Nivel:</h3>
+            <span class="level-value" id="user-level">Cargando...</span>
+        </section>
+
+        <!-- Próximamente -->
+        <section class="section coming-soon">
+            <h2 class="section-title">Próximamente</h2>
+            <div class="decorative-line"></div>
+        </section>
+    </div>
+
+
+
+
+
+
+
+    

@@ -20,13 +20,19 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario --> 
-    <link rel="stylesheet" href="../Perfil_nutricional/css/style_crear_pnutric.css">
+    <link rel="stylesheet" href="/style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario --> 
+    <link rel="stylesheet" href="/Perfil_nutricional/css/style_crear_pnutric.css">
 
 </head>
 
 <body>
   
+  <!-- Botón Volver -->
+<button class="btn-volver" onclick="window.location.href = '../Portal_usuario/portal_usuario.html'">
+  <span>⬅ Volver</span>
+</button>
+
+
 
       <!-- NotificaciónNOMOSTRARAQUI+ perfil usuario -->
     <div class="contenedor-perfil-notificacion">
@@ -106,11 +112,6 @@
 
       </div>
     </div>
-
-        <button class="back-button" onclick="window.location.href = '../Pantalla_principal/index_pantalla_principal.html'">
-          <div class="icon"></div>
-            Volver
-        </button> 
 
     <form action="guardar_perfil.php" method="POST" class="form-container" id="form-crear-perfil"> 
       <!-- Sección 1: Datos generales -->
@@ -595,7 +596,6 @@
     <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
     <script src="/perfil_nutric_popup.js"></script>
     <script src="/Perfil_nutricional/crear_perfil_nutric.js"></script>
-    <script src="validaciones.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -664,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
-
+<script src="validaciones.js"></script>
 
 <style>/* Etiqueta en verde suave cuando se selecciona */
 .custom-select-options label.selected {
@@ -712,35 +712,6 @@ document.addEventListener('DOMContentLoaded', function() {
     background-color: #f8f9fa;
 }
 
-</style>
-
-<style>
-  /* Botón Volver */
-.back-button {
-    position: fixed;
-    top: 18px;
-    left: 20px;
-    background-color: #E0FFF2;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    font-family: 'Comfortaa', cursive;
-    font-size: 16px;
-    color: #1A1C1C;
-    box-shadow: inset 0 0 8px #007848;
-    cursor: pointer;
-    z-index: 1000;
-}
-
-.back-button .icon {
-    width: 10px;
-    height: 17px;
-    background-color: #0E9863;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%);
-    margin-right: 8px;
-}
 </style>
 
 </body>
