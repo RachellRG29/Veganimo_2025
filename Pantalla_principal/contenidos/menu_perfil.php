@@ -62,7 +62,7 @@ if (isset($_SESSION['user_id'])) {
     <ul>
 
         <?php if (isset($_SESSION['user_id']) && !$isAdmin): ?>
-            <li><a href="/Portal_de_usuario/index_portal_usuario.html">Portal del usuario</a></li>
+            <li><a href="/Portal_usuario/portal_usuario.html">Portal del usuario</a></li>
         <?php endif; ?>
 
         <?php if ($isAdmin): ?>
