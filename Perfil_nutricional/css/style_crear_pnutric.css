@@ -15,6 +15,32 @@ body {
     align-items: center;
 }
 
+.crear_perfil{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -90px !important;
+}
+
+.tarjeta-crear-perf{
+  width: 90%;
+  height: auto;
+  padding: 14px;
+  border-radius: 01rem;
+  overflow: visible;
+  background: radial-gradient(
+        at 88% 40%,
+        #103426 0px,
+        transparent 85%
+      ),
+      radial-gradient(at 49% 30%, #DCFFE5 0px, transparent 85%),
+      radial-gradient(at 14% 26%, #CAFFCD 0px, transparent 85%),
+      radial-gradient(at 0% 64%, #E99A3C 0px, transparent 85%),
+      radial-gradient(at 41% 94%, #007848 0px, transparent 85%),
+      radial-gradient(at 100% 99%, #2E7D32 0px, transparent 85%);;
+  z-index: 1;
+}
+
 .form-container {
     max-width: 800px;
     width: 100%;

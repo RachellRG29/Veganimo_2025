@@ -78,19 +78,18 @@
         <div class="tarjeta_inic_plan">
             <div class="contenido_tarj_plan">
                 <div class="circulo_plan">
-                    <img src="../Images/libro_receta_vegana.png" alt="" class="img_tarj_plan">
+                    <img src="../Images/food_anim.gif" alt="" class="img_tarj_plan">
                 </div>
                 
                 <h2 class="titulo_tarj_plan">¡Hola! ¿Listo para empezar?</h2>
-                <p class="descripcion_tarj_plan">Antes de arrancar con tu vida vegana, 
+                <p class="descripcion_tarj_plan">Antes de dar el primer paso en tu estilo de vida vegano, 
                     cuentanos un poco sobre ti. <br>
-                    Comparte tus datos nutricionales y 
-                    armamos un plan que se adapte a ti. <br>
-                    ¡Así te conocemos mejor y te hechamos una mano desde el día uno!<br>
-                    Para activar tu plan personalizado, solo necesitas tu suscripción.
+                    Comparte tus datos nutricionales y crearemos un perfil adaptado a tus necesidades. <br>
+                    De esta manera podremos armar tu plan personalizado y acompañarte desde el día uno. 🌱 <br> <br>
+                    Para activar todos los beneficios de Vegánimo y comenzar con tu plan, solo necesitas tu suscripción.
                 </p>
 
-                <button class="btn_iniciar_plan"> Suscríbete
+                <button class="btn_iniciar_plan" onclick="window.location.href = '../Perfil_nutricional/crear_perfil_nutric.html'"> Suscríbete
                     <i class="ph ph-caret-right" 
                     style="font-size: 24px;"></i>
                 </button> 

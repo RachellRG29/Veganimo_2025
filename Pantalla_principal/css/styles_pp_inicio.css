@@ -25,10 +25,9 @@ body, html {
   margin: 50px 0 20px 0; /*top-right-bottom-left*/
 }
 
-
 .tarjeta_inic_plan{
   width: 90%;
-  height: 400px;
+  height: 530px;
   padding: 14px;
   border-radius: 01rem;
   overflow: visible;
@@ -69,19 +68,20 @@ body, html {
 /*img*/
 .circulo_plan{
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 140px !important;
+  height: 140px !important;
   border-radius: 50%;
   background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
-  margin-top: 1.5rem;
+  margin-top: 1.6rem;
+  justify-content: center;
 }
 .img_tarj_plan{
   position: absolute;
-  width: 90%;
-  height: 90%;
-  align-self: center;
+  width: 150px !important;
+  height: auto;
   top: 1rem;
   object-fit: cover; 
+  justify-content: center;
 }
 /*titulo*/
 .titulo_tarj_plan{
@@ -91,13 +91,14 @@ body, html {
 /*descripcion tarjeta para iniciar plan*/
 .descripcion_tarj_plan{
   text-wrap: pretty;  font-size: 1.1rem;
+  text-align: center;  padding: 0 1.5rem;
   color: #1A1C1C;
 }
 /*Boton para iniciar plan*/
 .btn_iniciar_plan{
   position: relative;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 10px 20px #ffe24f90;
   padding-block: 0.5rem;
   padding-inline: 1.25rem;
   background-color: #E99A3C;
