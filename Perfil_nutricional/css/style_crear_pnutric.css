@@ -23,7 +23,7 @@ body {
 }
 
 .tarjeta-crear-perf{
-  width: 90%;
+  width: 100%;
   height: auto;
   padding: 14px;
   border-radius: 01rem;
@@ -43,7 +43,7 @@ body {
 
 .form-container {
     max-width: 800px;
-    width: 100%;
+    width: 1200px !important;
     background-color: #F6FFFE;
     border-radius: 20px;
     padding: 30px;
