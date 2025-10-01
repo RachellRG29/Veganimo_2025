@@ -39,6 +39,7 @@ function esAdmin($cliente, $userId) {
     }
 }
 
+// --- Perfil y admin ---
 if (isset($_SESSION['user_id'])) {
     try {
         $query   = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
@@ -55,66 +56,76 @@ if (isset($_SESSION['user_id'])) {
         $isAdmin = esAdmin($cliente, $_SESSION['user_id']);
     }
 }
+
+// --- Avatar y nombre ---
+$avatarFile = "img_sinperfilusuario.png"; // predeterminado
+$nombreUser = isset($_SESSION['nombre']) ? htmlspecialchars($_SESSION['nombre']) : "Usuario";
+
+if (isset($_SESSION['user_id'])) {
+    try {
+        $queryUser = new MongoDB\Driver\Query(['_id' => new MongoDB\BSON\ObjectId($_SESSION['user_id'])], ['limit' => 1]);
+        $cursorUser = $cliente->executeQuery('Veganimo.Usuarios', $queryUser);
+        $usuario = current($cursorUser->toArray());
+        if ($usuario && isset($usuario->avatar) && !empty($usuario->avatar)) {
+            $avatarFile = $usuario->avatar;
+        }
+        if ($usuario && isset($usuario->fullname)) {
+            $nombreUser = htmlspecialchars($usuario->fullname);
+        }
+    } catch (Exception $e) {
+        // valores por defecto
+    }
+}
+
+$rutaAvatares = "/Images/Avatares/";
 ?>
 
-<!-- Menú perfil global -->
-<div class="menu_perfil" id="menu_popup" style="display: none;">
-    <ul>
+<!-- Tarjeta de usuario + menú -->
+<div class="tarjeta_menu">
+    <div class="tarjeta-perfil" id="tarj_perfil_user">
+        <h2 class="lbl_nombre_user"><?php echo $nombreUser; ?></h2>
+        <div class="circulo_perfil">
+            <img src="<?php echo $rutaAvatares . $avatarFile; ?>" alt="Avatar" class="img_perfil">
+        </div>
+    </div>
 
-        <?php if (isset($_SESSION['user_id']) && !$isAdmin): ?>
-            <li><a href="/Portal_usuario/portal_usuario.html">Portal del usuario</a></li>
-        <?php endif; ?>
+    <div class="menu_perfil" id="menu_popup" style="display: none;">
+        <ul>
+            <?php if (isset($_SESSION['user_id']) && !$isAdmin): ?>
+                <li><a href="/Portal_usuario/portal_usuario.html">Portal del usuario</a></li>
+            <?php endif; ?>
 
-        <?php if ($isAdmin): ?>
-            <li><a href="/Portal_de_administrador/index_portal_adm.html">Portal del administrador</a></li>
-        <?php endif; ?>
+            <?php if ($isAdmin): ?>
+                <li><a href="/Portal_de_administrador/index_portal_adm.html">Portal del administrador</a></li>
+            <?php endif; ?>
 
-        <!-- Sección Configuración -->
- 
-        <li class="configuracion">
-            <button class="config-btn" onclick="toggleConfig()">
-                Configuración <i class="ph ph-caret-down"id="config-arrow"> </i>
-            </button>
+            <li class="configuracion">
+                <button class="config-btn" onclick="toggleConfig()">
+                    Configuración <i class="ph ph-caret-down" id="config-arrow"></i>
+                </button>
+                <ul class="submenu-config" id="submenu-config">
+                    <li>
+                        <span>- Modo tema:</span>
+                        <div id="firstFilter" class="filter-switch">
+                            <input checked id="theme-light" name="theme-options" type="radio" />
+                            <label class="option" for="theme-light">Claro</label>
+                            <input id="theme-dark" name="theme-options" type="radio" />
+                            <label class="option" for="theme-dark">Oscuro</label>
+                            <span id="bgTheme" class="background"></span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
 
-            <ul class="submenu-config" id="submenu-config">
-                <!-- Modo Tema -->
-                <li>
-                <span>- Modo tema:</span>
-                <div id="firstFilter" class="filter-switch">
-                    <input checked id="theme-light" name="theme-options" type="radio" />
-                    <label class="option" for="theme-light">Claro</label>
-                    <input id="theme-dark" name="theme-options" type="radio" />
-                    <label class="option" for="theme-dark">Oscuro</label>
-                    <span id="bgTheme" class="background"></span>
-                </div>
-                </li>
-
-
-                <!-- Idioma -->
-                <!--<li>
-                    <span>Idioma:</span>
-                    <div id="secondFilter" class="filter-switch">
-                        <input checked id="lang1" name="lang-options" type="radio" />
-                        <label class="option" for="lang1">Español</label>
-                        <input id="lang2" name="lang-options" type="radio" />
-                        <label class="option" for="lang2">Inglés</label>
-                        <span id="bgLang" class="background"></span>
-                    </div>
-                </li>-->
-            </ul>
-        </li>
-
-        <!-- Cerrar sesión -->
-        <li>
-            <a href="#" class="pop-cerrar-sesion">
-                Cerrar sesión 
-                <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
-            </a>
-        </li>
-    </ul>
+            <li>
+                <a href="#" class="pop-cerrar-sesion">
+                    Cerrar sesión 
+                    <i class="ph ph-sign-out" style="font-size: 18px; position: relative; bottom: -4px;"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
-
-
 
 
 

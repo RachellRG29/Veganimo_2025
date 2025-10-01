@@ -4,7 +4,9 @@
 .tarjeta_menu {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end; /* tarjeta a la derecha */
   gap: 0.5rem;
+  position: relative; /* necesario para que el popup se alinee respecto a la tarjeta */
 }
 
 .tarjeta-perfil {
@@ -16,14 +18,14 @@
   z-index: 1000;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  align-items: center;
 }
 
 .circulo_perfil {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  position: relative;
-  left: 10px;
+  overflow: hidden;
 }
 
 .img_perfil {
@@ -42,18 +44,18 @@
 
 /* --- MENU PERFIL POPUP --- */
 .menu_perfil {
-  position: fixed !important;
-  right: 1rem;
-  top: 4.2rem; 
+  position: absolute;       /* ahora se alinea respecto a .tarjeta_menu */
+  top: 100%;                /* justo debajo de la tarjeta */
+  right: 0;                 /* alineado a la derecha de la tarjeta */
   padding: 2px 0;
   background-color: #E99A3C;
   border-radius: 0.5rem;
   z-index: 999;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    min-width: max-content;       /* ✅ ancho dinámico según contenido */
+  min-width: max-content;   /* ancho dinámico según contenido */
   text-align: center !important;  
-  justify-content: center !important;
 }
+
 
 .menu_perfil ul {
   list-style: none;

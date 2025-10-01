@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Actualización del nombre de usuario (sin cambios)
   const nombreElements = document.querySelectorAll('.lbl_nombre_user, .lbl_user_bienvenida, .nombre-usuario-header');
   
   const actualizarNombreUsuario = async () => {
@@ -25,38 +24,22 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   actualizarNombreUsuario();
 
-  // 2. Gestión del popup (versión mejorada)
   const inicializarPopup = () => {
-    const tarjetaPerfil = document.querySelector(".tarjeta-perfil");
+    const tarjetaPerfil = document.getElementById("tarj_perfil_user");
     const popup = document.getElementById("menu_popup");
-
-    // Ajustar ancho del popup al mismo que la tarjeta
-    popup.style.minWidth = tarjetaPerfil.offsetWidth + "px";
-
-
     if (!tarjetaPerfil || !popup) return;
 
-    // Función para mostrar/ocultar el popup
+    // Ajustar ancho popup
+    popup.style.minWidth = tarjetaPerfil.offsetWidth + "px";
+
     const togglePopup = (e) => {
-      // Detener cualquier otro evento inmediatamente
       e.stopImmediatePropagation();
       e.preventDefault();
-      
-      // Cambiar visibilidad del popup
       popup.style.display = popup.style.display === "block" ? "none" : "block";
-      
-      // Si el popup está visible, deshabilitar temporalmente el modal
-      if (popup.style.display === "block") {
-        document.body.classList.add('popup-activo');
-      } else {
-        document.body.classList.remove('popup-activo');
-      }
+      document.body.classList.toggle('popup-activo', popup.style.display === "block");
     };
-
-    // Evento con CAPTURE phase para máxima prioridad
     tarjetaPerfil.addEventListener("click", togglePopup, true);
 
-    // Cerrar popup al hacer clic fuera
     document.addEventListener("click", (e) => {
       if (!tarjetaPerfil.contains(e.target) && !popup.contains(e.target)) {
         popup.style.display = "none";
@@ -64,12 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, true);
 
-    // 3. Cerrar sesión (sin cambios)
+    // Cerrar sesión
     const cerrarSesion = document.querySelector(".pop-cerrar-sesion");
     if (cerrarSesion) {
-      cerrarSesion.addEventListener("click", (e) => {
+      cerrarSesion.addEventListener("click", async (e) => {
         e.preventDefault();
-        Swal.fire({
+        const result = await Swal.fire({
           title: '¿Cerrar sesión?',
           text: '¿Estás seguro?',
           icon: 'warning',
@@ -78,18 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
           cancelButtonColor: '#d33',
           confirmButtonText: 'Sí, cerrar sesión',
           cancelButtonText: 'Cancelar'
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            await fetch('/Login/logout.php');
-            localStorage.clear();
-            window.location.href = '/Login/login.html';
-          }
         });
-      }, true); // CAPTURE phase
+        if (result.isConfirmed) {
+          await fetch('/Login/logout.php');
+          localStorage.clear();
+          window.location.href = '/Login/login.html';
+        }
+      }, true);
     }
   };
 
-  // Observador de contenido dinámico
   const observarContenido = () => {
     const targetNode = document.getElementById('contenido-principal');
     if (!targetNode) {
@@ -98,15 +79,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     new MutationObserver(inicializarPopup).observe(targetNode, { childList: true, subtree: true });
   };
-
   observarContenido();
 });
-
-// Estilo CSS para cuando el popup está activo
-const estiloPopup = document.createElement('style');
-estiloPopup.textContent = `
-  .popup-activo .tarjeta-receta {
-    pointer-events: none !important;
-  }
-`;
-document.head.appendChild(estiloPopup);

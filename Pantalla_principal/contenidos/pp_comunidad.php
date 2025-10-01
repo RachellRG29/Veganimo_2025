@@ -46,15 +46,7 @@ require_once __DIR__ . '/auth_middleware.php';
 
       </div>
 
-      <!-- Tarjeta menu perfil nutricional -->
-      <div class="tarjeta_menu">
-        <!-- Tarjeta usuario del perfil -->
-        <div class="tarjeta-perfil" id="tarj_perfil_user">
-          <h2 class="lbl_nombre_user">User</h2>  
-          <div class="circulo_perfil">
-            <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
-          </div>
-        </div>
+   
 
         <!-- Menu perfil popup -->
         <div class="menu_perfil" id="menu_popup" style="display: none;">

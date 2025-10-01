@@ -57,16 +57,7 @@
 
       </div>
 
-      <!-- Tarjeta menu perfil nutricional -->
-      <div class="tarjeta_menu">
-        <!-- Tarjeta usuario del perfil -->
-        <div class="tarjeta-perfil" id="tarj_perfil_user">
-          <h2 class="lbl_nombre_user">User</h2>  
-          <div class="circulo_perfil">
-            <img src="../Images/img_sinperfilusuario.png" alt="" class="img_perfil">
-          </div>
-        </div>
-
+  
 
 
       </div>
