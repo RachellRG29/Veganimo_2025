@@ -58,7 +58,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // --- Avatar y nombre ---
-$avatarFile = "img_sinperfilusuario.png"; // predeterminado
+$avatarFile = "predeterminado.png"; // predeterminado
 $nombreUser = isset($_SESSION['nombre']) ? htmlspecialchars($_SESSION['nombre']) : "Usuario";
 
 if (isset($_SESSION['user_id'])) {
@@ -81,7 +81,7 @@ $rutaAvatares = "/Images/Avatares/";
 ?>
 
 <!-- Tarjeta de usuario + menú -->
-<div class="tarjeta_menu">
+<div class="tarjeta_menu" style=" position: sticky; !important; top: 10px; z-index: 1000;">
     <div class="tarjeta-perfil" id="tarj_perfil_user">
         <h2 class="lbl_nombre_user"><?php echo $nombreUser; ?></h2>
         <div class="circulo_perfil">
