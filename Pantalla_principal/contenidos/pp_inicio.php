@@ -69,7 +69,7 @@
         <div class="tarjeta_inic_plan">
             <div class="contenido_tarj_plan">
                 <div class="circulo_plan">
-                    <img src="../Images/food_anim.gif" alt="" class="img_tarj_plan">
+                    <img src="../Images/vegetales.webp" alt="" class="img_tarj_plan">
                 </div>
                 
                 <h2 class="titulo_tarj_plan">¡Hola! ¿Listo para empezar?</h2>
