@@ -8,10 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet">
     <!-- Iconos de Phosphor -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/phosphor-icons@1.4.2/src/css/phosphor.css">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css"
+    />
 
     <link rel="stylesheet" href="styles_index.css">
     <link rel="stylesheet" href="Pantalla_inicio/styles_index_inicio.css">
     <link rel="stylesheet" href="Pantalla_inicio/styles_index_recetas.css">
+    <link rel="stylesheet" href="Pantalla_inicio/styles_index_proceso.css">
     <link rel="stylesheet" href="Pantalla_inicio/styles_index_informate.css">
 
     <link rel="stylesheet" href="style_tarjeta_receta.css">
@@ -57,7 +68,9 @@
 
                     <div class="navbar-links" id="navbarLinks">
                         <a href="#inicio">Inicio</a>
+                        <a href="#suscripcion">Suscripción</a>
                         <a href="#recetas">Recetas</a>
+                        <a href="#proceso_guia">Proceso</a>
                         <a href="#informate">Infórmate</a> 
 
                         <div class="botones-login">
@@ -125,12 +138,15 @@
                             <p>Vegánimo es una plataforma web salvadoreña pensada para acompañarte en tu transición hacia una alimentación basada en plantas.</p>           
                           </div>
 
-                          <!-- Boton de explorar -->
-                          <a class="btn-explorar"> Explorar
-                            <span class="container">
-                              <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
-                            </span> 
-                          </a>
+                          <!-- Boton descrubre veganimo -->
+                          <div class="cont-desc">
+                            <div class="dots_border"></div>
+                            <a class="btn-descubrir">
+                              Descubre vegánimo
+                            </a>
+                          </div>
+
+
 
                         </div>
 
@@ -157,20 +173,72 @@
                           <img src="Images/Base_Veganimo_portada.png" alt="">
                         </div>
 
+                        <!-- Scroll -->
+                        <div class="main__action">
+                          <a class="main__scroll">
+                            <div class="main__scroll-box">
+                              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M11.9997 13.1716L7.04996     8.22186L5.63574 9.63607L11.9997 16L18.3637 9.63607L16.9495 8.22186L11.9997 13.1716Z" fill="#F6fffe">
+                                </path>
+                            </svg>
+                            </div>
+
+                            <span class="main__scroll-text"></span>
+                          </a>
+                        </div>
+
                         <!-- Elementos inferiores -->
                         <p class="slogan_inicio">¡De veganos para veganos!</p>
-
-                        
 
                         
                       </div>
                     </div>
                   
-
-                    
+  
                 </div>
                 
             </section>
+
+            <!-- SECTION SUSCRIPCION -->
+            <section class="section suscripcion" id="suscripcion">
+              <div class="overlay">
+
+                <!-- Caja blanca de suscripción -->
+                <div class="cont_susc">
+                  <p class="cont_descripcion">
+                    Accede a un plan diseñado a tu medida y empieza tu camino hacia una alimentación 100% basada en plantas.
+                  </p>
+
+                  <!-- Boton de suscribete -->
+                  <a class="btn-suscribete"> Suscríbete
+                    <span class="container_susc">
+                       <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path></svg>
+                    </span> 
+                  </a>
+
+
+
+                  
+                </div>
+
+                <!-- Precios -->
+                <div class="planes">
+                  <div class="plan-card">
+                    <h4>Plan estándar</h4>
+                    <p>$5.00<span>/mensual</span></p>
+                  </div>
+                  <div class="plan-card">
+                    <h4>Plan premium</h4>
+                    <p>$10.00<span>/anual</span></p>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+
+
 
             <!-- SECTION RECETAS -->
             <section class="section recetas" id="recetas">
@@ -379,6 +447,56 @@
                           
             </section>
 
+            <!-- SECTION PROCESO -->
+            <section class="section proceso_guia" id="proceso_guia">
+              <div class="contenedor">
+                <h2 class="titulo-proceso">Tu camino hacia una alimentación basada en plantas</h2>
+                <p class="subtitulo-proceso">
+                  Sigue estos simples pasos y personaliza tu plan: fácil, rápido y a tu medida 🌱
+                </p>
+
+                <div class="pasos">
+                  <!-- Paso 1 -->
+                  <div class="paso">
+                    <div class="icono">
+                      <span class="numero">1</span>
+                      <i class="ph-fill ph-user-plus ph_pasos"></i>
+                      
+                    </div>
+                    <p>Regístrate</p>
+                  </div>
+
+                  <!-- Paso 2 -->
+                  <div class="paso">
+                    <div class="icono">
+                      <span class="numero">2</span>
+                      <i class="ph-fill ph-identification-card ph_pasos"></i>
+                    </div>
+                    <p>Arma tu perfil</p>
+                  </div>
+
+                  <!-- Paso 3 -->
+                  <div class="paso">
+                    <div class="icono">
+                      <span class="numero">3</span>
+                      <i class="ph-fill ph-credit-card ph_pasos"></i>
+                    </div>
+                    <p>Suscríbete</p>
+                  </div>
+
+                  <!-- Paso 4 -->
+                  <div class="paso">
+                    <div class="icono">
+                      <span class="numero">4</span>
+                      <i class="ph-fill ph-fork-knife ph_pasos"></i>
+                    </div>
+                    <p>Elige tu estilo de plan</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+
 
             <!-- SECTION INFORMATE -->
             <section class="section informate" id="informate">
@@ -509,7 +627,7 @@
     window.location.href = '/Register/register.html';
   });
 
-  document.querySelector('.btn-explorar').addEventListener('click', () => {
+  document.querySelector('.btn-suscribete').addEventListener('click', () => {
     window.location.href = '/Pantalla_principal/index_pantalla_principal.html';
   });
 

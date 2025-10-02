@@ -8,6 +8,13 @@
     margin-top: 80px; /* Igual a la altura del contenedor fijo */
  }
 
+   .lbl_title_recetas{
+    color: var(--text-light);
+    font-size: 1.6rem;
+    margin-top: -30px;
+    margin-bottom: 20px;
+  }
+
  /* codigo user en css: /Pagina_Principal/css/styles_pp_inicio.css*/
  
 /* Contenedor principal fijo */
@@ -102,10 +109,7 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   }
    
-  .lbl_title_recetas{
-    color: var(--text-light);
-    font-size: 1.6rem;
-  }
+
 
 /* Estilo para las opciones (solo funciona en algunos navegadores) */
 .input-busq-categoria option {
@@ -117,15 +121,7 @@
 }  
 
   
-/*Importante para el diseño*/
-.grid-container-recetas {
-  display: flex;
-  flex-wrap: wrap; /*Importante para la busqueda*/
-  justify-content: center; /*Centrar horizontalmente*/
-  margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta*/
-  gap: 2rem;
-}
+
 
 .receta-destacada {
   border: 2px solid #E99A3C;

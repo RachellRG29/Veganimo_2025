@@ -1,4 +1,6 @@
-
+/**{
+  outline: 1px solid rgb(208, 223, 8);
+}*/
 
 .contentdeinicio {
   display: flex;
@@ -37,6 +39,7 @@
 
 .inicio_logo svg {
   max-width: 100%;
+  margin-right: 2px;
   height: auto;
 }
 
@@ -115,6 +118,33 @@
 .div_descripcion p:first-child {
   animation-delay: 0.5s;
 }
+  
+/*Boton de descubrir*/
+
+.btn-descubrir {
+    margin: 40px 0 20px 0; /*Top-right-bottom-left*/
+    position: relative;
+    background-image: linear-gradient(to bottom right, #F8C78C 40%, #E99A3C 60%);
+    width: 240px;
+    height: 60px;
+    color: #1A1C1C;
+    border-radius: 60px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.35);
+    border-left: 0.5px solid rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    transition: 0.35s ease;   
+    padding-left: 20px;
+}
+
+.btn-descubrir:hover {
+  /*box-shadow: 0px 6px 0px #c9812a;  */
+  box-shadow: 7px 5px 56px -14px #c9812a;            
+}
+
 
 .slogan_inicio {
   width: 100%;
@@ -134,6 +164,40 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/*Scroll*/
+.main__action span{
+  color: #F6FFFE;
+  text-decoration: none;
+}
+.main__action{
+  position: absolute;
+  bottom: 50px;
+  right: 37.5%;
+  width: 46px;
+}
+
+.main__action:hover .main__scroll-box {
+  animation: scroll-down 3s infinite;
+}
+
+/* Animate scroll icon */
+@keyframes scroll-down {
+  0%, 100% {
+    transform: translateY(0rem);
+    opacity: 1;
+  }
+
+  35% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+
+  70% {
+    transform: translateY(-1rem);
+    opacity: 0;
   }
 }
 
@@ -225,72 +289,92 @@
   }
 }
 
-/*---------------------------- BOTON EXPLORAR --------------------------------------------------------------*/
-/*Boton de explorar*/
-  .btn-explorar {
-    margin: 20px -40px 40px 0; /*Top-right-bottom-left*/
+
+
+/** ---------------------------------------------   ZONA DE SUSCRIPCIÓN  -----------------------------------------***/
+.suscripcion {
+  width: 100%;
+  height: 200px !important;
+  background: url('/Images/zona_suscripcion.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.suscripcion .overlay {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* Caja blanca que contiene texto y botón */
+.cont_susc {
+  background: transparent;
+  padding: 20px 10px; /* más padding abajo para el botón */
+  flex: 1;
+  position: relative; /* necesario para ubicar el botón */
+  right: 90px;
+}
+
+.cont_descripcion{
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px 30px 40px 30px; /* top-right-bottom-left*/
+  font-size: 16px;
+  color: #1A1C1C;
+  line-height: 1.4;
+  align-items: stretch; 
+
+}
+
+/* Botón dentro, abajo a la derecha */
+.cont_susc .btn-suscribete {
+  position: absolute;
+  bottom: 10px;
+  right: -70px;
+  margin: 0;
+}
+
+/*Boton de suscribete*/
+  .btn-suscribete {
+    margin: 20px 0 40px 20px; /*Top-right-bottom-left*/
     position: relative;
     background-image: linear-gradient(to bottom right, #F8C78C 40%, #E99A3C 60%);
-    width: 200px;
-    height: 60px;
+    width: 180px;
+    height: 45px;
     color: #1A1C1C;
     border-radius: 60px;
     display: flex;
-    justify-content: center;
     align-items: center;
     text-decoration: none;
     letter-spacing: 2px;
     border-top: 0.5px solid rgba(0, 0, 0, 0.35);
     border-left: 0.5px solid rgba(0, 0, 0, 0.35);
-    padding-left: 40px;
     cursor: pointer;
-    transition: 0.35s ease;
-    
+    transition: 0.35s ease;   
+    padding-left: 20px;
   }
   
-  .btn-explorar:hover {
-    padding-left: 0;
-    padding-right: 40px;   
-    transform: translateY(-2px);
+  .btn-suscribete:hover {
     /*box-shadow: 0px 6px 0px #c9812a;  */
     box-shadow: 7px 5px 56px -14px #c9812a;            
   }
 
-  .btn-explorar:active {
-    transform: translateY(0px);
-    box-shadow: none;
+  .btn-suscribete:active {
     box-shadow: 7px 5px 56px -10px #c9812a;
   }
 
-  .btn-explorar:before,
-  .btn-explorar:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
-
-  .btn-explorar:before {
-    top: -3px;
-    left: -3px;
-    border-radius: 40px;
-    border-top: 3px solid #F8C78C;
-    border-left: 3px solid #F8C78C;
-  }
-
-  .btn-explorar:after {
-    bottom: -3px;
-    right: -3px;
-    border-radius: 40px;
-    border-bottom: 3px solid #F8C78C;
-    border-right: 3px solid #F8C78C;
-  }
   
-  .container {
+  .container_susc {
     position: absolute;
-    left: 5px;
-    width: 50px;
-    height: 50px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    margin-left: 10px;
     background: #1A1C1C;
     border-radius: 50%;
     transition: 0.35s ease;
@@ -300,10 +384,52 @@
     color: #E99A3C;
   }
   
-  .btn-explorar:hover .container {
-    left: calc(100% - 55px);
-    
+  .btn-suscribete:hover .container_susc {
+    rotate: -30deg; 
   }
+
+
+  /* ---------- TARJETAS DE PLANES ---------- */
+.planes {
+  display: flex;
+  gap: 15px;
+  width: 300px;
+  height: 120px;
+}
+
+.plan-card:hover{
+  box-shadow: 0px 6px 0px #c9812a;
+}
+
+.plan-card {
+  background: #0e6f2f;
+  color: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 120px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.plan-card h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: start;
+  margin-bottom: 15px;
+}
+
+.plan-card p {
+  margin: 5px 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.plan-card span {
+  font-size: 12px;
+  font-weight: normal;
+}
+
 
   /*------------------------------------------------------------------------------------*/
   @media (max-width: 1024px) {
