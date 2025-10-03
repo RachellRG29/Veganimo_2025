@@ -11,8 +11,7 @@
    .lbl_title_recetas{
     color: var(--text-light);
     font-size: 1.6rem;
-    margin-top: -30px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
   }
 
  /* codigo user en css: /Pagina_Principal/css/styles_pp_inicio.css*/
@@ -28,8 +27,8 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    z-index: 999; 
     background: var(--backg-blur-light);
+    z-index: 1000;;
   }
   
   
@@ -38,6 +37,7 @@
     display: flex;
     gap: 20px;
     align-items: center;
+
   }
   
   /* Buscador */
