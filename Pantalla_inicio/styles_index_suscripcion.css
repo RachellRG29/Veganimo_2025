@@ -151,12 +151,12 @@
 
 /* Iconos según tipo */
 .plan-card.estandar .icon {
-  background: #fff;
+  background-color: #f6fffec1;
   color: #0a6635;
 }
 
 .plan-card.premium .icon {
-  background: #0a0a0a;
+  background-color: #1a1c1c71;
   color: #ffe66d;
 }
 
