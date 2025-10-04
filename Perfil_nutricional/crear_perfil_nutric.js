@@ -226,6 +226,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  //funcionalidad de tarjetas de los planes para cambiar precio de anual a mes 
+     const radioMensual = document.getElementById("radio-1");
+            const radioAnual = document.getElementById("radio-2");
+
+            const priceStandard = document.getElementById("price-standard");
+            const pricePremium = document.getElementById("price-premium");
+
+            const noteStandard = document.getElementById("note-standard");
+            const notePremium = document.getElementById("note-premium");
+
+            function actualizarPrecios() {
+              if (radioMensual.checked) {
+                priceStandard.textContent = "$5.00";
+                pricePremium.textContent = "$10.00";
+                noteStandard.style.display = "none";
+                notePremium.style.display = "none";
+              } else {
+                priceStandard.textContent = "$20.00";
+                pricePremium.textContent = "$80.00";
+
+                noteStandard.textContent = "12x $5.00 → Pagas solo $20 (Ahorro 28%)";
+                notePremium.textContent = "12x $10.00 → Pagas solo $80 (Ahorro 28%)";
+
+                noteStandard.style.display = "block";
+                notePremium.style.display = "block";
+              }
+            }
+
+            
+
+
+            radioMensual.addEventListener("change", actualizarPrecios);
+            radioAnual.addEventListener("change", actualizarPrecios);
+
+            actualizarPrecios();
+
+            
+
  // Función para manejar el envío del formulario
 document.getElementById('form-crear-perfil').addEventListener('submit', function(e) {
   e.preventDefault();
