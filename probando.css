@@ -1,3 +1,11 @@
+    /*
+    <div class="buttons-container">
+              <button type="button" class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
+              <button type="submit" id="guardarButton" class="form-button submit-button">Guardar</button>
+            </div>
+    */        
+
+
 
 /*function aplicarEstilosFondo(pagina) {
   const paginasVerdes = ["pp_inicio.php", "pp_mi_plan.html", "pp_comunidad.php","pp_crear_receta.php"];

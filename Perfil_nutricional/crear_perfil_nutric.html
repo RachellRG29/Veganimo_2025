@@ -10,8 +10,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Iconos -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <!-- Iconos de Phosphor -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/phosphor.css">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet" />
@@ -22,6 +22,8 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario --> 
     <link rel="stylesheet" href="../Perfil_nutricional/css/style_crear_pnutric.css">
+    <link rel="stylesheet" href="../Perfil_nutricional/css/style_crear_pnutric_planes.css"> <!-- Estilos la seccion 7 en delante -->
+    <link rel="stylesheet" href="../Perfil_nutricional/css/style_cpnutric_barra_prog.css"> <!-- Barras de progreso -->
 
 </head>
 
@@ -70,6 +72,10 @@
 
               <div class="progress-container">
                   <div class="progress-step active"></div>
+                  <div class="progress-line"></div>
+                  <div class="progress-step inactive"></div>
+                  <div class="progress-line"></div>
+                  <div class="progress-step inactive"></div>
                   <div class="progress-line"></div>
                   <div class="progress-step inactive"></div>
                   <div class="progress-line"></div>
@@ -170,6 +176,10 @@
                   <div class="progress-step2 active2"></div>
                   <div class="progress-line2"></div>
                   <div class="progress-step2 active2"></div>
+                  <div class="progress-line2"></div>
+                  <div class="progress-step2 inactive2"></div>
+                  <div class="progress-line2"></div>
+                  <div class="progress-step2 inactive2"></div>
                   <div class="progress-line2"></div>
                   <div class="progress-step2 inactive2"></div>
                   <div class="progress-line2"></div>
@@ -303,6 +313,10 @@
               <div class="paso-progreso inactivo"></div>
               <div class="linea-progreso"></div>
               <div class="paso-progreso inactivo"></div>
+              <div class="linea-progreso"></div>
+              <div class="paso-progreso inactivo"></div>
+              <div class="linea-progreso"></div>
+              <div class="paso-progreso inactivo"></div>
           </div>
           </div>
 
@@ -397,6 +411,10 @@
               <div class="progress-step4 inactive4"></div>
               <div class="progress-line4"></div>
               <div class="progress-step4 inactive4"></div>
+              <div class="progress-line4"></div>
+              <div class="progress-step4 inactive4"></div>
+              <div class="progress-line4"></div>
+              <div class="progress-step4 inactive4"></div>
           </div>
 
           </div>
@@ -456,6 +474,10 @@
               <div class="progress-step5 active5"></div>
               <div class="progress-line5"></div>
               <div class="progress-step5 inactive5"></div>
+              <div class="progress-line5"></div>
+              <div class="progress-step5 inactive5"></div>
+              <div class="progress-line5"></div>
+              <div class="progress-step5 inactive5"></div>
           </div>
           </div>
 
@@ -492,7 +514,7 @@
 
             <div class="buttons-container">
               <button type="button" class="form-button prev-button" onclick="prevSection(6)">Atrás</button>
-              <button type="submit" id="guardarButton" class="form-button submit-button">Guardar</button>
+              <button type="button" class="form-button next-button" onclick="nextSection(6)">Siguiente</button>
             </div>
 
             <div class="progress-container6">
@@ -507,8 +529,120 @@
               <div class="progress-step6 active6"></div>
               <div class="progress-line6"></div>
               <div class="progress-step6 active6"></div>
+              <div class="progress-line6"></div>
+              <div class="progress-step6 inactive"></div>
+              <div class="progress-line6"></div>
+              <div class="progress-step6 inactive"></div>
             </div>
           </div>
+
+        <!-- Sección 7: Elegir plan -->
+        <div class="section" id="section7">
+          <h1 class="main-title">Elige tu plan</h1>
+          <div class="title-decoration"></div>
+
+          <h6 style="text-align: center; margin-top: 20px;">
+            Da el primer paso: elige tu plan y construye tu estilo de vida vegano.
+          </h6>
+
+          <!-- Tabs -->
+          <div class="container_plan">
+            <div class="tabs">
+              <input checked name="tabs" id="radio-1" type="radio" />
+              <label for="radio-1" class="tab">Mensual</label>
+
+              <input name="tabs" id="radio-2" type="radio" />
+              <label for="radio-2" class="tab"
+                >Anual<span class="notification">SAVE 28%</span></label
+              >
+
+              <span class="glider"></span>
+            </div>
+          </div>
+
+          <!-- Tarjetas de planes -->
+          <div class="plans-container">
+            <!-- Plan Estándar -->
+            <div class="plan-card standard">
+              <div class="plan-header">
+                <span class="plan-icon-standard"> 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#E99A3C" viewBox="0 0 256 256"><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49A101.72,101.72,0,0,0,46.7,175.2a4,4,0,0,0,6.61,1.43l85-86.3a8,8,0,0,1,11.32,11.32L56.74,195.94,42.55,210.13a8.2,8.2,0,0,0-.6,11.1,8,8,0,0,0,11.71.43l16.79-16.79c14.14,6.84,28.41,10.57,42.56,11.07q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07Z"></path></svg> 
+                </span> 
+              </div><br>
+              <h3>Plan estándar</h3>
+              <p class="price">$5.00</p>
+              <ul class="features">
+               <li><i class="ph ph-check-circle"></i> Dietas veganas automatizadas</li>
+                <li><i class="ph ph-check-circle"></i> Dietas veganas automatizadas</li>
+              </ul>
+              <button class="choose-btn standard-btn">Elegir plan</button>
+            </div>
+
+            <!-- Plan Premium -->
+            <div class="plan-card premium">
+              <div class="plan-header">
+                <span class="plan-icon-premium">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffe24f" viewBox="0 0 256 256"><path d="M205.41,159.07a60.9,60.9,0,0,1-31.83,8.86,71.71,71.71,0,0,1-27.36-5.66A55.55,55.55,0,0,0,136,194.51V224a8,8,0,0,1-8.53,8,8.18,8.18,0,0,1-7.47-8.25V211.31L81.38,172.69A52.5,52.5,0,0,1,63.44,176a45.82,45.82,0,0,1-23.92-6.67C17.73,156.09,6,125.62,8.27,87.79a8,8,0,0,1,7.52-7.52c37.83-2.23,68.3,9.46,81.5,31.25A46,46,0,0,1,103.74,140a4,4,0,0,1-6.89,2.43l-19.2-20.1a8,8,0,0,0-11.31,11.31l53.88,55.25c.06-.78.13-1.56.21-2.33a68.56,68.56,0,0,1,18.64-39.46l50.59-53.46a8,8,0,0,0-11.31-11.32l-49,51.82a4,4,0,0,1-6.78-1.74c-4.74-17.48-2.65-34.88,6.4-49.82,17.86-29.48,59.42-45.26,111.18-42.22a8,8,0,0,1,7.52,7.52C250.67,99.65,234.89,141.21,205.41,159.07Z"></path></svg>
+                  </span> 
+              </div><br>
+              <h3>Plan premium</h3>
+              <p class="price">$10.00</p>
+              <ul class="features">
+                <li> <i class="ph ph-check-circle"></i>Dietas veganas automatizadas</li>
+                <li><i class="ph ph-check-circle"></i> Plan nutricionista</li>
+                <li><i class="ph ph-check-circle"></i> Renovar plan</li>
+                <li><i class="ph ph-check-circle"></i> Solicitar y crear recetas</li>
+              </ul>
+              <button class="choose-btn premium-btn">Elegir plan</button>
+            </div>
+          </div>
+
+          <!-- Botones de navegación -->
+          <div class="buttons-container">
+            <button type="button"  class="form-button prev-button" onclick="prevSection(7)"> Atrás </button>
+          </div>
+
+          <!-- Progreso -->
+          <div class="progress-container7">
+            <div class="progress-step7 active7"></div>
+            <div class="progress-line7"></div>
+            <div class="progress-step7 active7"></div>
+            <div class="progress-line7"></div>
+            <div class="progress-step7 active7"></div>
+            <div class="progress-line7"></div>
+            <div class="progress-step7 active7"></div>
+            <div class="progress-line7"></div>
+            <div class="progress-step7 active7"></div>
+            <div class="progress-line7"></div>
+            <div class="progress-step7 active7"></div>
+            <div class="progress-line7"></div>
+            <div class="progress-step7 inactive"></div>
+          </div>
+        </div>
+
+        <div class="section" id="section8">
+
+
+          <!-- Progreso -->
+          <div class="progress-container7">
+            <div class="progress-step8 active8"></div>
+            <div class="progress-line8"></div>
+            <div class="progress-step8 active8"></div>
+            <div class="progress-line8"></div>
+            <div class="progress-step8 active8"></div>
+            <div class="progress-line8"></div>
+            <div class="progress-step8 active8"></div>
+            <div class="progress-line8"></div>
+            <div class="progress-step8 active8"></div>
+            <div class="progress-line8"></div>
+            <div class="progress-step8 active8"></div>
+            <div class="progress-line8"></div>
+            <div class="progress-ste87 active8"></div>
+          </div>
+        </div>
+
+        </div>
+
 
         </form>
 

@@ -1,0 +1,198 @@
+/* Estilos para la sección de elegir plan */
+/*  sección 7*/
+.tabs {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  box-shadow:
+    0 0 1px 0 rgba(24, 94, 224, 0.15),
+    0 6px 12px 0 rgba(24, 94, 224, 0.15);
+  padding: 10px 0; /**/
+  border-radius: 12px;
+  width: max-content;
+  justify-content: center;
+  margin: auto 0;
+}
+
+/* Centrar bien el container */
+.container_plan {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+}
+
+/* Contenedor de planes */
+.plans-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.tabs * {
+  z-index: 2;
+}
+
+.container_plan input[type="radio"] {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  width: 120px;
+  font-size: 0.8rem;
+  color: black;
+  font-weight: 500;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: color 0.15s ease-in;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 1rem;
+  position: absolute;
+  top: -0.3rem;
+  left: auto;
+  font-size: 10px;
+  margin-left: 5rem;
+  border-radius: 8px;
+  margin: 0px;
+  background-color: #007848;
+  color: #f6fffe;
+  transition: 0.15s ease-in;
+}
+
+.container_plan input[type="radio"]:checked + label {
+  color: #1a1c1c;
+}
+
+.container_plan input[type="radio"]:checked + label > .notification {
+  background: linear-gradient(90deg, #007848 0%, #154734 100%);
+  color: #f6fffe;
+  margin: 0px;
+}
+
+.container_plan input[id="radio-1"]:checked ~ .glider {
+  transform: translateX(-70%);
+}
+
+.container_plan input[id="radio-2"]:checked ~ .glider {
+  transform: translateX(70%);
+}
+
+.container input[id="radio-3"]:checked ~ .glider {
+  transform: translateX(100%);
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 30px;
+  width: 90px;
+  background-color: #FFE24F;
+  z-index: 1;
+  border-radius: 8px;
+  transition: 0.15s ease-out;
+}
+
+@media (max-width: 700px) {
+  .tabs {
+    transform: scale(0.6);
+  }
+}
+
+
+/*------------------------------------------------------------------------------------------------------------------*/
+/* Tarjeta base */
+.plan-card {
+  background: radial-gradient(circle at top left, #E99A3C 0%, #008b4e 43%, #0a6635 100%);
+  border-radius: 16px;
+  padding: 30px 20px;
+  width: 260px;
+  color: white;
+  text-align: left;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.plan-card h3 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.plan-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plan-icon-standard {
+  background-color: #f6fffec1;
+  padding: 5px 5px;
+  border-radius: 10px;
+}
+ 
+.plan-icon-premium {
+  background-color: #1a1c1c71;
+  padding: 5px 5px;
+  border-radius: 10px;
+  
+}
+
+/* Precio */
+.price {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+.price span {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+/* Lista de features */
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+.features i {
+  color: #f6fffe;
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+/* Botones */
+.choose-btn {
+  width: 100%;
+  border: none;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.standard-btn {
+  background-color: #e99a3c;
+  color: #fff;
+}
+.standard-btn:hover {
+  background-color: #c77f2d;
+}
+
+.premium-btn {
+  background-color: #ffe24f;
+  color: #1a1c1c;
+}
+.premium-btn:hover {
+  background-color: #d4c13a;
+}
