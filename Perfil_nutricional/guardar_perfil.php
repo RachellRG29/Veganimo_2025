@@ -24,6 +24,7 @@ $altura = $_POST['altura'] ?? '';
 $objetivo = $_POST['objetivo'] ?? '';
 $nivel_meta = $_POST['nivel_meta'] ?? '';
 $descripcion_dieta = $_POST['descripcion_dieta'] ?? '';
+$plan_seleccionado = $_POST['plan'] ?? ''; // <-- NUEVO CAMPO
 
 // Arrays de checkbox
 $patologicos = $_POST['patologicos'] ?? [];
@@ -38,17 +39,16 @@ $sintomas = $_POST['sintomas'] ?? [];
 // *** Aquí la validación para perfil existente ***
 
 try {
-    // Buscar si ya existe un perfil para este usuario
-    $query = new MongoDB\Driver\Query(['user_id' => $_SESSION['user_id']]);
-    $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
-    $perfilExistente = current($cursor->toArray());
+    $filtro = ['user_id' => $_SESSION['user_id']];
+    $query = new MongoDB\Driver\Query($filtro);
+    $cursor = $cliente->executeQuery("Veganimo.Perfil_nutricional", $query);
 
-    if ($perfilExistente) {
-        // Ya existe perfil: enviamos error con clave "existe"
+    $resultados = iterator_to_array($cursor);
+    if (count($resultados) > 0) {
         echo json_encode([
             "success" => false,
             "existe" => true,
-            "message" => "❌ Error, perfil de usuario existente",
+            "message" => "❌ Ya existe un perfil nutricional para el usuario.",
             "icon" => "error"
         ]);
         exit;
@@ -74,6 +74,7 @@ $documento = [
     'objetivo' => $objetivo,
     'nivel_meta' => $nivel_meta,
     'descripcion_dieta' => $descripcion_dieta,
+    'plan'             => $plan_seleccionado, // 
     'patologicos' => $patologicos,
     'familiares' => $familiares,
     'quirurgicos' => $quirurgicos,
@@ -91,7 +92,7 @@ try {
 
     echo json_encode([
         "success" => true,
-        "message" => "✅ Perfil nutricional guardado exitosamente.",
+        "message" => "Perfil nutricional guardado exitosamente.",
         "icon" => "success"
     ]);
 } catch (MongoDB\Driver\Exception\Exception $e) {
