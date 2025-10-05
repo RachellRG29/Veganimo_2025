@@ -1,14 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log('🚀 Portal Admin iniciado');
-    
+
     const navItems = document.querySelectorAll(".nav-item-admin");
     const contenidoAdmin = document.getElementById("contenido-admin");
 
+    // Resalta el item seleccionado
     const seleccionarItem = (item) => {
         navItems.forEach(i => i.classList.remove("active", "highlight"));
         item.classList.add("active", "highlight");
     };
 
+    // Función para cargar contenido dinámico
     async function cargarContenido(pagina) {
         const url = `/Portal_de_administrador/contenidos/${pagina}`;
         console.log("📥 Solicitando:", url);
@@ -20,29 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const html = await response.text();
             contenidoAdmin.innerHTML = html;
 
-            // EJECUTAR SCRIPTS ESPECÍFICOS DESPUÉS DE CARGAR EL CONTENIDO
-            setTimeout(() => {
-                console.log('🔄 Inicializando módulos para:', pagina);
-                
-                if (pagina === 'pp_usuario.html') {
-                    if (typeof inicializarUsuarios === 'function') {
-                        console.log('✅ Inicializando usuarios...');
-                        inicializarUsuarios();
-                    } else {
-                        console.log('❌ inicializarUsuarios no está disponible');
-                    }
-                }
-                
-                if (pagina === 'pp_recetas.html') {
-                    if (typeof cargarRecetas === 'function') {
-                        console.log('✅ Inicializando recetas...');
-                        cargarRecetas();
-                    } else {
-                        console.log('❌ cargarRecetas no está disponible');
-                    }
-                }
-            }, 200);
+            // EJECUTAR SCRIPTS ESPECÍFICOS PARA CADA PÁGINA
+            inicializarModulo(pagina);
 
+            // Guardar última página cargada
             localStorage.setItem("ultimaPaginaCargada_admin", pagina);
             return true;
         } catch (err) {
@@ -52,6 +35,44 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // Función que inicializa módulos según la página
+    function inicializarModulo(pagina) {
+        console.log('🔄 Inicializando módulo para:', pagina);
+
+        switch (pagina) {
+            case 'pp_usuario.html':
+                if (typeof inicializarUsuarios === 'function') {
+                    console.log('✅ Inicializando usuarios...');
+                    inicializarUsuarios();
+                } else {
+                    console.warn('❌ inicializarUsuarios no está disponible');
+                }
+                break;
+
+            case 'pp_usuarios_pro.html':
+                if (typeof cargarUsuariosPro === 'function') {
+                    console.log('✅ Inicializando usuarios PRO...');
+                    cargarUsuariosPro();
+                } else {
+                    console.warn('❌ cargarUsuariosPro no está disponible');
+                }
+                break;
+
+            case 'pp_recetas.html':
+                if (typeof cargarRecetas === 'function') {
+                    console.log('✅ Inicializando recetas...');
+                    cargarRecetas();
+                } else {
+                    console.warn('❌ cargarRecetas no está disponible');
+                }
+                break;
+
+            default:
+                console.log('ℹ️ No hay módulo específico para esta página');
+        }
+    }
+
+    // Manejo de clicks en el menú lateral
     navItems.forEach(item => {
         item.addEventListener("click", () => {
             const pagina = item.getAttribute("data-page");
@@ -62,14 +83,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Cargar última página
+    // Cargar última página guardada al iniciar
     const ultimaPagina = localStorage.getItem("ultimaPaginaCargada_admin");
     if (ultimaPagina) {
-        console.log('📖 Cargando última página:', ultimaPagina);
-        cargarContenido(ultimaPagina);
+        console.log('📖 Cargando última página guardada:', ultimaPagina);
         const item = [...navItems].find(i => i.getAttribute("data-page") === ultimaPagina);
         if (item) seleccionarItem(item);
+        cargarContenido(ultimaPagina);
     } else {
-        console.log('📖 No hay última página guardada');
+        console.log('📖 No hay última página guardada, cargando la primera disponible');
+        // Opcional: cargar la primera página del menú si quieres
+        const primerItem = navItems[0];
+        if (primerItem) {
+            seleccionarItem(primerItem);
+            cargarContenido(primerItem.getAttribute("data-page"));
+        }
     }
 });
