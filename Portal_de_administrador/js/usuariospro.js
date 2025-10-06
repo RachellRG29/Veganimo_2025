@@ -111,14 +111,12 @@ function mostrarUsuariosPro(usuarios) {
 
 // Buscador en tiempo real
 function filtrarUsuariosPro() {
-    const valor = this.value.toLowerCase();
-    const filtrados = listaUsuariosPro.filter(user =>
-        user.nombre_completo.toLowerCase().includes(valor) ||
-        user.email.toLowerCase().includes(valor) ||
-        user.plan.toLowerCase().includes(valor)
-    );
-    mostrarUsuariosPro(filtrados);
+    const buscador = document.getElementById("busquedaUsuariosPro");
+    const filtro = buscador.value.toLowerCase();
+    const usuariosFiltrados = listaUsuariosPro.filter(user => user.email.toLowerCase().includes(filtro) || user.nombre_completo.toLowerCase().includes(filtro));
+    mostrarUsuariosPro(usuariosFiltrados);
 }
+
 
 // =========================
 // BLOQUEAR / DESBLOQUEAR USUARIO PRO (dinámico)
