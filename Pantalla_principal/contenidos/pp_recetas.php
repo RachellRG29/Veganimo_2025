@@ -174,10 +174,10 @@
 <style>
 
   .menu_perfil {
-  position: absolute;
-  z-index: 9999; /* Muy importante para que esté por encima */
+    position: absolute;
+    z-index: 9999; /* Muy importante para que esté por encima */
 
-}
+  }
 
   .modal-receta {
     position: fixed;
@@ -404,13 +404,13 @@
   }
 
 
-#modal-pasos img {
-  align-self: flex-center;
-  width: 100px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 4px;
-}
+  #modal-pasos img {
+    align-self: flex-center;
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+  }
 
 </style>
 

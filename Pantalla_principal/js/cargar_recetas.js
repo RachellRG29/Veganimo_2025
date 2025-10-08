@@ -135,6 +135,9 @@ async function cargarRecetas() {
                 </div>
               </div>
             </div>
+
+            <span class="etiqueta-tipo">${receta.tipo_receta || 'Sin tipo'}</span>
+
           </div>
         `;
 

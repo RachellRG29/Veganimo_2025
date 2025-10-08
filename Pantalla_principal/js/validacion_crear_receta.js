@@ -261,6 +261,7 @@ function iniciarValidacionCrearReceta() {
     const nombreValido = validarCampoSeccion1(nombre, 'El nombre debe tener al menos 3 letras.');
     const descripcionValida = validarDescripcion();
     const categoriaValida = validarCampoSeccion1(categoria, 'Selecciona una categoría.');
+    const tipo_recetaValida = validarCampoSeccion1(tipo_receta, 'Selecciona un tipo.');
     const estrellasValidas = validarEstrellas();
     const imagenValida = validarImagen();
 
@@ -271,7 +272,7 @@ function iniciarValidacionCrearReceta() {
       return false;
     }
 
-    return nombreValido && descripcionValida && categoriaValida && estrellasValidas && imagenValida;
+    return nombreValido && descripcionValida && categoriaValida &&tipo_recetaValida && estrellasValidas && imagenValida;
   }
 
   const palabrasProhibidas = ['mierda', 'puta', 'puto', 'put@', 'estúpido', 'estupido', 'tonto', 'idiota', 'imbécil', 
@@ -352,6 +353,7 @@ descripcion.addEventListener('input', () => {
 });
 
   categoria.addEventListener('change', () => intentoEnvio && validarCampoSeccion1(categoria, 'Selecciona categoría.'));
+  tipo_receta.addEventListener('change', () => intentoEnvio && validarCampoSeccion1(tipo_receta, 'Selecciona tipo receta'));
   estrellas.forEach(e => e.addEventListener('change', () => intentoEnvio && validarEstrellas()));
   imagenInput.addEventListener('change', () => intentoEnvio && validarImagen());
 

@@ -300,10 +300,11 @@
   margin: auto;
   margin-top: 1rem;
   position: relative;
-  gap: 3.5rem;
+  gap: 1rem;
 }
 
 .tiempo,
+.valor_nutric,
 .dificultad {
   display: flex;
   align-items: center;
@@ -372,6 +373,26 @@
   color: #1A1C1C;
   font-size: 14px;
   margin-top: 1rem;
+}
+
+/* Contenedor para poner categoría y tipo de receta lado a lado */
+.fila-categoria-tipo {
+  display: flex;
+  gap: 10px; /* espacio entre los select */
+  align-items: flex-end;
+}
+
+/* Ajustes para que ambos selects tengan el mismo estilo */
+.fila-categoria-tipo .categoria,
+.fila-categoria-tipo .tipo-receta {
+  flex: 1; /* ambos ocupan el mismo ancho */
+}
+
+.fila-categoria-tipo label {
+  color: #1A1C1C;
+  font-size: 14px;
+  margin-bottom: 0.3rem;
+  display: block;
 }
 
 
