@@ -205,10 +205,6 @@ nivelMeta.addEventListener('change', () => {
     
 });
 
-
-    
-
-
 // Historia clínica
 
 document.addEventListener('DOMContentLoaded', () => {

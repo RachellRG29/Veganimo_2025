@@ -387,6 +387,7 @@ input[type="checkbox"]#dietaCheckbox:checked {
   padding: 10px;
   margin-top: 5px;
   max-height: 200px;
+  max-width: 85%;
   overflow-y: auto;
   font-family: 'Comfortaa', sans-serif;
   font-size: 15px;

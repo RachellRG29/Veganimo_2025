@@ -106,13 +106,29 @@
 
 /*grupo footer donde va el titular de la tarjeta y fecha vencimiento*/
 .card-footer {
+  position: absolute;
+  bottom: 40px;
+  left: 25px;
+  right: 25px;
+
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   font-size: 16px;
-  gap: 150px;
-  bottom: 40px !important;
-  position: absolute;
 }
+
+/* Titular ocupa más ancho */
+.card-holder {
+  flex: 3;                  /* más ancho que la fecha */
+  min-width: 0;             /* necesario para que ellipsis funcione en flex */
+}
+
+/* Fecha más angosta */
+.card-expiry {
+  flex: 1;
+  text-align: right;
+}
+
 
 .card-footer .label {
   font-size: 14px;
@@ -122,10 +138,21 @@
   margin-bottom: 10px;
 }
 
-.lbl_titulo_tarjeta, .lbl_venc{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+/* Texto del titular con puntos suspensivos si se pasa */
+.lbl_titulo_tarjeta {
+  display: block;
+  white-space: nowrap;       /* no permite salto de línea */
+  overflow: hidden;          /* corta lo que sobra */
+  text-overflow: ellipsis;   /* agrega ... */
+  max-width: 290px;          /* define el ancho máximo visible */
+  text-transform: uppercase;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.lbl_venc {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .cont_box_cvv{
