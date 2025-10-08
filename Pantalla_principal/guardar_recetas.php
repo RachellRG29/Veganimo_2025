@@ -9,8 +9,10 @@ if (!file_exists($directorioDestino)) {
 
 // Validar datos esenciales
 $nombreReceta = $_POST['name-receta'] ?? '';
+$tipo_receta = $_POST['tipo_receta'] ?? '';
 $descripcion = $_POST['description-receta'] ?? '';
 $tiempo = $_POST['time-receta'] ?? '';
+$valor_nutricional = $_POST['valor_nutricional'] ?? '';
 $dificultad = $_POST['dificultad'] ?? '';
 $ingredientes = $_POST['ingredientes'] ?? [];
 $pasos = $_POST['pasos'] ?? [];
@@ -89,8 +91,10 @@ if (
 // Crear documento para MongoDB
 $documento = [
     'nombre_receta' => $nombreReceta,
+    'tipo_receta' => $tipo_receta,
     'descripcion' => $descripcion,
     'tiempo_preparacion' => $tiempo,
+    'valor_nutricional' => (float)$valor_nutricional,
     'dificultad' => $dificultad,
     'ingredientes' => $ingredientes,
     'pasos' => $pasosCompletos,

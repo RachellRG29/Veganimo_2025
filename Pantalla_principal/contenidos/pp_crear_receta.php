@@ -102,6 +102,13 @@
                     <input type="text" id="name-receta" name="name-receta" class="form-control input-border" placeholder="Ingrese el nombre de la receta">
                   </div>
             
+                                <label for="tipo_receta">Tipo de receta</label>
+              <select name="tipo_receta" id="tipo_receta" required>
+                <option value="">Seleccionar...</option>
+                <option value="Desayuno">Desayuno</option>
+                <option value="Almuerzo">Almuerzo</option>
+                <option value="Cena">Cena</option>
+              </select>
                   <div class="mb-3">
                     <label for="description-receta" class="form-label">Descripción:</label>
                     <textarea id="description-receta" name="description-receta" class="form-control input-border textarea-fija" rows="3" placeholder="Describa la receta"></textarea>
@@ -208,6 +215,11 @@
               </div>
 
               <div class="separador-vertical"></div>
+
+              <div class="form-group">
+  <label for="valor_nutricional">Valor nutricional (kcal):</label>
+  <input type="number" id="valor_nutricional" name="valor_nutricional" class="form-control" min="0" step="1" required>
+</div>
 
               <div class="dificultad">
                 <label class="form-label">Dificultad:</label>
