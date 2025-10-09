@@ -34,6 +34,7 @@ try {
             'tiempo_preparacion' => $doc->tiempo_preparacion ?? '',
             'dificultad' => $doc->dificultad ?? '',
             'categoria' => $doc->categoria ?? '',
+            'tipo_receta' => $doc->tipo_receta ?? '',
             'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png',
             'ingredientes' => isset($doc->ingredientes) && is_iterable($doc->ingredientes)
                 ? iterator_to_array($doc->ingredientes)

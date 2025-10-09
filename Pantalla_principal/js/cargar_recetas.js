@@ -12,7 +12,6 @@ async function cargarRecetas() {
     cat_transc: "Transicionista"
   };
 
-
   /* Función para renderizar las estrellas de la calificación */
   function renderEstrellas(calificacion) {
     const totalEstrellas = 5;
@@ -53,117 +52,167 @@ async function cargarRecetas() {
       </div>`;
   }
 
-  /* acortar la descripcion */
+  /* Acortar la descripción */
   function recortarDescripcion(texto, limitePalabras = 20) {
     const palabras = texto.trim().split(/\s+/);
     if (palabras.length <= limitePalabras) return texto;
     return palabras.slice(0, limitePalabras).join(" ") + "...";
   }
 
+  try {
+    const response = await fetch('../Pantalla_principal/obtener_recetas.php');
+    const data = await response.json();
 
-  fetch('../Pantalla_principal/obtener_recetas.php')
-    .then(response => response.json())
-    .then(data => {
-      if (!data.success || !Array.isArray(data.data)) {
-        contenedor.innerHTML = '<p>Error al cargar recetas.</p>';
-        return;
+    if (!data.success || !Array.isArray(data.data)) {
+      contenedor.innerHTML = '<p>Error al cargar recetas.</p>';
+      return;
+    }
+
+    const recetas = data.data;
+    if (recetas.length === 0) {
+      contenedor.innerHTML = '<p>No hay recetas disponibles.</p>';
+      return;
+    }
+
+    contenedor.innerHTML = ''; // Limpiar antes de renderizar
+
+    recetas.forEach(receta => {
+      const tarjeta = document.createElement('div');
+      tarjeta.className = 'tarjeta-receta';
+
+      // Detectar color de dificultad
+      let colorDificultad = '#22B55B';
+      if (receta.dificultad === 'Media') colorDificultad = 'orange';
+      else if (receta.dificultad === 'Alta') colorDificultad = 'red';
+
+      // Agregar unidad de tiempo
+      const tiempoPrep = receta.tiempo_preparacion;
+      let unidad = 'minutos';
+      if (tiempoPrep.toLowerCase().includes('hora')) {
+        unidad = '';
+      } else if (parseInt(tiempoPrep) >= 60) {
+        unidad = 'minutos';
       }
 
-      const recetas = data.data;
-      if (recetas.length === 0) {
-        contenedor.innerHTML = '<p>No hay recetas disponibles.</p>';
-        return;
+      // Detectar el tipo de receta (Desayuno, Almuerzo, Cena)
+      let claseTipo = '';
+      switch (receta.tipo_receta?.toLowerCase()) {
+        case 'desayuno':
+          claseTipo = 'etiqueta-desayuno';
+          break;
+        case 'almuerzo':
+          claseTipo = 'etiqueta-almuerzo';
+          break;
+        case 'cena':
+          claseTipo = 'etiqueta-cena';
+          break;
+        default:
+          claseTipo = 'etiqueta-default';
       }
 
-      contenedor.innerHTML = ''; // Limpiar antes de renderizar
+      tarjeta.innerHTML = `
+        <div class="circulo-img">
+          <img src="${receta.imagen}" alt="Imagen del plato" class="img-plato">
+        </div>
+        <div class="body-tarjeta">
+          <h2 class="title-tarjeta">${receta.nombre_receta}</h2>
+          <p class="descripcion-tarjeta">${recortarDescripcion(receta.descripcion)}</p>
+          <p class="categoria-tarjeta" 
+            style="color: #F6FFFE; font-weight: bold; text-align: center;
+            background-color: #154734; display: inline-block;
+            padding: 6px 12px; border-radius: 20px;">
+            Categoría: ${categorias[receta.categoria] || 'Sin categoría'}
+          </p>
 
-      recetas.forEach(receta => {
-        const tarjeta = document.createElement('div');
-        tarjeta.className = 'tarjeta-receta';
-
-        // Detectar color de dificultad
-        let colorDificultad = '#22B55B';
-        if (receta.dificultad === 'Media') colorDificultad = 'orange';
-        else if (receta.dificultad === 'Alta') colorDificultad = 'red';
-
-        // Agregar unidad de tiempo
-        const tiempoPrep = receta.tiempo_preparacion;
-        let unidad = 'minutos';
-        if (tiempoPrep.toLowerCase().includes('hora')) {
-          unidad = '';
-        } else if (parseInt(tiempoPrep) >= 60) {
-          unidad = 'minutos'; // por si acaso
-        }
-
-        tarjeta.innerHTML = `
-          <div class="circulo-img">
-            <img src="${receta.imagen}" alt="Imagen del plato" class="img-plato">
+          <div class="rating-estatica">
+            ${renderEstrellas(receta.calificacion)}
           </div>
-          <div class="body-tarjeta">
-            <h2 class="title-tarjeta">${receta.nombre_receta}</h2>
-            <p class="descripcion-tarjeta">${recortarDescripcion(receta.descripcion)}</p>
-            <p class="categoria-tarjeta" 
-            style=" color: #F6FFFE; 
-            font-weight: bold; 
-            text-align: center;
-            background-color: #154734;
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 20px;">
-            Categoría: ${categorias[receta.categoria] || 'Sin categoría'}</p>
 
-            <div class="rating-estatica">
-              ${renderEstrellas(receta.calificacion)}
+          <div class="datos-receta">
+            <div class="tiempo-receta">
+              <p style="font-weight: bold;">Tiempo de preparación</p>
+              <div class="grupo_tiempo">
+                <i class="ph ph-timer" style="font-size: 24px;"></i>
+                <p class="lbl_tiempo_receta">${tiempoPrep} ${unidad}</p>
+              </div>
             </div>
 
-            <div class="datos-receta">
-              <div class="tiempo-receta">
-                <p style="font-weight: bold;">Tiempo de preparación</p>
-                <div class="grupo_tiempo">
-                  <i class="ph ph-timer" style="font-size: 24px;"></i>
-                  <p class="lbl_tiempo_receta">${tiempoPrep} ${unidad}</p>
-                </div>
-              </div>
+            <div class="linea-datos"></div>
 
-              <div class="linea-datos"></div>
-
-              <div class="dificultad-receta">
-                <p style="font-weight: bold;">Dificultad</p>
-                <div class="grupo_dif">
-                  <i class="ph ph-square-fill" style="font-size: 24px; color: ${colorDificultad};background-color: white; border: 1px; border-radius: 3px;"></i>
-                  <p class="lbl_dificultad">${receta.dificultad}</p>
-                </div>
+            <div class="dificultad-receta">
+              <p style="font-weight: bold;">Dificultad</p>
+              <div class="grupo_dif">
+                <i class="ph ph-square-fill" 
+                  style="font-size: 24px; color: ${colorDificultad};
+                  background-color: white; border: 1px; border-radius: 3px;"></i>
+                <p class="lbl_dificultad">${receta.dificultad}</p>
               </div>
             </div>
-
-            <span class="etiqueta-tipo">${receta.tipo_receta || 'Sin tipo'}</span>
-
           </div>
-        `;
 
-        tarjeta.setAttribute('data-receta', JSON.stringify(receta));
-        
-        contenedor.appendChild(tarjeta);
-      });
+          <span class="etiqueta-tipo ${claseTipo}">
+            ${receta.tipo_receta || 'Sin tipo'}
+          </span>
+        </div>
+      `;
 
-      // 🔁 Ejecutar filtrado después de cargar las tarjetas
-      if (typeof initializeRecipeSearch === 'function') {
-        initializeRecipeSearch();
-      }
-
-    })
-    .catch(error => {
-      console.error('❌ Error de red:', error);
-      contenedor.innerHTML = '<p>Error al conectar con el servidor.</p>';
+      tarjeta.setAttribute('data-receta', JSON.stringify(receta));
+      contenedor.appendChild(tarjeta);
     });
 
+    if (typeof initializeRecipeSearch === 'function') {
+      initializeRecipeSearch();
+    }
 
-const style_carg = document.createElement('style');
-style_carg.textContent = `
-  .tarjeta-receta {
-  cursor: pointer;
+  } catch (error) {
+    console.error('❌ Error de red:', error);
+    contenedor.innerHTML = '<p>Error al conectar con el servidor.</p>';
   }
-`;
-document.head.appendChild(style_carg);
 
+  // Estilo básico adicional
+  const style_carg = document.createElement('style');
+  style_carg.textContent = `
+    .tarjeta-receta { cursor: pointer; }
+
+    .etiqueta-tipo {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      border: 2px dashed #ccc;
+      margin-top: 10px;
+    }
+
+    .etiqueta-desayuno {
+      background-color: #ffecb3;
+      border-color: #f7c948;
+      color: #a67c00;
+    }
+
+    .etiqueta-almuerzo {
+      background-color: #c8f7c5;
+      border-color: #7ed957;
+      color: #256d1b;
+    }
+
+    .etiqueta-cena {
+      background-color: #b3e5fc;
+      border-color: #4fc3f7;
+      color: #01579b;
+    }
+
+    .etiqueta-default {
+      background-color: #e0e0e0;
+      border-color: #bdbdbd;
+      color: #424242;
+    }
+  `;
+  document.head.appendChild(style_carg);
 }
+
+/* Ejecutar al cargar la página */
+document.addEventListener('DOMContentLoaded', () => {
+  cargarRecetas();
+});
+

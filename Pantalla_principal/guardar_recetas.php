@@ -67,17 +67,21 @@ foreach ($pasos as $index => $textoPaso) {
 }
 
 // Validar campos obligatorios
+// Forzar a que ingredientes, pasos y calificacion siempre sean arrays
+$ingredientes = (array)$ingredientes;
+$pasos = (array)$pasos;
+$calificacionFiltrada = (array)$calificacionFiltrada;
+
 if (
-    empty($nombreReceta) ||
-    empty($descripcion) ||
-    empty($tiempo) ||
-    empty($dificultad) ||
-    empty($imagenReceta) ||
-    empty($categoria) ||
-    empty($ingredientes) ||
-    empty($pasos) ||
-    empty($calificacionFiltrada) || // Al menos una calificación válida
-    !array_filter($pasos, fn($p) => !empty($p)) // Al menos un paso con texto
+    trim($nombreReceta) === '' ||
+    trim($descripcion) === '' ||
+    trim($tiempo) === '' ||
+    trim($dificultad) === '' ||
+    trim($imagenReceta) === '' ||
+    trim($categoria) === '' ||
+    count(array_filter($ingredientes, 'strlen')) === 0 ||
+    count(array_filter($pasos, 'strlen')) === 0 ||
+    count($calificacionFiltrada) === 0
 ) {
     echo json_encode([
         "success" => false,
@@ -112,7 +116,7 @@ try {
     
     echo json_encode([
         "success" => true,
-        "message" => "✅ Receta guardada exitosamente.",
+        "message" => " Receta guardada exitosamente.",
         "icon" => "success"
     ]);
 } catch (MongoDB\Driver\Exception\Exception $e) {
