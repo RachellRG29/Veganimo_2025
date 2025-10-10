@@ -44,6 +44,13 @@ switch ($tipo) {
         $updateFields['sintomas'] = $_POST['sintomas'] ?? [];
         break;
 
+        case 'nutricionales':
+    $updateFields['peso'] = isset($_POST['peso']) ? (float)$_POST['peso'] : 0;
+    $updateFields['altura'] = isset($_POST['altura']) ? (float)$_POST['altura'] : 0;
+   
+    break;
+
+
     default:
         echo json_encode([
             "success" => false,
@@ -69,7 +76,7 @@ try {
     // Retornar los campos actualizados para actualizar JS sin perder los demás
     echo json_encode([
         "success" => true,
-        "message" => "✅ Se actualizó correctamente",
+        "message" => " Se actualizó correctamente",
         "icon" => "success",
         "actualizado" => $updateFields
     ]);

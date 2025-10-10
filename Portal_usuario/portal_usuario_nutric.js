@@ -229,12 +229,19 @@ function mostrarModal(tipo) {
   const modal = document.getElementById('modal');
   const editBtn = document.getElementById('edit-modal-btn');
 
+  // Limpiar modal
   body.innerHTML = '';
   title.textContent = '';
   editBtn.style.display = 'none';
   editBtn.onclick = null;
 
-  const d = perfilNutricional;
+  // Eliminar cualquier botón de imprimir previo
+  const btnExistente = document.querySelector('.imprimir-btn');
+  if (btnExistente) btnExistente.remove();
+
+  const d = perfilNutricional || {};
+  const dato = v => (v !== undefined && v !== null && v !== '' ? v : 'Sin datos registrados');
+
   const titulos = {
     nutricionales: 'Datos nutricionales',
     clinica: 'Historia clínica',
@@ -246,84 +253,180 @@ function mostrarModal(tipo) {
 
   title.textContent = titulos[tipo] || 'Detalle';
 
-  if (tipo === 'nutricionales') {
-   body.innerHTML = `
-    <section class="modal-section">
-      <p><strong>Dieta actual:</strong> ${d.dieta_actual}</p>
-      <p><strong>Peso:</strong> ${d.peso} kg</p>
-      <p><strong>Altura:</strong> ${d.altura} cm</p>
-      <p><strong>Objetivo:</strong> ${d.objetivo}</p>
-      <p><strong>Meta:</strong> ${d.nivel_meta}</p>
-    </section>
-  `;
-    } else if (tipo === 'clinica') {
-    body.innerHTML = `
-      <section class="modal-section">
-        <h4>Antecedentes patológicos</h4>
-        ${crearListaHTML(d.patologicos)}
-      </section>
-      <section class="modal-section">
-        <h4>Antecedentes familiares</h4>
-        ${crearListaHTML(d.familiares)}
-      </section>
-      <section class="modal-section">
-        <h4>Antecedentes quirúrgicos</h4>
-        ${crearListaHTML(d.quirurgicos)}
-      </section>
-    `;
-} else if (tipo === 'afecciones') {
-  body.innerHTML = `
-    <section class="modal-section">
-      <h4>Intolerancias</h4>
-      ${crearListaHTML(d.intolerancias)}
-    </section>
-    <section class="modal-section">
-      <h4>Alergias</h4>
-      ${crearListaHTML(d.alergias)}
-    </section>
-  `;
-  } else if (tipo === 'sintomas') {
-  body.innerHTML = `
-    <section class="modal-section">
-      ${crearListaHTML(d.sintomas)}
-    </section>
-  `;
-  } else if (tipo === 'completo' || tipo === 'resumen') {
-    const dato = (v, suf = '') => (v !== undefined && v !== null && v !== '') ? `${v}${suf}` : '—';
-    const bloque = (t, contenido) => `<section class="modal-section"><h4>${t}</h4>${contenido}</section>`;
-
-    const top = `
-      <p><strong>Dieta actual:</strong> ${dato(d.dieta_actual)}</p>
-      <p><strong>Peso:</strong> ${dato(d.peso, ' kg')}</p>
-      <p><strong>Altura:</strong> ${dato(d.altura, ' cm')}</p>
-      <p><strong>Objetivo:</strong> ${dato(d.objetivo)}</p>
-      <p><strong>Meta:</strong> ${dato(d.nivel_meta)}</p>
-    `;
-
-    const html =
-      bloque('Datos generales', top) +
-      bloque('Antecedentes patológicos', crearListaHTML(d.patologicos)) +
-      bloque('Antecedentes familiares', crearListaHTML(d.familiares)) +
-      bloque('Antecedentes quirúrgicos', crearListaHTML(d.quirurgicos)) +
-      bloque('Intolerancias', crearListaHTML(d.intolerancias)) +
-      bloque('Alergias', crearListaHTML(d.alergias)) +
-      bloque('Síntomas gastrointestinales', crearListaHTML(d.sintomas));
-
-    body.innerHTML = html;
+  function bloqueHTML(titulo, contenido) {
+    return `<section class="modal-section"><h4>${titulo}</h4>${contenido}</section>`;
   }
 
-  if (['clinica', 'afecciones', 'sintomas'].includes(tipo)) {
+  function listaHTML(lista) {
+    return (!lista || lista.length === 0)
+      ? '<p>Sin datos registrados</p>'
+      : `<ul>${lista.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  }
+
+  // Construir contenido según tipo
+  if (tipo === 'nutricionales') {
+    body.innerHTML = bloqueHTML('Datos generales', `
+      <p><strong>Dieta actual:</strong> ${dato(d.dieta_actual)}</p>
+      <p><strong>Peso:</strong> ${dato(d.peso)} kg</p>
+      <p><strong>Altura:</strong> ${dato(d.altura)} cm</p>
+      <p><strong>Objetivo:</strong> ${dato(d.objetivo)}</p>
+      <p><strong>Meta:</strong> ${dato(d.nivel_meta)}</p>
+    `);
+  } else if (tipo === 'clinica') {
+    body.innerHTML = 
+      bloqueHTML('Antecedentes patológicos', listaHTML(d.patologicos)) +
+      bloqueHTML('Antecedentes familiares', listaHTML(d.familiares)) +
+      bloqueHTML('Antecedentes quirúrgicos', listaHTML(d.quirurgicos));
+  } else if (tipo === 'afecciones') {
+    body.innerHTML = 
+      bloqueHTML('Intolerancias', listaHTML(d.intolerancias)) +
+      bloqueHTML('Alergias', listaHTML(d.alergias));
+  } else if (tipo === 'sintomas') {
+    body.innerHTML = bloqueHTML('Síntomas gastrointestinales', listaHTML(d.sintomas));
+  } else if (tipo === 'completo' || tipo === 'resumen') {
+    body.innerHTML =
+      bloqueHTML('Datos generales', `
+        <p><strong>Dieta actual:</strong> ${dato(d.dieta_actual)}</p>
+        <p><strong>Peso:</strong> ${dato(d.peso)} kg</p>
+        <p><strong>Altura:</strong> ${dato(d.altura)} cm</p>
+        <p><strong>Objetivo:</strong> ${dato(d.objetivo)}</p>
+        <p><strong>Meta:</strong> ${dato(d.nivel_meta)}</p>
+      `) +
+      bloqueHTML('Antecedentes patológicos', listaHTML(d.patologicos)) +
+      bloqueHTML('Antecedentes familiares', listaHTML(d.familiares)) +
+      bloqueHTML('Antecedentes quirúrgicos', listaHTML(d.quirurgicos)) +
+      bloqueHTML('Intolerancias', listaHTML(d.intolerancias)) +
+      bloqueHTML('Alergias', listaHTML(d.alergias)) +
+      bloqueHTML('Síntomas gastrointestinales', listaHTML(d.sintomas));
+
+    // --- BOTÓN IMPRIMIR SOLO EN RESUMEN COMPLETO ---
+    const header = document.querySelector('.modal-content h3');
+    const imprimirBtn = document.createElement('button');
+    imprimirBtn.className = 'imprimir-btn';
+    imprimirBtn.innerHTML = '🖨 Imprimir / PDF';
+    imprimirBtn.onclick = () => imprimirResumen(d, body.innerHTML);
+    header.parentNode.insertBefore(imprimirBtn, header);
+  }
+
+  // Mostrar modal
+  modal.style.display = 'flex';
+  requestAnimationFrame(() => modal.classList.add('show'));
+
+  // Botón editar para otras secciones
+  if (['clinica', 'afecciones', 'sintomas', 'nutricionales'].includes(tipo)) {
     editBtn.style.display = 'inline-block';
     editBtn.onclick = () => abrirModalEdicion(tipo);
   }
-
-  modal.style.display = 'flex';
-  requestAnimationFrame(() => modal.classList.add('show'));
 }
 
-function crearListaHTML(lista) {
-  if (!lista || lista.length === 0) return '<p>Sin información.</p>';
-  return `<ul>${lista.map(item => `<li>${item}</li>`).join('')}</ul>`;
+
+// Función de imprimir / PDF
+function imprimirResumen(data, contenidoHTML) {
+  Swal.fire({
+    title: 'Selecciona acción',
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: 'Imprimir',
+    denyButtonText: 'Guardar como PDF',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const win = window.open('', '', 'width=800,height=600');
+      win.document.write('<html><head><title>Imprimir</title>');
+      win.document.write(`<link rel="stylesheet" href="modal.css">`);
+      win.document.write('</head><body>');
+      win.document.write(`<div style="text-align:center;"><img src="../images/logo_veganimoo.png" class="logo-pdf"></div>`);
+      win.document.write(`<h3 class="pdf-title">Resumen completo del perfil nutricional</h3>`);
+      win.document.write(contenidoHTML);
+      win.document.write('</body></html>');
+      win.document.close();
+      win.focus();
+      win.print();
+    } else if (result.isDenied) {
+      if (!window.jspdf) {
+        Swal.fire('Error', 'No se encontró jsPDF. Asegúrate de incluirlo en tu HTML.', 'error');
+        return;
+      }
+      generarPDF(data);
+    }
+  });
+}
+
+// Función generar PDF con jsPDF
+function generarPDF(d) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const lineHeight = 8;
+  let y = 25;
+
+  // Logo centrado
+  const logo = new Image();
+  logo.src = '../images/logo_veganimoo.png';
+  logo.onload = function() {
+    const imgProps = doc.getImageProperties(logo);
+    const logoWidth = 40;
+    const logoHeight = (imgProps.height * logoWidth) / imgProps.width;
+    doc.addImage(logo, 'PNG', (pageWidth - logoWidth)/2, 10, logoWidth, logoHeight);
+    y += logoHeight + 10;
+
+    // Título PDF
+    doc.setFontSize(16);
+    doc.setTextColor(0, 128, 72);
+    doc.text('Resumen completo del perfil nutricional', pageWidth/2, y, { align: 'center' });
+    y += 12;
+
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+
+    // Secciones
+    const secciones = [
+      { titulo: 'Datos generales', contenido: [
+          `Dieta actual: ${d.dieta_actual || 'Sin datos registrados'}`,
+          `Peso: ${d.peso || 'Sin datos registrados'} kg`,
+          `Altura: ${d.altura || 'Sin datos registrados'} cm`,
+          `Objetivo: ${d.objetivo || 'Sin datos registrados'}`,
+          `Meta: ${d.nivel_meta || 'Sin datos registrados'}`
+        ]
+      },
+      { titulo: 'Antecedentes patológicos', contenido: d.patologicos && d.patologicos.length ? d.patologicos : ['Sin datos registrados'] },
+      { titulo: 'Antecedentes familiares', contenido: d.familiares && d.familiares.length ? d.familiares : ['Sin datos registrados'] },
+      { titulo: 'Antecedentes quirúrgicos', contenido: d.quirurgicos && d.quirurgicos.length ? d.quirurgicos : ['Sin datos registrados'] },
+      { titulo: 'Intolerancias', contenido: d.intolerancias && d.intolerancias.length ? d.intolerancias : ['Sin datos registrados'] },
+      { titulo: 'Alergias', contenido: d.alergias && d.alergias.length ? d.alergias : ['Sin datos registrados'] },
+      { titulo: 'Síntomas gastrointestinales', contenido: d.sintomas && d.sintomas.length ? d.sintomas : ['Sin datos registrados'] },
+    ];
+
+    secciones.forEach(sec => {
+      y += 6;
+      doc.setFontSize(14);
+      doc.setTextColor(0, 85, 0);
+      doc.text(sec.titulo, 10, y);
+      y += lineHeight;
+      doc.setFontSize(12);
+      doc.setTextColor(0, 0, 0);
+
+      sec.contenido.forEach(item => {
+        const lines = doc.splitTextToSize(item, pageWidth - 20);
+        lines.forEach(l => {
+          if (y > doc.internal.pageSize.getHeight() - 20) {
+            doc.addPage();
+            y = 25;
+          }
+          doc.text(l, 10, y);
+          y += lineHeight;
+        });
+      });
+
+      y += 4;
+      doc.setDrawColor(0, 128, 72);
+      doc.setLineWidth(0.5);
+      doc.line(10, y, pageWidth - 10, y);
+      y += lineHeight / 2;
+    });
+
+    doc.save('perfil_nutricional Veganimo.pdf');
+  };
 }
 
 function cerrarModal() {
@@ -332,14 +435,13 @@ function cerrarModal() {
   setTimeout(() => modal.style.display = 'none', 300);
 }
 
-
-
 /* -------- VARIABLES GLOBALES -------- */
 let datosIniciales = {}; // guardamos el estado original del formulario
 
 /* -------- MODAL DE EDICIÓN -------- */
+//este codigo es para los que estan permitidos editar 
 function abrirModalEdicion(tipo) {
-  const tiposPermitidos = ['clinica', 'afecciones', 'sintomas'];
+  const tiposPermitidos = ['clinica', 'afecciones', 'sintomas', 'nutricionales'];
   if (!tiposPermitidos.includes(tipo)) return;
 
   const form = document.getElementById('modal-edit-form');
@@ -347,7 +449,30 @@ function abrirModalEdicion(tipo) {
   form.innerHTML = ''; 
   let d = perfilNutricional;
 
-  // === historia clínica ===
+  // === DATOS NUTRICIONALES ===
+  if (tipo === 'nutricionales') {
+    title.textContent = 'Editar datos nutricionales';
+    form.innerHTML = `
+      <h3 class="section-title" style="margin-bottom: 25px;">Datos nutricionales</h3>
+
+      <div class="form-row justify-content-center w-85 mx-auto">
+        <div class="form-group">
+          <label class="form-label required" for="peso">Peso (kg):</label>
+          <input type="number" id="peso" name="peso" class="form-input half-width" step="0.1" 
+                 value="${d.peso || ''}" required style="border: 2px solid #817c7c !important;">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label required" for="altura">Altura (cm):</label>
+          <input type="number" id="altura" name="altura" class="form-input half-width" step="0.1"
+                 value="${d.altura || ''}" required style="border: 2px solid #817c7c !important;">
+        </div>
+      </div>
+
+    `;
+  }
+
+  // === HISTORIA CLÍNICA ===
   if (tipo === 'clinica') {
     title.textContent = 'Editar historia clínica';
     const patologicos = [
@@ -370,12 +495,11 @@ function abrirModalEdicion(tipo) {
       "Cirugías cardiovasculares"
     ];
 
-    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
-      return arr.map(item => {
+    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) =>
+      arr.map(item => {
         const checked = seleccionados.includes(item) ? 'checked' : '';
         return `<label><input type="checkbox" name="${nombreCampo}[]" value="${item}" ${checked}> ${item}</label>`;
       }).join('');
-    };
 
     form.innerHTML = `
       <h3>Antecedentes patológicos</h3>
@@ -387,7 +511,7 @@ function abrirModalEdicion(tipo) {
     `;
   }
 
-  // === afecciones personales ===
+  // === AFECCIONES PERSONALES ===
   if (tipo === 'afecciones') {
     title.textContent = 'Editar afecciones personales';
     const intolerancias = [
@@ -400,12 +524,11 @@ function abrirModalEdicion(tipo) {
       "Maní","Nueces","Huevo","Leche de vaca","Pescado","Mariscos","Trigo","Soya",
       "Sésamo","Mostaza","Frutas frescas","Latex-frutas","Gelatina","Colorantes artificiales","Preservantes"
     ];
-    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
-      return arr.map(item => {
+    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) =>
+      arr.map(item => {
         const checked = seleccionados.includes(item) ? 'checked' : '';
         return `<label><input type="checkbox" name="${nombreCampo}[]" value="${item}" ${checked}> ${item}</label>`;
       }).join('');
-    };
 
     form.innerHTML = `
       <h3>Intolerancias</h3>
@@ -415,7 +538,7 @@ function abrirModalEdicion(tipo) {
     `;
   }
 
-  // === síntomas gastrointestinales ===
+  // === SÍNTOMAS GASTROINTESTINALES ===
   if (tipo === 'sintomas') {
     title.textContent = 'Editar síntomas gastrointestinales';
     const sintomas = [
@@ -424,18 +547,18 @@ function abrirModalEdicion(tipo) {
       "Pérdida de apetito","Sensación de llenura precoz","Cambio en el color de las heces","Heces con moco o sangre",
       "Tenesmo rectal","Incontinencia fecal","Dolor rectal o anal","Ictericia","Sabor amargo en la boca"
     ];
-    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) => {
-      return arr.map(item => {
+    const crearCheckboxes = (arr, nombreCampo, seleccionados = []) =>
+      arr.map(item => {
         const checked = seleccionados.includes(item) ? 'checked' : '';
         return `<label><input type="checkbox" name="${nombreCampo}[]" value="${item}" ${checked}> ${item}</label>`;
       }).join('');
-    };
 
     form.innerHTML = `
       <h3>Síntomas</h3>
       <div class="custom-select-options">${crearCheckboxes(sintomas, 'sintomas', d.sintomas || [])}</div>
     `;
   }
+
 
   // Guardar estado inicial
   datosIniciales = new FormData(form);
@@ -557,4 +680,3 @@ window.addEventListener('click', e => {
   if (e.target === document.getElementById('modal-avatar')) cerrarModalAvatar();
   if (e.target === document.getElementById('avatar-large-modal')) cerrarAvatarGrande();
 });
-
