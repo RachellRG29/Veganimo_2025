@@ -1537,3 +1537,58 @@ body.modal-open {
 .modal-section li, .modal-section p {
   font-size: 14px;
 }
+
+/* Contenedor de datos nutricionales  centrado */
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Grupos de inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 200px; /* puedes ajustar */
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Inputs modernos */
+.form-input {
+  padding: 10px 15px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  outline: none;
+  background-color: #fafafa;
+}
+
+/* Sombra y color al enfocar */
+.form-input:focus {
+  border-color: #007848; /* verde profesional */
+  box-shadow: 0 4px 12px rgba(0, 120, 72, 0.25);
+  background-color: #fff;
+}
+
+/* Tamaño responsive */
+.half-width {
+  width: 100%;
+}
+
+/* Required asterisco en rojo */
+.required::after {
+  content: '*';
+  color: red;
+  margin-left: 2px;
+}
+

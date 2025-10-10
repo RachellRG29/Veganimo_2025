@@ -455,19 +455,19 @@ function abrirModalEdicion(tipo) {
     form.innerHTML = `
       <h3 class="section-title" style="margin-bottom: 25px;">Datos nutricionales</h3>
 
-      <div class="form-row justify-content-center w-85 mx-auto">
-        <div class="form-group">
-          <label class="form-label required" for="peso">Peso (kg):</label>
-          <input type="number" id="peso" name="peso" class="form-input half-width" step="0.1" 
-                 value="${d.peso || ''}" required style="border: 2px solid #817c7c !important;">
-        </div>
+ <div class="form-row justify-content-center w-85 mx-auto">
+  <div class="form-group">
+    <label class="form-label required" for="peso">Peso (kg):</label>
+    <input type="number" id="peso" name="peso" class="form-input half-width" step="0.1" 
+           value="${d.peso || ''}" required>
+  </div>
 
-        <div class="form-group">
-          <label class="form-label required" for="altura">Altura (cm):</label>
-          <input type="number" id="altura" name="altura" class="form-input half-width" step="0.1"
-                 value="${d.altura || ''}" required style="border: 2px solid #817c7c !important;">
-        </div>
-      </div>
+  <div class="form-group">
+    <label class="form-label required" for="altura">Altura (cm):</label>
+    <input type="number" id="altura" name="altura" class="form-input half-width" step="0.1"
+           value="${d.altura || ''}" required>
+  </div>
+</div>
 
     `;
   }
