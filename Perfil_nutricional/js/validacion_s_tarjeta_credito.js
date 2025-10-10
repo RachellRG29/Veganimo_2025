@@ -85,12 +85,12 @@ yearSelect.addEventListener("change", updateExpDate);
 /**** 4. CVV ****/
 cvvInput2.addEventListener("input", () => {
   let value = cvvInput2.value.replace(/\D/g, ""); // Solo números
-  value = value.substring(0, 4); // Máximo 4 dígitos
+  value = value.substring(0, 3); // Máximo 3 dígitos
   cvvInput2.value = value;
 
   lblCVV.textContent = value || "****";
 
-  if (value.length === 3 || value.length === 4) {
+  if (value.length === 2 || value.length === 3) {
     setValid(cvvInput2);
   } else {
     setError(cvvInput2);

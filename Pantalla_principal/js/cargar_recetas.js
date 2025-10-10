@@ -182,30 +182,32 @@ async function cargarRecetas() {
       font-size: 0.9rem;
       border: 2px dashed #ccc;
       margin-top: 10px;
+      color: #1a1c1c;
     }
 
     .etiqueta-desayuno {
-      background-color: #ffecb3;
-      border-color: #f7c948;
-      color: #a67c00;
+      background-color: #FEED98;
+      border: 2px dashed #FF814F;
+      box-shadow: 0 0 0 4px #FEED98, 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .etiqueta-almuerzo {
-      background-color: #c8f7c5;
-      border-color: #7ed957;
-      color: #256d1b;
+      background-color: #A9F1AF;
+      border: 2px dashed #007848;
+      box-shadow: 0 0 0 4px #A9F1AF, 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .etiqueta-cena {
-      background-color: #b3e5fc;
-      border-color: #4fc3f7;
-      color: #01579b;
+      background-color: #ACFEED;
+      border: 2px dashed #1E88E5;
+      box-shadow: 0 0 0 4px #ACFEED, 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .etiqueta-default {
       background-color: #e0e0e0;
       border-color: #bdbdbd;
       color: #424242;
+      box-shadow: 0 0 0 4px #e0e0e0, 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
   `;
   document.head.appendChild(style_carg);
