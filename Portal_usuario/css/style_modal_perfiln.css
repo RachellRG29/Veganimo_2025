@@ -178,6 +178,9 @@
 /* Envolver h3 + .custom-select-options como si fueran una caja */
 #modal-edit-form h3 {
   margin-top: 18px; /* separación entre secciones */
+  font-weight: 300;
+  color: #E99A3C;
+  font-family: 'Comfortaa';
 }
 
 /* -----------------///MODAL EDICION ///////---------------- */

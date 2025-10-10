@@ -1495,14 +1495,15 @@ body.modal-open {
 .imprimir-btn {
   position: absolute;
   top: 15px;
-  right: 120px;
+  right: 65px;
   background-color: #007848;
-  color: #fff;
+  color: #f6fffe;
   border: none;
   border-radius: 6px;
-  padding: 6px 14px;
+  padding: 6px 18px;
   font-size: 14px;
   cursor: pointer;
+  font-family: 'Comfortaa';
   transition: background 0.2s;
 }
 .imprimir-btn:hover {
@@ -1545,6 +1546,11 @@ body.modal-open {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 20px;
+  font-family: 'Comfortaa';
+  background-color: #f3fdf9;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  padding: 10px;
 }
 
 /* Grupos de inputs */
@@ -1559,7 +1565,7 @@ body.modal-open {
   font-weight: 600;
   margin-bottom: 5px;
   font-size: 0.95rem;
-  color: #333;
+  color: #1a1c1c;
 }
 
 /* Inputs modernos */
@@ -1576,13 +1582,14 @@ body.modal-open {
 /* Sombra y color al enfocar */
 .form-input:focus {
   border-color: #007848; /* verde profesional */
-  box-shadow: 0 4px 12px rgba(0, 120, 72, 0.25);
   background-color: #fff;
 }
 
 /* Tamaño responsive */
 .half-width {
   width: 100%;
+  font-family: 'Comfortaa';
+  background-color: #f3fdf9;
 }
 
 /* Required asterisco en rojo */
