@@ -78,7 +78,11 @@ function mostrarUsuariosPro(usuarios) {
             <td>${user.email}</td>
             <td>${user.fecha_nacimiento}</td>
             <td>${user.genero}</td>
-            <td>${user.plan}</td>
+            <td>
+                <span class="plan-label ${user.plan.toLowerCase()}">
+                    ${user.plan}
+                </span>
+            </td>
             <td>${user.tiempo_restante || '—'}</td>
             <td>${user.fecha_creacion}</td>
             <td>
@@ -98,6 +102,7 @@ function mostrarUsuariosPro(usuarios) {
             </td>
         </tr>
     `).join('');
+
 
     // Eventos dinámicos
     document.querySelectorAll('.btn-baneo').forEach(btn => {
@@ -262,3 +267,26 @@ function eliminarUsuarioPro(idPerfil) {
             text: err.message || 'No se pudo eliminar el perfil nutricional'
         }));
 }
+
+//Estilo para usuarios pro
+const style_us_pro = document.createElement('style');
+style_us_pro.textContent = `
+.plan-label {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-weight: 600;
+  color: #1a1c1c;
+  text-transform: capitalize;
+  box-shadow: 0 20px 30px -6px rgba(238, 226, 97, 0.5);
+}
+
+.plan-label.premium {
+  background-color: #FFE24F; /* Amarillo */
+}
+
+.plan-label.estándar {
+  background-color: #E99A3C; /* Naranja */
+}
+`;
+document.head.appendChild(style_us_pro);

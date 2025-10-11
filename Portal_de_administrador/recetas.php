@@ -32,6 +32,7 @@ try {
         if (isset($data['tiempo_preparacion'])) $updateFields['tiempo_preparacion'] = $data['tiempo_preparacion'];
         if (isset($data['dificultad'])) $updateFields['dificultad'] = $data['dificultad'];
         if (isset($data['categoria'])) $updateFields['categoria'] = $data['categoria'];
+        if (isset($data['tipo_receta'])) $updateFields['tipo_receta'] = $data['tipo_receta'];
         if (isset($data['ingredientes']) && is_array($data['ingredientes'])) $updateFields['ingredientes'] = $data['ingredientes'];
         if (isset($data['calificacion'])) {
             // Guardamos calificación como array para mantener consistencia

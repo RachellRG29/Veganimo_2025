@@ -160,6 +160,7 @@ function inicializarRecetas() {
                 <td>${receta.tiempo_preparacion || '-'}</td>
                 <td>${receta.dificultad || '-'}</td>
                 <td>${receta.categoria || '-'}</td>
+                <td>${receta.tipo_receta || '-'}</td>
                 <td>${Array.isArray(receta.ingredientes_array) ? receta.ingredientes_array.join(", ") : (receta.ingredientes || "-")}</td>
                 <td class="text-center">${receta.calificacion && receta.calificacion>0 ? '⭐'.repeat(Math.round(receta.calificacion)) : 'Sin calificar'}</td>
                 <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>

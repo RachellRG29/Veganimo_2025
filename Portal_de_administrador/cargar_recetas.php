@@ -56,6 +56,7 @@ try {
             'tiempo_preparacion' => $doc->tiempo_preparacion ?? 'No especificado',
             'dificultad' => $doc->dificultad ?? 'No especificada',
             'categoria' => $doc->categoria ?? '',
+            'tipo_receta' => $doc->tipo_receta ?? '',
             'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png',
             'ingredientes' => $ingredientesTexto,      // Para mostrar en la tabla
             'ingredientes_array' => $ingredientesArray, // Para edición
