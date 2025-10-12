@@ -180,7 +180,9 @@ const priceStandard = document.getElementById("price-standard");
 const pricePremium = document.getElementById("price-premium");
 const noteStandard = document.getElementById("note-standard");
 const notePremium = document.getElementById("note-premium");
+const precioPlanElemento = document.getElementById("precio_plan");
 
+// Función para actualizar precios y notas según mensual/anual
 function actualizarPrecios() {
   if (radioMensual.checked) {
     priceStandard.textContent = "$5.00";
@@ -195,10 +197,38 @@ function actualizarPrecios() {
     noteStandard.style.display = "block";
     notePremium.style.display = "block";
   }
+
+  // Si ya hay un plan seleccionado, actualizar el precio al cambiar período
+  const planSeleccionado = localStorage.getItem("planSeleccionado");
+  if (planSeleccionado) {
+    actualizarPrecioPlan(planSeleccionado);
+  }
 }
 
+// Función para actualizar el precio final y guardar la selección
+function actualizarPrecioPlan(nombrePlan) {
+  let precio = 0;
+
+  if (nombrePlan === "Estándar") {
+    precio = radioMensual.checked ? 5.00 : 20.00;
+  } else if (nombrePlan === "Premium") {
+    precio = radioMensual.checked ? 10.00 : 80.00;
+  }
+
+  precioPlanElemento.textContent = `$${precio.toFixed(2)}`;
+  localStorage.setItem("planSeleccionado", nombrePlan);
+  localStorage.setItem("precioPlan", precio);
+
+  console.log(`Plan seleccionado: ${nombrePlan} (${radioMensual.checked ? "Mensual" : "Anual"}) - $${precio}`);
+}
+
+// Event listeners para radio buttons de mensual/anual
 radioMensual.addEventListener("change", actualizarPrecios);
 radioAnual.addEventListener("change", actualizarPrecios);
-actualizarPrecios();
 
-// ================================
+// Event listeners para los botones de selección de plan
+priceStandard.parentElement.addEventListener("click", () => actualizarPrecioPlan("Estándar"));
+pricePremium.parentElement.addEventListener("click", () => actualizarPrecioPlan("Premium"));
+
+// Inicializar
+actualizarPrecios();
