@@ -67,6 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 break;
 
+            case 'pp_solicitudes.html': // 👈 NUEVO CASO AÑADIDO
+                if (typeof cargarSolicitudes === 'function') {
+                    console.log('✅ Inicializando solicitudes de recetas...');
+                    cargarSolicitudes();
+                } else {
+                    console.warn('❌ cargarSolicitudes no está disponible');
+                }
+                break;
+
             default:
                 console.log('ℹ️ No hay módulo específico para esta página');
         }
@@ -92,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
         cargarContenido(ultimaPagina);
     } else {
         console.log('📖 No hay última página guardada, cargando la primera disponible');
-        // Opcional: cargar la primera página del menú si quieres
         const primerItem = navItems[0];
         if (primerItem) {
             seleccionarItem(primerItem);

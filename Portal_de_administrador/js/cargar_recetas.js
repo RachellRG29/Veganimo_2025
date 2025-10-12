@@ -6,12 +6,6 @@ async function cargarRecetas() {
     return;
   }
 
-  const categorias = {
-    cat_vegan: "Vegano",
-    cat_veget: "Vegetariano",
-    cat_transc: "Transicionista"
-  };
-
 
   /* Función para renderizar las estrellas de la calificación */
   function renderEstrellas(calificacion) {

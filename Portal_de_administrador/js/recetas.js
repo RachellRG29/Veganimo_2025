@@ -139,54 +139,60 @@ function inicializarRecetas() {
         });
     }
 
+
+    // Mapeo de categorías
+const categoriasMap = {
+    cat_vegan: "Vegano",
+    cat_veget: "Vegetariano",
+    cat_transc: "Transicionista"
+};
     // =======================================
     // Renderizar tabla
-    // =======================================
-    function renderizarTabla(recetas) {
-        if (!tablaRecetas) return;
-        
-        console.log('🎨 Renderizando tabla con', recetas.length, 'recetas');
-        
-        if (recetas.length === 0) {
-            tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center">No hay recetas registradas</td></tr>`;
-            return;
-        }
-
-        tablaRecetas.innerHTML = recetas.map(receta => `
-            <tr data-id="${receta._id}">
-                <td><img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:60px;height:60px;border-radius:5px;object-fit:cover;"></td>
-                <td>${receta.nombre_receta}</td>
-                <td>${receta.descripcion.length > 50 ? receta.descripcion.substr(0,50)+'...' : receta.descripcion}</td>
-                <td>${receta.tiempo_preparacion || '-'}</td>
-                <td>${receta.dificultad || '-'}</td>
-                <td>${receta.categoria || '-'}</td>
-                <td>${receta.tipo_receta || '-'}</td>
-                <td>${Array.isArray(receta.ingredientes_array) ? receta.ingredientes_array.join(", ") : (receta.ingredientes || "-")}</td>
-                <td class="text-center">${receta.calificacion && receta.calificacion>0 ? '⭐'.repeat(Math.round(receta.calificacion)) : 'Sin calificar'}</td>
-                <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>
-                <td class="text-center">
-                    <div class="btn-group">
-                        <button class="btn btn-edit btn-primary btn-editar" data-id="${receta._id}">
-                            <i class="ph ph-pencil-line editar-icon"></i><span class="baneo-text">Editar</span>
-                        </button>
-                        <button class="btn btn-danger btn-eliminar" data-id="${receta._id}">
-                            <i class="ph ph-trash eliminar-icon"></i><span class="eliminar-text">Eliminar</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        `).join('');
-
-        // Re-asignar event listeners después de renderizar
-        document.querySelectorAll('.btn-editar').forEach(btn => {
-            btn.addEventListener('click', () => abrirModalEditar(btn.dataset.id));
-        });
-
-        document.querySelectorAll('.btn-eliminar').forEach(btn => {
-            btn.addEventListener('click', () => confirmarEliminacion(btn.dataset.id));
-        });
+// =======================================
+function renderizarTabla(recetas) {
+    if (!tablaRecetas) return;
+    
+    console.log('🎨 Renderizando tabla con', recetas.length, 'recetas');
+    
+    if (recetas.length === 0) {
+        tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center">No hay recetas registradas</td></tr>`;
+        return;
     }
 
+    tablaRecetas.innerHTML = recetas.map(receta => `
+        <tr data-id="${receta._id}">
+            <td><img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:60px;height:60px;border-radius:5px;object-fit:cover;"></td>
+            <td>${receta.nombre_receta}</td>
+            <td>${receta.descripcion.length > 50 ? receta.descripcion.substr(0,50)+'...' : receta.descripcion}</td>
+            <td>${receta.tiempo_preparacion || '-'}</td>
+            <td>${receta.dificultad || '-'}</td>
+            <td>${categoriasMap[receta.categoria] || receta.categoria || '-'}</td>
+            <td>${receta.tipo_receta || '-'}</td>
+            <td>${Array.isArray(receta.ingredientes_array) ? receta.ingredientes_array.join(", ") : (receta.ingredientes || "-")}</td>
+            <td class="text-center">${receta.calificacion && receta.calificacion>0 ? '⭐'.repeat(Math.round(receta.calificacion)) : 'Sin calificar'}</td>
+            <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>
+            <td class="text-center">
+                <div class="btn-group">
+                    <button class="btn btn-edit btn-primary btn-editar" data-id="${receta._id}">
+                        <i class="ph ph-pencil-line editar-icon"></i><span class="baneo-text">Editar</span>
+                    </button>
+                    <button class="btn btn-danger btn-eliminar" data-id="${receta._id}">
+                        <i class="ph ph-trash eliminar-icon"></i><span class="eliminar-text">Eliminar</span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+
+    // Re-asignar event listeners después de renderizar
+    document.querySelectorAll('.btn-editar').forEach(btn => {
+        btn.addEventListener('click', () => abrirModalEditar(btn.dataset.id));
+    });
+
+    document.querySelectorAll('.btn-eliminar').forEach(btn => {
+        btn.addEventListener('click', () => confirmarEliminacion(btn.dataset.id));
+    });
+}
     // =======================================
     // Confirmar eliminación
     // =======================================
