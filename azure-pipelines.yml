@@ -1,13 +1,15 @@
 trigger:
-- main  # Rama que activará el pipeline
+- main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'Default'  # usa el nombre del pool donde registraste el agente local
+  demands:
+  - agent.name -equals localagent
 
 variables:
-  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'       # Nombre clave de tu proyecto en SonarQube
-  SONARQUBE_PROJECT_NAME: 'Veganimo'     # Nombre legible del proyecto
-  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en Azure DevOps
+  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
+  SONARQUBE_PROJECT_NAME: 'Veganimo'
+  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'
 
 steps:
 # 1️⃣ Preparar SonarQube
@@ -19,10 +21,13 @@ steps:
     cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
     cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
     cliSources: '.'
+    extraProperties: |
+      sonar.branch.name=main
+      sonar.projectVersion=1.0
+      sonar.verbose=true
 
-# 2️⃣ Build o tarea de tu proyecto
-- script: |
-    echo "Aquí iría tu build o compilación..."
+# 2️⃣ Simular compilación
+- script: echo "Simulando compilación del proyecto..."
   displayName: 'Run Build'
 
 # 3️⃣ Ejecutar análisis de SonarQube
