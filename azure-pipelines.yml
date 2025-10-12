@@ -1,8 +1,8 @@
 trigger:
-- main
+- main  # la rama que activará el pipeline
 
 pool:
-  name: Default
+  name: Default  # tu agente local
 
 variables:
   SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
@@ -10,6 +10,7 @@ variables:
   SONARQUBE_SERVICE_CONNECTION: 'Veganimo'
 
 steps:
+# 1️⃣ Preparar SonarQube
 - task: SonarQubePrepare@5
   inputs:
     SonarQube: '$(SONARQUBE_SERVICE_CONNECTION)'
@@ -18,14 +19,20 @@ steps:
     cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
     cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
     cliSources: '.'
+    extraProperties: |
+      sonar.branch.name=
+      sonar.pullrequest.key=
 
+# 2️⃣ Build o tarea de tu proyecto
 - script: |
-    echo "Aquí va tu build o compilación..."
+    echo "Aquí iría tu build o compilación..."
   displayName: 'Run Build'
 
+# 3️⃣ Ejecutar análisis de SonarQube
 - task: SonarQubeAnalyze@5
   displayName: 'Run SonarQube Analysis'
 
+# 4️⃣ Publicar resultados en SonarQube
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
