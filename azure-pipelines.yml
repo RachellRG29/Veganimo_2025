@@ -1,12 +1,13 @@
 trigger:
-- main  # Rama que activará el pipeline
+- main  # Cambialo a la rama que quieras activar, por ejemplo 'test'
 
+# 🔹 Usar tu agente local
 pool:
-  vmImage: 'ubuntu-latest'
+  name: Default   # O el pool donde registraste tu agente local
 
 variables:
-  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'       # Nombre clave de tu proyecto en SonarQube
-  SONARQUBE_PROJECT_NAME: 'Veganimo'     # Nombre legible del proyecto
+  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
+  SONARQUBE_PROJECT_NAME: 'Veganimo'
   SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en Azure DevOps
 
 steps:
@@ -19,10 +20,12 @@ steps:
     cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
     cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
     cliSources: '.'
+    jdkVersionOption: '1.17'   # Forzar Java 17 para SonarQube
 
 # 2️⃣ Build o tarea de tu proyecto
 - script: |
     echo "Aquí iría tu build o compilación..."
+    # Ejemplo: npm install && npm run build
   displayName: 'Run Build'
 
 # 3️⃣ Ejecutar análisis de SonarQube
