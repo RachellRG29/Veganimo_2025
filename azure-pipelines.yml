@@ -1,0 +1,31 @@
+trigger:
+- main
+
+pool:
+  name: Default
+
+variables:
+  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
+  SONARQUBE_PROJECT_NAME: 'Veganimo'
+  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'
+
+steps:
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: '$(SONARQUBE_SERVICE_CONNECTION)'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
+    cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
+    cliSources: '.'
+
+- script: |
+    echo "Aquí va tu build o compilación..."
+  displayName: 'Run Build'
+
+- task: SonarQubeAnalyze@5
+  displayName: 'Run SonarQube Analysis'
+
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
