@@ -1,13 +1,13 @@
 trigger:
-- main  # la rama que activará el pipeline
+- main  # Cambia a la rama que quieras analizar
 
 pool:
-  name: Default  # tu agente local
+  name: Default  # Agente local que configuraste
 
 variables:
-  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
-  SONARQUBE_PROJECT_NAME: 'Veganimo'
-  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'
+  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'       # Clave de proyecto en SonarQube
+  SONARQUBE_PROJECT_NAME: 'Veganimo'     # Nombre legible del proyecto
+  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en Azure DevOps
 
 steps:
 # 1️⃣ Preparar SonarQube
@@ -22,6 +22,8 @@ steps:
     extraProperties: |
       sonar.branch.name=
       sonar.pullrequest.key=
+      sonar.pullrequest.branch=
+      sonar.pullrequest.base=
 
 # 2️⃣ Build o tarea de tu proyecto
 - script: |
