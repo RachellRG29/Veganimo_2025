@@ -11,6 +11,7 @@ steps:
     configMode: 'manual'
     cliProjectKey: 'MiProyecto'
     cliSources: '.'
+    jdkversion: 'JAVA_HOME_17_X64'   # 👈 fuerza Java 17
 
 - task: SonarQubeAnalyze@5
 
