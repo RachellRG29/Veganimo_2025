@@ -1,0 +1,35 @@
+trigger:
+- main  # Rama que activará el pipeline
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'       # Nombre clave de tu proyecto en SonarQube
+  SONARQUBE_PROJECT_NAME: 'Veganimo'     # Nombre legible del proyecto
+  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en Azure DevOps
+
+steps:
+# 1️⃣ Preparar SonarQube
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: '$(SONARQUBE_SERVICE_CONNECTION)'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
+    cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
+    cliSources: '.'
+
+# 2️⃣ Build o tarea de tu proyecto
+- script: |
+    echo "Aquí iría tu build o compilación..."
+  displayName: 'Run Build'
+
+# 3️⃣ Ejecutar análisis de SonarQube
+- task: SonarQubeAnalyze@5
+  displayName: 'Run SonarQube Analysis'
+
+# 4️⃣ Publicar resultados en SonarQube
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
