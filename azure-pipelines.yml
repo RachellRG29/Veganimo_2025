@@ -1,19 +1,15 @@
-# Archivo: azure-pipelines.yml
 trigger:
-- main  # Cambia 'main' por la rama que quieras analizar
+- main  # O la rama que quieras
 
 pool:
-  name: Default  # Tu agente local
-  demands:
-    - agent.name -equals Default  # O el nombre de tu agente local si quieres forzar
+  name: Default
 
 variables:
   SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
   SONARQUBE_PROJECT_NAME: 'Veganimo'
-  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en DevOps
+  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'
 
 steps:
-# 1️⃣ Preparar SonarQube
 - task: SonarQubePrepare@5
   inputs:
     SonarQube: '$(SONARQUBE_SERVICE_CONNECTION)'
@@ -21,25 +17,15 @@ steps:
     configMode: 'manual'
     cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
     cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
-    cliSources: '.'   # Carpeta local donde está tu código
-    jdkVersionOption: '1.17'  # Forzar Java 17
-    extraProperties: |
-      # Evitar PR/Multi-branch para Community Edition
-      sonar.pullrequest.key=
-      sonar.pullrequest.branch=
-      sonar.pullrequest.base=
+    cliSources: '.'
 
-# 2️⃣ Tarea de build (ajústala a tu proyecto real)
 - script: |
-    echo "Compilando proyecto..."
-    # Aquí iría tu build real (mvn, npm, dotnet, etc.)
+    echo "Aquí iría tu build o compilación..."
   displayName: 'Run Build'
 
-# 3️⃣ Ejecutar análisis de SonarQube
 - task: SonarQubeAnalyze@5
   displayName: 'Run SonarQube Analysis'
 
-# 4️⃣ Publicar resultados en SonarQube
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
