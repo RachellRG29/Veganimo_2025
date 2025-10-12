@@ -1,16 +1,16 @@
 trigger:
-- main  # Rama que activará el pipeline
+- main  # Solo se ejecuta cuando hay cambios en main
 
 pool:
-  name: Default  # O tu agente local si quieres
+  name: Default  # Tu agente local debe estar en este pool
 
 variables:
-  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'  # Clave de tu proyecto
-  SONARQUBE_PROJECT_NAME: 'Veganimo'  # Nombre legible del proyecto
+  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
+  SONARQUBE_PROJECT_NAME: 'Veganimo'
   SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en Azure DevOps
 
 steps:
-# 1️⃣ Preparar SonarQube
+# 1️⃣ Preparar SonarQube (sin propiedades de branch ni pull request)
 - task: SonarQubePrepare@5
   inputs:
     SonarQube: '$(SONARQUBE_SERVICE_CONNECTION)'
@@ -18,12 +18,12 @@ steps:
     configMode: 'manual'
     cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
     cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
-    cliSources: '.'  # Analiza todo el código de tu repositorio
+    cliSources: '.'
     extraProperties: |
-      # Evitamos usar sonar.branch.name para Community Edition
       sonar.sourceEncoding=UTF-8
+      sonar.branch.name=  # Forzamos que no use branch
 
-# 2️⃣ Tarea de build (si aplica, puede ser solo un echo para prueba)
+# 2️⃣ Build de tu proyecto (puedes reemplazar esto con tu compilación real)
 - script: |
     echo "Aquí iría tu build o compilación..."
   displayName: 'Run Build'
@@ -32,7 +32,7 @@ steps:
 - task: SonarQubeAnalyze@5
   displayName: 'Run SonarQube Analysis'
 
-# 4️⃣ Publicar resultados
+# 4️⃣ Publicar resultados en SonarQube
 - task: SonarQubePublish@5
   inputs:
     pollingTimeoutSec: '300'
