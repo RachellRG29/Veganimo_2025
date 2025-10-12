@@ -1,0 +1,20 @@
+pool:
+  name: Default  # O el nombre de tu agente local
+
+steps:
+- checkout: self
+
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'Veganimo'   # Aquí va el nombre de tu conexión de servicio
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'MiProyecto'
+    cliSources: '.'
+
+- task: SonarQubeAnalyze@5
+
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
+
