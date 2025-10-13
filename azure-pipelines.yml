@@ -1,38 +1,41 @@
+# Maven pipeline con SonarQube (Community Edition)
+# Escanea código Java y ejecuta análisis estático en la rama principal
+
 trigger:
-- main  # Solo se ejecuta cuando hay cambios en main
+- main  # o usa "main" si esa es tu rama principal
 
 pool:
-  name: Default  # Tu agente local debe estar en este pool
-
-variables:
-  SONARQUBE_PROJECT_KEY: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'
-  SONARQUBE_PROJECT_NAME: 'Veganimo'
-  SONARQUBE_SERVICE_CONNECTION: 'Veganimo'  # Nombre de tu service connection en Azure DevOps
+  vmImage: 'ubuntu-latest'
 
 steps:
-# 1️⃣ Preparar SonarQube (sin propiedades de branch ni pull request)
+# 🔹 Paso 1: Preparar análisis de SonarQube
 - task: SonarQubePrepare@5
   inputs:
-    SonarQube: '$(SONARQUBE_SERVICE_CONNECTION)'
-    scannerMode: 'CLI'
+    SonarQube: 'Veganimo'   # 👈 Asegúrate de que coincida EXACTAMENTE con el nombre del Service Connection
+    scannerMode: 'Other'
     configMode: 'manual'
-    cliProjectKey: '$(SONARQUBE_PROJECT_KEY)'
-    cliProjectName: '$(SONARQUBE_PROJECT_NAME)'
-    cliSources: '.'
-    extraProperties: |
-      sonar.sourceEncoding=UTF-8
-      sonar.branch.name=  # Forzamos que no use branch
+    cliProjectKey: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'     # 👈 Cambia por tu clave de proyecto SonarQube
+    cliProjectName: 'Veganimo'
+    cliSources: '.'                      # Escaneará todo el código fuente actual
 
-# 2️⃣ Build de tu proyecto (puedes reemplazar esto con tu compilación real)
-- script: |
-    echo "Aquí iría tu build o compilación..."
-  displayName: 'Run Build'
-
-# 3️⃣ Ejecutar análisis de SonarQube
-- task: SonarQubeAnalyze@5
-  displayName: 'Run SonarQube Analysis'
-
-# 4️⃣ Publicar resultados en SonarQube
-- task: SonarQubePublish@5
+# 🔹 Paso 2: Compilar y analizar con Maven
+- task: Maven@3
   inputs:
-    pollingTimeoutSec: '300'
+    mavenPomFile: 'pom.xml'
+    goals: 'clean verify sonar:sonar'    # Ejecuta build + análisis Sonar
+    options: >
+      -Dsonar.projectKey=proyecto-prueba
+      -Dsonar.host.url=http://localhost:9000
+      -Dsonar.login=$(SONAR_TOKEN)       # Usa variable secreta
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+
+# 🔹 Paso 3: Publicar resultados de pruebas (JUnit)
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    failTaskOnFailedTests: true
