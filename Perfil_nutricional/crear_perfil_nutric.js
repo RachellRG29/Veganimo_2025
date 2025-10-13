@@ -190,10 +190,10 @@ function actualizarPrecios() {
     noteStandard.style.display = "none";
     notePremium.style.display = "none";
   } else {
-    priceStandard.textContent = "$20.00";
-    pricePremium.textContent = "$80.00";
-    noteStandard.textContent = "12x $5.00 → Pagas solo $20 (Ahorro 28%)";
-    notePremium.textContent = "12x $10.00 → Pagas solo $80 (Ahorro 28%)";
+    priceStandard.textContent = "$45.00";
+    pricePremium.textContent = "$90.00";
+    noteStandard.textContent = "12x $5.00= 60.00 → Pagas solo $45 (Ahorro 25%)";
+    notePremium.textContent = "12x $10.00= 120.00 → Pagas solo $90 (Ahorro 25%)";
     noteStandard.style.display = "block";
     notePremium.style.display = "block";
   }
@@ -210,9 +210,9 @@ function actualizarPrecioPlan(nombrePlan) {
   let precio = 0;
 
   if (nombrePlan === "Estándar") {
-    precio = radioMensual.checked ? 5.00 : 20.00;
+    precio = radioMensual.checked ? 5.00 : 45.00;
   } else if (nombrePlan === "Premium") {
-    precio = radioMensual.checked ? 10.00 : 80.00;
+    precio = radioMensual.checked ? 10.00 : 90.00;
   }
 
   precioPlanElemento.textContent = `$${precio.toFixed(2)}`;

@@ -39,25 +39,39 @@ function mostrarCargandoPro() {
 }
 
     // =========================
-    // BUSCADOR EN TIEMPO REAL
-    // =========================
-    if (busquedaInput) {
-        busquedaInput.addEventListener('input', function() {
-            const termino = this.value.toLowerCase();
-            const resultados = usuariosData.filter(usuario => 
-                usuario.fullname.toLowerCase().includes(termino) ||
-                usuario.email.toLowerCase().includes(termino) ||
-                usuario.gender.toLowerCase().includes(termino) ||
-                usuario._id.toLowerCase().includes(termino)
-            );
-            renderizarTabla(resultados);
-        });
-    }
+// BUSCADOR EN TIEMPO REAL (FUNCIONAL Y PERSISTENTE)
+// =========================
+function inicializarBuscadorUsuariosPro() {
+    const busquedaInput = document.getElementById("busquedaUsuariosPro");
 
+    if (!busquedaInput) return;
 
+    // Evita duplicar eventos
+    busquedaInput.removeEventListener('input', manejarBusquedaUsuariosPro);
 
+    // Asigna el evento nuevamente
+    busquedaInput.addEventListener('input', manejarBusquedaUsuariosPro);
+}
 
+function manejarBusquedaUsuariosPro(e) {
+    const termino = e.target.value.toLowerCase();
+
+    // Si no hay datos cargados aún
+    if (!listaUsuariosPro || listaUsuariosPro.length === 0) return;
+
+    const resultados = listaUsuariosPro.filter(usuario =>
+        usuario.nombre_completo.toLowerCase().includes(termino) ||
+        usuario.email.toLowerCase().includes(termino) ||
+        usuario.genero.toLowerCase().includes(termino) ||
+        (usuario._id && usuario._id.toLowerCase().includes(termino))
+    );
+
+    mostrarUsuariosPro(resultados);
+}
+
+// =========================
 // Cargar usuarios PRO desde backend
+// =========================
 function cargarUsuariosPro() {
     mostrarCargandoPro();
 
@@ -67,6 +81,9 @@ function cargarUsuariosPro() {
             if (data.success) {
                 listaUsuariosPro = data.data;
                 mostrarUsuariosPro(listaUsuariosPro);
+
+                // ✅ Reasigna el buscador cada vez que se cargan los usuarios
+                inicializarBuscadorUsuariosPro();
             } else {
                 document.getElementById("tablaUsuariosPro").innerHTML = `
                     <tr><td colspan="8" class="text-center text-white">${data.message}</td></tr>
@@ -80,6 +97,7 @@ function cargarUsuariosPro() {
             `;
         });
 }
+
 
 // Mostrar usuarios con botones dinámicos
 function mostrarUsuariosPro(usuarios) {
