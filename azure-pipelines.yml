@@ -5,7 +5,7 @@ trigger:
 - main  # o usa "main" si esa es tu rama principal
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'Default' 
 
 steps:
 # 🔹 Paso 1: Preparar análisis de SonarQube
