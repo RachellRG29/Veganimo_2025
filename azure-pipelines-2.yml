@@ -1,27 +1,39 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
+# Maven pipeline con SonarQube (Community Edition)
+# Escanea código Java y ejecuta análisis estático en la rama principal
 
 trigger:
-- master
+- master  # o usa "main" si esa es tu rama principal
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
+
 steps:
+# 🔹 Paso 1: Preparar análisis de SonarQube
 - task: SonarQubePrepare@5
   inputs:
-    SonarQube: 'My_SonarQube'
+    SonarQube: 'Veganimo'   # 👈 Asegúrate de que coincida EXACTAMENTE con el nombre del Service Connection
     scannerMode: 'Other'
+    configMode: 'manual'
+    cliProjectKey: 'Veganimo_Veganimo_df0f75ee-e17c-41a0-9241-828eda13ff43'     # 👈 Cambia por tu clave de proyecto SonarQube
+    cliProjectName: 'Veganimo'
+    cliSources: '.'                      # Escaneará todo el código fuente actual
+
+# 🔹 Paso 2: Compilar y analizar con Maven
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
+    goals: 'clean verify sonar:sonar'    # Ejecuta build + análisis Sonar
+    options: >
+      -Dsonar.projectKey=proyecto-prueba
+      -Dsonar.host.url=http://localhost:9000
+      -Dsonar.login=$(SONAR_TOKEN)       # Usa variable secreta
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.17'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install sonar:sonar'
+
+# 🔹 Paso 3: Publicar resultados de pruebas (JUnit)
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
