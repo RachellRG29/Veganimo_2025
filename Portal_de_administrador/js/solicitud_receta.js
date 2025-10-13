@@ -48,6 +48,9 @@ function inicializarSolicitudes() {
 
   cargarSolicitudes();
 
+  // ===============================
+  // Cargar solicitudes
+  // ===============================
   function cargarSolicitudes() {
     console.log('📥 Cargando solicitudes...');
     fetch('/Portal_de_administrador/cargar_solicitudes_recetas.php')
@@ -55,12 +58,31 @@ function inicializarSolicitudes() {
       .then(data => {
         if (!data.success) throw new Error('Error al cargar solicitudes');
         solicitudesData = data.data;
-        renderizarTabla(data.data);
+        renderizarTabla(solicitudesData);
       })
       .catch(err => {
         console.error('❌', err);
         tabla.innerHTML = `<tr><td colspan="12" class="text-center text-danger">${err.message}</td></tr>`;
       });
+  }
+
+  // ===============================
+  // Buscador en tiempo real
+  // ===============================
+  const inputBusqueda = document.getElementById('busquedaSolicitudes');
+  if (inputBusqueda) {
+    inputBusqueda.addEventListener('input', function() {
+      const texto = this.value.toLowerCase().trim();
+
+      const filtradas = solicitudesData.filter(sol =>
+        (sol.nombre_receta && sol.nombre_receta.toLowerCase().includes(texto)) ||
+        (sol.descripcion && sol.descripcion.toLowerCase().includes(texto)) ||
+        (sol.tipo_receta && sol.tipo_receta.toLowerCase().includes(texto)) ||
+        (categoriasMap[sol.categoria]?.toLowerCase().includes(texto))
+      );
+
+      renderizarTabla(filtradas);
+    });
   }
 
   // ===============================
@@ -90,7 +112,7 @@ function inicializarSolicitudes() {
   function renderizarTabla(lista) {
     if (!tabla) return;
     if (lista.length === 0) {
-      tabla.innerHTML = `<tr><td colspan="12" class="text-center">No hay solicitudes pendientes</td></tr>`;
+      tabla.innerHTML = `<tr><td colspan="12" class="text-center">No hay solicitudes</td></tr>`;
       return;
     }
 

@@ -171,12 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if(data.success){
-        await Swal.fire({icon:'success', title:'¡Perfil guardado!', timer:2000, showConfirmButton:false});
+        await Swal.fire({icon:'success', title:'¡Pago realizado con exito!', timer:2000, showConfirmButton:false});
         return true;
       }else throw new Error(data.message || "Error desconocido");
     }catch(err){
       console.error(err);
-      Swal.fire('Error','No se pudo guardar el perfil','error');
+      Swal.fire('Error','No se pudo completar el pago','error');
       return false;
     }finally{
       submitBtn.disabled=false;
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try{
       // Aquí iría la llamada real al procesamiento de pago
-      await Swal.fire({icon:'success', title:'¡Pago completado!', text:'Tu plan está activo.', timer:2000, showConfirmButton:false});
+      await Swal.fire({icon:'success', title:'¡Pago realizado con exito!', text:'Tu plan está activo.', timer:2000, showConfirmButton:false});
       section8.style.display='none';
       section9.style.display='block';
     }catch(err){

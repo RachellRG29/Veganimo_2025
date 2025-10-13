@@ -38,6 +38,25 @@ function mostrarCargandoPro() {
     }
 }
 
+    // =========================
+    // BUSCADOR EN TIEMPO REAL
+    // =========================
+    if (busquedaInput) {
+        busquedaInput.addEventListener('input', function() {
+            const termino = this.value.toLowerCase();
+            const resultados = usuariosData.filter(usuario => 
+                usuario.fullname.toLowerCase().includes(termino) ||
+                usuario.email.toLowerCase().includes(termino) ||
+                usuario.gender.toLowerCase().includes(termino) ||
+                usuario._id.toLowerCase().includes(termino)
+            );
+            renderizarTabla(resultados);
+        });
+    }
+
+
+
+
 // Cargar usuarios PRO desde backend
 function cargarUsuariosPro() {
     mostrarCargandoPro();
@@ -247,19 +266,21 @@ function eliminarUsuarioPro(idPerfil) {
     fetch(`/Portal_de_administrador/usuariospro.php?id=${idPerfil}`, { method: 'DELETE' })
         .then(res => res.json())
         .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Perfil nutricional eliminado',
-                    toast: true,
-                    position: 'bottom-end',
-                    showConfirmButton: false,
-                    timer: 3000
-                });
-                cargarUsuariosPro();
-            } else {
-                throw new Error(data.message || 'No se pudo eliminar el perfil nutricional');
-            }
+          if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Perfil nutricional eliminado',
+                        toast: true,
+                        position: 'bottom-end',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+
+                    // ✅ Actualizar localmente sin recargar
+                    listaUsuariosPro = listaUsuariosPro.filter(u => u._id !== idPerfil);
+                    mostrarUsuariosPro(listaUsuariosPro);
+                }
+
         })
         .catch(err => Swal.fire({
             icon: 'error',
