@@ -269,10 +269,10 @@
     position: relative;
 }
 
-.progress-step8.active9 {
+.progress-step9.active9 {
     background: linear-gradient(#007848, #154734);
 }
 
-.progress-step8.inactive9 {
+.progress-step9.inactive9 {
     background-color: #F6FFFE;
 }
