@@ -17,10 +17,16 @@
     <!-- Estilos de las pantallas -->
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_index_pp.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_inicio.css">
-    <link rel="stylesheet" href="/Pantalla_principal/css/style_mi_plan.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_recetas.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_informate.css">
-    <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_comunidad.css">
+
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_plan.css">
+
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_dietas.css">
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_nodietas.css">
+
+
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_stickers_pro.css">
 
     <link rel="stylesheet" href="/Pantalla_principal/css/style_crear_receta.css"> <!-- Estilos para crear recetas -->
     <link rel="stylesheet" href="/Pantalla_principal/css/style_modal_recetas.css"> <!-- Estilos de modal de recetas -->
@@ -57,33 +63,34 @@
         
       </div>
       <ul class="nav-links">
-        
 
-        <!--<li class="nav-item has-submenu" data-page="pp_inicio.html">
-          <div class="nav-trigger">
-            <i class="ph ph-house-simple" style="font-size: 24px;"></i><span>Inicio</span><i class="ph ph-caret-down" style="color: transparent;"></i> 
-          </div>
-          <ul class="submenu">
-            <li data-page="pp_mi_plan.html">Mi plan</li>
-          </ul>
-        </li>-->
-
+        <!-- Inicio -->
         <li class="nav-item" data-page="pp_inicio.php">
           <i class="ph ph-house-simple" style="font-size: 24px;"></i><span>Inicio</span>
         </li>
+
+        <!-- Plan usuario se ha suscrito-->
+        <li class="nav-item" data-page="/plan/pp_suscripcion_act.php">
+          <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Plan</span>
+        </li>
       
+        <!-- Recetas -->
         <li class="nav-item" data-page="pp_recetas.php">
           <i class="ph ph-book-open" style="font-size: 24px;"></i><span>Recetas</span>
         </li>
       
-        <li class="nav-item" data-page="pp_dieta_vegana.php">
+        <!-- Dieta vegana -->
+        <li class="nav-item" data-page="/dieta_vegana/pp_dieta_vegana.php">
           <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Dietas veganas</span>
         </li>
-      
-        <li class="nav-item" data-page="pp_comunidad.php">
-          <i class="ph ph-users-three" style="font-size: 24px;"></i><span>Comunidad</span>
+
+        <!-- el usuario no es pro/Dieta vegana -->
+        <li class="nav-item" data-page="/dieta_vegana/pp_no_pro_dieta.php">
+          <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Dietas veganas</span>
         </li>
+    
       
+        <!-- Informate -->
         <li class="nav-item has-submenu" data-page="pp_informate.php">
           <div class="nav-trigger">
             <i class="ph ph-info" style="font-size: 24px;"></i><span>Infórmate</span><i class="ph ph-caret-down"></i>
@@ -95,32 +102,25 @@
           </ul>
         </li>
       
+        <!-- ayuda -->
         <li class="nav-item" data-page="pp_ayuda.php">
           <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
         </li>
 
+        <!-- Crear recetas admi -->
         <li class="nav-item" data-page="pp_crear_receta.php" data-admin-only>
           <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear recetas</span>
         </li>
 
-   <li class="nav-item" data-custom="crear-recetas-pro" style="display: none;">
-  <i class="ph ph-clipboard-text" style="font-size: 24px;"></i>
-  <span>Enviar solicitud receta</span>
-</li>
-
-
-
-        <!--<li class="nav-item" data-custom="crear-recetas" data-admin-only>
-          <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear Recetas</span>
-        </li>-->
+        <!-- Crear recetas pro -->
+        <li class="nav-item" data-custom="crear-recetas-pro" style="display: none;">
+            <i class="ph ph-clipboard-text" style="font-size: 24px;"></i>
+            <span>Enviar solicitud receta</span>
+        </li>
         
      
       </ul>
       
-
-      <!--<div class="cerrar-sesion">
-        <i class="ph ph-sign-out" style="font-size: 24px;"></i><span>Cerrar sesión</span>
-      </div>-->
 
     </nav>
 
@@ -183,7 +183,6 @@
   <script src="../Pantalla_principal/js/validacion_receta.js"></script>  <!-- metodos de interfaz de crear receta -->
   <script src="../Pantalla_principal/js/guardar_recetas.js"></script>  <!-- Guardar recetas -->
   <script src="../Pantalla_principal/js/validacion_crear_receta.js"></script>
-  <script src="../Pantalla_principal/contenidos/comunidad.js"></script>
    <!-- scrip de enviar receta de usuario pro la solicitud  -->
    <script src="../Pantalla_principal/js/guardar_recetaspro.js"></script>
    

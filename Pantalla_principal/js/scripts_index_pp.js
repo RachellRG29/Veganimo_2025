@@ -1,31 +1,27 @@
 // ======================== CARGAR CONTENIDO ========================
 async function cargarContenido(pagina) {
-  console.log("📥 Solicitando:", `/Pantalla_principal/contenidos/${pagina}`);
+  // Construye la ruta correctamente, admitiendo subcarpetas
+  const ruta = `/Pantalla_principal/contenidos/${pagina}`;
+  console.log("📥 Solicitando:", ruta);
 
   try {
-    const response = await fetch(`/Pantalla_principal/contenidos/${pagina}`);
+    const response = await fetch(ruta);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
     const data = await response.text();
-    console.log("✅ Contenido recibido");
-
     document.getElementById("contenido-principal").innerHTML = data;
 
-    // Actualización inmediata
+    // Actualizaciones de perfil y scripts
     await actualizarPerfilUsuario();
-
-    // Verificación adicional después de un breve retraso
     setTimeout(verificarActualizacionPerfil, 300);
-
-    // Ejecutar scripts específicos de la página cargada
     ejecutarScriptsPagina(pagina);
 
-    // Guardar última página
-    localStorage.setItem('ultimaPaginaCargada', pagina);
+    // Guardar la última página cargada
+    localStorage.setItem("ultimaPaginaCargada", pagina);
 
     return true;
   } catch (error) {
-    console.error('⚠️ Error al cargar contenido:', error);
+    console.error("⚠️ Error al cargar contenido:", error);
     mostrarErrorCarga();
     return false;
   }
@@ -37,7 +33,7 @@ function inicializarModoTema() {
   const darkRadio = document.getElementById("theme-dark");
 
   if (!lightRadio || !darkRadio) {
-    console.warn("⚠️ Radios de tema no encontrados, reintentando...");
+    //console.warn("⚠️ Radios de tema no encontrados, reintentando...");
     setTimeout(inicializarModoTema, 500);
     return;
   }
@@ -74,32 +70,28 @@ function ejecutarScriptsPagina(pagina) {
   setTimeout(inicializarModoTema, 100); // Siempre actualizar tema
 
   if (pagina === "pp_inicio.php") {
-    inicializarChatComunidad();
-    preguntarActivarNotificaciones();
-    inicializarNotificaciones();
+  }
+
+  if (pagina === "/plan/pp_suscripcion.php") {
+
   }
 
   if (pagina === "pp_crear_receta.php" || pagina === "pp_crear_recetapro.php") {
     inicializarCrearRecetas(); // Validaciones y scripts
-    preguntarActivarNotificaciones();
-    inicializarNotificaciones();
   }
 
   if (pagina === "pp_recetas.php") {
     setTimeout(() => {
       if (typeof cargarRecetas === 'function') {
         cargarRecetas();
-        preguntarActivarNotificaciones();
-        inicializarNotificaciones();
       } else console.error("❌ La función cargarRecetas no está definida.");
     }, 100);
   }
 
-  if (pagina === "pp_comunidad.php") {
-    inicializarChatComunidad();
-    preguntarActivarNotificaciones();
-    inicializarNotificaciones();
+  if (pagina === "/dieta_vegana/pp_dieta_vegana.php") {
+
   }
+
 }
 
 // ======================== INICIALIZACIÓN PRINCIPAL ========================
@@ -281,72 +273,6 @@ function manejarAccionPersonalizada(accion) {
 function verificarActualizacionPerfil() {
   const elementos = document.querySelectorAll('.lbl_nombre_user');
   if (elementos.length > 0 && elementos[0].textContent === 'User') actualizarPerfilUsuario();
-}
-
-// ======================== NOTIFICACIONES ========================
-function preguntarActivarNotificaciones() {
-  const btnNotificacion = document.getElementById('btn-notificacion');
-  const estado = localStorage.getItem('notificaciones_activadas');
-  if (!btnNotificacion) return;
-
-  btnNotificacion.style.display = 'flex';
-  activarLoader(estado === 'si');
-}
-
-function activarLoader(activar) {
-  const btnNotificacion = document.getElementById('btn-notificacion');
-  if (!btnNotificacion) return;
-  const point = btnNotificacion.querySelector('.point');
-  const contador = point?.querySelector('.contador-noti');
-  if (!point) return;
-
-  if (activar && parseInt(contador?.textContent || "0") > 0) point.style.display = 'flex';
-  else point.style.display = 'none';
-}
-
-function inicializarNotificaciones() {
-  const btnNotificacion = document.getElementById('btn-notificacion');
-  if (!btnNotificacion) return;
-  const modal = document.getElementById('modal_notificacion');
-  const contenedorNotificaciones = modal.querySelector('.contenedor-notificaciones');
-  const mensajeVacio = modal.querySelector('.mensaje-sin-notificaciones');
-  const toggleBtn = document.getElementById('toggle-notificaciones');
-  const toggleChatBtn = document.getElementById('toggle-chat-notificaciones');
-
-  mensajeVacio.classList.add('oculto');
-
-  const actualizarContenidoModal = () => {
-    const notis = contenedorNotificaciones.querySelectorAll('.notificacion-item');
-    mensajeVacio.classList.toggle('oculto', notis.length > 0);
-  };
-
-  const toggleModal = () => { modal.classList.toggle('active'); actualizarContenidoModal(); actualizarTextoToggle(); };
-  const cerrarModal = () => modal.classList.remove('active');
-  const actualizarTextoToggle = () => {
-    toggleBtn.textContent = (localStorage.getItem('notificaciones_activadas') === 'si') ? 'Desactivar notificaciones' : 'Activar notificaciones';
-    toggleChatBtn.textContent = (localStorage.getItem('chat_notificaciones_activadas') === 'no') ? 'Activar notificaciones del chat' : 'Desactivar notificaciones del chat';
-  };
-
-  toggleBtn.addEventListener('click', () => {
-    const estado = localStorage.getItem('notificaciones_activadas');
-    localStorage.setItem('notificaciones_activadas', estado === 'si' ? 'no' : 'si');
-    activarLoader(estado !== 'si');
-    cerrarModal();
-    actualizarTextoToggle();
-  });
-
-  toggleChatBtn.addEventListener('click', () => {
-    const estadoChat = localStorage.getItem('chat_notificaciones_activadas');
-    localStorage.setItem('chat_notificaciones_activadas', estadoChat === 'no' ? 'si' : 'no');
-    actualizarTextoToggle();
-  });
-
-  btnNotificacion.addEventListener('click', (e) => { e.stopPropagation(); toggleModal(); });
-  document.addEventListener('click', (e) => { if (!modal.contains(e.target) && !btnNotificacion.contains(e.target)) cerrarModal(); });
-
-  if (!localStorage.getItem('chat_notificaciones_activadas')) localStorage.setItem('chat_notificaciones_activadas', 'si');
-  actualizarContenidoModal();
-  actualizarTextoToggle();
 }
 
 // ======================== PERFIL PRO ========================

@@ -1,0 +1,116 @@
+
+
+
+.lbl_bienvenida_vg_plan h1{
+  font-family: 'Gloock', Verdana;
+  font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
+  color: #F6FFFE;
+  background-color: #007848;
+  border-radius: 10px;
+  padding: 20px 30px;
+  position: relative;
+  width: 450px;
+  margin-left: 60px;
+
+}
+
+/*-------------------------------------------------------------------------------------------------*/
+/*Contenedor de mi plan/suscripcion activa */
+.contenedor_plan{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0 20px 0; /*top-right-bottom-left*/
+}
+
+.tarjeta_vg_plan{
+  width: 90%;
+  height: 530px;
+  padding: 14px;
+  border-radius: 01rem;
+  overflow: visible;
+  background: var(--backg-tarjetaplan);
+  position: relative;
+  z-index: 1;
+} 
+ .tarjeta-vg-plan::after {
+  position: absolute;
+  content: "";
+  top: 40px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  transform: scale(0.9);
+  filter: blur(30px);
+  background: #154734;
+  transition: opacity 0.5s;
+ }
+
+ .contenido_tarj_plan_vg{
+  --color: #F6FFFE;
+  background: var(--color); color: #1A1C1C;
+  width: 100%; height: 100%;
+  overflow: visible;
+  border-radius: 0.6rem;
+  display: flex; flex-direction: column;
+  gap: 20px;
+  align-items: center ; /*alineados centro*/
+}
+
+.tarjeta_vg_plan:hover::after {
+  opacity: 0;
+}
+/**/
+
+/*titulo*/
+.titulo_tarj_plan_vg{
+  color: #1A1C1C;
+
+}
+/*descripcion tarjeta para iniciar plan*/
+.descripcion_tarj_plan_vg{
+  text-wrap: pretty;  font-size: 1.1rem;
+  align-items: center;  padding: 0 2rem;
+  color: #1A1C1C;
+}
+
+/*img*/
+.circulo_plan_vg{
+  position: relative;
+  width: 140px !important;
+  height: 140px !important;
+  border-radius: 50%;
+  background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
+  margin-top: 1.6rem;
+  justify-content: center;
+}
+.img_tarj_plan_pred{
+  position: absolute;
+  width: 135px !important;
+  height: auto;
+  top: 1rem;
+  object-fit: cover; 
+  justify-content: center;
+}
+
+
+.btn_plan_dieta{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f90;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #E99A3C;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: pointer;
+}

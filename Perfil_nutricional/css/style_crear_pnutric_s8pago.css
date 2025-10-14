@@ -430,3 +430,14 @@
 .fil0 {
   fill: #E99A3C;
 }
+
+/*img logo veganimo en agradecimientos*/
+.logo_agradecimientos {
+  width: 46 !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  justify-content: center;
+  align-self: center;
+  margin-bottom: 20px !important;
+  fill: #154734;
+}

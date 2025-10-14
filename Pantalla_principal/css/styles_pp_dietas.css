@@ -1,0 +1,194 @@
+
+
+
+.lbl_dietas_vg{
+  font-family: 'Gloock', Verdana;
+  font-weight: 400; font-size: 40px; letter-spacing: 1.5px;
+  color: var(--text-light) !important;
+  margin-left: 60px;
+}
+
+.lbl_subt{
+  font-family: 'Comfortaa', Verdana;
+  color: var(--text-light) !important;
+  margin-left: 60px;
+
+}
+
+/*-------------------------------------------------------------------------------------------------*/
+/*CONTENEDOR DE DIETAS VEGANAS*/
+.contenedor_dieta{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 20px 0; /*top-right-bottom-left*/
+}
+
+.tarjeta_vg_dieta{
+  width: 90%;
+  height: 530px;
+  padding: 14px;
+  border-radius: 01rem;
+  overflow: visible;
+  background: var(--backg-tarjetaplan);
+  position: relative;
+  z-index: 1;
+} 
+ .tarjeta_vg_dieta::after {
+  position: absolute;
+  content: "";
+  top: 40px;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  transform: scale(0.9);
+  filter: blur(30px);
+  background: #00784836;
+  transition: opacity 0.5s;
+ }
+
+.contenido_tarj_dieta{
+  --color: #F6FFFE;
+  background: var(--color); color: #1A1C1C;
+  width: 100%; height: 100%;
+  overflow: visible;
+  border-radius: 0.6rem;
+  display: flex; flex-direction: column;
+  gap: 20px;
+  align-items: center ; /*alineados centro*/
+}
+
+.tarjeta_vg_dieta:hover::after {
+  opacity: 0;
+}
+
+/**/
+
+/*img*/
+.circulo_dieta_vg{
+  position: relative;
+  width: 140px !important;
+  height: 140px !important;
+  border-radius: 50%;
+  background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
+  margin-top: 1.6rem;
+  justify-content: center;
+}
+.img_tarj_dieta_pred{
+  position: absolute;
+  width: 135px !important;
+  height: auto;
+  top: 1rem;
+  object-fit: cover; 
+  justify-content: center;
+}
+
+/**/
+/*titulo*/
+.titulo_tarj_dieta_vg{
+  color: #1A1C1C;
+  margin-top: 10px;
+
+}
+/*descripcion tarjeta para iniciar plan*/
+.descripcion_tarj_dieta_vg{
+  text-wrap: pretty;  font-size: 1.1rem;
+  align-self: center;  padding: 0 3rem;
+  color: #1A1C1C;
+}
+
+
+.botones_dieta{
+    display: flex;
+    gap: 100px;
+}
+
+/*Boton para iniciar plan con ia*/
+.btn_plan_dieta_vg{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f90;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #E99A3C;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.ph-caret-right{
+  color: #E99A3C;
+  border: 1px solid #1A1C1C; background: #1A1C1C;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn_plan_dieta_vg:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.btn_plan_dieta_vg:hover .ph-caret-right {
+  transform: translate(4px);
+}
+
+.btn_plan_dieta_vg:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.btn_plan_dieta_vg::before {
+  content: ""; position: absolute;
+  width: 100px; height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+/*BOTON PARA EL NUTRICIONISTA/DESACTIVADO POR EL MOMENTO */
+.btn_plan_dieta_prof{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f2f;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #BEBEBE;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: none !important ;
+}

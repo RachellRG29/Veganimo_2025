@@ -8,6 +8,7 @@ body, html {
   font-family: 'Gloock', Verdana;
   font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
   color: var(--text-light) !important;
+  margin-left: 60px;
 
 }
 
