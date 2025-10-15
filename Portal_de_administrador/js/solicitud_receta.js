@@ -62,7 +62,7 @@ function inicializarSolicitudes() {
       })
       .catch(err => {
         console.error('❌', err);
-        tabla.innerHTML = `<tr><td colspan="12" class="text-center text-danger">${err.message}</td></tr>`;
+        tabla.innerHTML = `<tr><td colspan="13" class="text-center text-danger">${err.message}</td></tr>`;
       });
   }
 
@@ -107,12 +107,22 @@ function inicializarSolicitudes() {
   }
 
   // ===============================
+  // Renderizar pasos resumidos
+  // ===============================
+  function renderPasosCortos(pasos) {
+    if (!Array.isArray(pasos) || pasos.length === 0) return '-';
+    const total = pasos.length;
+    const primeros = pasos.slice(0, 2).map(p => p.texto).join(', ');
+    return `${primeros}${total > 2 ? '...' : ''}`;
+  }
+
+  // ===============================
   // Renderizar tabla
   // ===============================
   function renderizarTabla(lista) {
     if (!tabla) return;
     if (lista.length === 0) {
-      tabla.innerHTML = `<tr><td colspan="12" class="text-center">No hay solicitudes</td></tr>`;
+      tabla.innerHTML = `<tr><td colspan="13" class="text-center">No hay solicitudes</td></tr>`;
       return;
     }
 
@@ -126,8 +136,11 @@ function inicializarSolicitudes() {
         <td>${categoriasMap[sol.categoria] || sol.categoria || '-'}</td>
         <td>${sol.tipo_receta || '-'}</td>
         <td>${Array.isArray(sol.ingredientes_array) ? sol.ingredientes_array.join(', ') : sol.ingredientes || '-'}</td>
+        <td>${renderPasosCortos(sol.pasos)}</td>
         <td class="text-center">${renderEstrellas(sol.calificaciones)}</td>
         <td>${sol.fecha_creacion || '-'}</td>
+        <td>${sol.nombre_usuario || '-'}</td>
+        <td>${sol.email_usuario || '-'}</td>
         <td class="text-center">
           <div class="btn-group">
             <button class="btn btn-info btn-ver" data-id="${sol._id}"><i class="ph ph-eye"></i> Ver</button>
@@ -144,11 +157,21 @@ function inicializarSolicitudes() {
   }
 
   // ===============================
-  // Modal ver solicitud
+  // Modal ver solicitud (detallado)
   // ===============================
   function verSolicitud(id) {
     const sol = solicitudesData.find(s => s._id === id);
     if (!sol) return;
+
+    let pasosHTML = '-';
+    if (Array.isArray(sol.pasos) && sol.pasos.length > 0) {
+      pasosHTML = sol.pasos.map((p, i) => `
+        <div style="margin-bottom:10px;text-align:left;">
+          <b>Paso ${i + 1}:</b> ${p.texto || ''}
+          ${p.imagen ? `<br><img src="${p.imagen}" style="max-width:100%;border-radius:8px;margin-top:5px;">` : ''}
+        </div>
+      `).join('');
+    }
 
     Swal.fire({
       title: `<span style="color:#007848;">${sol.nombre_receta}</span>`,
@@ -161,8 +184,13 @@ function inicializarSolicitudes() {
         <p><b>Ingredientes:</b><br>${Array.isArray(sol.ingredientes_array) ? sol.ingredientes_array.join(', ') : sol.ingredientes || '-'}</p>
         <p><b>Tiempo de preparación:</b> ${sol.tiempo_preparacion || '-'}</p>
         <p><b>Calificación:</b> ${renderEstrellas(sol.calificaciones)}</p>
+        <hr>
+        <p><b>Pasos:</b><br>${pasosHTML}</p>
         <p><b>Fecha creación:</b> ${sol.fecha_creacion || '-'}</p>
+        <p><b>Enviado por:</b> ${sol.nombre_usuario || '-'} (${sol.email_usuario || '-'})</p>
+
       `,
+      width: 700,
       confirmButtonText: 'Cerrar',
       confirmButtonColor: '#007848'
     });

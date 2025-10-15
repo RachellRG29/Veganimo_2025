@@ -1,4 +1,5 @@
 <?php
+session_start(); // ✅ Necesario para obtener datos del usuario logueado
 require_once __DIR__ . '/../misc/db_config.php';
 
 // Verificar si el directorio de uploads existe, si no, crearlo
@@ -7,7 +8,12 @@ if (!file_exists($directorioDestino)) {
     mkdir($directorioDestino, 0777, true);
 }
 
-// Validar datos esenciales
+// ✅ Obtener nombre y correo del usuario desde la sesión
+$nombre_usuario = $_SESSION['display_name'] ?? 'Desconocido';
+  // o $_SESSION['nombre'] según tu sistema
+$email_usuario  = $_SESSION['email'] ?? null;
+
+// Validar datos esenciales del formulario
 $nombreReceta = $_POST['name-receta'] ?? '';
 $tipo_receta = $_POST['tipo_receta'] ?? '';
 $descripcion = $_POST['description-receta'] ?? '';
@@ -19,10 +25,8 @@ $pasos = $_POST['pasos'] ?? [];
 $categoria = $_POST['categoria-receta'] ?? '';
 $calificacion = $_POST['star-radio'] ?? []; // Array de estrellas seleccionadas
 
-// Filtrar las calificaciones válidas (de 1 a 5)
-$calificacionFiltrada = array_filter($calificacion, function($valor) {
-    return in_array($valor, ['1', '2', '3', '4', '5']);
-});
+// Filtrar las calificaciones válidas (1 a 5)
+$calificacionFiltrada = array_filter($calificacion, fn($valor) => in_array($valor, ['1', '2', '3', '4', '5']));
 
 // Procesar imagen principal
 $imagenReceta = '';
@@ -43,15 +47,12 @@ if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
     }
 }
 
-// Procesar imágenes de los pasos
+// Procesar imágenes de pasos
 $pasosCompletos = [];
 $imagenesPasos = $_FILES['imagen-paso'] ?? [];
 
 foreach ($pasos as $index => $textoPaso) {
-    $pasoData = [
-        'texto' => $textoPaso,
-        'imagen' => ''
-    ];
+    $pasoData = ['texto' => $textoPaso, 'imagen' => ''];
 
     if (isset($imagenesPasos['tmp_name'][$index]) && $imagenesPasos['error'][$index] === UPLOAD_ERR_OK) {
         $extension = pathinfo($imagenesPasos['name'][$index], PATHINFO_EXTENSION);
@@ -67,7 +68,6 @@ foreach ($pasos as $index => $textoPaso) {
 }
 
 // Validar campos obligatorios
-// Forzar a que ingredientes, pasos y calificacion siempre sean arrays
 $ingredientes = (array)$ingredientes;
 $pasos = (array)$pasos;
 $calificacionFiltrada = (array)$calificacionFiltrada;
@@ -91,8 +91,7 @@ if (
     exit;
 }
 
-
-// Crear documento para MongoDB
+// Crear documento MongoDB con datos del usuario
 $documento = [
     'nombre_receta' => $nombreReceta,
     'tipo_receta' => $tipo_receta,
@@ -104,8 +103,13 @@ $documento = [
     'pasos' => $pasosCompletos,
     'imagen' => $imagenReceta,
     'categoria' => $categoria,
-    'calificaciones' => array_map('intval', $calificacionFiltrada), // Guardar como array de enteros
-    'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
+    'calificaciones' => array_map('intval', $calificacionFiltrada),
+    'fecha_creacion' => new MongoDB\BSON\UTCDateTime(),
+    'estado' => 'Pendiente',
+    
+    // ✅ Datos del usuario que envía la solicitud
+    'nombre_usuario' => $nombre_usuario,
+    'email_usuario' => $email_usuario
 ];
 
 try {
@@ -116,7 +120,7 @@ try {
     
     echo json_encode([
         "success" => true,
-        "message" => " Solicitud de receta enviada correctamente.",
+        "message" => "Solicitud de receta enviada correctamente.",
         "icon" => "success"
     ]);
 } catch (MongoDB\Driver\Exception\Exception $e) {
