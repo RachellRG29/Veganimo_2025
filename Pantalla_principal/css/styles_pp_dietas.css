@@ -1,6 +1,6 @@
 
 
-
+/*titulos */
 .lbl_dietas_vg{
   font-family: 'Gloock', Verdana;
   font-weight: 400; font-size: 40px; letter-spacing: 1.5px;
@@ -8,11 +8,19 @@
   margin-left: 60px;
 }
 
+/*texto subtitulos*/
 .lbl_subt{
   font-family: 'Comfortaa', Verdana;
   color: var(--text-light) !important;
   margin-left: 60px;
 
+}
+
+/*texto nombre plan del usuario*/
+.lbl_plan_user{
+  font-family: 'Comfortaa', Verdana;
+  color: var(--text-light) !important;
+  margin-left: 60px;
 }
 
 /*-------------------------------------------------------------------------------------------------*/
@@ -191,4 +199,47 @@
   overflow: hidden;
   font-size: 15px;
   cursor: none !important ;
+}
+
+
+/*----------------------------------------------------------------------------------------------------------------------*/
+/*DIETAS VEGANAS GESTION: CANCELAR O MODIFICAR EL PLAN*/
+
+/*BOTON PARA EL NUTRICIONISTA/DESACTIVADO POR EL MOMENTO */
+.btn_cancelar_plan{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f2f;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #BEBEBE;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+/*Boton para iniciar plan con ia*/
+.btn_modificar_plan{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f90;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #E99A3C;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: pointer;
 }

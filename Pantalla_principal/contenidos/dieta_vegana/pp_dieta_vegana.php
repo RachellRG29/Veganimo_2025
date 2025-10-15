@@ -1,5 +1,5 @@
 
-
+<!-- USUARIO CREAR PRIMERA VEZ SU PLAN POR MEDIO DE DIETAS VEGANAS  -->
 <!-- pp_dieta_vegana.php, css pp_dietas  -->
 <section class="section_dieta_vegana">
 

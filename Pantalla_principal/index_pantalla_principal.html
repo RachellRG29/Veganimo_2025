@@ -16,6 +16,7 @@
 
     <!-- Estilos de las pantallas -->
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_index_pp.css">
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_index_pp_sidebar.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_inicio.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_recetas.css">
     <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_informate.css">
@@ -62,39 +63,61 @@
         </svg>
         
       </div>
+      <!-- Enlaces -->
       <ul class="nav-links">
 
         <!-- Inicio -->
         <li class="nav-item" data-page="pp_inicio.php">
-          <i class="ph ph-house-simple" style="font-size: 24px;"></i><span>Inicio</span>
+          <div class="nav-content">
+             <i class="ph ph-house-simple" style="font-size: 24px;"></i><span>Inicio</span>
+          </div>
         </li>
 
         <!-- Plan usuario se ha suscrito-->
         <li class="nav-item" data-page="/plan/pp_suscripcion_act.php">
-          <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Plan</span>
+          <div class="nav-content">
+            <i class="ph ph-leaf" style="font-size: 24px;"></i>
+            <span>Plan</span>
+          </div>
+          <div class="sticker-pro">Pro</div>
         </li>
       
         <!-- Recetas -->
         <li class="nav-item" data-page="pp_recetas.php">
-          <i class="ph ph-book-open" style="font-size: 24px;"></i><span>Recetas</span>
+          <div class="nav-content">
+            <i class="ph ph-book-open" style="font-size: 24px;"></i><span>Recetas</span>
+          </div>
         </li>
       
         <!-- Dieta vegana -->
         <li class="nav-item" data-page="/dieta_vegana/pp_dieta_vegana.php">
-          <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Dietas veganas</span>
+          <div class="nav-content">
+            <i class="ph ph-leaf" style="font-size: 24px;"></i>
+            <span>Dietas veganas</span>
+          </div>
+          <div class="sticker-pro">Pro</div>
         </li>
 
         <!-- el usuario no es pro/Dieta vegana -->
         <li class="nav-item" data-page="/dieta_vegana/pp_no_pro_dieta.php">
-          <i class="ph ph-leaf" style="font-size: 24px;"></i><span>Dietas veganas</span>
+          <div class="nav-content">
+            <i class="ph ph-leaf" style="font-size: 24px;"></i><span>no pro Dietas veganas</span>
+          </div>
         </li>
-    
-      
+
+        <!-- el usuario cancela o modifica la suscripcion o plan -->
+        <li class="nav-item" data-page="/dieta_vegana/pp_cancelar_plan_dieta.php">
+          <div class="nav-content">
+            <i class="ph ph-note-pencil" style="font-size: 24px;"></i><span>Gestión Dietas veganas</span>
+          </div>
+        </li>
+  
         <!-- Informate -->
-        <li class="nav-item has-submenu" data-page="pp_informate.php">
+        <li class="nav-item has-submenu" data-page="pp_informate.php" style="margin-left: -12px;">
           <div class="nav-trigger">
             <i class="ph ph-info" style="font-size: 24px;"></i><span>Infórmate</span><i class="ph ph-caret-down"></i>
           </div>
+
           <ul class="submenu">
             <li data-name="inf_conceptos">Conceptos</li>
             <li data-name="inf_salud">Salud</li>
@@ -104,24 +127,30 @@
       
         <!-- ayuda -->
         <li class="nav-item" data-page="pp_ayuda.php">
-          <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
+          <div class="nav-content">
+            <i class="ph ph-question" style="font-size: 24px;"></i><span>Ayuda</span>
+          </div>
         </li>
 
         <!-- Crear recetas admi -->
         <li class="nav-item" data-page="pp_crear_receta.php" data-admin-only>
-          <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear recetas</span>
+          <div class="nav-content">
+            <i class="ph ph-clipboard-text" style="font-size: 24px;"></i><span>Crear recetas</span>
+          </div>
         </li>
 
         <!-- Crear recetas pro -->
         <li class="nav-item" data-custom="crear-recetas-pro" style="display: none;">
-            <i class="ph ph-clipboard-text" style="font-size: 24px;"></i>
+          <div class="nav-content">
+             <i class="ph ph-clipboard-text" style="font-size: 24px;"></i>
             <span>Enviar solicitud receta</span>
+          </div> 
+          <div class="sticker-pro">Pro</div>
         </li>
         
      
       </ul>
-      
-
+    
     </nav>
 
     <!-- Contenido dinámico -->

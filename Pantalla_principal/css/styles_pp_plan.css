@@ -76,26 +76,32 @@
   color: #1A1C1C;
 }
 
-/*img*/
-.circulo_plan_vg{
+/*img con animación*/
+.circulo_plan_vg {
   position: relative;
-  width: 140px !important;
-  height: 140px !important;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
   margin-top: 1.6rem;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 0;
 }
-.img_tarj_plan_pred{
+
+/* Imagen encima */
+.img_tarj_plan_pred {
   position: absolute;
-  width: 135px !important;
+  width: 135px;
   height: auto;
   top: 1rem;
-  object-fit: cover; 
-  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
 }
 
-
+/**/
 .btn_plan_dieta{
   position: relative;
   transition: all 0.3s ease-in-out;
