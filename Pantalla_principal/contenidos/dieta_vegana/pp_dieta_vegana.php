@@ -17,7 +17,7 @@
                     <img src="../Images/avatares/sf_predeterminado.png" alt="" class="img_tarj_dieta_pred">
                 </div>
                 
-                <h4 class="titulo_tarj_dieta_vg">Crea tu plan vegano personalizado 🥬​</h4>
+                <h5 class="titulo_tarj_dieta_vg">Crea tu plan vegano personalizado 🥬​</h5>
                 <p class="descripcion_tarj_dieta_vg">
                     Elige cómo quieres iniciar: deja que nuestra aplicación diseñe tu dieta de forma automática según tu perfil nutricional, o recibe la guía de un nutricionista especializado para un plan aún más completo. <br>
 

@@ -1,5 +1,4 @@
 
-
 <!-- pp_mi_plan.html -->
 <section class="section_mi_plan">
 
@@ -16,8 +15,11 @@
                     <img src="../Images/avatares/sf_predeterminado.png" alt="" class="img_tarj_plan_pred">
                 </div>
                 
-                <h4 class="titulo_tarj_plan_vg">✨ ¡Tu suscripción está activa! 🌟​</h4>
-                <h6>Gracias por confiar en nosotros. </h6>
+                <div class="contenedor_sub_titulo">
+                    <h5 class="titulo_tarj_plan_vg">✨ ¡Tu suscripción está activa! 🌟​</h5>
+                    <h6>Gracias por confiar en nosotros. </h6>
+                </div>
+
                 <p class="descripcion_tarj_plan_vg">
                     Ahora puedes crear tu dieta vegana personalizada y comenzar tu camino hacia una vida más saludable. 🌱💚 <br>
                     Solo toca el botón y te llevaremos a dietas veganas para generar tu plan.

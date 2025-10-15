@@ -15,7 +15,7 @@
                     <img src="../Images/avatares/sf_predeterminado.png" alt="" class="img_tarj_nodieta_pred">
                 </div>
                 
-                <h4 class="titulo_tarj_nodieta_vg">Desbloquea tu siguiente nivel 🥬​</h4>
+                <h5 class="titulo_tarj_nodieta_vg">Desbloquea tu siguiente nivel 🥬​</h5>
                 <p class="descripcion_tarj_nodieta_vg">
                     Accede a herramientas avanzadas, planes personalizados y funciones premium diseñadas para potenciar tu experiencia. <br>
                     Este contenido forma parte de nuestra versión PRO y requiere una suscripción activa para desbloquearlo.

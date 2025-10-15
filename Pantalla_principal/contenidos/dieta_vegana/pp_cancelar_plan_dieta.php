@@ -17,7 +17,7 @@
                     <img src="../Images/avatares/sf_predeterminado.png" alt="" class="img_tarj_dieta_pred">
                 </div>
                 
-                <h4 class="titulo_tarj_dieta_vg">Gestiona tu suscripción</h4>
+                <h5 class="titulo_tarj_dieta_vg">Gestiona tu suscripción</h5>
                 <p class="descripcion_tarj_dieta_vg">
                     Administra fácilmente tu plan: puedes modificarlo, actualizarlo o cancelarlo en cualquier momento. <br> <br>
                     Tú tienes el control de tu experiencia PRO.
