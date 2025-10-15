@@ -74,7 +74,11 @@ body, html {
   border-radius: 50%;
   background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
   margin-top: 1.6rem;
+  margin-bottom: 10px;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  z-index: 0;
 }
 .img_tarj_plan{
   position: absolute;

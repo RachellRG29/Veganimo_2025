@@ -134,12 +134,54 @@
   cursor: pointer;
 }
 
+.btn_crear_ia::before{
+    content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    65.28% 65.28% at 50% 100%,
+    #FFE24Fcc 0%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 0;
+}
+
+
+.btn_crear_ia:hover::before {
+   opacity: 1;
+  animation: pulse512 1.5s infinite;
+}
+
+.btn_crear_ia > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pulse512 {
+ 0% {
+  box-shadow: 0 0 0 0 #fabd729f;
+ }
+
+ 70% {
+  box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+ }
+
+ 100% {
+  box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+ }
+}
+
+/*------------------------------------------------------------------------------------------------------*/
 /*Datos de perfil nutricional*/
 .datos_dieta_ia {
   width: 90%;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom: 10px;
 }
 
 .seccion_referencia {
