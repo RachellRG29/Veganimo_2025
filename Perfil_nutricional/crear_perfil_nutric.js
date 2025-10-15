@@ -219,8 +219,12 @@ function actualizarPrecioPlan(nombrePlan) {
   localStorage.setItem("planSeleccionado", nombrePlan);
   localStorage.setItem("precioPlan", precio);
 
+  // 🔧 Agregar esta línea:
+  localStorage.setItem("monto_plan", precio);
+
   console.log(`Plan seleccionado: ${nombrePlan} (${radioMensual.checked ? "Mensual" : "Anual"}) - $${precio}`);
 }
+
 
 // Event listeners para radio buttons de mensual/anual
 radioMensual.addEventListener("change", actualizarPrecios);
