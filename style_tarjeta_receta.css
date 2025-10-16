@@ -1,0 +1,251 @@
+/* ----------- TARJETA DE LAS RECETAS DISEÑO ------------------*/
+
+/*Importante para el diseño*/
+.grid-container-recetas {
+  display: flex;
+  flex-wrap: wrap; /*Importante para la busqueda*/
+  justify-content: center; /*Centrar horizontalmente*/
+  margin: 3rem 5px 100px 5px; /*top-right-bottom-left*/
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /*Ancho minimo de la tarjeta*/
+  gap: 3.8rem;
+}
+
+/* Tarjeta base */
+.tarjeta-receta {
+  position: relative;
+  background-color: #007848;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  width: 100%; max-width: 360px;
+  height: auto;
+  padding-top: 80px; /* espacio para el círculo */
+  box-sizing: border-box; overflow: visible;
+  margin-top: 40px;  
+}
+
+/* Círculo contenedor */
+.circulo-img {
+  position: absolute;
+  top: -70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background-color: #E99A3C;
+  border: 6px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; padding: 4px;
+  z-index: 2;
+  margin: auto auto 0.5rem auto; /* centrado horizontal */
+  display: block; /* importante margin auto */
+
+}
+
+/* Imagen dentro del círculo */
+.img-plato {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   
+}
+
+/* Contenido de la tarjeta */
+.body-tarjeta {
+  padding: 40px 20px 30px 20px;
+  text-align: center;
+}
+
+.title-tarjeta {
+  color: #F6FFFE;
+  font-family: 'Gloock', verdana; font-weight: 400; font-size: 25px; letter-spacing: 1.5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.descripcion-tarjeta {
+  color: #ffffffd4;
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.5; /* Mejor legibilidad */
+}
+
+.estrellas_vot {
+  display: flex; justify-content: center;
+  color: #F6FFFE;
+  margin-bottom: 1rem; padding-bottom: 20px;
+  gap: 40px;
+  
+}
+
+/*Calificacion de estrellas */
+.rating {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+  gap: 0.5rem;
+  --stroke: #fffbfb;
+  --fill: #ffc73a;
+  margin-top: -2px;
+}
+
+.rating input {
+  appearance: unset;
+}
+
+.rating svg {
+  width: 2rem;
+  height: 2rem;
+  overflow: visible;
+  fill: transparent;
+  stroke: var(--stroke);
+  stroke-linejoin: bevel;
+  stroke-dasharray: 12;
+  animation: idle 4s linear infinite;
+  transition: stroke 0.2s, fill 0.5s;
+}
+
+.datos-receta {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.tiempo-receta, .dificultad-receta {
+  display: flex; flex-direction: column; align-items: center;
+  color: #F6FFFE;
+  font-size: 14px;
+}
+
+.grupo_tiempo, .grupo_dif {
+  display: flex; align-items: center;
+  gap: 1rem;
+  margin: 6px 2px 4px 2px; /*top-right-bottom-left*/
+}
+
+.linea-datos {
+  width: 1px;
+  height: 50px;
+  background-color: #fff;
+}
+
+.lbl_tiempo_receta, .lbl_dificultad {
+  margin: 0;
+}
+
+.categoria-tarjeta{
+  color: #F6FFFE;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  background-color: #154734;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+/* Base de la etiqueta */
+.etiqueta-tipo {
+  position: absolute;
+  bottom: -18px;   /* sobresale un poco de la tarjeta */
+  right: -5px;
+  color: #1a1c1c;
+  padding: 8px 18px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-family: 'Gloock';
+  font-weight: 300;
+  font-weight: bold;
+}
+
+/* Variante Desayuno */
+.etiqueta-tipo.desayuno {
+  background-color: #FEED98;
+  border: 2px dashed #FF814F;
+  box-shadow: 0 0 0 4px #FEED98, 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Variante Almuerzo */
+.etiqueta-tipo.almuerzo {
+  background-color: #A9F1AF;
+  border: 2px dashed #007848;
+  box-shadow: 0 0 0 4px #A9F1AF, 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Variante Cena */
+.etiqueta-tipo.cena {
+  background-color: #ACFEED;
+  border: 2px dashed #1E88E5;
+  box-shadow: 0 0 0 4px #ACFEED, 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+
+
+/* Sección Recetas */
+@media (max-width: 768px) {
+  .tarjeta-receta {
+    max-width: 320px;
+    margin-top: 30px;
+  }
+  
+  .grid-container {
+    gap: 20px;
+  }
+}
+
+
+/* ---  TARJETA NO ENCONTRADA -----*/
+/*.tarjeta-recip {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  background: linear-gradient(135deg, #154734, #007848); 
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  font-family: 'Comfortaa', sans-serif;
+  margin: 40px auto;
+  color: white;
+}
+
+.imagen-superior {
+  position: relative;
+  width: 100%;
+}
+
+.imagen-superior img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: block;
+}
+
+.icono-error {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.contenido-recip {
+  padding: 20px;
+  text-align: center;
+}
+
+.titulo-recip {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.desc-recip {
+  font-size: 15px;
+  color: #f3f3f3d5;
+  line-height: 1.4;
+}
+*/

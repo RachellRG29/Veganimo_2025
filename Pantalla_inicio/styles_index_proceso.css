@@ -1,0 +1,82 @@
+/* ------------------ PROCESO ------------------ */
+.proceso_guia {
+  background: #fdf6f0;
+  padding: 80px 20px;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.titulo-proceso {
+  font-size: 36px;
+  font-weight: 400;
+  color: #e99a3c;
+  margin-bottom: 10px;
+  font-family: 'Gloock', serif;
+    line-height: 1.2;
+}
+
+.subtitulo-proceso {
+  font-size: 18px;
+  color: #1a1c1cf0;
+  margin-bottom: 40px;
+}
+
+.pasos {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap; /* se acomoda en móviles */
+}
+
+.paso {
+  max-width: 180px;
+}
+
+.icono {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px;
+  border: 4px solid #e99a3c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6fffe;
+}
+
+.icono img {
+  width: 40px;
+  height: 40px;
+}
+
+.numero {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  background: #1a1c1c;
+  color: #f6fffe;
+  font-size: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.paso p {
+  font-size: 15px;
+  color: #333;
+  margin-top: 5px;
+}
+
+.ph_pasos{
+    color: #e99a3c;
+    fill: #e99a3c;
+    font-size: 40px;
+    justify-content: center;
+    align-items: center;
+}

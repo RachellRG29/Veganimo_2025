@@ -1,0 +1,472 @@
+/* * { outline: 1px solid rgb(208, 223, 8); } */
+
+/* --- TARJETA PERFIL USUARIO --- */
+.tarjeta_menu {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;   /* necesario para el popup */
+  width: fit-content;   /* solo ocupa lo necesario */
+  margin-left: auto;    /* empuja hacia la derecha */
+  top: 20px !important;
+  right: 10px !important;
+  z-index: 1001;
+}
+
+.tarjeta-perfil {
+  display: flex;
+  padding: 2px 20px;
+  background-color: #E99A3C;
+  gap: 5px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  align-items: center;
+}
+
+.circulo_perfil {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.img_perfil {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  border-radius: 50%;
+}
+
+.lbl_nombre_user {
+  font-family: 'Comfortaa', Verdana;
+  font-size: 16px;
+  text-align: center !important;
+  margin-top: 11px;
+}
+
+/* --- MENU PERFIL POPUP --- */
+.menu_perfil {
+  position: absolute;       /* ahora se alinea respecto a .tarjeta_menu */
+  top: 100%;                /* justo debajo de la tarjeta */
+  right: 0;                 /* alineado a la derecha de la tarjeta */
+  padding: 2px 0;
+  background-color: #E99A3C;
+  border-radius: 0.5rem;
+  z-index: 999;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  min-width: max-content;   /* ancho dinámico según contenido */
+  text-align: center !important;  
+}
+
+
+.menu_perfil ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu_perfil li {
+  margin: 8px 0;
+  text-align: left;
+}
+
+.menu_perfil a {
+  color: #1A1C1C;
+  font-family: 'Comfortaa', Verdana;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center !important;
+  margin: 0 20px;
+}
+
+.menu_perfil span{
+  text-align: left;
+}
+
+/* --- ERRORES --- */
+.input-error {
+  border: 2px solid #e74c3c !important;
+  background-color: #fff6f6;
+}
+
+.rating.error {
+  border: 2px solid #FFDDD3;
+  border-radius: 6px;
+  padding: 4px;
+  background-color: #FE4D3E;
+}
+
+/* --- CONFIGURACIÓN --- */
+.configuracion {
+  background-color: #FFCD91;
+  border-radius: 6px;
+  padding: 0; /* padding se maneja en el botón y submenú */
+  width: 100%; /* ocupa todo el ancho del popup */
+  box-sizing: border-box;
+  margin: 0 5px;
+}
+
+.config-btn {
+  background: none;
+  border: none;
+  font-family: 'Comfortaa', Verdana;
+  font-size: 16px;
+  color: #1A1C1C;
+  cursor: pointer;
+  width: 100%; /* ocupa todo el ancho */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+}
+
+/* Animación de la flecha */
+.config-btn i {
+  font-size: 18px;
+  margin-left: 6px;
+    transition: transform 0.3s ease; /* animación suave */
+}
+
+.config-btn i.rotated {
+  transform: rotate(180deg); /* gira hacia arriba */
+}
+
+
+/* Submenú configuración */
+.submenu-config {
+  display: none;
+  margin: 0;
+  padding: 8px 12px 12px;
+  list-style: none;
+  width: 100%;
+  box-sizing: border-box;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+.submenu-config li {
+  margin: 10px 0;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'Comfortaa', Verdana;
+}
+
+/* --- RADIOBUTTON ESTILO (más pequeños) --- */
+.filter-switch {
+  /*border: 2px solid #e0f0ff;*/
+  border-radius: 30px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;   /* más bajo */
+  width: 200px;   /* más angosto */
+  overflow: hidden;
+}
+
+#firstFilter{
+  background-color: #212121;
+  margin-bottom: 16px;
+}
+
+.filter-switch input {
+  display: none;
+}
+
+.filter-switch label {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s;
+  font-weight: 500;
+  font-size: 15px; /* más chico */
+}
+
+.filter-switch .background {
+  position: absolute;
+  width: 50%;
+  height: 24px;
+  background-color: #ffc000;
+  top: 4px;
+  left: 4px;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+}
+
+/* Fondo Modo Tema */
+#bgTheme {
+  position: absolute;
+  width: 48%;
+  height: 24px;
+  background: linear-gradient(to right, #E99A3C, #ffba67);/* color diferente para tema */
+  top: 4px;
+  left: 4px;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+}
+
+/* Movimiento del fondo */
+#theme-dark:checked ~ #bgTheme { left: 30%; }
+
+/* Activos */
+#theme-light:checked + label[for="theme-light"],
+#theme-dark:checked + label[for="theme-dark"] {
+  color: #f6fffe;
+  font-weight: bold;
+}
+
+/* Inactivos */
+#theme-light:not(:checked) + label[for="theme-light"],
+#theme-dark:not(:checked) + label[for="theme-dark"] {
+  color: #c2c0c0;
+}
+
+
+
+
+
+
+
+/* ----------------Fondo Idioma --------------*/
+
+/*lang - idioma*/
+ #secondFilter{
+  background-color: #154734;
+  margin-bottom: 10px;
+}
+
+#bgLang {
+  position: absolute;
+  width: 50%;
+  height: 24px;
+  background: linear-gradient(to right, #1a7f5a, #2aa87a);/* color diferente para idioma */
+  top: 4px;
+  left: 4px;
+  border-radius: 30px;
+  transition: left 0.3s ease;
+}
+
+/* Movimiento del fondo Idioma */
+#lang2:checked ~ #bgLang { left: 50%; }
+
+/* Movimiento del fondo */
+#option2:checked ~ .background { left: 50%; }
+#lang2:checked ~ .background { left: 50%; }
+
+/* Activos */
+#option1:checked + label[for="option1"],
+#option2:checked + label[for="option2"],
+#lang1:checked + label[for="lang1"],
+#lang2:checked + label[for="lang2"] {
+  color: #f6fffe;
+  font-weight: bold;
+}
+
+/* Inactivos */
+#option1:not(:checked) + label[for="option1"],
+#option2:not(:checked) + label[for="option2"],
+#lang1:not(:checked) + label[for="lang1"],
+#lang2:not(:checked) + label[for="lang2"] {
+  color: #c2c0c0;
+}
+
+
+/*------------------------------------- NOTIFICACIONES ------------------------------------------*/
+/* 1. Contenedor que alinea notificación + tarjeta */
+.contenedor-perfil-notificacion {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: reverse !important; /* tarjeta derecha, notificación izquierda */
+  align-items: center;
+  gap: 0.4rem;
+  z-index: 1000;
+}
+
+/* Notificación sin posición absoluta */
+.grupo_notificacion {
+  display: flex;
+  position: relative;
+}
+
+.notification_loader {
+  width: fit-content;
+  height: fit-content;
+  background-color: #154734;
+  border-radius: 7px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.logo_bell_campana{
+  width: 24px;
+  height: 24px;
+}
+
+.notification_loader:hover svg {
+  color: white;
+}
+
+.notification_loader svg {
+  color: rgba(255, 255, 255, 0.651);
+  transform: scale(1.2);
+  transition: 0.2s;
+}
+
+.notification_loader.loader-active .point {
+  display: flex;
+  animation: loop 1s infinite;
+}
+
+.notification_loader .point {
+  display: none; /* Por defecto oculto */
+}
+
+.point {
+  position: absolute;
+  bottom: -3px;
+  left: -3px;  
+  width: 16px;  
+  height: 16px;
+  background-color: rgb(0, 255, 0);
+  border-radius: 50%;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;  /* Asegurar que esté por encima */
+}
+
+.point::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background-color: rgb(0, 255, 0);
+  border-radius: 25px;
+  animation: loop 1s 0s infinite;
+}
+
+.contador-noti {
+  color: #1A1C1C;
+  font-size: 9px;
+  font-weight: bold;
+  position: relative;
+  justify-self: center;
+  z-index: 2;
+  top: 1px;
+}
+
+
+@keyframes loop {
+  0% {
+    background-color: rgb(0, 255, 0);
+    width: 1px;
+    height: 1px;
+  }
+  100% {
+    background-color: rgba(0, 255, 0, 0);
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/*---------------------------------------------- MODAL NOTIFICACION ---------------------------------------------*/
+.notificacion-item {
+  background-color: #e0f5eb;
+  padding: 10px;
+  border-left: 5px solid #1a7f5a;
+  border-radius: 0.4rem;
+  animation: show-message 0.4s ease forwards;
+  transform-origin: top left;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.notificacion-item.vista {
+  opacity: 0.7;
+  background-color: #f0f0f0;
+  border-left-color: #cccccc;
+}
+
+@keyframes show-message {
+  0% {
+    transform: scale(0);
+    margin-bottom: 0;
+    visibility: visible;
+  }
+  100% {
+    transform: scale(1);
+    margin-bottom: 1rem;
+    visibility: visible;
+  }
+}
+
+.modal_notificacion {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 280px;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 999;
+  margin-top: 10px;
+}
+
+.modal_notificacion.active {
+  display: flex;
+}
+
+.mensaje-sin-notificaciones {
+  padding: 10px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  font-family: 'Comfortaa', Verdana;
+}
+
+.oculto {
+  display: none !important;
+}
+
+.notificacion-titulo{
+  font-size: 14.5px;
+}
+
+.notificacion-descripcion{
+  font-size: 12px;
+}
+
+
+/**/
+/* Estilo específico para notificaciones de chat */
+.notificacion-item[data-tipo="chat"] {
+  background-color: #e0f0ff;
+  border-left-color: #1a5a7f;
+}
+
+/* Animación para nuevas notificaciones */
+@keyframes nueva-notificacion {
+  0% { transform: translateX(10px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+
+.notificacion-item.nueva {
+  animation: nueva-notificacion 0.3s ease-out;
+}

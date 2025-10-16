@@ -1,0 +1,13 @@
+# Ignorar la carpeta vendor (Composer instalará dependencias automáticamente)
+vendor/
+
+# Ignorar el lock file si no quieres versionarlo (opcional)
+composer.lock
+
+# Archivos de sistema de Windows
+Thumbs.db
+.DS_Store
+
+# Archivos de IDEs (opcional, pero recomendado)
+.vscode/
+.idea/
