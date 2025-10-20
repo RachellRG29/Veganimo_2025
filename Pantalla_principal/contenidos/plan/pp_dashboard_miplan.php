@@ -2,8 +2,11 @@
 
 <!-- pp_dashboard del usuario -->
 <section class="section_mi_plan">
-    <h1 class="lbl_bienvenida_vg">Bienvenido a Mi plan 🌱</h1>
-    <p class="lbl_user_bienvenida"> User </p>
+    <div class="lbl_bienvenida_plan_dash">
+        <h1 class="lbl_titulo_dash"> Mi plan 🌱</h1>
+        <p class="lbl_user_nivel"> Nivel:  </p>
+    </div>
+    
 
 
 

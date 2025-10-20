@@ -1,0 +1,22 @@
+.lbl_bienvenida_plan_dash{
+  background-color: #007848;
+  border-radius: 10px;
+  padding: 10px 20px 2px 20px;
+  position: relative;
+  width: 480px;
+  margin-left: 60px;
+
+}
+
+.lbl_titulo_dash{
+  font-family: 'Gloock', Verdana;
+  font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
+  color: #F6FFFE;
+}
+
+.lbl_user_nivel{
+    font-family: 'Comfortaa', Verdana;
+    color: #F6FFFE;
+    font-size: 20px;
+}
+

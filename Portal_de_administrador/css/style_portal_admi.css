@@ -24,8 +24,10 @@ body {
   width: 100%;
   height: 100vh; /* ← altura fija, no min-height */
   overflow: hidden; /* ← evita que crezca verticalmente */
-  margin: 0 !important;
+  margin: 0 !important; 
   padding: 0 !important;
+  overflow-y: auto; /* el contenido (tabla, etc.) puede hacer scroll interno */
+  overflow-x: hidden;
 }
 
 .sidebar-admin {
@@ -33,15 +35,6 @@ body {
   position: sticky;
   top: 0;
 }
-
-.contenido-admin {
-  height: 100vh;
-  overflow-y: auto; /* el contenido (tabla, etc.) puede hacer scroll interno */
-  overflow-x: hidden;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
 
 
 
@@ -235,9 +228,6 @@ body {
   background-color: #0E9863;
   border: none; /* Elimina líneas verticales */
 }
-
- 
-
 
 /* Columna nombre más oscuro */
 .table td:first-child {
