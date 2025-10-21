@@ -30,6 +30,21 @@ body {
   overflow-x: hidden;
 }
 
+/* Contenido dinámico */
+.contenido-admin {
+  overflow-y: auto;        /* permite scroll vertical en el contenido */
+  overflow-x: hidden;
+  height: 100vh;           /* ocupa toda la altura de la ventana */
+  padding: 0;
+  background-color: #f9f9f9; /* opcional */
+}
+
+/* Para tablas largas dentro del contenido */
+.contenido-admin .table-responsive {
+  max-height: calc(100vh - 180px); /* altura ajustable según header o márgenes */
+  overflow-y: auto;
+}
+
 .sidebar-admin {
   height: 100vh; /* ocupa toda la altura */
   position: sticky;
@@ -237,6 +252,31 @@ body {
 .table th:first-child {
   background-color: #154734b8; /* Encabezado columna nombre también */
 }
+
+
+/**TABLA DE RECETAS*/
+/* Scroll horizontal exclusivo para la tabla de recetas */
+.tabla-recetas-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+/* Opcional: mejora visual del scroll */
+.tabla-recetas-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.tabla-recetas-scroll::-webkit-scrollbar-thumb {
+  background-color: #0E9863;
+  border-radius: 10px;
+}
+.tabla-recetas-scroll::-webkit-scrollbar-track {
+  background-color: #d9f5e8;
+}
+
+
+
 
 
 
