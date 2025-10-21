@@ -1,0 +1,6 @@
+projectKey=veganimo
+serverUrl=http://localhost:9000
+serverVersion=25.10.0.114319
+dashboardUrl=http://localhost:9000/dashboard?id=veganimo
+ceTaskId=cece778c-69cb-4815-922e-9dc1ee61cd44
+ceTaskUrl=http://localhost:9000/api/ce/task?id=cece778c-69cb-4815-922e-9dc1ee61cd44
