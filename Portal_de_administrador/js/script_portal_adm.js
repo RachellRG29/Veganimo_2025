@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const url = `/Portal_de_administrador/contenidos/${pagina}`;
         console.log("📥 Solicitando:", url);
 
+
+
         try {
             const response = await fetch(url);
             if (!response.ok) throw new Error(`Error al cargar: ${url}`);

@@ -116,7 +116,7 @@ function inicializarRecetas() {
                 if (!data.success) throw new Error('Error al cargar las recetas');
                 recetasData = data.data;
                 console.log('✅ Recetas cargadas:', data.data.length);
-                renderizarTabla(data.data);
+                renderizarTablaRecetas(data.data);
             })
             .catch(error => {
                 console.error('❌ Error al cargar recetas:', error);
@@ -135,7 +135,7 @@ function inicializarRecetas() {
                 r.nombre_receta.toLowerCase().includes(texto) ||
                 r.descripcion.toLowerCase().includes(texto)
             );
-            renderizarTabla(filtradas);
+            renderizarTablaRecetas(filtradas);
         });
     }
 
@@ -149,7 +149,7 @@ const categoriasMap = {
     // =======================================
     // Renderizar tabla
 // =======================================
-function renderizarTabla(recetas) {
+function renderizarTablaRecetas(recetas) {
     if (!tablaRecetas) return;
     
     console.log('🎨 Renderizando tabla con', recetas.length, 'recetas');
@@ -186,7 +186,7 @@ function renderizarTabla(recetas) {
 
     // Re-asignar event listeners después de renderizar
     document.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', () => abrirModalEditar(btn.dataset.id));
+        btn.addEventListener('click', () => abrirModalEditarRecetas(btn.dataset.id));
     });
 
     document.querySelectorAll('.btn-eliminar').forEach(btn => {
@@ -251,7 +251,7 @@ function renderizarTabla(recetas) {
     // =======================================
     // ABRIR MODAL DE EDICIÓN
     // =======================================
-    function abrirModalEditar(idReceta) {
+    function abrirModalEditarRecetas(idReceta) {
         const receta = recetasData.find(r => r._id === idReceta);
         if (!receta) return;
         recetaEditando = receta;
