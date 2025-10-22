@@ -169,23 +169,6 @@ function verSolicitudReceta(id) {
   style.id = "recetaSwalStyle";
   style.textContent = `
   /* ================== DISEÑO ADAPTADO A SWEETALERT ================== */
-  .swal2-popup {
-    background: #fdfdfd !important;
-    border-radius: 12px !important;
-    padding: 28px 32px !important;
-    width: 70% !important;
-    max-width: 800px !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25) !important;
-    font-family: 'Comfortaa', sans-serif !important;
-    color: #1A1C1C !important;
-  }
-
-  .swal2-title {
-    color: #007848 !important;
-    font-weight: 700 !important;
-    font-size: 24px !important;
-    margin-bottom: 15px !important;
-  }
 
   .swal2-html-container {
     text-align: left !important;
