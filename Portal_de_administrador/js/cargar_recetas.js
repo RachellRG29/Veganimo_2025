@@ -1,17 +1,18 @@
 /* Estilos para la carga de recetas */
 async function cargarRecetas() {
-  const contenedor = document.getElementById('contenedor-recetas');
+  const contenedor = document.getElementById("contenedor-recetas");
   if (!contenedor) {
-    console.error('❌ No se encontró el contenedor de recetas (#contenedor-recetas).');
+    console.error(
+      "❌ No se encontró el contenedor de recetas (#contenedor-recetas).",
+    );
     return;
   }
-
 
   /* Función para renderizar las estrellas de la calificación */
   function renderEstrellas(calificacion) {
     const totalEstrellas = 5;
     const estrellasLlenas = Math.round(calificacion);
-    let estrellasHTML = '';
+    let estrellasHTML = "";
 
     for (let i = 1; i <= totalEstrellas; i++) {
       const filled = i <= estrellasLlenas;
@@ -22,8 +23,8 @@ async function cargarRecetas() {
             width="28" height="28"
             style="
               margin: 0 4px;
-              fill: ${filled ? '#ffc73a' : 'transparent'};
-              stroke: ${filled ? '#ffc73a' : '#ccc'};
+              fill: ${filled ? "#ffc73a" : "transparent"};
+              stroke: ${filled ? "#ffc73a" : "#ccc"};
               stroke-width: 2px;
               stroke-linejoin: round;
               transform: rotate(45deg);
@@ -50,43 +51,42 @@ async function cargarRecetas() {
   /* acortar la descripcion */
   function recortarDescripcion(texto, limitePalabras = 20) {
     const palabras = texto.trim().split(/\s+/);
-    if (palabras.length <= limitePalabras) return texto;
+    if (palabras.length <= limitePalabras) {return texto;}
     return palabras.slice(0, limitePalabras).join(" ") + "...";
   }
 
-
-  fetch('../Pantalla_principal/obtener_recetas.php')
-    .then(response => response.json())
-    .then(data => {
+  fetch("../Pantalla_principal/obtener_recetas.php")
+    .then((response) => response.json())
+    .then((data) => {
       if (!data.success || !Array.isArray(data.data)) {
-        contenedor.innerHTML = '<p>Error al cargar recetas.</p>';
+        contenedor.innerHTML = "<p>Error al cargar recetas.</p>";
         return;
       }
 
       const recetas = data.data;
       if (recetas.length === 0) {
-        contenedor.innerHTML = '<p>No hay recetas disponibles.</p>';
+        contenedor.innerHTML = "<p>No hay recetas disponibles.</p>";
         return;
       }
 
-      contenedor.innerHTML = ''; // Limpiar antes de renderizar
+      contenedor.innerHTML = ""; // Limpiar antes de renderizar
 
-      recetas.forEach(receta => {
-        const tarjeta = document.createElement('div');
-        tarjeta.className = 'tarjeta-receta';
+      recetas.forEach((receta) => {
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "tarjeta-receta";
 
         // Detectar color de dificultad
-        let colorDificultad = '#22B55B';
-        if (receta.dificultad === 'Media') colorDificultad = 'orange';
-        else if (receta.dificultad === 'Alta') colorDificultad = 'red';
+        let colorDificultad = "#22B55B";
+        if (receta.dificultad === "Media") {colorDificultad = "orange";}
+        else if (receta.dificultad === "Alta") {colorDificultad = "red";}
 
         // Agregar unidad de tiempo
         const tiempoPrep = receta.tiempo_preparacion;
-        let unidad = 'minutos';
-        if (tiempoPrep.toLowerCase().includes('hora')) {
-          unidad = '';
+        let unidad = "minutos";
+        if (tiempoPrep.toLowerCase().includes("hora")) {
+          unidad = "";
         } else if (parseInt(tiempoPrep) >= 60) {
-          unidad = 'minutos'; // por si acaso
+          unidad = "minutos"; // por si acaso
         }
 
         tarjeta.innerHTML = `
@@ -104,7 +104,7 @@ async function cargarRecetas() {
             display: inline-block;
             padding: 6px 12px;
             border-radius: 20px;">
-            Categoría: ${categorias[receta.categoria] || 'Sin categoría'}</p>
+            Categoría: ${categorias[receta.categoria] || "Sin categoría"}</p>
 
             <div class="rating-estatica">
               ${renderEstrellas(receta.calificacion)}
@@ -132,29 +132,26 @@ async function cargarRecetas() {
           </div>
         `;
 
-        tarjeta.setAttribute('data-receta', JSON.stringify(receta));
-        
+        tarjeta.setAttribute("data-receta", JSON.stringify(receta));
+
         contenedor.appendChild(tarjeta);
       });
 
       // 🔁 Ejecutar filtrado después de cargar las tarjetas
-      if (typeof initializeRecipeSearch === 'function') {
+      if (typeof initializeRecipeSearch === "function") {
         initializeRecipeSearch();
       }
-
     })
-    .catch(error => {
-      console.error('❌ Error de red:', error);
-      contenedor.innerHTML = '<p>Error al conectar con el servidor.</p>';
+    .catch((error) => {
+      console.error("❌ Error de red:", error);
+      contenedor.innerHTML = "<p>Error al conectar con el servidor.</p>";
     });
 
-
-const style_carg = document.createElement('style');
-style_carg.textContent = `
+  const style_carg = document.createElement("style");
+  style_carg.textContent = `
   .tarjeta-receta {
   cursor: pointer;
   }
 `;
-document.head.appendChild(style_carg);
-
+  document.head.appendChild(style_carg);
 }

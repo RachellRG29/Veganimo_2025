@@ -5,9 +5,8 @@
 }
 
 body {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: Comfortaa, sans-serif;
   background-color: #f8f9fa;
-
 }
 
 /* Contenedor principal */
@@ -42,19 +41,21 @@ body {
   font-weight: bold;
 }
 
-
 /* Logo */
 .logo svg {
   width: 40px;
   height: auto;
-  fill: #F6FFFE;
+  fill: #f6fffe;
 }
-/*-----------------------------------------------------------------------------*/
-/*RADIOBUTTONS*/
+
+/* ----------------------------------------------------------------------------- */
+
+/* RADIOBUTTONS */
 .content {
   margin: 20px;
   margin-top: 20px;
 }
+
 .hidden {
   display: none;
 }
@@ -70,6 +71,7 @@ body {
   overflow-x: auto;
   scrollbar-width: none;
 }
+
 .radio-group::-webkit-scrollbar {
   display: none; /* quita scroll en Chrome */
 }
@@ -84,13 +86,13 @@ body {
   display: inline-block;
   padding: 8px 20px;
   border-radius: 20px;
-  background: #ffffff;
+  background: #fff;
   font-size: 14px;
   font-weight: 600;
   color: #154734;
   cursor: pointer;
   transition: all 0.4s ease;
-  box-shadow: 0 0 6px rgba(55, 255, 20, 0.045);
+  box-shadow: 0 0 6px rgb(55 255 20 / 4.5%);
   white-space: nowrap;
 }
 
@@ -101,34 +103,40 @@ body {
 
 /* Activo con degradado neon */
 .radio-group input[type="radio"]:checked + span {
-  background: linear-gradient(135deg, #E99A3C, #f88f34);
+  background: linear-gradient(135deg, #e99a3c, #f88f34);
   color: white;
   border: none;
-
   animation: pulse 0.4s ease;
 }
 
 /* Animación al activar */
 @keyframes pulse {
-  0% { transform: scale(0.95); opacity: 0.6; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
+/* ----------------------------------------------------------------------------- */
 
-/*-----------------------------------------------------------------------------*/
 /* Botón Volver */
 .back-button {
   position: absolute; /* ahora relativo a .barra_volver */
   top: 12px;
   left: 20px;
-  background-color: #E0FFF2;
+  background-color: #e0fff2;
   border: none;
   border-radius: 50px;
   padding: 10px 20px;
   display: flex;
   align-items: center;
   font-size: 16px;
-  color: #1A1C1C;
+  color: #1a1c1c;
   box-shadow: inset 0 0 8px #007848;
   cursor: pointer;
   z-index: 200;
@@ -137,22 +145,24 @@ body {
 .back-button .icon {
   width: 10px;
   height: 17px;
-  background-color: #0E9863;
+  background-color: #0e9863;
   clip-path: polygon(0 50%, 100% 0, 100% 100%);
   margin-right: 8px;
 }
-/*-----------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------------- */
+
 /* Buscador dentro del header */
 .search-bar {
   background-color: white;
-  border-radius: 10px; 
+  border-radius: 10px;
   padding: 4px 30px;
   display: flex;
   align-items: center;
 }
 
 .search-bar i {
-  color: #E99A3C; /* icono naranja */
+  color: #e99a3c; /* icono naranja */
   font-size: 18px;
   margin-right: 8px;
 }
@@ -167,7 +177,7 @@ body {
 }
 
 .search-bar input::placeholder {
-  color: #E99A3C; /* placeholder naranja */
+  color: #e99a3c; /* placeholder naranja */
 }
 
 .card-body {
@@ -192,7 +202,7 @@ body {
 
 /* Filas */
 .table tbody tr {
-  background-color: #0E9863; /* Fondo de filas */
+  background-color: #0e9863; /* Fondo de filas */
   color: white;
 }
 
@@ -206,8 +216,8 @@ body {
   color: white;
   text-align: center;
   vertical-align: middle;
-   padding: 16px 8px;
-  background-color: #0E9863;
+  padding: 16px 8px;
+  background-color: #0e9863;
   border: none; /* Elimina líneas verticales */
 }
 
@@ -220,9 +230,9 @@ body {
   background-color: #154734b8; /* Encabezado columna nombre también */
 }
 
-/****--------------------------RESPONSIVIDAD---------------------------------------------------*/
+/**** --------------------------RESPONSIVIDAD--------------------------------------------------- */
 
-@media (max-width: 992px) {
+@media (width <= 992px) {
   .navbar {
     padding: 8px 16px;
   }
@@ -231,13 +241,12 @@ body {
     font-size: 16px;
     text-align: center;
   }
-
 }
 
-@media (max-width: 576px) {
+@media (width <= 576px) {
   .navbar {
     flex-direction: column;
-    padding: 60px 16px 12px 16px; /* deja espacio arriba para botón */
+    padding: 60px 16px 12px; /* deja espacio arriba para botón */
     align-items: center;
   }
 

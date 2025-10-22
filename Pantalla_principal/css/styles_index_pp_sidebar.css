@@ -4,8 +4,10 @@
 }
 */
 
-/************************************************************/
+/***********************************************************  */
+
 /* SIDEBAR / MENU LATERAL */
+
 /* Sidebar */
 .sidebar {
   position: sticky;
@@ -15,20 +17,19 @@
   min-height: 100vh;
   width: 220px;
   background-color: #154734;
-  color: #F6FFFE;
+  color: #f6fffe;
   display: flex;
   flex-direction: column;
   z-index: 1000;
-  font-family: 'Comfortaa', Verdana !important;
+  font-family: Comfortaa, Verdana !important;
 }
 
 /* icono arrow de la barra lateral */
 .ph-caret-down {
   font-size: 24px;
-  right: 0.70rem;
+  right: 0.7rem;
   display: flex;
   position: absolute;
-  transition: transform 0.3s ease;
   margin-left: auto; /* Empuja el icono a la derecha */
   transition: transform 0.3s ease;
 }
@@ -36,7 +37,9 @@
 .nav-links {
   list-style: none;
   width: 100%;
-  padding: 10px; margin: 0; gap: 12px;
+  padding: 10px;
+  margin: 0;
+  gap: 12px;
 }
 
 .nav-item {
@@ -46,10 +49,12 @@
   justify-content: space-between; /* empuja el sticker a la derecha */
   padding: 10px;
   border-radius: 0 8px 8px 0;
-  margin: -8px 0 16px 0;
+  margin: -8px 0 16px;
   left: -10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   overflow: hidden;
 }
 
@@ -62,36 +67,44 @@
 
 /* Mantener el estilo visual */
 .nav-item:hover {
-  background-color: #007848; color: #F6FFFE;
+  background-color: #007848;
+  color: #f6fffe;
 }
 
 /* Para items con submenú: el trigger ocupa todo */
 .nav-item.has-submenu .nav-trigger {
-  display: flex; flex: 1;
-  align-items: center; gap: 12px;
-  padding: 3px 12px 3px 12px; /*top right bottom left*/
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  padding: 3px 12px; /* top right bottom left */
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  /*background-color: red; pruebas*/
+
+  /* background-color: red; pruebas */
 }
 
 /* Para items SIN submenú, mantiene el estilo original */
 .nav-item:not(.has-submenu) {
-  display: flex; box-sizing: border-box;
-  align-items: center; gap: 12px;
-  padding: 10px;  
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
 }
 
 /* --- HOVER --- */
 .nav-item:hover {
-  background-color: #007848; color: #F6FFFE;
+  background-color: #007848;
+  color: #f6fffe;
 }
 
 /* --- ACTIVE ITEM --- */
 .nav-item.active,
 .nav-trigger.active {
-  background-color: #F6FFFE; color: #007848;
+  background-color: #f6fffe;
+  color: #007848;
   font-weight: bold;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -100,10 +113,10 @@
 
 /* Línea naranja solo cuando tenga la clase highlight */
 .nav-item.highlight::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 6px;
-  left: 5px; /*LINEA MENU*/
+  left: 5px; /* LINEA MENU */
   bottom: 50%;
   transform: translateY(50%);
   height: 100%;
@@ -113,27 +126,28 @@
 
 /* Línea naranja animada para submenús */
 .submenu li::before {
-  content: ''; position: absolute;
+  content: "";
+  position: absolute;
   left: -20px;
   top: 50%;
   transform: translateY(-50%);
   width: 6px;
   height: 20px;
-  background-color: #FFD65A;
-  border-radius: 4px; 
+  background-color: #ffd65a;
+  border-radius: 4px;
   opacity: 0;
   transition: all 0.4s ease;
 }
 
-/* Cuando está activo: animamos a cuadro a la derecha  en los subtemas*/
+/* Cuando está activo: animamos a cuadro a la derecha  en los subtemas */
 .submenu li.highlight::before {
   left: -10px;
   right: 10px;
   width: 120%;
   height: 26px;
-  border-radius: 6px 0 0 6px; /*top-right-bottom-left*/
+  border-radius: 6px 0 0 6px; /* top-right-bottom-left */
   opacity: 1;
-  z-index: -1; /*detras del texto submenu*/
+  z-index: -1; /* detras del texto submenu */
   transform: translateY(-50%);
 }
 
@@ -146,33 +160,40 @@
 
 /* --- SUBMENÚ --- */
 .has-submenu {
-  display: flex; flex-direction: column; align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 /* Submenús ocultos por defecto */
 .submenu {
-  display: none; flex-direction: column;
+  display: none;
+  flex-direction: column;
   width: 100%;
   padding-left: 30px;
   margin-top: 2px;
-  /*background: fuchsia;pruebas*/
+
+  /* background: fuchsia;pruebas */
 }
 
-.submenu li{
+.submenu li {
   position: relative;
-  display: flex; align-items: center;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   gap: 10px;
-  margin: 5px 0 5px 0; /*top right bottom left*/
+  margin: 5px 0; /* top right bottom left */
   padding-left: 10px;
   z-index: 1;
-  padding: 10px 0 10px 0 ; /*top right bottom left*/
- /* background-color: purple;pruebas*/
+  padding: 10px 0; /* top right bottom left */
+
+  /* background-color: purple;pruebas */
 }
 
-/*Open menu*/
+/* Open menu */
+
 /* Rotación cuando el submenú está abierto */
-.has-submenu.open-submenu .ph-caret-down  {
+.has-submenu.open-submenu .ph-caret-down {
   transform: rotate(180deg);
 }
 
@@ -187,14 +208,15 @@
   font-size: 1rem;
 }
 
-
 /* CERRAR SESIÓN */
 .cerrar-sesion {
   margin-top: auto;
   padding: 20px;
-  display: flex; align-items: center; gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
-  color: #F6FFFE;
+  color: #f6fffe;
   transition: background-color 0.3s ease;
 }
 
@@ -203,10 +225,9 @@
   border-radius: 8px;
 }
 
+/* ----------------------------------------------------------------------------------------------------------------------- */
 
-
-/*-----------------------------------------------------------------------------------------------------------------------*/
-/*STICKERS PRO*/
+/* STICKERS PRO */
 .sticker-pro {
   position: relative;
   flex-shrink: 0;
@@ -218,8 +239,8 @@
   justify-content: center;
   font-weight: bold;
   font-size: 0.7rem;
-  font-family: 'Comfortaa';
-  color: #F6FFFE;
+  font-family: Comfortaa;
+  color: #f6fffe;
   letter-spacing: 0.5px;
   border-radius: 50%;
   overflow: hidden;
@@ -231,7 +252,7 @@
   transition: transform 0.25s ease;
 }
 
-/*Brillo dorado-gloss más centrado y continuo */
+/* Brillo dorado-gloss más centrado y continuo */
 .sticker-pro::before {
   content: "";
   position: absolute;
@@ -240,9 +261,10 @@
   width: 100%;
   height: 100%;
   background: radial-gradient(
-    circle at 50% 50%, 
-    rgba(255, 255, 180, 0.6) 20%,  /* brillo central */
-    rgba(21, 71, 52, 0) 60%        /* borde se mezcla con el fondo */
+    circle at 50% 50%,
+    rgb(255 255 180 / 60%) 20%,
+    /* brillo central */ rgb(21 71 52 / 0%) 60%
+      /* borde se mezcla con el fondo */
   );
   filter: blur(3px);
   pointer-events: none;
@@ -251,8 +273,16 @@
 }
 
 @keyframes shinePulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.05); }
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
 }
 
 /* Hover sutil */

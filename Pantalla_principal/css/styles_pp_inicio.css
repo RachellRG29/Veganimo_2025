@@ -1,32 +1,34 @@
-body, html {
-    font-family: 'Comfortaa', Verdana;
-    height: 100%;
-  }
-
-
-.lbl_bienvenida_vg{
-  font-family: 'Gloock', Verdana;
-  font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
-  color: var(--text-light) !important;
-  margin-left: 60px;
-
+body,
+html {
+  font-family: Comfortaa, Verdana;
+  height: 100%;
 }
 
-.lbl_user_bienvenida{
+.lbl_bienvenida_vg {
+  font-family: Gloock, Verdana;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  color: var(--text-light) !important;
+  margin-left: 60px;
+}
+
+.lbl_user_bienvenida {
   margin-top: 10px;
   font-size: 18px;
 }
 
-/*-------------------------------------------------------------------------------------------------*/
-/*INICIAR PLAN*/
-.iniciar_plan{
+/* ------------------------------------------------------------------------------------------------- */
+
+/* INICIAR PLAN */
+.iniciar_plan {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0 20px 0; /*top-right-bottom-left*/
+  margin: 50px 0 20px; /* top-right-bottom-left */
 }
 
-.tarjeta_inic_plan{
+.tarjeta_inic_plan {
   width: 90%;
   height: 530px;
   padding: 14px;
@@ -35,8 +37,9 @@ body, html {
   background: var(--backg-tarjetaplan);
   position: relative;
   z-index: 1;
-} 
- .tarjeta-inic-plan::after {
+}
+
+.tarjeta-inic-plan::after {
   position: absolute;
   content: "";
   top: 40px;
@@ -49,30 +52,34 @@ body, html {
   filter: blur(30px);
   background: #154734;
   transition: opacity 0.5s;
- }
+}
 
-.contenido_tarj_plan{
-  --color: #F6FFFE;
-  background: var(--color); color: #1A1C1C;
-  width: 100%; height: 100%;
+.contenido_tarj_plan {
+  --color: #f6fffe;
+
+  background: var(--color);
+  color: #1a1c1c;
+  width: 100%;
+  height: 100%;
   overflow: visible;
   border-radius: 0.6rem;
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: center ; /*alineados centro*/
+  align-items: center; /* alineados centro */
 }
 
 .tarjeta_inic_plan:hover::after {
   opacity: 0;
 }
 
-/*img*/
-.circulo_plan{
+/* img */
+.circulo_plan {
   position: relative;
   width: 140px !important;
   height: 140px !important;
   border-radius: 50%;
-  background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
+  background: linear-gradient(30deg, #007848 0%, #e99a3c 100%);
   margin-top: 1.6rem;
   margin-bottom: 10px;
   display: flex;
@@ -80,38 +87,46 @@ body, html {
   align-items: center;
   z-index: 0;
 }
-.img_tarj_plan{
+
+.img_tarj_plan {
   position: absolute;
   width: 150px !important;
   height: auto;
   top: 1rem;
-  object-fit: cover; 
+  object-fit: cover;
   justify-content: center;
 }
-/*titulo*/
-.titulo_tarj_plan{
-  color: #1A1C1C;
 
+/* titulo */
+.titulo_tarj_plan {
+  color: #1a1c1c;
 }
-/*descripcion tarjeta para iniciar plan*/
-.descripcion_tarj_plan{
-  text-wrap: pretty;  font-size: 1.1rem;
-  text-align: center;  padding: 0 1.5rem;
-  color: #1A1C1C;
+
+/* descripcion tarjeta para iniciar plan */
+.descripcion_tarj_plan {
+  text-wrap: pretty;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0 1.5rem;
+  color: #1a1c1c;
 }
-/*Boton para iniciar plan*/
-.btn_iniciar_plan{
+
+/* Boton para iniciar plan */
+.btn_iniciar_plan {
   position: relative;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 10px 20px #ffe24f90;
+  box-shadow: 0 10px 20px #ffe24f90;
   padding-block: 0.5rem;
   padding-inline: 1.25rem;
-  background-color: #E99A3C;
+  background-color: #e99a3c;
   border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  color: #1A1C1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1c1c;
   gap: 10px;
-  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  font-weight: bold;
+  font-family: Comfortaa, Verdana;
   border: 3px solid #ffffff4d;
   outline: none;
   overflow: hidden;
@@ -119,9 +134,10 @@ body, html {
   cursor: pointer;
 }
 
-.ph-caret-right{
-  color: #E99A3C;
-  border: 1px solid #1A1C1C; background: #1A1C1C;
+.ph-caret-right {
+  color: #e99a3c;
+  border: 1px solid #1a1c1c;
+  background: #1a1c1c;
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
 }
@@ -140,13 +156,15 @@ body, html {
 }
 
 .btn_iniciar_plan::before {
-  content: ""; position: absolute;
-  width: 100px; height: 100%;
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
   background-image: linear-gradient(
     120deg,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0) 70%
+    rgb(255 255 255 / 0%) 30%,
+    rgb(255 255 255 / 80%),
+    rgb(255 255 255 / 0%) 70%
   );
   top: 0;
   left: -100px;
@@ -162,51 +180,54 @@ body, html {
     left: 100%;
   }
 
-  to {
+  100% {
     left: 100%;
   }
 }
 
-/*-------------------------------------------------------------------------------------------------*/
-/*CONTENEDOR DE LAS RECOMENDACIONES*/
-.contenedor_recomendaciones{
-  background: #F6FFFE;
+/* ------------------------------------------------------------------------------------------------- */
+
+/* CONTENEDOR DE LAS RECOMENDACIONES */
+.contenedor_recomendaciones {
+  background: #f6fffe;
   border-radius: 20px;
   width: 90%;
-  margin: 0 auto; /*centrado importante*/
+  margin: 0 auto; /* centrado importante */
   padding-bottom: 0.1rem;
 }
 
- /* Grid container */
- .grid-container-recomendaciones {
-  display: grid; justify-items: center;
-  /*grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); Ancho minimo de la tarjeta*/
+/* Grid container */
+.grid-container-recomendaciones {
+  display: grid;
+  justify-items: center;
+
+  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); Ancho minimo de la tarjeta */
   grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
-  margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
+  margin: 4rem 5px; /* top-right-bottom-left */
   gap: 2rem;
 }
 
-.lbl_recomendaciones{
-  margin: 20px 20px; /* Márgenes superior e inferior */
+.lbl_recomendaciones {
+  margin: 20px; /* Márgenes superior e inferior */
   padding-top: 1.2rem;
-  color: #1A1C1C;
+  color: #1a1c1c;
 }
 
-/*RECETAS RECOMENDADAS*/
+/* RECETAS RECOMENDADAS */
 
 /* Tarjeta base */
 .tarjeta-receta {
   position: relative;
   background-color: #007848;
   border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
   width: 100%;
   max-width: 360px;
   height: auto;
   padding-top: 80px; /* espacio para el círculo */
   box-sizing: border-box;
   overflow: visible;
-  margin-top: 40px;  
+  margin-top: 40px;
 }
 
 /* Círculo contenedor */
@@ -218,15 +239,14 @@ body, html {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background-color: #E99A3C;
+  background-color: #e99a3c;
   border: 4px solid white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
   overflow: hidden;
   padding: 4px;
   z-index: 2;
-  margin: auto auto 0.5rem auto; /* centrado horizontal */
+  margin: auto auto 0.5rem; /* centrado horizontal */
   display: block; /* importante margin auto */
-
 }
 
 /* Imagen dentro del círculo */
@@ -236,18 +256,17 @@ body, html {
   object-fit: contain;
   border-radius: 50%;
   margin: 20px auto-center; /* centrado horizontal */
-    
 }
 
 /* Contenido de la tarjeta */
 .body-tarjeta {
-  padding: 40px 20px 30px 20px;
+  padding: 40px 20px 30px;
   text-align: center;
 }
 
 .title-tarjeta {
-  color: #F6FFFE;
-  font-family: 'Gloock', verdana;
+  color: #f6fffe;
+  font-family: Gloock, verdana;
   font-weight: 400;
   font-size: 25px;
   letter-spacing: 1.5px;
@@ -262,14 +281,14 @@ body, html {
 
 .estrellas_vot {
   display: flex;
-  color: #F6FFFE;
+  color: #f6fffe;
   justify-content: center;
   margin-bottom: 1rem;
   padding-bottom: 20px;
   gap: 40px;
 }
 
-.star{
+.star {
   transform: rotate(45deg);
 }
 
@@ -280,19 +299,21 @@ body, html {
   gap: 10px;
 }
 
-.tiempo-receta, .dificultad-receta {
+.tiempo-receta,
+.dificultad-receta {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #F6FFFE;
+  color: #f6fffe;
   font-size: 14px;
 }
 
-.grupo_tiempo, .grupo_dif {
+.grupo_tiempo,
+.grupo_dif {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin: 6px 2px 4px 2px; /*top-right-bottom-left*/
+  margin: 6px 2px 4px; /* top-right-bottom-left */
 }
 
 .linea-datos {
@@ -301,6 +322,7 @@ body, html {
   background-color: #fff;
 }
 
-.lbl_tiempo_receta, .lbl_dificultad {
+.lbl_tiempo_receta,
+.lbl_dificultad {
   margin: 0;
 }

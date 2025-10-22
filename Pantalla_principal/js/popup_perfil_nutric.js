@@ -5,7 +5,8 @@ function inicializarPopupPerfil() {
   if (btnPerfil && menuPopup) {
     btnPerfil.addEventListener("click", (e) => {
       e.stopPropagation();
-      menuPopup.style.display = menuPopup.style.display === "none" ? "block" : "none";
+      menuPopup.style.display =
+        menuPopup.style.display === "none" ? "block" : "none";
     });
 
     document.addEventListener("click", (e) => {

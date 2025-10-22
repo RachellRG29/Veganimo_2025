@@ -2,11 +2,11 @@
 // FUNCIONES DE INTERFAZ
 // =========================
 
-//VALIDACIONES PARA CREAR RECETA 
+//VALIDACIONES PARA CREAR RECETA
 
 function cambiarColorIcono() {
-  const icon = document.getElementById('icon-dificultad');
-  const valor = document.getElementById('select-dificultad').value;
+  const icon = document.getElementById("icon-dificultad");
+  const valor = document.getElementById("select-dificultad").value;
 
   if (valor === "Alta") icon.style.color = "red";
   else if (valor === "Media") icon.style.color = "orange";
@@ -99,7 +99,9 @@ function agregarPaso() {
 }
 
 function actualizarNumeracionIngredientes() {
-  const ingredientes = document.querySelectorAll("#lista-ingredientes input[name='ingredientes[]']");
+  const ingredientes = document.querySelectorAll(
+    "#lista-ingredientes input[name='ingredientes[]']",
+  );
   ingredientes.forEach((input, index) => {
     input.placeholder = `Ingrediente ${index + 1}`;
   });
@@ -132,7 +134,7 @@ function resetFormulario() {
 
 /*--------------------------------MODAL PARA RECORTAR IMAGEN    --------------------------------- */
 // Agrega estilos personalizados para los botones de SweetAlert2
-const estiloBotonesSwal = document.createElement('style');
+const estiloBotonesSwal = document.createElement("style");
 estiloBotonesSwal.innerHTML = `
   .btn-confirmar {
     background-image: linear-gradient(
@@ -184,23 +186,23 @@ function mostrarPreviewReceta(input, imgElement) {
   reader.onload = function (e) {
     // Mostrar modal de SweetAlert2 con Cropper
     Swal.fire({
-      title: 'Recortar imagen',
+      title: "Recortar imagen",
       html: `
         <div style="width: 100%; max-height: 60vh; margin: 0 auto;">
           <img id="imagen-modal" src="${e.target.result}" style="max-width: 100%;">
         </div>
       `,
       showCancelButton: true,
-      confirmButtonText: 'Aplicar',
-      cancelButtonText: 'Cancelar',
+      confirmButtonText: "Aplicar",
+      cancelButtonText: "Cancelar",
       customClass: {
-        confirmButton: 'btn-confirmar',
-        cancelButton: 'btn-cancelar'
+        confirmButton: "btn-confirmar",
+        cancelButton: "btn-cancelar",
       },
-      buttonsStyling: false, 
+      buttonsStyling: false,
       didOpen: () => {
         // Inicializar Cropper en el modal
-        const image = document.getElementById('imagen-modal');
+        const image = document.getElementById("imagen-modal");
         cropper = new Cropper(image, {
           aspectRatio: 1, // Forma circular
           viewMode: 1,
@@ -212,20 +214,20 @@ function mostrarPreviewReceta(input, imgElement) {
         const canvas = cropper.getCroppedCanvas({
           width: 300,
           height: 300,
-          fillColor: '#fff', // Fondo blanco
+          fillColor: "#fff", // Fondo blanco
         });
-        return canvas.toDataURL('image/png'); // Retorna la imagen recortada
-      }
+        return canvas.toDataURL("image/png"); // Retorna la imagen recortada
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         // Mostrar imagen recortada en el preview
         imgElement.src = result.value;
-        imgElement.style.display = 'block';
+        imgElement.style.display = "block";
         //imgElement.style.borderRadius = '50%';  Forma circular
-        document.querySelector('.icono-placeholder').style.display = 'none';
+        document.querySelector(".icono-placeholder").style.display = "none";
       } else {
         // Si cancela, limpia el input
-        input.value = '';
+        input.value = "";
       }
     });
   };
@@ -246,12 +248,13 @@ function agregarBotonAplicar() {
   boton.onclick = function () {
     // Obtener imagen recortada y actualizar el preview
     const canvas = cropper.getCroppedCanvas({
-      width: 300,  // Tamaño final (ajústalo)
+      width: 300, // Tamaño final (ajústalo)
       height: 300,
       fillColor: "#fff", // Fondo blanco para bordes transparentes
     });
-    document.getElementById("preview-imagen-receta").src = canvas.toDataURL("image/png");
-    
+    document.getElementById("preview-imagen-receta").src =
+      canvas.toDataURL("image/png");
+
     // Ocultar el botón después de aplicar
     boton.style.display = "none";
   };
@@ -267,7 +270,8 @@ function mostrarPreviewPaso(input, imgElement) {
     reader.onload = function (e) {
       imgElement.src = e.target.result;
       imgElement.style.display = "block";
-      const icono = imgElement.parentElement.querySelector('.icono-placeholder');
+      const icono =
+        imgElement.parentElement.querySelector(".icono-placeholder");
       if (icono) icono.style.display = "none";
     };
     reader.readAsDataURL(file);

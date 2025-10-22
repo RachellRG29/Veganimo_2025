@@ -1,4 +1,5 @@
 <?php
+
 // ======================== CONFIGURACIONES Y PERMISOS ========================
 
 // Importa la configuración de conexión a MongoDB
@@ -17,7 +18,7 @@ checkAdminAccess();
 try {
     // Obtiene el método HTTP usado en la petición (GET, PUT, DELETE)
     $method = $_SERVER['REQUEST_METHOD'];
-    
+
     // ======================== OBTENER USUARIOS ========================
     if ($method === 'GET') {
 
@@ -50,18 +51,18 @@ try {
             // Agrega el usuario procesado al arreglo
             $usuarios[] = $usuario;
         }
-        
+
         // Devuelve todos los usuarios en formato JSON
         echo json_encode($usuarios);
     }
-    
+
     // ======================== ACTUALIZAR USUARIO ========================
     elseif ($method === 'PUT') {
         // Obtiene los datos enviados en el cuerpo de la solicitud (en formato JSON)
         $data = json_decode(file_get_contents('php://input'), true);
-        
+
         // Crea un objeto BulkWrite (permite hacer operaciones de escritura en MongoDB)
-        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk = new MongoDB\Driver\BulkWrite();
 
         // Filtro para identificar al usuario a modificar por su _id
         $filter = ['_id' => new MongoDB\BSON\ObjectId($data['_id'])];
@@ -72,31 +73,31 @@ try {
                 'fullname' => $data['fullname'],
                 'email' => $data['email'],
                 'birthdate' => $data['birthdate'],
-                'gender' => $data['gender']
-            ]
+                'gender' => $data['gender'],
+            ],
         ];
-        
+
         // Si el usuario proporcionó una nueva contraseña, se valida y se encripta
         if (!empty($data['password'])) {
             // Verifica que la contraseña y su confirmación coincidan
             if ($data['password'] !== $data['confirmPassword']) {
-                throw new Exception("Las contraseñas no coinciden");
+                throw new Exception('Las contraseñas no coinciden');
             }
 
             // Hashea (encripta) la nueva contraseña con el algoritmo por defecto de PHP
             $update['$set']['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         }
-        
+
         // Agrega la operación de actualización a la cola de BulkWrite
         $bulk->update($filter, $update);
 
         // Ejecuta la operación en la base de datos
         $result = $cliente->executeBulkWrite('Veganimo.Usuarios', $bulk);
-        
+
         // Devuelve una respuesta con éxito y cuántos documentos fueron modificados
         echo json_encode(['success' => true, 'modified' => $result->getModifiedCount()]);
     }
-    
+
     // ======================== ELIMINAR USUARIO ========================
     elseif ($method === 'DELETE') {
         // Obtiene el ID del usuario desde los parámetros de la URL (?id=xxxxx)
@@ -111,16 +112,16 @@ try {
 
         // Si no se encuentra el usuario, se lanza una excepción
         if (!$usuario) {
-            throw new Exception("Usuario no encontrado");
+            throw new Exception('Usuario no encontrado');
         }
 
         // Si el usuario es un administrador, no se permite eliminarlo
         if (isset($usuario->role) && $usuario->role === 'admin') {
-            throw new Exception("No se puede eliminar a un administrador");
+            throw new Exception('No se puede eliminar a un administrador');
         }
 
         // Si no es admin, se procede a eliminarlo
-        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk = new MongoDB\Driver\BulkWrite();
         $bulk->delete(['_id' => new MongoDB\BSON\ObjectId($id)]);
 
         // Ejecuta la operación de eliminación
@@ -129,10 +130,9 @@ try {
         // Devuelve una respuesta con éxito y cuántos documentos fueron eliminados
         echo json_encode(['success' => true, 'deleted' => $result->getDeletedCount()]);
     }
-    
+
 } catch (Exception $e) {
     // Si ocurre un error en cualquier parte del código, se devuelve el mensaje en JSON
     http_response_code(500);
     echo json_encode(['error' => $e->getMessage()]);
 }
-?>

@@ -1,310 +1,335 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   /*border: 1px solid yellow;  */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* border: 1px solid yellow;  */
 }
 
 body {
-    font-family: 'Comfortaa', cursive;
-    color: #1A1C1C;
-    position: relative;
-    min-height: 100vh;
-    overflow-x: hidden;
-    background: url('/Images/fondo_pu_claro.png') ;
+  font-family: Comfortaa, cursive;
+  color: #1a1c1c;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: url("/Images/fondo_pu_claro.png");
 }
 
-.barra_volver{
-    position: relative;
-    gap: 20px;
+.barra_volver {
+  position: relative;
+  gap: 20px;
 }
 
 /* Navbar */
 .navbar {
-    background-color: #154734;
-    height: 68px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 100;
+  background-color: #154734;
+  height: 68px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
 }
-/* Logo de veganimmo*/
+
+/* Logo de veganimmo */
 .logo {
-    display: flex;
-    justify-content: flex-end; 
-    align-items: center;
-    width: 100%; 
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
 }
 
 .logo svg {
-    width: 45px;
-    height: 54px;
-    fill: #F6FFFE;
-    font-weight: bold;
+  width: 45px;
+  height: 54px;
+  fill: #f6fffe;
+  font-weight: bold;
 }
-
 
 /* Botón Volver */
 .back-button {
-    position: fixed;
-    top: 18px;
-    left: 20px;
-    background-color: #E0FFF2;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    font-family: 'Comfortaa', cursive;
-    font-size: 16px;
-    color: #1A1C1C;
-    box-shadow: inset 0 0 8px #007848;
-    cursor: pointer;
-    z-index: 1000;
+  position: fixed;
+  top: 18px;
+  left: 20px;
+  background-color: #e0fff2;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  font-family: Comfortaa, cursive;
+  font-size: 16px;
+  color: #1a1c1c;
+  box-shadow: inset 0 0 8px #007848;
+  cursor: pointer;
+  z-index: 1000;
 }
 
 .back-button .icon {
-    width: 10px;
-    height: 17px;
-    background-color: #0E9863;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%);
-    margin-right: 8px;
+  width: 10px;
+  height: 17px;
+  background-color: #0e9863;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  margin-right: 8px;
 }
 
 /* Contenedor principal */
 .main-container {
-    display: grid;
-    grid-template-columns: 680px 620px;
-    grid-template-rows: 400px 46px 150px;
-    gap: 12px;
-    padding: 90px 40px 40px; /*top-*/
-    justify-content: center;
-    max-width: 1000px;
-    margin: 10px auto;
+  display: grid;
+  grid-template-columns: 680px 620px;
+  grid-template-rows: 400px 46px 150px;
+  gap: 12px;
+  padding: 90px 40px 40px; /* top- */
+  justify-content: center;
+  max-width: 1000px;
+  margin: 10px auto;
 }
 
 /* Secciones comunes */
 .section {
-    background-color: #007848;
-    border-radius: 24px;
-    padding: 24px;
-    color: #F6FFFE;
-    position: relative;
+  background-color: #007848;
+  border-radius: 24px;
+  padding: 24px;
+  color: #f6fffe;
+  position: relative;
 }
 
 .section-title {
-    font-family: 'Gloock', serif;
-    font-size: 28px;
-    font-weight: 300;
-    letter-spacing: 1px;
-    margin-bottom: 12px;  
+  font-family: Gloock, serif;
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
 }
 
 .decorative-line {
-    width: 172px;
-    height: 3px;
-    background-color: #E99A3C;
-    margin-bottom: 20px;
+  width: 172px;
+  height: 3px;
+  background-color: #e99a3c;
+  margin-bottom: 20px;
 }
 
 /* Datos Personales */
 .personal-data {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
-    flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .info-box {
-    position: absolute;
-    right: 24px;
-    top: 80px;
-    width: 352px;
-    height: 300px;
-    background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
-    border-radius: 16px;
-    padding: 20px;
-    color: #1A1C1C;
+  position: absolute;
+  right: 24px;
+  top: 80px;
+  width: 352px;
+  height: 300px;
+  background: radial-gradient(
+    ellipse at bottom left,
+    #e99a3c 0%,
+    #f6fffee7 40%
+  );
+  border-radius: 16px;
+  padding: 20px;
+  color: #1a1c1c;
 }
 
 .info-item {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .info-label {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .info-value {
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 8px 12px;
-    border-radius: 8px;
+  font-size: 16px;
+  background-color: rgb(255 255 255 / 50%);
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
-/* ----------Perfil Nutricional Vista SIN PERFIL NUTRICIONAL ---------------------------------------------------------------------------*/
+/* ----------Perfil Nutricional Vista SIN PERFIL NUTRICIONAL --------------------------------------------------------------------------- */
 .nutritional-profile {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    gap:20px;
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  gap: 20px;
 }
 
 .profile-content {
-    background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
-    border-radius: 16px;
-    height: 580px;
-    padding: 20px;
-    color: #1A1C1C;
-    display: flex;
-    flex-direction: column;
-    position: relative; /* Necesario para posicionar elementos hijos */
-    margin-top: -80px !important;
+  background: radial-gradient(
+    ellipse at bottom left,
+    #e99a3c 0%,
+    #f6fffee7 40%
+  );
+  border-radius: 16px;
+  height: 580px;
+  padding: 20px;
+  color: #1a1c1c;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Necesario para posicionar elementos hijos */
+  margin-top: -80px !important;
 }
 
 .profile-subtitle {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #1A1C1C;
-    align-self: flex-start;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #1a1c1c;
+  align-self: flex-start;
 }
 
 .profile-description {
-    font-size: 16px;
-    margin-bottom: 20px;
-    color: #1A1C1C;
-    align-self: flex-start;
-    text-align: left;
-    word-spacing: 2px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #1a1c1c;
+  align-self: flex-start;
+  text-align: left;
+  word-spacing: 2px;
 }
 
 .create-button {
-    background: linear-gradient(to right, #F6FFFE, #FFE24F);
-    border: none;
-    border-radius: 50px;
-    padding: 14px 20px;
-    font-family: 'Comfortaa', cursive;
-    font-size: 15px;
-    color: #1A1C1C;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    align-self: flex-end; /* Botón a la derecha */
-    text-decoration: none;
-    margin-top: 10px;
-    margin-right: 10px;
+  background: linear-gradient(to right, #f6fffe, #ffe24f);
+  border: none;
+  border-radius: 50px;
+  padding: 14px 20px;
+  font-family: Comfortaa, cursive;
+  font-size: 15px;
+  color: #1a1c1c;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  align-self: flex-end; /* Botón a la derecha */
+  text-decoration: none;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .profile-illustration {
-    position: absolute;
-    left: 20px; /* Imagen abajo a la izquierda */
-    bottom: 20px;
+  position: absolute;
+  left: 20px; /* Imagen abajo a la izquierda */
+  bottom: 20px;
 }
 
-.illus_sperf{
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
+.illus_sperf {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
 }
 
-/*imagen avatar predeterminado*/
+/* imagen avatar predeterminado */
 .illustration-image {
-    width: 240px;
-    height: 240px;
-    aspect-ratio: 1;
-	clip-path: shape(from 85.35% 14.65%,arc by -70.74% 0% of 50.03% 50.01% small ccw,arc by -7.65% 60.77% of 50.03% 50.01% small ccw,line by -5.88% 23.48%,line by 23.45% -5.86%,arc by 60.82% -7.66% of 50.03% 50.01% small ccw,arc by 0% -70.73% of 50.03% 50.01% small ccw,close);
+  width: 240px;
+  height: 240px;
+  aspect-ratio: 1;
+  clip-path: shape(
+    from 85.35% 14.65%,
+    arc by -70.74% 0% of 50.03% 50.01% small ccw,
+    arc by -7.65% 60.77% of 50.03% 50.01% small ccw,
+    line by -5.88% 23.48%,
+    line by 23.45% -5.86%,
+    arc by 60.82% -7.66% of 50.03% 50.01% small ccw,
+    arc by 0% -70.73% of 50.03% 50.01% small ccw,
+    close
+  );
 }
 
-/*menu img*/
-.illustration-menu{
-    position: relative;
-    width: 120px;
-    height: auto;
-    rotate: -10deg;
-    margin-left: 200px;
+/* menu img */
+.illustration-menu {
+  position: relative;
+  width: 120px;
+  height: auto;
+  rotate: -10deg;
+  margin-left: 200px;
 }
 
 .arrow-icon {
-   font-size: 22px !important; /* Tamaño ajustado para el icono */
-    width: 22px !important;
-    height: 22px !important;
-    justify-content: center;
-    margin-left: 5px;
+  font-size: 22px !important; /* Tamaño ajustado para el icono */
+  width: 22px !important;
+  height: 22px !important;
+  justify-content: center;
+  margin-left: 5px;
 }
 
 /* Nivel */
 .user-level {
-    grid-column: 1;
-    grid-row: 2;
-    display: flex;
-    align-items: center;
-    padding: 0 24px;
-    border-radius: 14px;
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-radius: 14px;
 }
 
 .level-title {
-    font-family: 'Gloock', serif;
-    font-size: 26px;
-    font-weight: 300;
-    letter-spacing: 1px;
+  font-family: Gloock, serif;
+  font-size: 26px;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
 .level-value {
-    font-family: 'Comfortaa', cursive;
-    font-size: 20px;
+  font-family: Comfortaa, cursive;
+  font-size: 20px;
 }
 
 /* Próximamente */
 .coming-soon {
-    grid-column: 1;
-    grid-row: 3;
+  grid-column: 1;
+  grid-row: 3;
 }
 
 /* ---------------------------Grid para perfil nutricional con datos------------------------------------------------ */
 .profile-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 15px;
-    height: 520px; /*alto tarjetita dinamica*/
-    max-height: 500px;
-    margin-top: -90px;
-    
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 15px;
+  height: 520px; /* alto tarjetita dinamica */
+  max-height: 500px;
+  margin-top: -90px;
 }
 
 .grid-item {
-    background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
-    border-radius: 23px;
-    padding: 15px;
-    color: #1A1C1C;
-    position: relative;
+  background: radial-gradient(
+    ellipse at bottom left,
+    #e99a3c 0%,
+    #f6fffee7 40%
+  );
+  border-radius: 23px;
+  padding: 15px;
+  color: #1a1c1c;
+  position: relative;
 }
 
 .grid-item-large {
-    grid-column: span 2;
+  grid-column: span 2;
 }
 
 .see-more {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    
-    background-image: linear-gradient(to right, #FFE24F 0%, #F6FFFE 51%, #FFE24F 100%);
-    border: none;
-    border-radius: 50px;
-    padding: 5px 15px;
-    font-family: 'Comfortaa', cursive;
-    font-size: 13px;
-    color: #1A1C1C;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-image: linear-gradient(
+    to right,
+    #ffe24f 0%,
+    #f6fffe 51%,
+    #ffe24f 100%
+  );
+  border: none;
+  border-radius: 50px;
+  padding: 5px 15px;
+  font-family: Comfortaa, cursive;
+  font-size: 13px;
+  color: #1a1c1c;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .see {
@@ -314,290 +339,311 @@ body {
   background-size: 200% auto;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
- }
+}
 
-.see-more:hover{
-     background-position: right center;
+.see-more:hover {
+  background-position: right center;
 }
 
 .item-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .item-content {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 /* Estado de carga */
 .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #007848;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
+  border: 4px solid rgb(0 0 0 / 10%);
+  border-left: 4px solid #007848;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ----------------------------- MODAL DEL PORTAL DEL USUARIO ----------------------------- */
 .modal {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 10000;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgb(0 0 0 / 60%);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 .modal.show {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 /* ===== MODAL CONTENT ===== */
 .modal .modal-content {
-    position: relative;
-    width: min(800px, 92vw);
-    max-height: 85vh;
-    overflow-y: auto;
-    background: #fdfdfd;
-    border-radius: 18px;
-    padding: 28px 32px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-    transform: translateY(20px) scale(0.96);
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  width: min(800px, 92vw);
+  max-height: 85vh;
+  overflow-y: auto;
+  background: #fdfdfd;
+  border-radius: 18px;
+  padding: 28px 32px;
+  box-shadow: 0 20px 50px rgb(0 0 0 / 25%);
+  transform: translateY(20px) scale(0.96);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .modal.show .modal-content {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+  transform: translateY(0) scale(1);
+  box-shadow: 0 25px 60px rgb(0 0 0 / 30%);
 }
 
 /* versión ancha para resumen */
 .modal .modal-content.resumen-completo {
-    width: min(1000px, 96vw);
+  width: min(1000px, 96vw);
 }
 
 /* ===== BOTON DE MODAL CERRAR ===== */
 .modal .close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 34px; /* Mantener tamaño pero hacerlo cuadrado */
-    height: 34px;
-    border: none;
-    border-radius: 8px; /* Esquinas ligeramente redondeadas para estética */
-    background-color: #007848; /* Color de fondo verde solicitado */
-    color: #DAFFDA; /* Color del icono solicitado */
-    font-size: 22px;
-    line-height: 34px;
-    text-align: center;
-    cursor: pointer;
-    user-select: none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 34px; /* Mantener tamaño pero hacerlo cuadrado */
+  height: 34px;
+  border: none;
+  border-radius: 8px; /* Esquinas ligeramente redondeadas para estética */
+  background-color: #007848; /* Color de fondo verde solicitado */
+  color: #daffda; /* Color del icono solicitado */
+  font-size: 22px;
+  line-height: 34px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .modal .close:hover {
-    background: #006640; /* Verde un poco más oscuro al hover */
-    color: #FFFFFF; /* Blanco puro al hover para mejor contraste */
-    transform: rotate(90deg) scale(1.1); /* Mantener la animación original */
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  background: #006640; /* Verde un poco más oscuro al hover */
+  color: #fff; /* Blanco puro al hover para mejor contraste */
+  transform: rotate(90deg) scale(1.1); /* Mantener la animación original */
+  box-shadow: 0 3px 10px rgb(0 0 0 / 30%);
 }
 
-
-
 body.modal-open {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 @keyframes modal-fade {
-    from { opacity: 0; transform: translateY(20px) scale(0.96); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
+
 .modal.show .modal-content {
-    animation: modal-fade 0.3s ease;
+  animation: modal-fade 0.3s ease;
 }
 
 /* -------- MODAL ESTILOS -------- */
 .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal.show {
-    animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .modal .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    max-height: 100vh;
-    overflow-y: auto;
-    width: min(1000px, 100vw); /*tamaño ancho y alto modal para elegir avatar*/
-    position: relative;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 100vh;
+  overflow-y: auto;
+  width: min(1000px, 100vw); /* tamaño ancho y alto modal para elegir avatar */
+  position: relative;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 30%);
 }
 
 /* versión ancha para resumen */
 .modal .modal-content.resumen-completo {
-    width: min(900px, 96vw);
+  width: min(900px, 96vw);
 }
 
 .modal .close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.5rem;
-    cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 /* estilo dividido en bloques con líneas */
 #modal-body h4 {
-    margin-top: 20px;
-    padding-bottom: 5px;
-    border-bottom: 2px solid #ddd;
-    color: #444;
+  margin-top: 20px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #ddd;
+  color: #444;
 }
 
 #modal-body p {
-    margin: 8px 0;
-    padding: 8px 12px;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    background: #f3fdf9;
+  margin: 8px 0;
+  padding: 8px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #f3fdf9;
 }
 
 #modal-body ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 #modal-body ul li {
-    padding: 8px 12px;
-    border-bottom: 1px solid #eee;
+  padding: 8px 12px;
+  border-bottom: 1px solid #eee;
 }
 
 #modal-body ul li:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* modal básico */
 .modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 50%);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .modal.show {
-    display: flex;
+  display: flex;
 }
 
 .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 90%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
 }
 
 .close {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 /* Contenedor del avatar principal */
 .avatar-container {
-    position: absolute;
-    left: 24px;
-    top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 229px;
-    height: 229px;
+  position: absolute;
+  left: 24px;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 229px;
+  height: 229px;
 }
 
-/* avatar dentro de datos generlaes*/
+/* avatar dentro de datos generlaes */
 .avatar {
-    width: 229px;
-    height: 229px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f6fffe, #E99A3C);
-    border: 3px solid #F6FFFE;
-    overflow: hidden;
-    cursor: pointer;
+  width: 229px;
+  height: 229px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f6fffe, #e99a3c);
+  border: 3px solid #f6fffe;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ajusta la imagen sin deformar */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ajusta la imagen sin deformar */
 }
 
 /* Botón de editar avatar */
 .edit-avatar {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    width: 50px; /* Tamaño ciruclo editar avatar 30px */
-    height: 50px;
-    background-color: #F6FFFE;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 50px; /* Tamaño ciruclo editar avatar 30px */
+  height: 50px;
+  background-color: #f6fffe;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
 }
 
-
 .edit-icon {
-    font-size: 30px !important; /* Tamaño ajustado para el icono */
-    color: #154734 !important;
-    width: 30px !important;
-    height: 30px !important;
+  font-size: 30px !important; /* Tamaño ajustado para el icono */
+  color: #154734 !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 
 /* ===== MODAL DE AVATARES CON ESTRUCTURA ESPECÍFICA ===== */
@@ -605,15 +651,13 @@ body.modal-open {
   max-width: 1200px;
   width: 95vw;
   padding: 30px;
-  max-height: 90vh; 
-  overflow-y: auto;    /* ✅ Scroll vertical */
-  overflow-x: hidden;  /* ✅ Sin scroll horizontal */
+  max-height: 90vh;
+  overflow: hidden auto; /* ✅ Scroll vertical */ /* ✅ Sin scroll horizontal */
   align-content: flex-start;
-
 }
 
 #modal-avatar .modal-content h3 {
-  font-family: 'Gloock', serif;
+  font-family: Gloock, serif;
   letter-spacing: 1px;
   font-weight: 300;
   color: #154734;
@@ -632,7 +676,7 @@ body.modal-open {
   transform: translateX(-50%);
   width: 200px;
   height: 3px;
-  background-color: #E99A3C;
+  background-color: #e99a3c;
   border-radius: 2px;
 }
 
@@ -645,12 +689,12 @@ body.modal-open {
 }
 
 .avatar-section-title {
-  font-family: 'comfortaa', serif;
+  font-family: comfortaa, serif;
   font-size: 18px;
-  color: #1A1C1C;
+  color: #1a1c1c;
   text-align: center;
   margin-bottom: 10px;
-  border-bottom: 2px solid #E99A3C;
+  border-bottom: 2px solid #e99a3c;
   padding-bottom: 5px;
 }
 
@@ -668,19 +712,21 @@ body.modal-open {
 }
 
 .avatar-grid img {
-  width: 150px; /*tamaño avatares individuales*/
+  width: 150px; /* tamaño avatares individuales */
   height: 150px;
   object-fit: cover;
   border-radius: 8px; /* Cambiado a cuadrado según solicitud */
   cursor: pointer;
   border: 2px solid transparent;
-  transition: transform 0.2s, border 0.2s;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition:
+    transform 0.2s,
+    border 0.2s;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 10%);
 }
 
 .avatar-grid img:hover {
   transform: scale(1.05);
-  border: 2px solid #E99A3C; /* Línea naranja al hacer hover */
+  border: 2px solid #e99a3c; /* Línea naranja al hacer hover */
 }
 
 .avatar-name {
@@ -698,7 +744,7 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   padding: 15px;
-  border-right: 2px solid #E99A3C; /* Línea naranja divisoria */
+  border-right: 2px solid #e99a3c; /* Línea naranja divisoria */
 }
 
 /* Secciones de avatares masculinos y femeninos */
@@ -712,785 +758,751 @@ body.modal-open {
   grid-row: 2;
 }
 
+/* -----------------MODAL VISUALIZACION DEL AVATAR INDIVIDUAL ----------------------------- */
 
-/*-----------------MODAL VISUALIZACION DEL AVATAR INDIVIDUAL -----------------------------*/
 /* Modal para avatar grande */
 #avatar-large-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgb(0 0 0 / 80%);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
 }
 
 #avatar-large-modal img {
-    /* TAMAÑO MODIFICADO - Cambia estos valores según necesites */
-    max-width: 75%;  /* Reducido de 80% */
-    max-height: 75%; /* Reducido de 80% */
-    width: auto;     /* Mantiene la proporción */
-    height: auto;    /* Mantiene la proporción */
-    border-radius: 12px;
-    border: 3px solid #E99A3C; /* Borde naranja opcional */
-    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+  /* TAMAÑO MODIFICADO - Cambia estos valores según necesites */
+  max-width: 75%; /* Reducido de 80% */
+  max-height: 75%; /* Reducido de 80% */
+  width: auto; /* Mantiene la proporción */
+  height: auto; /* Mantiene la proporción */
+  border-radius: 12px;
+  border: 3px solid #e99a3c; /* Borde naranja opcional */
+  box-shadow: 0 5px 25px rgb(0 0 0 / 50%);
 }
 
 #avatar-large-modal.show {
-    display: flex;
+  display: flex;
 }
 
 /* =========================== RESPONSIVE DESIGN =========================== */
 
-@media (min-width: 1440px) and (max-width: 2000px) {
-    .main-container {
-        grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
-        gap: 12px;
-        max-width: 1400px;
-    }
+@media (width >= 1440px) and (width <= 2000px) {
+  .main-container {
+    grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
+    gap: 12px;
+    max-width: 1400px;
+  }
 
-    .personal-data {
-        grid-column: 1;
-        grid-row: 1;
-    }
+  .personal-data {
+    grid-column: 1;
+    grid-row: 1;
+  }
 
-    .info-box {
-        width: 460px !important;
-        height: 300px !important;
-        min-height: 300px;
-        min-width: 100px;
-        height: auto;
-        justify-content: center;
-    }
+  .info-box {
+    width: 460px !important;
+    height: 300px !important;
+    min-height: 300px;
+    min-width: 100px;
+    justify-content: center;
+  }
 
-     .user-level {
-        grid-column: 1;
-        grid-row: 2;
-    }
+  .user-level {
+    grid-column: 1;
+    grid-row: 2;
+  }
 
-    .coming-soon {
-        grid-column: 1;
-        grid-row: 3;
-    }
+  .coming-soon {
+    grid-column: 1;
+    grid-row: 3;
+  }
 
-    /*AVATAR MODAL*/
-      .avatar-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 columnas */
-        gap: 20px;
-        justify-items: center;
-    }
+  /* AVATAR MODAL */
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+    gap: 20px;
+    justify-items: center;
+  }
 
-    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
-    .profile-content {
-        height: auto;
-        min-height: 500px;
-        padding: 15px;
-    }
-    
-    .create-button {
-        align-self: flex-end;
-        margin: 10px 0;
-    }
-    
-    .profile-illustration {
-        position: relative;
-        left: 0;
-        bottom: 0;
-        text-align: center;
-        margin-top: 20px;
-    }
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
+  .profile-content {
+    height: auto;
+    min-height: 500px;
+    padding: 15px;
+  }
 
-    /*imagen avatar predeterminado*/
-    .illustration-image {
-        width: 190px;
-        height: 190px;
-        position: absolute;
-        left: 0;
-        top: -40px;   
-    }
+  .create-button {
+    align-self: flex-end;
+    margin: 10px 0;
+  }
 
-    .illustration-menu{
-        position: relative;
-        width: 100px;
-        height: auto;
-        rotate: -10deg;
-        margin-left: 190px;
-    }
+  .profile-illustration {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    margin-top: 20px;
+  }
 
+  /* imagen avatar predeterminado */
+  .illustration-image {
+    width: 190px;
+    height: 190px;
+    position: absolute;
+    left: 0;
+    top: -40px;
+  }
+
+  .illustration-menu {
+    position: relative;
+    width: 100px;
+    height: auto;
+    rotate: -10deg;
+    margin-left: 190px;
+  }
 }
+
 /* ===== 1025px a 1440px (Laptops grandes / PC) ===== */
-@media (min-width: 1230px) and (max-width: 1440px) {
-    .main-container {
-        grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
-        gap: 12px;
-        max-width: 1400px;
-    }
+@media (width >= 1230px) and (width <= 1440px) {
+  .main-container {
+    grid-template-columns: minmax(250px, 60%) minmax(200px, 40%);
+    gap: 12px;
+    max-width: 1400px;
+  }
 
-    .personal-data {
-        grid-column: 1;
-        grid-row: 1;
-    }
+  .personal-data {
+    grid-column: 1;
+    grid-row: 1;
+  }
 
-     .user-level {
-        grid-column: 1;
-        grid-row: 2;
-    }
+  .user-level {
+    grid-column: 1;
+    grid-row: 2;
+  }
 
-    .coming-soon {
-        grid-column: 1;
-        grid-row: 3;
-    }
+  .coming-soon {
+    grid-column: 1;
+    grid-row: 3;
+  }
 
-    /*AVATAR MODAL*/
-      .avatar-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 columnas */
-        gap: 20px;
-        justify-items: center;
-    }
+  /* AVATAR MODAL */
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+    gap: 20px;
+    justify-items: center;
+  }
 
-    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
-    .profile-content {
-        height: auto;
-        min-height: 500px;
-        padding: 15px;
-    }
-    
-    .create-button {
-        align-self: flex-end;
-        margin: 10px 0;
-    }
-    
-    .profile-illustration {
-        position: relative;
-        left: 0;
-        bottom: 0;
-        text-align: center;
-        margin-top: 20px;
-    }
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
+  .profile-content {
+    height: auto;
+    min-height: 500px;
+    padding: 15px;
+  }
 
-    /*imagen avatar predeterminado*/
-    .illustration-image {
-        width: 190px;
-        height: 190px;
-        position: absolute;
-        left: 0;
-        top: -40px;   
-    }
+  .create-button {
+    align-self: flex-end;
+    margin: 10px 0;
+  }
 
-    .illustration-menu{
-        position: relative;
-        width: 100px;
-        height: auto;
-        rotate: -10deg;
-        margin-left: 190px;
-    }
+  .profile-illustration {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    margin-top: 20px;
+  }
 
+  /* imagen avatar predeterminado */
+  .illustration-image {
+    width: 190px;
+    height: 190px;
+    position: absolute;
+    left: 0;
+    top: -40px;
+  }
+
+  .illustration-menu {
+    position: relative;
+    width: 100px;
+    height: auto;
+    rotate: -10deg;
+    margin-left: 190px;
+  }
 }
 
+@media (width >= 1025px) and (width <= 1230px) {
+  .main-container {
+    grid-template-columns: minmax(200px, 60%) minmax(250px, 40%);
+    gap: 12px;
+    max-width: 1400px;
+  }
 
-@media (min-width: 1025px) and (max-width: 1230px) {
-    .main-container {
-        grid-template-columns: minmax(200px, 60%) minmax(250px, 40%);
-        gap: 12px;
-        max-width: 1400px;
-    }
+  .profile-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: auto;
+  }
 
+  .info-box {
+    width: 350px;
+    min-width: 340px !important;
+    max-width: 390px !important;
+    min-height: 250px;
+    justify-content: center;
+  }
 
-    .profile-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        height: auto;
-    }
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+    gap: 18px;
+    justify-items: center;
+  }
 
-    .info-box {
-        width: 350px;
-        min-width: 340px !important;
-        max-width: 390px !important;
-        min-height: 250px; 
-       
-        justify-content: center;
-    }
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
 
-      .avatar-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-        gap: 18px;
-        justify-items: center;
-    }
+  /* SIN PERFIL NUTRICIONAL */
+  .profile-content {
+    height: auto;
+    min-height: 500px;
+    padding: 15px;
+  }
 
+  .profile-description {
+    font-size: 14px;
+  }
 
-    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
-    /* SIN PERFIL NUTRICIONAL */
-    .profile-content {
-        height: auto;
-        min-height: 500px;
-        padding: 15px;
-    }
+  .create-button {
+    align-self: flex-end;
+    margin: 10px 0;
+    font-size: 13px;
+  }
 
-    .profile-description{
-        font-size: 14px;
-    }
+  .profile-illustration {
+    position: relative;
+    left: 0;
+    bottom: 40px !important;
+    text-align: center;
+  }
 
-    .create-button {
-        align-self: flex-end;
-        margin: 10px 0;
-        font-size: 13px;
-    }
-    
-    .profile-illustration {
-        position: relative;
-        left: 0;
-        bottom: 40px !important;
-        text-align: center;
+  /* imagen avatar predeterminado */
+  .illustration-image {
+    width: 180px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: -50px !important;
+  }
 
-    }
-
-    /*imagen avatar predeterminado*/
-    .illustration-image {
-        width: 180px;
-        height: auto;
-        position: absolute;
-        left: 0;
-        top: -50px !important;   
-    }
-
-    .illustration-menu{
-        position: relative;
-        width: 90px;
-        height: auto;
-        margin-left: 150px;
-    }
-
-
+  .illustration-menu {
+    position: relative;
+    width: 90px;
+    height: auto;
+    margin-left: 150px;
+  }
 }
 
-@media (min-width: 800px) and (max-width: 1024px) {
-    .main-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: 700px auto auto auto;
-    }
+@media (width >= 800px) and (width <= 1024px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 700px auto auto auto;
+  }
 
+  .create-button {
+    font-size: 11px;
+    padding: 6px 15px;
+    align-self: center;
+    margin: 10px 0;
+  }
 
-    .create-button {
-        font-size: 11px;
-        padding: 6px 15px;
-        align-self: center;
-        margin: 10px 0;
-    }
+  .section {
+    grid-template-columns: repeat(3, 2fr);
+    margin-bottom: 15px;
+  }
 
-   .section {
-        grid-template-columns: repeat(3, 2fr);
-        margin-bottom: 15px;
-    }
+  .section.personal-data {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .section.personal-data{
-        position: relative;
-        display: flex;
-        flex-direction: column;
+  .nutritional-profile {
+    grid-row: auto !important;
+    min-height: 500px;
+  }
 
-    }
+  .avatar-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 20px;
+  }
 
-    .nutritional-profile {
-        grid-row: auto !important;
-        min-height: 500px;
-    }
+  .info-box {
+    position: relative;
+    width: 100%;
+    height: auto;
+    right: 0;
+    top: 0;
+  }
 
+  .item-title {
+    font-size: 16px;
+  }
 
-     .avatar-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin: 0 auto 20px;
-    }
-    .info-box {
-        position: relative;
-        width: 100%;
-        height: auto;
-        right: 0;
-        top: 0;
+  .item-content {
+    font-size: 12px;
+  }
 
-    }
-    
-    .item-title {
-        font-size: 16px;
-    }
-    
-    .item-content {
-        font-size: 12px;
-    }
-    
-    .see-more {
-        padding: 4px 10px;
-        font-size: 13px;
-    }
+  .see-more {
+    padding: 4px 10px;
+    font-size: 13px;
+  }
 
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 18px;
+    justify-items: center;
+  }
 
-    .avatar-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-        gap: 18px;
-        justify-items: center;
-    }
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
 
-    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
-    /* SIN PERFIL NUTRICIONAL */
+  /* SIN PERFIL NUTRICIONAL */
 
-    .profile-description{
-        font-size: 15px;
-    }
+  .profile-description {
+    font-size: 15px;
+  }
 
-    .create-button {
-        align-self: flex-end;
-        font-size: 16px;
-    }
-    
-    .profile-illustration {
-        position: relative;
-        left: 0;
-        bottom: 40px !important;
-        text-align: center;
+  .create-button {
+    align-self: flex-end;
+    font-size: 16px;
+  }
 
-    }
+  .profile-illustration {
+    position: relative;
+    left: 0;
+    bottom: 40px !important;
+    text-align: center;
+  }
 
-    /*imagen avatar predeterminado*/
-    .illustration-image {
-        width: 160px;
-        height: auto;
-        position: absolute;
-        left: 0;
-        top: -20px !important;   
-    }
+  /* imagen avatar predeterminado */
+  .illustration-image {
+    width: 160px;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: -20px !important;
+  }
 
-    .illustration-menu{
-        position: relative;
-        width: 90px;
-        height: auto;
-        margin-left: 150px;
-    }
-
-
+  .illustration-menu {
+    position: relative;
+    width: 90px;
+    height: auto;
+    margin-left: 150px;
+  }
 }
 
-@media (min-width: 600px) and (max-width: 799px) {
-    .navbar {
-        width: 100%;
-        height: 60px;
-        padding: 0 15px;
-        justify-content: space-between;
-    }
+@media (width >= 600px) and (width <= 799px) {
+  .navbar {
+    width: 100%;
+    height: 60px;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
 
-    .main-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        gap: 15px;
-        padding: 80px 20px 30px;
-    }
+  .main-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    gap: 15px;
+    padding: 80px 20px 30px;
+  }
 
-    .section {
-        grid-column: 1 !important;
-        grid-row: auto !important;
-        margin-bottom: 15px;
-    }
+  .section {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    margin-bottom: 15px;
+  }
 
-    .profile-subtitle{
-        font-size: 22px;
-    }
+  .profile-subtitle {
+    font-size: 22px;
+  }
 
-    .profile-description{
-        font-size: 16px;
-        margin-top: 6px;
-        text-align: start !important;
-    }
+  .profile-description {
+    font-size: 16px;
+    margin-top: 6px;
+    text-align: start !important;
+  }
 
-    .avatar-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin: 0 auto 20px;
-    }
-    
-    .profile-grid {
-        grid-template-columns: 2fr;
-        height: auto;
-        margin-top: 0;
-    }
+  .avatar-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 20px;
+  }
 
-    .info-box {
-        position: relative;
-        width: 100%;
-        height: auto;
-        right: 0;
-        top: 0;
-        margin-top: 20px;
-    }
+  .profile-grid {
+    grid-template-columns: 2fr;
+    height: auto;
+    margin-top: 0;
+  }
 
+  .info-box {
+    position: relative;
+    width: 100%;
+    height: auto;
+    right: 0;
+    top: 0;
+    margin-top: 20px;
+  }
 
-    .section.personal-data{
-        position: relative;
-        display: flex;
-        flex-direction: column;
+  .section.personal-data {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
 
-    }
+  .nutritional-profile .section {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
 
-    .nutritional-profile .section{
-        display: flex;
-        flex-direction: column;
-        height: auto;
-    }
+  .avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    gap: 18px;
+    justify-items: center;
+  }
 
-    .avatar-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-        gap: 18px;
-        justify-items: center;
-    }
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
 
-    /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
-    /* SIN PERFIL NUTRICIONAL */
-    
-    .profile-description{
-        font-size: 15px;
-    }
+  /* SIN PERFIL NUTRICIONAL */
 
-    .create-button {
-        align-self: center;
-        font-size: 16px !important;
-        padding: 14px 20px;
-    }
+  .profile-description {
+    font-size: 15px;
+  }
 
-    .profile-content{
-        margin-top: 10px !important;
-        bottom: 10px;
-    }
-    
-    .profile-illustration{
-        position: absolute;
-        bottom: -40px !important;
-    }
-    
+  .create-button {
+    align-self: center;
+    font-size: 16px !important;
+    padding: 14px 20px;
+  }
 
-    .illus_sperf{
-        position: absolute;
-       
-    }
+  .profile-content {
+    margin-top: 10px !important;
+    bottom: 10px;
+  }
 
-    /*imagen avatar predeterminado*/
-    .illustration-image {
-        width: 200px !important;
-        height: auto;
-        bottom: 0 !important;
-    }
+  .profile-illustration {
+    position: absolute;
+    bottom: -40px !important;
+  }
 
-    .illustration-menu{
-        position: absolute;
-        width: 120px;
-        height: auto;
-        margin-left: 200px;
-        bottom: 0 !important;
-    }
+  .illus_sperf {
+    position: absolute;
+  }
 
+  /* imagen avatar predeterminado */
+  .illustration-image {
+    width: 200px !important;
+    height: auto;
+    bottom: 0 !important;
+  }
 
-
+  .illustration-menu {
+    position: absolute;
+    width: 120px;
+    height: auto;
+    margin-left: 200px;
+    bottom: 0 !important;
+  }
 }
 
-@media (min-width: 500px) and (max-width: 798px) {
-    .navbar {
-        width: 100%;
-        height: 60px;
-        padding: 0 15px;
-        justify-content: space-between;
-    }
+@media (width >= 500px) and (width <= 798px) {
+  .navbar {
+    width: 100%;
+    height: 60px;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
 
-    .main-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        padding: 60px 15px 15px;
-    }
+  .main-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    padding: 60px 15px 15px;
+  }
 
-    .section {
-        grid-column: 1 !important;
-        grid-row: auto !important;
-        margin-bottom: 15px;
-    }
+  .section {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    margin-bottom: 15px;
+  }
 
-    .profile-subtitle{
-        font-size: 22px;
-    }
+  .profile-subtitle {
+    font-size: 22px;
+  }
 
-    .profile-description{
-        font-size: 16px;
-        margin-top: 6px;
-        text-align: start !important;
-    }
+  .profile-description {
+    font-size: 16px;
+    margin-top: 6px;
+    text-align: start !important;
+  }
 
-    .profile-grid {
-        display: flex;
-        flex-direction: column;
-        margin-top: -5px;
-    }
+  .profile-grid {
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+  }
 
-    .nutritional-profile {
-        grid-row: auto !important;
-        min-height: 600px;
-    }
+  .nutritional-profile {
+    grid-row: auto !important;
+    min-height: 600px;
+  }
 
-    .avatar-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin: 0 auto 20px;
-    }
-    
-    
-    .grid-item {
-        padding: 10px;
-    }
+  .avatar-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 20px;
+  }
 
-    .info-box {
-        position: relative;
-        width: 100%;
-        height: auto;
-        right: 0;
-        top: 0;
-        margin-top: 20px;
-    }
+  .grid-item {
+    padding: 10px;
+  }
 
+  .info-box {
+    position: relative;
+    width: 100%;
+    height: auto;
+    right: 0;
+    top: 0;
+    margin-top: 20px;
+  }
 
-    .section.personal-data{
-        position: relative;
-        display: flex;
-        flex-direction: column;
+  .section.personal-data {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
 
-    }
+  .nutritional-profile {
+    height: max-content;
+  }
 
-    .nutritional-profile{
-        height: max-content;
-    }
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
+  .profile-content {
+    margin-top: 10px !important;
+    bottom: 10px;
+  }
 
+  .profile-description {
+    font-size: 15px;
+    text-align: center;
+  }
 
-     /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
-      .profile-content{
-        margin-top: 10px !important;
-        bottom: 10px;
-    }
+  .create-button {
+    align-self: flex-end;
+    font-size: 16px !important;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+  }
 
-    .profile-description {
-        font-size: 15px;
-        text-align: center;
-    }
+  /* Contenedor de imágenes en columna debajo del botón */
+  .illus_sperf {
+    bottom: 0 !important;
+  }
 
-    .create-button {
-        align-self: flex-end;
-        font-size: 16px !important;
-        padding: 14px 20px;
-        margin-bottom: 20px; 
-    }
+  .profile-illustration {
+    margin-bottom: 60px;
+  }
 
-    /* Contenedor de imágenes en columna debajo del botón */
-    .illus_sperf {
-        bottom: 0 !important;
-    }
+  .illustration-image {
+    width: 200px;
+    height: auto;
+  }
 
-    .profile-illustration{
-        margin-bottom: 60px;
-    }
+  .illustration-menu {
+    width: 100px;
+    height: auto;
+    bottom: 0 !important;
+    left: -90px;
+  }
 
-    .illustration-image {
-        width: 200px;
-        height: auto;
-    }
+  /* AVATAR */
+  .avatar-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 20px;
+  }
 
-    .illustration-menu {
-        width: 100px;
-        height: auto;
-        bottom: 0 !important;
-        left: -90px;
-    }
-
-    
-
-
-/*AVATAR*/
-    .avatar-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin: 0 auto 20px;
-    }
-
-
-    /*AVATAR MODAL*/
-    .avatar-grid {
+  /* AVATAR MODAL */
+  .avatar-grid {
     grid-template-columns: 1fr; /* 1 columna */
   }
+
   .avatar-item img {
     width: 100px;
     height: 100px;
   }
+
   .avatar-section-title {
     display: none; /* opcional ocultar títulos */
   }
-    
-
 }
 
-/*telefonos */
-@media (min-width: 250px) and (max-width: 500px) {
-    .navbar {
-        width: 100%;
-        height: 60px;
-        padding: 0 15px;
-        justify-content: space-between;
-    }
+/* telefonos */
+@media (width >= 250px) and (width <= 500px) {
+  .navbar {
+    width: 100%;
+    height: 60px;
+    padding: 0 15px;
+    justify-content: space-between;
+  }
 
-    .main-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
-        padding: 60px 8px 8px; 
-        width: 90%;
-    }
+  .main-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+    padding: 60px 8px 8px;
+    width: 90%;
+  }
 
-    .section {
-        grid-column: 1 !important;
-        grid-row: auto !important;
-        margin-bottom: 15px;
-    }
+  .section {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+    margin-bottom: 15px;
+  }
 
-    .profile-subtitle{
-        font-size: 20px;
-    }
+  .profile-subtitle {
+    font-size: 20px;
+  }
 
-    .profile-description{
-        font-size: 14px;
-        margin-top: 6px;
-        text-align: start !important;
-    }
+  .profile-description {
+    font-size: 14px;
+    margin-top: 6px;
+    text-align: start !important;
+  }
 
-    .profile-grid {
-        display: flex;
-        flex-direction: column;
-        margin-top: -5px;
-    }
+  .profile-grid {
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+  }
 
-    .nutritional-profile {
-        grid-row: auto !important;
-        min-height: 600px;
-        font-size: 12px !important;
-    }
-    
-    .grid-item {
-        padding: 10px;
-        height: 120px !important;
-        width: 300px !important;
-    }
+  .nutritional-profile {
+    grid-row: auto !important;
+    min-height: 600px;
+    font-size: 12px !important;
+  }
 
-    .item-title {
-        font-size: 13px;
-    }
+  .grid-item {
+    padding: 10px;
+    height: 120px !important;
+    width: 300px !important;
+  }
 
-    .item-content{
-        font-size: 11px;
-    }
+  .item-title {
+    font-size: 13px;
+  }
 
-    .info-box {
-        position: relative;
-        width: 98%;
-        height: auto;
-        right: 0;
-        top: 0;
-        margin-top: 18px;
-    }
+  .item-content {
+    font-size: 11px;
+  }
 
-    .section.personal-data{
-        position: relative;
-        display: flex;
-        flex-direction: column;
+  .info-box {
+    position: relative;
+    width: 98%;
+    height: auto;
+    right: 0;
+    top: 0;
+    margin-top: 18px;
+  }
 
-    }
+  .section.personal-data {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
 
-    .nutritional-profile{
-        height: max-content;
-    }
+  .nutritional-profile {
+    height: max-content;
+  }
 
-    .avatar-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin: 0 auto 20px;
-    }
+  .avatar-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 20px;
+  }
 
+  /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */
+  .profile-content {
+    margin-top: 10px !important;
+    bottom: 10px;
+  }
 
-     /* DATOS SIN PERFIL PERFIL NUTRICIONAL (NO TIENE PERFIL AUN XD)  */ 
-      .profile-content{
-        margin-top: 10px !important;
-        bottom: 10px;
-    }
+  .profile-description {
+    font-size: 15px;
+    text-align: center;
+  }
 
-    .profile-description {
-        font-size: 15px;
-        text-align: center;
-    }
+  .create-button {
+    align-self: flex-end;
+    font-size: 14px !important;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+  }
 
-    .create-button {
-        align-self: flex-end;
-        font-size: 14px !important;
-        padding: 14px 20px;
-        margin-bottom: 20px; 
-    }
+  /* Contenedor de imágenes en columna debajo del botón */
+  .illus_sperf {
+    bottom: 0 !important;
+  }
 
-    /* Contenedor de imágenes en columna debajo del botón */
-    .illus_sperf {
-        bottom: 0 !important;
-    }
+  .profile-illustration {
+    margin-bottom: -5px !important;
+  }
 
-    .profile-illustration{
-        margin-bottom: -5px !important;
-    }
+  .illustration-image {
+    width: 160px;
+    height: auto;
+  }
 
-    .illustration-image {
-        width: 160px;
-        height: auto;
-    }
+  .illustration-menu {
+    width: 90px;
+    height: auto;
+    bottom: 0 !important;
+    left: -90px;
+  }
 
-    .illustration-menu {
-        width: 90px;
-        height: auto;
-        bottom: 0 !important;
-        left: -90px;
-    }
+  /* AVATAR */
+  .avatar-container {
+    position: relative;
+    left: 0;
+    top: 0;
+    margin: 0 auto 20px;
+  }
 
-    
-
-
-/*AVATAR*/
-    .avatar-container {
-        position: relative;
-        left: 0;
-        top: 0;
-        margin: 0 auto 20px;
-    }
-
-
-    /*AVATAR MODAL*/
-    .avatar-grid {
+  /* AVATAR MODAL */
+  .avatar-grid {
     grid-template-columns: 1fr; /* 1 columna */
   }
+
   .avatar-item img {
     width: 100px;
     height: 100px;
   }
+
   .avatar-section-title {
     display: none; /* opcional ocultar títulos */
   }
-    
-
 }
 
+/* estilo para el pdf y lo de imprimir */
 
-/*estilo para el pdf y lo de imprimir */
 /* Botón imprimir PDF */
 .imprimir-btn {
   position: absolute;
@@ -1503,9 +1515,10 @@ body.modal-open {
   padding: 6px 18px;
   font-size: 14px;
   cursor: pointer;
-  font-family: 'Comfortaa';
+  font-family: Comfortaa;
   transition: background 0.2s;
 }
+
 .imprimir-btn:hover {
   background-color: #005f36;
 }
@@ -1528,14 +1541,18 @@ body.modal-open {
 .modal-section {
   margin-bottom: 15px;
 }
+
 .modal-section h4 {
-  color: #005500;
+  color: #050;
   margin-bottom: 6px;
 }
+
 .modal-section ul {
   padding-left: 20px;
 }
-.modal-section li, .modal-section p {
+
+.modal-section li,
+.modal-section p {
   font-size: 14px;
 }
 
@@ -1546,7 +1563,7 @@ body.modal-open {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 20px;
-  font-family: 'Comfortaa';
+  font-family: Comfortaa;
   background-color: #f3fdf9;
   border: 1.5px solid #ddd;
   border-radius: 12px;
@@ -1588,14 +1605,13 @@ body.modal-open {
 /* Tamaño responsive */
 .half-width {
   width: 100%;
-  font-family: 'Comfortaa';
+  font-family: Comfortaa;
   background-color: #f3fdf9;
 }
 
 /* Required asterisco en rojo */
 .required::after {
-  content: '*';
+  content: "*";
   color: red;
   margin-left: 2px;
 }
-

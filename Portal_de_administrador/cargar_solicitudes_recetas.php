@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../misc/db_config.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -19,7 +20,7 @@ try {
             foreach ($doc->pasos as $paso) {
                 $pasos[] = [
                     'texto' => $paso->texto ?? '',
-                    'imagen' => $paso->imagen ?? ''
+                    'imagen' => $paso->imagen ?? '',
                 ];
             }
         }
@@ -66,31 +67,31 @@ try {
         // ---------------------------
         // ARMAR OBJETO FINAL
         // ---------------------------
-                $solicitudes[] = [
-                '_id' => (string)$doc->_id,
-                'nombre_receta' => $doc->nombre_receta ?? 'Sin nombre',
-                'descripcion' => $doc->descripcion ?? 'Sin descripción',
-                'tiempo_preparacion' => $doc->tiempo_preparacion ?? 'No especificado',
-                'valor_nutricional' => $doc->valor_nutricional ?? '',
-                'dificultad' => $doc->dificultad ?? 'No especificada',
-                'categoria' => $doc->categoria ?? '',
-                'tipo_receta' => $doc->tipo_receta ?? '',
-                'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png',
-                'ingredientes' => $ingredientesTexto,
-                'ingredientes_array' => $ingredientesArray,
-                'pasos' => $pasos,
-                'fecha_creacion' => $fecha_creacion,
-                'calificaciones' => $calificacionesArray,
-                'calificacion_promedio' => $promedio,
-                'nombre_usuario' => $doc->nombre_usuario ?? 'Desconocido',
-                'email_usuario'  => $doc->email_usuario ?? 'No registrado',
+        $solicitudes[] = [
+        '_id' => (string)$doc->_id,
+        'nombre_receta' => $doc->nombre_receta ?? 'Sin nombre',
+        'descripcion' => $doc->descripcion ?? 'Sin descripción',
+        'tiempo_preparacion' => $doc->tiempo_preparacion ?? 'No especificado',
+        'valor_nutricional' => $doc->valor_nutricional ?? '',
+        'dificultad' => $doc->dificultad ?? 'No especificada',
+        'categoria' => $doc->categoria ?? '',
+        'tipo_receta' => $doc->tipo_receta ?? '',
+        'imagen' => $doc->imagen ?? '/Images/img_sinperfilusuario.png',
+        'ingredientes' => $ingredientesTexto,
+        'ingredientes_array' => $ingredientesArray,
+        'pasos' => $pasos,
+        'fecha_creacion' => $fecha_creacion,
+        'calificaciones' => $calificacionesArray,
+        'calificacion_promedio' => $promedio,
+        'nombre_usuario' => $doc->nombre_usuario ?? 'Desconocido',
+        'email_usuario' => $doc->email_usuario ?? 'No registrado',
 
-                // ACCIONES CRUD
-                'acciones' => [
-                    'ver' => '<button class="btn-ver" data-id="' . (string)$doc->_id . '">Ver</button>',
-                    'aprobar' => '<button class="btn-aprobar" data-id="' . (string)$doc->_id . '">Aprobar</button>',
-                    'rechazar' => '<button class="btn-rechazar" data-id="' . (string)$doc->_id . '">Rechazar</button>'
-                ]
+        // ACCIONES CRUD
+        'acciones' => [
+            'ver' => '<button class="btn-ver" data-id="' . (string)$doc->_id . '">Ver</button>',
+            'aprobar' => '<button class="btn-aprobar" data-id="' . (string)$doc->_id . '">Aprobar</button>',
+            'rechazar' => '<button class="btn-rechazar" data-id="' . (string)$doc->_id . '">Rechazar</button>',
+        ],
             ];
 
     }
@@ -101,14 +102,13 @@ try {
     echo json_encode([
         'success' => true,
         'data' => $solicitudes,
-        'count' => count($solicitudes)
+        'count' => count($solicitudes),
     ]);
 
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => $e->getMessage()
+        'error' => $e->getMessage(),
     ]);
 }
-?>

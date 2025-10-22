@@ -1,65 +1,64 @@
+document.addEventListener("DOMContentLoaded", async function () {
+  console.log("📦 recetas.js cargado - Esperando contenido dinámico...");
 
-document.addEventListener('DOMContentLoaded', async function() {
-    console.log('📦 recetas.js cargado - Esperando contenido dinámico...');
-    
-    // Esperar a que el contenido dinámico esté listo
-    await waitForDynamicContent();
-    
-    // Inicializar solo si estamos en la página de recetas
-    if (document.getElementById('tablaRecetas')) {
-        console.log('✅ Inicializando módulo de recetas...');
-        inicializarRecetas();
-    } else {
-        console.log('❌ No se encontró tablaRecetas, esperando carga dinámica...');
-    }
+  // Esperar a que el contenido dinámico esté listo
+  await waitForDynamicContent();
+
+  // Inicializar solo si estamos en la página de recetas
+  if (document.getElementById("tablaRecetas")) {
+    console.log("✅ Inicializando módulo de recetas...");
+    inicializarRecetas();
+  } else {
+    console.log("❌ No se encontró tablaRecetas, esperando carga dinámica...");
+  }
 });
 
 // Función para esperar a que el contenido dinámico se cargue
 function waitForDynamicContent() {
-    return new Promise((resolve) => {
-        let attempts = 0;
-        const maxAttempts = 50; // 5 segundos máximo
-        
-        const checkContent = () => {
-            attempts++;
-            const contenidoAdmin = document.getElementById('contenido-admin');
-            
-            if (contenidoAdmin && contenidoAdmin.innerHTML.trim() !== '') {
-                console.log('✅ Contenido dinámico cargado');
-                resolve();
-            } else if (attempts >= maxAttempts) {
-                console.log('⚠️ Timeout esperando contenido dinámico');
-                resolve(); // Resolver igual para no bloquear
-            } else {
-                setTimeout(checkContent, 100);
-            }
-        };
-        checkContent();
-    });
+  return new Promise((resolve) => {
+    let attempts = 0;
+    const maxAttempts = 50; // 5 segundos máximo
+
+    const checkContent = () => {
+      attempts++;
+      const contenidoAdmin = document.getElementById("contenido-admin");
+
+      if (contenidoAdmin && contenidoAdmin.innerHTML.trim() !== "") {
+        console.log("✅ Contenido dinámico cargado");
+        resolve();
+      } else if (attempts >= maxAttempts) {
+        console.log("⚠️ Timeout esperando contenido dinámico");
+        resolve(); // Resolver igual para no bloquear
+      } else {
+        setTimeout(checkContent, 100);
+      }
+    };
+    checkContent();
+  });
 }
 
 // FUNCIÓN GLOBAL QUE SERÁ LLAMADA DESDE script_portal_adm.js
 function cargarRecetas() {
-    console.log('🚀 Función cargarRecetas() llamada - Inicializando recetas...');
-    inicializarRecetas();
+  console.log("🚀 Función cargarRecetas() llamada - Inicializando recetas...");
+  inicializarRecetas();
 }
 
 function inicializarRecetas() {
-    console.log('🚀 Inicializando recetas...');
-    
-    const tablaRecetas = document.getElementById('tablaRecetas');
-    
-    // Si no estamos en la página de recetas, salir
-    if (!tablaRecetas) {
-        console.log('❌ tablaRecetas no encontrado, saliendo...');
-        return;
-    }
+  console.log("🚀 Inicializando recetas...");
 
-    // =======================================
-    // Estilos personalizados para SweetAlert
-    // =======================================
-    const style = document.createElement('style');
-    style.textContent = `
+  const tablaRecetas = document.getElementById("tablaRecetas");
+
+  // Si no estamos en la página de recetas, salir
+  if (!tablaRecetas) {
+    console.log("❌ tablaRecetas no encontrado, saliendo...");
+    return;
+  }
+
+  // =======================================
+  // Estilos personalizados para SweetAlert
+  // =======================================
+  const style = document.createElement("style");
+  style.textContent = `
         #swal-nombre, #swal-tiempo, #swal-dificultad, #swal-categoria, 
         #swal-ingredientes, #swal-descripcion, #swal-calificacion {
             border-radius: 12px !important;
@@ -96,81 +95,83 @@ function inicializarRecetas() {
         .swal2-confirm:hover { transform: translateY(-2px) !important; box-shadow: 0 4px 8px rgba(0,120,72,0.3) !important; }
         .swal2-toast .swal2-close { display: none !important; }
     `;
-    document.head.appendChild(style);
+  document.head.appendChild(style);
 
-    // =======================================
-    // Variables globales
-    // =======================================
-    let recetasData = [];
-    cargarDatosRecetas();
+  // =======================================
+  // Variables globales
+  // =======================================
+  let recetasData = [];
+  cargarDatosRecetas();
 
-    // =======================================
-    // Cargar recetas
-    // =======================================
-    function cargarDatosRecetas() {
-        console.log('📥 Cargando datos de recetas...');
-        
-        fetch('/Portal_de_administrador/cargar_recetas.php')
-            .then(resp => resp.json())
-            .then(data => {
-                if (!data.success) throw new Error('Error al cargar las recetas');
-                recetasData = data.data;
-                console.log('✅ Recetas cargadas:', data.data.length);
-                renderizarTabla(data.data);
-            })
-            .catch(error => {
-                console.error('❌ Error al cargar recetas:', error);
-                tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center text-danger">Error al cargar recetas: ${error.message}</td></tr>`;
-            });
-    }
+  // =======================================
+  // Cargar recetas
+  // =======================================
+  function cargarDatosRecetas() {
+    console.log("📥 Cargando datos de recetas...");
 
-    // =======================================
-    // Búsqueda en tiempo real
-    // =======================================
-    const inputBusqueda = document.getElementById('busquedaRecetas');
-    if (inputBusqueda) {
-        inputBusqueda.addEventListener('input', function() {
-            const texto = this.value.toLowerCase();
-            const filtradas = recetasData.filter(r =>
-                r.nombre_receta.toLowerCase().includes(texto) ||
-                r.descripcion.toLowerCase().includes(texto)
-            );
-            renderizarTabla(filtradas);
-        });
-    }
+    fetch("/Portal_de_administrador/cargar_recetas.php")
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (!data.success) {throw new Error("Error al cargar las recetas");}
+        recetasData = data.data;
+        console.log("✅ Recetas cargadas:", data.data.length);
+        renderizarTabla(data.data);
+      })
+      .catch((error) => {
+        console.error("❌ Error al cargar recetas:", error);
+        tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center text-danger">Error al cargar recetas: ${error.message}</td></tr>`;
+      });
+  }
 
+  // =======================================
+  // Búsqueda en tiempo real
+  // =======================================
+  const inputBusqueda = document.getElementById("busquedaRecetas");
+  if (inputBusqueda) {
+    inputBusqueda.addEventListener("input", function () {
+      const texto = this.value.toLowerCase();
+      const filtradas = recetasData.filter(
+        (r) =>
+          r.nombre_receta.toLowerCase().includes(texto) ||
+          r.descripcion.toLowerCase().includes(texto),
+      );
+      renderizarTabla(filtradas);
+    });
+  }
 
-    // Mapeo de categorías
-const categoriasMap = {
+  // Mapeo de categorías
+  const categoriasMap = {
     cat_vegan: "Vegano",
     cat_veget: "Vegetariano",
-    cat_transc: "Transicionista"
-};
-    // =======================================
-    // Renderizar tabla
-// =======================================
-function renderizarTabla(recetas) {
-    if (!tablaRecetas) return;
-    
-    console.log('🎨 Renderizando tabla con', recetas.length, 'recetas');
-    
+    cat_transc: "Transicionista",
+  };
+  // =======================================
+  // Renderizar tabla
+  // =======================================
+  function renderizarTabla(recetas) {
+    if (!tablaRecetas) {return;}
+
+    console.log("🎨 Renderizando tabla con", recetas.length, "recetas");
+
     if (recetas.length === 0) {
-        tablaRecetas.innerHTML = `<tr><td colspan="11" class="text-center">No hay recetas registradas</td></tr>`;
-        return;
+      tablaRecetas.innerHTML = "<tr><td colspan=\"11\" class=\"text-center\">No hay recetas registradas</td></tr>";
+      return;
     }
 
-    tablaRecetas.innerHTML = recetas.map(receta => `
+    tablaRecetas.innerHTML = recetas
+      .map(
+        (receta) => `
         <tr data-id="${receta._id}">
             <td><img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:60px;height:60px;border-radius:5px;object-fit:cover;"></td>
             <td>${receta.nombre_receta}</td>
-            <td>${receta.descripcion.length > 50 ? receta.descripcion.substr(0,50)+'...' : receta.descripcion}</td>
-            <td>${receta.tiempo_preparacion || '-'}</td>
-            <td>${receta.dificultad || '-'}</td>
-            <td>${categoriasMap[receta.categoria] || receta.categoria || '-'}</td>
-            <td>${receta.tipo_receta || '-'}</td>
-            <td>${Array.isArray(receta.ingredientes_array) ? receta.ingredientes_array.join(", ") : (receta.ingredientes || "-")}</td>
-            <td class="text-center">${receta.calificacion && receta.calificacion>0 ? '⭐'.repeat(Math.round(receta.calificacion)) : 'Sin calificar'}</td>
-            <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : '-'}</td>
+            <td>${receta.descripcion.length > 50 ? receta.descripcion.substr(0, 50) + "..." : receta.descripcion}</td>
+            <td>${receta.tiempo_preparacion || "-"}</td>
+            <td>${receta.dificultad || "-"}</td>
+            <td>${categoriasMap[receta.categoria] || receta.categoria || "-"}</td>
+            <td>${receta.tipo_receta || "-"}</td>
+            <td>${Array.isArray(receta.ingredientes_array) ? receta.ingredientes_array.join(", ") : receta.ingredientes || "-"}</td>
+            <td class="text-center">${receta.calificacion && receta.calificacion > 0 ? "⭐".repeat(Math.round(receta.calificacion)) : "Sin calificar"}</td>
+            <td>${receta.fecha_creacion ? new Date(receta.fecha_creacion).toLocaleDateString() : "-"}</td>
             <td class="text-center">
                 <div class="btn-group">
                     <button class="btn btn-edit btn-primary btn-editar" data-id="${receta._id}">
@@ -182,97 +183,102 @@ function renderizarTabla(recetas) {
                 </div>
             </td>
         </tr>
-    `).join('');
+    `,
+      )
+      .join("");
 
     // Re-asignar event listeners después de renderizar
-    document.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', () => abrirModalEditar(btn.dataset.id));
+    document.querySelectorAll(".btn-editar").forEach((btn) => {
+      btn.addEventListener("click", () => abrirModalEditar(btn.dataset.id));
     });
 
-    document.querySelectorAll('.btn-eliminar').forEach(btn => {
-        btn.addEventListener('click', () => confirmarEliminacion(btn.dataset.id));
+    document.querySelectorAll(".btn-eliminar").forEach((btn) => {
+      btn.addEventListener("click", () => confirmarEliminacion(btn.dataset.id));
     });
-}
-    // =======================================
-    // Confirmar eliminación
-    // =======================================
-    function confirmarEliminacion(idReceta) {
-        Swal.fire({
-            title: '¿Eliminar receta?',
-            text: 'Esta acción no se puede deshacer',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: 'rgba(212,0,0,1)',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then(result => {
-            if(result.isConfirmed) eliminarReceta(idReceta);
-        });
-    }
+  }
+  // =======================================
+  // Confirmar eliminación
+  // =======================================
+  function confirmarEliminacion(idReceta) {
+    Swal.fire({
+      title: "¿Eliminar receta?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "rgba(212,0,0,1)",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {eliminarReceta(idReceta);}
+    });
+  }
 
-    // =======================================
-    // Eliminar receta
-    // =======================================
-    function eliminarReceta(idReceta) {
-        fetch(`/Portal_de_administrador/recetas.php?id=${idReceta}`, {method:'DELETE'})
-            .then(resp=>resp.json())
-            .then(data=>{
-                if(data.success) {
-                    Swal.fire({ 
-                        icon:'success', 
-                        title:'Receta eliminada', 
-                        toast:true, 
-                        position:'bottom-end', 
-                        showConfirmButton:false, 
-                        timer:3000, 
-                        showCloseButton:false 
-                    });
-                    cargarDatosRecetas();
-                } else {
-                    throw new Error(data.error || 'No se pudo eliminar la receta');
-                }
-            }).catch(error=>{
-                Swal.fire({ 
-                    icon:'error', 
-                    title:'Error', 
-                    text:error.message || 'No se pudo eliminar la receta', 
-                    showCloseButton:true 
-                });
-            });
-    }
-
-    // =======================================
-    // VARIABLES GLOBALES PARA EDICIÓN
-    // =======================================
-    let recetaEditando = null;
-    let datosIniciales = {};
-
-    // =======================================
-    // ABRIR MODAL DE EDICIÓN
-    // =======================================
-    function abrirModalEditar(idReceta) {
-        const receta = recetasData.find(r => r._id === idReceta);
-        if (!receta) return;
-        recetaEditando = receta;
-
-        const form = document.getElementById('modal-edit-form');
-        const title = document.getElementById('modal-edit-title');
-        
-        if (!form || !title) {
-            console.error('❌ Elementos del modal no encontrados');
-            return;
+  // =======================================
+  // Eliminar receta
+  // =======================================
+  function eliminarReceta(idReceta) {
+    fetch(`/Portal_de_administrador/recetas.php?id=${idReceta}`, {
+      method: "DELETE",
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Receta eliminada",
+            toast: true,
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 3000,
+            showCloseButton: false,
+          });
+          cargarDatosRecetas();
+        } else {
+          throw new Error(data.error || "No se pudo eliminar la receta");
         }
-        
-        form.innerHTML = '';
-        title.textContent = 'Editar receta';
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "No se pudo eliminar la receta",
+          showCloseButton: true,
+        });
+      });
+  }
 
-        const ingredientesTexto = Array.isArray(receta.ingredientes_array)
-            ? receta.ingredientes_array.join("\n")
-            : receta.ingredientes;
+  // =======================================
+  // VARIABLES GLOBALES PARA EDICIÓN
+  // =======================================
+  let recetaEditando = null;
+  let datosIniciales = {};
 
-        // INYECTAR FORMULARIO CON DISEÑO
-        form.innerHTML = `
+  // =======================================
+  // ABRIR MODAL DE EDICIÓN
+  // =======================================
+  function abrirModalEditar(idReceta) {
+    const receta = recetasData.find((r) => r._id === idReceta);
+    if (!receta) {return;}
+    recetaEditando = receta;
+
+    const form = document.getElementById("modal-edit-form");
+    const title = document.getElementById("modal-edit-title");
+
+    if (!form || !title) {
+      console.error("❌ Elementos del modal no encontrados");
+      return;
+    }
+
+    form.innerHTML = "";
+    title.textContent = "Editar receta";
+
+    const ingredientesTexto = Array.isArray(receta.ingredientes_array)
+      ? receta.ingredientes_array.join("\n")
+      : receta.ingredientes;
+
+    // INYECTAR FORMULARIO CON DISEÑO
+    form.innerHTML = `
             <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:20px;">
                 <img src="${receta.imagen}" alt="${receta.nombre_receta}" style="width:180px;height:180px;object-fit:cover;border-radius:15px;box-shadow:0 4px 20px rgba(0,0,0,0.25);margin-bottom:10px;">
                 <span style="font-size:22px;font-weight:700;color:#007848;">${receta.nombre_receta}</span>
@@ -282,159 +288,168 @@ function renderizarTabla(recetas) {
                 <div class="input-group"><label>Tiempo preparación</label><input type="text" name="tiempo_preparacion" value="${receta.tiempo_preparacion}"></div>
                 <div class="input-group"><label>Dificultad</label>
                     <select name="dificultad">
-                        <option value="" disabled ${!receta.dificultad?'selected':''}>Seleccionar</option>
-                        <option value="Baja" ${receta.dificultad==='Baja'?'selected':''}>Baja</option>
-                        <option value="Media" ${receta.dificultad==='Media'?'selected':''}>Media</option>
-                        <option value="Alta" ${receta.dificultad==='Alta'?'selected':''}>Alta</option>
+                        <option value="" disabled ${!receta.dificultad ? "selected" : ""}>Seleccionar</option>
+                        <option value="Baja" ${receta.dificultad === "Baja" ? "selected" : ""}>Baja</option>
+                        <option value="Media" ${receta.dificultad === "Media" ? "selected" : ""}>Media</option>
+                        <option value="Alta" ${receta.dificultad === "Alta" ? "selected" : ""}>Alta</option>
                     </select>
                 </div>
                 <div class="input-group"><label>Categoría</label>
                     <select name="categoria">
-                        <option value="" disabled ${!receta.categoria?'selected':''}>Seleccionar</option>
-                        <option value="cat_transc" ${receta.categoria==='cat_transc'?'selected':''}>Transicionista</option>
-                        <option value="cat_veget" ${receta.categoria==='cat_veget'?'selected':''}>Vegetariano</option>
-                        <option value="cat_vegan" ${receta.categoria==='cat_vegan'?'selected':''}>Vegano</option>
+                        <option value="" disabled ${!receta.categoria ? "selected" : ""}>Seleccionar</option>
+                        <option value="cat_transc" ${receta.categoria === "cat_transc" ? "selected" : ""}>Transicionista</option>
+                        <option value="cat_veget" ${receta.categoria === "cat_veget" ? "selected" : ""}>Vegetariano</option>
+                        <option value="cat_vegan" ${receta.categoria === "cat_vegan" ? "selected" : ""}>Vegano</option>
                     </select>
                 </div>
                 <div class="input-group" style="grid-column:1 / span 2;"><label>Ingredientes</label><textarea name="ingredientes">${ingredientesTexto}</textarea></div>
                 <div class="input-group" style="grid-column:1 / span 2;"><label>Descripción</label><textarea name="descripcion">${receta.descripcion}</textarea></div>
                 <div class="input-group" style="grid-column:1 / span 2;"><label>Calificación</label>
                     <select name="calificacion">
-                        <option value="1" ${receta.calificacion==1?'selected':''}>⭐ 1</option>
-                        <option value="2" ${receta.calificacion==2?'selected':''}>⭐⭐ 2</option>
-                        <option value="3" ${receta.calificacion==3?'selected':''}>⭐⭐⭐ 3</option>
-                        <option value="4" ${receta.calificacion==4?'selected':''}>⭐⭐⭐⭐ 4</option>
-                        <option value="5" ${receta.calificacion==5?'selected':''}>⭐⭐⭐⭐⭐ 5</option>
+                        <option value="1" ${receta.calificacion == 1 ? "selected" : ""}>⭐ 1</option>
+                        <option value="2" ${receta.calificacion == 2 ? "selected" : ""}>⭐⭐ 2</option>
+                        <option value="3" ${receta.calificacion == 3 ? "selected" : ""}>⭐⭐⭐ 3</option>
+                        <option value="4" ${receta.calificacion == 4 ? "selected" : ""}>⭐⭐⭐⭐ 4</option>
+                        <option value="5" ${receta.calificacion == 5 ? "selected" : ""}>⭐⭐⭐⭐⭐ 5</option>
                     </select>
                 </div>
             </div>
         `;
 
-        // GUARDAR ESTADO INICIAL
-        datosIniciales = new FormData(form);
+    // GUARDAR ESTADO INICIAL
+    datosIniciales = new FormData(form);
 
-        // BOTÓN ACTUALIZAR
-        const btnGuar = document.querySelector('.btn-guar');
-        if (btnGuar) {
-            btnGuar.disabled = true;
-            form.addEventListener('input', () => {
-                btnGuar.disabled = !hayCambios(form);
-            });
-        }
-
-        // MOSTRAR MODAL
-        const modal = document.getElementById('modal-edit');
-        if (modal) {
-            modal.style.display = 'flex';
-            requestAnimationFrame(() => modal.classList.add('show'));
-        }
+    // BOTÓN ACTUALIZAR
+    const btnGuar = document.querySelector(".btn-guar");
+    if (btnGuar) {
+      btnGuar.disabled = true;
+      form.addEventListener("input", () => {
+        btnGuar.disabled = !hayCambios(form);
+      });
     }
 
-    // =======================================
-    // DETECTAR CAMBIOS
-    // =======================================
-    function hayCambios(form) {
-        const actuales = new FormData(form);
-        for (let [k,v] of actuales.entries()) {
-            if (datosIniciales.get(k) !== v) return true;
-        }
-        return false;
+    // MOSTRAR MODAL
+    const modal = document.getElementById("modal-edit");
+    if (modal) {
+      modal.style.display = "flex";
+      requestAnimationFrame(() => modal.classList.add("show"));
     }
+  }
 
-    // =======================================
-    // CANCELAR EDICIÓN
-    // =======================================
-    function cancelarEdicion() {
-        const form = document.getElementById('modal-edit-form');
-        if (hayCambios(form)) {
-            Swal.fire({
-                icon: 'warning',
-                title: '¿Salir sin guardar?',
-                text: 'Si sales se perderán los cambios.',
-                showCancelButton: true,
-                confirmButtonText: 'Si salir',
-                cancelButtonText: 'Volver',
-                allowOutsideClick: false
-            }).then(res => {
-                if (res.isConfirmed) cerrarModalEdit();
-            });
-        } else {
-            cerrarModalEdit();
-        }
+  // =======================================
+  // DETECTAR CAMBIOS
+  // =======================================
+  function hayCambios(form) {
+    const actuales = new FormData(form);
+    for (const [k, v] of actuales.entries()) {
+      if (datosIniciales.get(k) !== v) {return true;}
     }
+    return false;
+  }
 
-    // =======================================
-    // GUARDAR EDICIÓN
-    // =======================================
-    function guardarEdicion() {
-        const form = document.getElementById('modal-edit-form');
-        if (!hayCambios(form)) return;
+  // =======================================
+  // CANCELAR EDICIÓN
+  // =======================================
+  function cancelarEdicion() {
+    const form = document.getElementById("modal-edit-form");
+    if (hayCambios(form)) {
+      Swal.fire({
+        icon: "warning",
+        title: "¿Salir sin guardar?",
+        text: "Si sales se perderán los cambios.",
+        showCancelButton: true,
+        confirmButtonText: "Si salir",
+        cancelButtonText: "Volver",
+        allowOutsideClick: false,
+      }).then((res) => {
+        if (res.isConfirmed) {cerrarModalEdit();}
+      });
+    } else {
+      cerrarModalEdit();
+    }
+  }
 
-        Swal.fire({
-            title: '¿Confirmar actualización?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Sí',
-            cancelButtonText: 'No'
-        }).then(res => {
-            if (res.isConfirmed) {
-                const data = Object.fromEntries(new FormData(form).entries());
-                data._id = recetaEditando._id;
-                data.ingredientes = data.ingredientes.split("\n").map(i => i.trim()).filter(i => i !== "");
+  // =======================================
+  // GUARDAR EDICIÓN
+  // =======================================
+  function guardarEdicion() {
+    const form = document.getElementById("modal-edit-form");
+    if (!hayCambios(form)) {return;}
 
-                fetch(`/Portal_de_administrador/recetas.php?id=${data._id}`, {
-                    method: 'PATCH',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                .then(r => r.json())
-                .then(r => {
-                    if (r.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Receta actualizada',
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 3000,
-                            timerProgressBar: true
-                        });
-                        cargarDatosRecetas();
-                        cerrarModalEdit();
-                    } else {
-                        Swal.fire({ icon:'error', title:'Error', text:r.error || 'No se pudo actualizar' });
-                    }
-                })
-                .catch(err => Swal.fire({ icon:'error', title:'Error', text:err.message }));
+    Swal.fire({
+      title: "¿Confirmar actualización?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí",
+      cancelButtonText: "No",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        const data = Object.fromEntries(new FormData(form).entries());
+        data._id = recetaEditando._id;
+        data.ingredientes = data.ingredientes
+          .split("\n")
+          .map((i) => i.trim())
+          .filter((i) => i !== "");
+
+        fetch(`/Portal_de_administrador/recetas.php?id=${data._id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((r) => r.json())
+          .then((r) => {
+            if (r.success) {
+              Swal.fire({
+                icon: "success",
+                title: "Receta actualizada",
+                toast: true,
+                position: "bottom-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+              });
+              cargarDatosRecetas();
+              cerrarModalEdit();
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: r.error || "No se pudo actualizar",
+              });
             }
-        });
-    }
-
-    // =======================================
-    // CERRAR MODAL
-    // =======================================
-    function cerrarModalEdit() {
-        const modal = document.getElementById('modal-edit');
-        if (modal) {
-            modal.classList.remove('show');
-            setTimeout(() => modal.style.display = 'none', 300);
-        }
-    }
-
-    // =======================================
-    // EVENTOS GLOBALES (con verificación de existencia)
-    // =======================================
-    const btnCancel = document.querySelector('.btn-cancel');
-    const btnGuar = document.querySelector('.btn-guar');
-    const modalClose = document.getElementById('modal-edit-close');
-
-    if (btnCancel) btnCancel.addEventListener('click', cancelarEdicion);
-    if (btnGuar) btnGuar.addEventListener('click', guardarEdicion);
-    if (modalClose) modalClose.addEventListener('click', cancelarEdicion);
-    
-    window.addEventListener('keydown', e => {
-        if (e.key === 'Escape') cancelarEdicion();
-        const modal = document.getElementById('modal-edit');
-        if (e.target === modal) cancelarEdicion();
+          })
+          .catch((err) =>
+            Swal.fire({ icon: "error", title: "Error", text: err.message }),
+          );
+      }
     });
+  }
+
+  // =======================================
+  // CERRAR MODAL
+  // =======================================
+  function cerrarModalEdit() {
+    const modal = document.getElementById("modal-edit");
+    if (modal) {
+      modal.classList.remove("show");
+      setTimeout(() => (modal.style.display = "none"), 300);
+    }
+  }
+
+  // =======================================
+  // EVENTOS GLOBALES (con verificación de existencia)
+  // =======================================
+  const btnCancel = document.querySelector(".btn-cancel");
+  const btnGuar = document.querySelector(".btn-guar");
+  const modalClose = document.getElementById("modal-edit-close");
+
+  if (btnCancel) {btnCancel.addEventListener("click", cancelarEdicion);}
+  if (btnGuar) {btnGuar.addEventListener("click", guardarEdicion);}
+  if (modalClose) {modalClose.addEventListener("click", cancelarEdicion);}
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {cancelarEdicion();}
+    const modal = document.getElementById("modal-edit");
+    if (e.target === modal) {cancelarEdicion();}
+  });
 }

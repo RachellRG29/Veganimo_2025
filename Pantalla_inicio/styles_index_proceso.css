@@ -12,8 +12,8 @@
   font-weight: 400;
   color: #e99a3c;
   margin-bottom: 10px;
-  font-family: 'Gloock', serif;
-    line-height: 1.2;
+  font-family: Gloock, serif;
+  line-height: 1.2;
 }
 
 .subtitulo-proceso {
@@ -73,10 +73,10 @@
   margin-top: 5px;
 }
 
-.ph_pasos{
-    color: #e99a3c;
-    fill: #e99a3c;
-    font-size: 40px;
-    justify-content: center;
-    align-items: center;
+.ph_pasos {
+  color: #e99a3c;
+  fill: #e99a3c;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
 }

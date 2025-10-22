@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../misc/db_config.php';
 require_once __DIR__ . '/../misc/auth_functions.php';
 header('Content-Type: application/json');
@@ -7,10 +8,10 @@ header('Content-Type: application/json');
 checkAdminAccess();
 
 try {
-    $data = json_decode(file_get_contents("php://input"), true);
+    $data = json_decode(file_get_contents('php://input'), true);
 
     if (empty($data['_id']) || !isset($data['banned'])) {
-        throw new Exception("Datos inválidos");
+        throw new Exception('Datos inválidos');
     }
 
     // Buscar el usuario primero
@@ -22,20 +23,20 @@ try {
     $usuario = current($cursor->toArray());
 
     if (!$usuario) {
-        throw new Exception("Usuario no encontrado");
+        throw new Exception('Usuario no encontrado');
     }
 
     // 🚨 Evitar banear administradores
     if (isset($usuario->role) && $usuario->role === 'admin') {
         echo json_encode([
-            "success" => false,
-            "error"   => "No puedes banear a un administrador"
+            'success' => false,
+            'error' => 'No puedes banear a un administrador',
         ]);
         exit;
     }
 
     // Actualizar estado de baneo
-    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk = new MongoDB\Driver\BulkWrite();
     $filter = ['_id' => new MongoDB\BSON\ObjectId($data['_id'])];
     $update = ['$set' => ['banned' => (bool)$data['banned']]];
 
@@ -43,15 +44,15 @@ try {
     $result = $cliente->executeBulkWrite('Veganimo.Usuarios', $bulk);
 
     echo json_encode([
-        "success"  => true,
-        "modified" => $result->getModifiedCount(),
-        "banned"   => (bool)$data['banned']
+        'success' => true,
+        'modified' => $result->getModifiedCount(),
+        'banned' => (bool)$data['banned'],
     ]);
 
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
-        "success" => false,
-        "error"   => $e->getMessage()
+        'success' => false,
+        'error' => $e->getMessage(),
     ]);
 }

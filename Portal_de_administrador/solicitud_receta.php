@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../misc/db_config.php';
 require_once __DIR__ . '/../misc/auth_functions.php';
 header('Content-Type: application/json');
@@ -11,33 +12,37 @@ try {
     if ($method === 'DELETE') {
         // 🗑️ Eliminar directamente (rechazo manual)
         $id = $_GET['id'] ?? null;
-        if (!$id) throw new Exception("ID de solicitud no proporcionado");
+        if (!$id) {
+            throw new Exception('ID de solicitud no proporcionado');
+        }
 
-        $bulk = new MongoDB\Driver\BulkWrite;
+        $bulk = new MongoDB\Driver\BulkWrite();
         $bulk->delete(['_id' => new MongoDB\BSON\ObjectId($id)], ['limit' => 1]);
         $result = $cliente->executeBulkWrite('Veganimo.SolicitudReceta', $bulk);
 
         echo json_encode([
             'success' => true,
-            'deleted' => $result->getDeletedCount()
+            'deleted' => $result->getDeletedCount(),
         ]);
 
     } elseif ($method === 'PATCH') {
         // ✏️ Aprobar o Rechazar
-        $data = json_decode(file_get_contents("php://input"), true);
-        if (empty($data['_id'])) throw new Exception("ID de solicitud no proporcionado");
+        $data = json_decode(file_get_contents('php://input'), true);
+        if (empty($data['_id'])) {
+            throw new Exception('ID de solicitud no proporcionado');
+        }
 
         $idObj = new MongoDB\BSON\ObjectId($data['_id']);
 
         // Si es rechazar, borrar de solicitudes
         if (isset($data['estado']) && $data['estado'] === 'Rechazada') {
-            $bulk = new MongoDB\Driver\BulkWrite;
+            $bulk = new MongoDB\Driver\BulkWrite();
             $bulk->delete(['_id' => $idObj], ['limit' => 1]);
             $result = $cliente->executeBulkWrite('Veganimo.SolicitudReceta', $bulk);
 
             echo json_encode([
                 'success' => true,
-                'deleted' => $result->getDeletedCount()
+                'deleted' => $result->getDeletedCount(),
             ]);
             exit;
         }
@@ -52,7 +57,7 @@ try {
 
             if ($solicitud) {
                 // Insertar en Recetas
-                $bulkInsert = new MongoDB\Driver\BulkWrite;
+                $bulkInsert = new MongoDB\Driver\BulkWrite();
                 $bulkInsert->insert([
                     'nombre_receta' => $solicitud->nombre_receta ?? '',
                     'descripcion' => $solicitud->descripcion ?? '',
@@ -64,26 +69,26 @@ try {
                     'ingredientes' => $solicitud->ingredientes ?? [],
                     'pasos' => $solicitud->pasos ?? [],
                     'calificaciones' => $solicitud->calificaciones ?? [],
-                    'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
+                    'fecha_creacion' => new MongoDB\BSON\UTCDateTime(),
                 ]);
                 $cliente->executeBulkWrite('Veganimo.Recetas', $bulkInsert);
 
                 // ⚡ Borrar de SolicitudReceta
-                $bulkDelete = new MongoDB\Driver\BulkWrite;
+                $bulkDelete = new MongoDB\Driver\BulkWrite();
                 $bulkDelete->delete(['_id' => $idObj], ['limit' => 1]);
                 $cliente->executeBulkWrite('Veganimo.SolicitudReceta', $bulkDelete);
             }
 
             echo json_encode([
                 'success' => true,
-                'moved' => true
+                'moved' => true,
             ]);
             exit;
         }
 
         http_response_code(400);
         echo json_encode(['success' => false, 'error' => 'Estado no válido']);
-        
+
     } else {
         http_response_code(405);
         echo json_encode(['success' => false, 'error' => 'Método no permitido']);
@@ -93,7 +98,6 @@ try {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => $e->getMessage()
+        'error' => $e->getMessage(),
     ]);
 }
-?>

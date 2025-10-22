@@ -1,10 +1,9 @@
-
-*{
-   /* outline: 1px solid red; */
-    font-family: 'Comfortaa', Verdana;
+* {
+  /* outline: 1px solid red; */
+  font-family: Comfortaa, Verdana;
 }
 
-.tarj_crear_receta{
+.tarj_crear_receta {
   max-width: 830px;
   padding: 14px;
   border-radius: 01rem;
@@ -14,92 +13,90 @@
   z-index: 1;
   margin-left: 100px;
   margin-top: 10px;
-
 }
 
 .form-receta {
-    max-width: 800px;
-    width: 100%;
-    background-color: #F6FFFE;
-    border-radius: 20px;
-    padding: 10px 30px 30px 30px; /*top right bottom left*/
-    justify-content: center; 
-    margin: 0 auto;  
+  max-width: 800px;
+  width: 100%;
+  background-color: #f6fffe;
+  border-radius: 20px;
+  padding: 10px 30px 30px; /* top right bottom left */
+  justify-content: center;
+  margin: 0 auto;
 }
 
-.form-receta{
-    box-shadow: 0px 0px 20px 1px #ffbb763f;
-    border: 1px solid #ffffff74;
+.form-receta {
+  box-shadow: 0 0 20px 1px #ffbb763f;
+  border: 1px solid #ffffff74;
 }
 
 .section {
-    display: none;
+  display: none;
 }
 
 .section.active {
-    display: block;
+  display: block;
 }
-
 
 /********************************************* SECCIÓN 1: CREAR RECETA ********************************************************/
 .main-title {
-    background-color: #007848;
-    color: #F6FFFE;
-    font-family: 'Gloock', serif;
-    font-size: 24px;
-    text-align: center;
-    padding: 8px 20px 12px 20px; /*top right bottom left*/
-    border-radius: 20px;
-    margin: 0 auto 15px;
-    width: fit-content;
-    position: relative;
+  background-color: #007848;
+  color: #f6fffe;
+  font-family: Gloock, serif;
+  font-size: 24px;
+  text-align: center;
+  padding: 8px 20px 12px; /* top right bottom left */
+  border-radius: 20px;
+  margin: 0 auto 15px;
+  width: fit-content;
+  position: relative;
 }
 
 .title-decoration {
-    height: 2px;
-    background-color: #F6FFFE;;
-    border-radius: 20px;
-    width: 222px;
-    margin: 8px auto 15px;
-    font-family: 'Gloock';
-    margin-top: -26px;
-    position: relative;
-    margin-left: 304px;
+  height: 2px;
+  background-color: #f6fffe;
+  border-radius: 20px;
+  width: 222px;
+  margin: 8px auto 15px;
+  font-family: Gloock;
+  margin-top: -26px;
+  position: relative;
+  margin-left: 304px;
 }
 
 .section-title {
-    background-color: #007848;
-    color: #F6FFFE;
-    font-size: 18px;
-    padding: 8px 15px;
-    border-radius: 0 15px 15px 0; /*top right bottom left*/
-    display: inline-block;
-    margin-left: -30px;
+  background-color: #007848;
+  color: #f6fffe;
+  font-size: 18px;
+  padding: 8px 15px;
+  border-radius: 0 15px 15px 0; /* top right bottom left */
+  display: inline-block;
+  margin-left: -30px;
 }
 
 .section-divider {
-    height: 3px;
-    background-color: #F6FFFE;
-    border-radius: 3px;
-    width: 120px;
-    margin-bottom: 15px;
+  height: 3px;
+  background-color: #f6fffe;
+  border-radius: 3px;
+  width: 120px;
+  margin-bottom: 15px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
- /*Textos del formulario*/
-.form-group label{
-    font-size: 14.5px;
+
+/* Textos del formulario */
+.form-group label {
+  font-size: 14.5px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-    font-size: 13.5px;
-    color: #1A1C1C;
+  font-size: 13.5px;
+  color: #1a1c1c;
 }
-
 
 .input-border {
   border: 1.9px solid #007848 !important;
@@ -110,7 +107,7 @@
 
 .input-border:focus {
   border-color: #007848 !important;
-  box-shadow: 0 0 0 0.2rem rgba(0, 120, 72, 0.25) !important;
+  box-shadow: 0 0 0 0.2rem rgb(0 120 72 / 25%) !important;
 }
 
 .textarea-fija {
@@ -120,9 +117,7 @@
   min-height: min-content; /* Establece la altura mínima */
 }
 
-
-
-/*-------------------------- ZONA IZQUIERDA------------------------------*/
+/* -------------------------- ZONA IZQUIERDA------------------------------ */
 
 .zona-principal {
   display: flex;
@@ -135,12 +130,11 @@
 .zona-izquierda {
   flex: 1;
   margin-left: 1rem;
-
 }
 
-/*--------------------------   ZONA IZQUIERDA  ------------------------------*/
+/* --------------------------   ZONA IZQUIERDA  ------------------------------ */
 
-/*zona de imagen receta*/
+/* zona de imagen receta */
 .zona-derecha {
   width: 300px;
   display: flex;
@@ -152,20 +146,20 @@
   height: auto;
 }
 
-.zona_tarjeta_calif{
+.zona_tarjeta_calif {
   margin-right: 20px;
   margin-top: -2.7rem;
 }
 
-/* IMAGEN DE LA RECETA*/
-.lbl-seleccionar-imagen{
-  color: #F6FFFE;
+/* IMAGEN DE LA RECETA */
+.lbl-seleccionar-imagen {
+  color: #f6fffe;
 }
 
-/*Imagen de receta*/
+/* Imagen de receta */
 .img-container {
   position: relative;
-  width: 100%; /*limites */
+  width: 100%; /* limites */
   max-width: 300px; /* ancho máximo */
   min-width: 200px; /* ancho mínimo */
   height: 300px;
@@ -177,8 +171,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  overflow: hidden; 
-
+  overflow: hidden;
 }
 
 .icono-placeholder {
@@ -200,12 +193,14 @@
   border-radius: 12px; /* Mantiene el borde cuadrado del contenedor */
 }
 
-/*-----------------------------CALIFICACION DE ESTRELLAS -----------------------------*/
-/*Calificacion de estrellas */
+/* -----------------------------CALIFICACION DE ESTRELLAS ----------------------------- */
+
+/* Calificacion de estrellas */
 .rating {
   display: flex;
   flex-direction: row-reverse;
   gap: 0.5rem;
+
   --stroke: #fffbfb;
   --fill: #ffc73a;
 }
@@ -227,7 +222,9 @@
   stroke-linejoin: bevel;
   stroke-dasharray: 12;
   animation: idle 4s linear infinite;
-  transition: stroke 0.2s, fill 0.5s;
+  transition:
+    stroke 0.2s,
+    fill 0.5s;
 }
 
 @keyframes idle {
@@ -242,7 +239,9 @@
 
 .rating input:checked ~ label svg {
   transition: 0s;
-  animation: idle 4s linear infinite, yippee 0.75s backwards;
+  animation:
+    idle 4s linear infinite,
+    yippee 0.75s backwards;
   fill: var(--fill);
   stroke: var(--fill);
   stroke-opacity: 0;
@@ -288,9 +287,8 @@
 }
 
 .rating label svg {
-  transform: rotate(45deg); 
+  transform: rotate(45deg);
 }
-
 
 /***************** SECCIÓN 2: CARACTERÍSTICAS Y INGREDIENTES *******************/
 .tiempo-dificultad {
@@ -312,17 +310,17 @@
   flex-direction: column;
 }
 
-.tiempo{
+.tiempo {
   margin-left: 20px;
 }
 
-/*minuto/hora*/
+/* minuto/hora */
 #unidad-tiempo {
- max-width: 6rem;
+  max-width: 6rem;
   font-size: 14px;
 }
 
-/*tiempo de preparacion*/
+/* tiempo de preparacion */
 #time-receta {
   max-width: 7rem;
   font-size: 14px;
@@ -335,7 +333,7 @@
   font-size: 14px;
 }
 
-.select_dif{
+.select_dif {
   font-size: 14px;
 }
 
@@ -348,13 +346,13 @@
 .dificultad-con-icono {
   display: flex;
   align-items: center;
-  gap: 0.80rem; 
+  gap: 0.8rem;
 }
 
 .tiempo-inputs {
   display: flex;
   align-items: center;
-  gap: 0.80rem; 
+  gap: 0.8rem;
 }
 
 .tiempo-inputs input,
@@ -366,11 +364,11 @@
   width: 100%;
   font-size: 14px;
   margin-top: 0.5rem;
-  color: #1A1C1C;
+  color: #1a1c1c;
 }
 
 .categoria label {
-  color: #1A1C1C;
+  color: #1a1c1c;
   font-size: 14px;
   margin-top: 1rem;
 }
@@ -389,12 +387,11 @@
 }
 
 .fila-categoria-tipo label {
-  color: #1A1C1C;
+  color: #1a1c1c;
   font-size: 14px;
   margin-bottom: 0.3rem;
   display: block;
 }
-
 
 /*      INGREDIENTES    */
 .zona-ingredientes {
@@ -419,13 +416,12 @@
 }
 
 .ingrediente-item.sin-boton::after {
-  content: ''; /* espacio fantasma igual al botón para alinear */
+  content: ""; /* espacio fantasma igual al botón para alinear */
   width: 32px;
   display: inline-block;
 }
 
-
-/*-------------------------- SECCION 3: ZONA PASOS ------------------------------*/
+/* -------------------------- SECCION 3: ZONA PASOS ------------------------------ */
 .zona-pasos {
   display: flex;
   flex-direction: column;
@@ -450,7 +446,7 @@
 }
 
 .paso-item.sin-boton::after {
-  content: ''; /* espacio fantasma igual al botón para alinear */
+  content: ""; /* espacio fantasma igual al botón para alinear */
   width: 32px;
   display: inline-block;
 }
@@ -484,50 +480,49 @@
 
 /********************  BOTONES FORMULARIO  *******************/
 .buttons-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
 }
 
 .form-button {
-    border: none;
-    border-radius: 12px;
-    padding: 10px 25px;
-    font-family: 'Comfortaa';
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    min-width: 120px;
-    justify-content: center;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 25px;
+  font-family: Comfortaa;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 120px;
+  justify-content: center;
 }
 
 .prev-button {
-    background-color: #F6FFFE;
-    color: #007848;
-    border: 2px solid #007848;
-     font-size: 14px;
+  background-color: #f6fffe;
+  color: #007848;
+  border: 2px solid #007848;
+  font-size: 14px;
 }
 
 .next-button {
-    background-color: #154734;
-    color: #F6FFFE;
-    font-family: "Comfortaa";
-    font-size: 14px; 
+  background-color: #154734;
+  color: #f6fffe;
+  font-family: Comfortaa;
+  font-size: 14px;
 }
 
 /* Centra SOLO el botón de la sección 1 */
 #section1 .center-button {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    margin-top: 25px;
-    font-family: "Comfortaa";
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  margin-top: 25px;
+  font-family: Comfortaa;
 }
-
 
 .btn-agregar {
   margin-top: 0.5rem;
-  color: #1A1C1C;
-  font-family: 'Comfortaa', Verdana;
+  color: #1a1c1c;
+  font-family: Comfortaa, Verdana;
   font-size: 14px;
   border: none;
   padding: 6px 12px;
@@ -535,117 +530,112 @@
   cursor: pointer;
 }
 
-.btn-agregar-ingrediente{
-  background-color: #E99A3C;
+.btn-agregar-ingrediente {
+  background-color: #e99a3c;
 }
 
-.btn-agregar-paso{
-  background-color: #E99A3C;
+.btn-agregar-paso {
+  background-color: #e99a3c;
   position: relative;
   align-self: flex-end;
 }
 
-/*BOTON GUARDAR RECETA*/
-.boton-crear-receta{
+/* BOTON GUARDAR RECETA */
+.boton-crear-receta {
   display: block;
   margin: 20px auto;
   text-align: center;
 }
 
-.btn-crear-receta{
-  color: #1A1C1C;
+.btn-crear-receta {
+  color: #1a1c1c;
   font-weight: 500;
-  background-image: linear-gradient(
-  325deg,
-  #E99A3C 0%,
-  #F8C78C 55%,
-  #E99A3C 90%
-), linear-gradient(45deg, #E99A3C, #ffffff);
+  background-image:
+    linear-gradient(325deg, #e99a3c 0%, #f8c78c 55%, #e99a3c 90%),
+    linear-gradient(45deg, #e99a3c, #fff);
   padding: 10px 20px;
   border: 2px solid transparent;
   border-radius: 14px;
   box-shadow:
-    0px 0px 20px #e99a3c80,
-    0px 5px 5px -1px #c8782840,
+    0 0 20px #e99a3c80,
+    0 5px 5px -1px #c8782840,
     inset 4px 4px 8px #ffd2aa80,
     inset -4px -4px 8px #b4641459;
   font-size: 1rem;
   cursor: pointer;
-  font-family: 'Comfortaa', Verdana;
+  font-family: Comfortaa, Verdana;
 }
 
 .btn-crear-receta:hover {
   box-shadow:
-    0px 0px 20px #e99a3c80,
-    0px 20px 30px -6px rgba(233, 154, 60, 0.5),
+    0 0 20px #e99a3c80,
+    0 20px 30px -6px rgb(233 154 60 / 50%),
     inset 4px 4px 8px #ffd2aa80,
     inset -4px -4px 8px #b4641459;
-
 }
 
-
-
-/*-------------------------- ZONA BARRA PROGRESO ------------------------------*/
+/* -------------------------- ZONA BARRA PROGRESO ------------------------------ */
 .progress-container,
 .progress-container2,
 .progress-container3 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
 }
 
 .progress-line,
 .progress-line2,
 .progress-line3 {
-    height: 2px;
-    background-color: #007848;
-    flex-grow: 1;
-    max-width: 50px;
+  height: 2px;
+  background-color: #007848;
+  flex-grow: 1;
+  max-width: 50px;
 }
 
 .progress-step,
 .progress-step2,
 .progress-step3 {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #154734;
-    position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #154734;
+  position: relative;
 }
 
 .progress-step.active,
 .progress-step2.active,
 .progress-step3.active {
-    background: linear-gradient(#007848, #154734);
+  background: linear-gradient(#007848, #154734);
 }
 
 .progress-step.inactive,
 .progress-step2.inactive,
 .progress-step3.inactive {
-    background-color: #F6FFFE;
+  background-color: #f6fffe;
 }
 
-@media (max-width: 600px) {
-    .form-receta {
-        padding: 20px;
-    }
-    
-    .main-title {
-        font-size: 22px;
-        padding: 10px 15px;
-    }
-    
-    .columns-container {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .column {
-        min-width: 100%;
-    }
-    
-    .half-width, .select-container {
-        max-width: 100%;
-    }
+@media (width <= 600px) {
+  .form-receta {
+    padding: 20px;
+  }
+
+  .main-title {
+    font-size: 22px;
+    padding: 10px 15px;
+  }
+
+  .columns-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .column {
+    min-width: 100%;
+  }
+
+  .half-width,
+  .select-container {
+    max-width: 100%;
+  }
 }

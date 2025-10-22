@@ -1,46 +1,51 @@
-/*titulos */
-.lbl_dietas_vg{
-  color: #1A1C1C;
+/* titulos */
+.lbl_dietas_vg {
+  color: #1a1c1c;
   margin-top: 10px;
 }
 
-/*texto subtitulos*/
-.lbl_subt{
-  font-family: 'Comfortaa', Verdana;
+/* texto subtitulos */
+.lbl_subt {
+  font-family: Comfortaa, Verdana;
   color: var(--text-light) !important;
   margin-left: 60px;
 }
 
-.contenedor_sub_titulo{
-    align-items: center;
-    text-align: center;
+.contenedor_sub_titulo {
+  align-items: center;
+  text-align: center;
 }
 
-/*-------------------------------------------------------------------------------------------------*/
-/*CONTENEDOR DE DIETAS VEGANAS*/
-.contenedor_dieta_ia{
+/* ------------------------------------------------------------------------------------------------- */
+
+/* CONTENEDOR DE DIETAS VEGANAS */
+.contenedor_dieta_ia {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px 0 20px 0; /*top-right-bottom-left*/
+  margin: 50px 0 20px; /* top-right-bottom-left */
 }
 
-.tarjeta_vg_dieta_ia{
+.tarjeta_vg_dieta_ia {
   width: 90%;
+
   /* altura flexible */
-  min-height: 530px; 
+  min-height: 530px;
   padding: 14px;
   border-radius: 1rem;
   overflow: visible;
   background: var(--backg-tarjetaplan);
   position: relative;
   z-index: 1;
-} 
-.contenido_tarj_dieta_ia{
-  --color: #F6FFFE;
+}
+
+.contenido_tarj_dieta_ia {
+  --color: #f6fffe;
+
   background: var(--color);
-  color: #1A1C1C;
+  color: #1a1c1c;
   width: 100%;
+
   /* altura automática según contenido */
   min-height: 100%;
   overflow: visible;
@@ -52,81 +57,90 @@
   padding-bottom: 20px; /* espacio debajo de los botones */
 }
 
-.contenido_tarj_dieta_ia{
-  --color: #F6FFFE;
-  background: var(--color); color: #1A1C1C;
-  width: 100%; height: 100%;
+.contenido_tarj_dieta_ia {
+  --color: #f6fffe;
+
+  background: var(--color);
+  color: #1a1c1c;
+  width: 100%;
+  height: 100%;
   overflow: visible;
   border-radius: 0.6rem;
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  align-items: center ; /*alineados centro*/
+  align-items: center; /* alineados centro */
 }
 
 .tarjeta_vg_dieta_ia:hover::after {
   opacity: 0;
 }
 
-/**/
+/*  */
 
-/*img*/
-.circulo_dieta_vg_ia{
+/* img */
+.circulo_dieta_vg_ia {
   position: relative;
   width: 140px !important;
   height: 140px !important;
   border-radius: 50%;
-  background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
+  background: linear-gradient(30deg, #007848 0%, #e99a3c 100%);
   margin-top: 1.6rem;
   justify-content: center;
 }
-.img_tarj_dieta_ia_pred{
+
+.img_tarj_dieta_ia_pred {
   position: absolute;
   width: 135px !important;
   height: auto;
   top: 1rem;
-  object-fit: cover; 
+  object-fit: cover;
   justify-content: center;
 }
 
-
-.botones_dieta_ia{
-    display: flex;
-    gap: 100px;
+.botones_dieta_ia {
+  display: flex;
+  gap: 100px;
 }
 
-
-/*Boton cancelar */
-.btn_cancelar_ia{
+/* Boton cancelar */
+.btn_cancelar_ia {
   position: relative;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 10px 20px #ffe24f2f;
+  box-shadow: 0 10px 20px #ffe24f2f;
   padding-block: 0.5rem;
   padding-inline: 1.25rem;
-  background-color: #BEBEBE;
+  background-color: #bebebe;
   border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  color: #1A1C1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1c1c;
   gap: 10px;
-  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  font-weight: bold;
+  font-family: Comfortaa, Verdana;
   border: 3px solid #ffffff4d;
   outline: none;
   overflow: hidden;
   font-size: 15px;
 }
 
-/*Boton para crear el plan con ia*/
-.btn_crear_ia{
+/* Boton para crear el plan con ia */
+.btn_crear_ia {
   position: relative;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 10px 20px #ffe24f90;
+  box-shadow: 0 10px 20px #ffe24f90;
   padding-block: 0.5rem;
   padding-inline: 1.25rem;
-  background-color: #E99A3C;
+  background-color: #e99a3c;
   border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  color: #1A1C1C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1c1c;
   gap: 10px;
-  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  font-weight: bold;
+  font-family: Comfortaa, Verdana;
   border: 3px solid #ffffff4d;
   outline: none;
   overflow: hidden;
@@ -134,14 +148,14 @@
   cursor: pointer;
 }
 
-.btn_crear_ia::before{
-    content: "";
+.btn_crear_ia::before {
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   background: radial-gradient(
     65.28% 65.28% at 50% 100%,
-    #FFE24Fcc 0%,
+    #ffe24fcc 0%,
     transparent 100%
   );
   opacity: 0;
@@ -149,9 +163,8 @@
   z-index: 0;
 }
 
-
 .btn_crear_ia:hover::before {
-   opacity: 1;
+  opacity: 1;
   animation: pulse512 1.5s infinite;
 }
 
@@ -161,21 +174,22 @@
 }
 
 @keyframes pulse512 {
- 0% {
-  box-shadow: 0 0 0 0 #fabd729f;
- }
+  0% {
+    box-shadow: 0 0 0 0 #fabd729f;
+  }
 
- 70% {
-  box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
- }
+  70% {
+    box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+  }
 
- 100% {
-  box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
- }
+  100% {
+    box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+  }
 }
 
-/*------------------------------------------------------------------------------------------------------*/
-/*Datos de perfil nutricional*/
+/* ------------------------------------------------------------------------------------------------------ */
+
+/* Datos de perfil nutricional */
 .datos_dieta_ia {
   width: 90%;
   display: flex;
@@ -186,8 +200,8 @@
 
 .seccion_referencia {
   width: 100%; /* igual que seccion_historia */
-  background: #F3FDF9;
-  border: 2px solid #BEBEBE;
+  background: #f3fdf9;
+  border: 2px solid #bebebe;
   border-radius: 0.5rem;
   padding: 15px;
   display: grid;
@@ -214,9 +228,9 @@
 .seccion_historia div {
   flex: 1 1 30%; /* flexible y responsivo */
   min-width: 150px;
-  background: #F3FDF9;
+  background: #f3fdf9;
   padding: 10px;
   border-radius: 0.5rem;
   box-shadow: 0 0 10px #0000000b;
-  border: 2px solid #BEBEBE;
+  border: 2px solid #bebebe;
 }

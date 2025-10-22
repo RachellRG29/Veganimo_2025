@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -7,9 +8,9 @@ require_once __DIR__ . '/../misc/db_config.php';
 session_start();
 if (!isset($_SESSION['user_id'])) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ No hay sesión de usuario activa",
-        "icon" => "error"
+        'success' => false,
+        'message' => '❌ No hay sesión de usuario activa',
+        'icon' => 'error',
     ]);
     exit;
 }
@@ -41,23 +42,23 @@ $sintomas = $_POST['sintomas'] ?? [];
 try {
     $filtro = ['user_id' => $_SESSION['user_id']];
     $query = new MongoDB\Driver\Query($filtro);
-    $cursor = $cliente->executeQuery("Veganimo.Perfil_nutricional", $query);
+    $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
 
     $resultados = iterator_to_array($cursor);
     if (count($resultados) > 0) {
         echo json_encode([
-            "success" => false,
-            "existe" => true,
-            "message" => "❌ Ya existe un perfil nutricional para el usuario.",
-            "icon" => "error"
+            'success' => false,
+            'existe' => true,
+            'message' => '❌ Ya existe un perfil nutricional para el usuario.',
+            'icon' => 'error',
         ]);
         exit;
     }
 } catch (MongoDB\Driver\Exception\Exception $e) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ Error al consultar la base de datos: " . $e->getMessage(),
-        "icon" => "error"
+        'success' => false,
+        'message' => '❌ Error al consultar la base de datos: ' . $e->getMessage(),
+        'icon' => 'error',
     ]);
     exit;
 }
@@ -74,32 +75,31 @@ $documento = [
     'objetivo' => $objetivo,
     'nivel_meta' => $nivel_meta,
     'descripcion_dieta' => $descripcion_dieta,
-    'plan'             => $plan_seleccionado, // 
+    'plan' => $plan_seleccionado, //
     'patologicos' => $patologicos,
     'familiares' => $familiares,
     'quirurgicos' => $quirurgicos,
     'intolerancias' => $intolerancias,
     'alergias' => $alergias,
     'sintomas' => $sintomas,
-    'fecha_creacion' => new MongoDB\BSON\UTCDateTime()
+    'fecha_creacion' => new MongoDB\BSON\UTCDateTime(),
 ];
 
 try {
-    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk = new MongoDB\Driver\BulkWrite();
     $bulk->insert($documento);
 
-    $cliente->executeBulkWrite("Veganimo.Perfil_nutricional", $bulk);
+    $cliente->executeBulkWrite('Veganimo.Perfil_nutricional', $bulk);
 
     echo json_encode([
-        "success" => true,
-        "message" => "Perfil nutricional guardado exitosamente.",
-        "icon" => "success"
+        'success' => true,
+        'message' => 'Perfil nutricional guardado exitosamente.',
+        'icon' => 'success',
     ]);
 } catch (MongoDB\Driver\Exception\Exception $e) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ Error al guardar en la base de datos: " . $e->getMessage(),
-        "icon" => "error"
+        'success' => false,
+        'message' => '❌ Error al guardar en la base de datos: ' . $e->getMessage(),
+        'icon' => 'error',
     ]);
 }
-?>

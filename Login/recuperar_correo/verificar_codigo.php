@@ -12,9 +12,9 @@ $codigoIngresado = $_POST['verification_code'] ?? '';
 // Validar sesión y código
 if (!isset($_SESSION['verification_code'], $_SESSION['user_data'])) {
     echo json_encode([
-        "success" => false,
-        "message" => "No hay sesión de verificación activa",
-        "icon" => "error"
+        'success' => false,
+        'message' => 'No hay sesión de verificación activa',
+        'icon' => 'error',
     ]);
     exit;
 }
@@ -24,16 +24,16 @@ if ($codigoIngresado == $_SESSION['verification_code']) {
     $_SESSION['recovery_verified'] = true;
 
     echo json_encode([
-        "success" => true,
-        "message" => "Código correcto. Puedes cambiar tu contraseña ahora.",
-        "icon" => "success",
-        "redirect" => "/Login/recuperar_correo/nueva_contraseña.html"
+        'success' => true,
+        'message' => 'Código correcto. Puedes cambiar tu contraseña ahora.',
+        'icon' => 'success',
+        'redirect' => '/Login/recuperar_correo/nueva_contraseña.html',
     ]);
 } else {
     echo json_encode([
-        "success" => false,
-        "message" => "Código de verificación incorrecto",
-        "icon" => "error"
+        'success' => false,
+        'message' => 'Código de verificación incorrecto',
+        'icon' => 'error',
     ]);
 }
 ?>

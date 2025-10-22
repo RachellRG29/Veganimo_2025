@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -17,8 +18,8 @@ $monto = floatval($_POST['monto'] ?? 5); // si no se manda, por defecto 5 USD
 
 if (!$numero || !$titular || !$mes || !$anio || !$cvv) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ Todos los campos de la tarjeta son obligatorios"
+        'success' => false,
+        'message' => '❌ Todos los campos de la tarjeta son obligatorios',
     ]);
     exit;
 }
@@ -29,13 +30,13 @@ try {
     // =======================
     $filtro = [
         'numero' => $numero,
-        'mes' => str_pad($mes, 2, "0", STR_PAD_LEFT),
+        'mes' => str_pad($mes, 2, '0', STR_PAD_LEFT),
         'anio' => $anio,
-        'cvv' => $cvv
+        'cvv' => $cvv,
     ];
 
     $query = new MongoDB\Driver\Query($filtro);
-    $cursor = $cliente->executeQuery("Veganimo.Tarjeta", $query);
+    $cursor = $cliente->executeQuery('Veganimo.Tarjeta', $query);
     $tarjetas = iterator_to_array($cursor);
 
     // =======================
@@ -51,8 +52,8 @@ try {
 
     if (!$tarjeta) {
         echo json_encode([
-            "success" => false,
-            "message" => "❌ No se pudo realizar el pago con la tarjeta"
+            'success' => false,
+            'message' => '❌ No se pudo realizar el pago con la tarjeta',
         ]);
         exit;
     }
@@ -62,8 +63,8 @@ try {
     // =======================
     if ($tarjeta->saldo < $monto) {
         echo json_encode([
-            "success" => false,
-            "message" => "❌ Saldo insuficiente en la tarjeta"
+            'success' => false,
+            'message' => '❌ Saldo insuficiente en la tarjeta',
         ]);
         exit;
     }
@@ -78,21 +79,20 @@ try {
         ['_id' => $tarjeta->_id],
         ['$set' => ['saldo' => $nuevoSaldo]]
     );
-    $cliente->executeBulkWrite("Veganimo.Tarjeta", $bulk);
+    $cliente->executeBulkWrite('Veganimo.Tarjeta', $bulk);
 
     // =======================
     // RESPUESTA FINAL
     // =======================
     echo json_encode([
-        "success" => true,
-        "message" => "✅ Pago realizado correctamente",
-        "nuevoSaldo" => $nuevoSaldo
+        'success' => true,
+        'message' => '✅ Pago realizado correctamente',
+        'nuevoSaldo' => $nuevoSaldo,
     ]);
 
 } catch (MongoDB\Driver\Exception\Exception $e) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ Error en la base de datos: " . $e->getMessage()
+        'success' => false,
+        'message' => '❌ Error en la base de datos: ' . $e->getMessage(),
     ]);
 }
-?>

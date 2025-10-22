@@ -1,0 +1,34 @@
+{
+  "name": "veganimo_2025",
+  "version": "1.0.0",
+  "description": "",
+  "main": "perfil_nutric_popup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RachellRG29/Veganimo_2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RachellRG29/Veganimo_2025/issues"
+  },
+  "homepage": "https://github.com/RachellRG29/Veganimo_2025#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "htmlhint": "^1.7.1",
+    "prettier": "^3.6.2",
+    "stylelint": "^16.25.0",
+    "stylelint-config-standard": "^39.0.1",
+    "stylelint-prettier": "^5.0.3",
+    "stylelint-scss": "^6.12.1",
+    "typescript-eslint": "^8.46.1"
+  }
+}

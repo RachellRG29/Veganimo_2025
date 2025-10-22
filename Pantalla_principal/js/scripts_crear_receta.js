@@ -39,7 +39,9 @@ document.getElementById("form-receta").addEventListener("submit", function (e) {
     descripcion.style.border = "2px solid red";
     valid = false;
   } else if (!regexDescripcion.test(descripcion.value.trim())) {
-    alert("La descripción solo puede contener letras, números, tildes, espacios y puntos.");
+    alert(
+      "La descripción solo puede contener letras, números, tildes, espacios y puntos.",
+    );
     descripcion.focus();
     descripcion.style.border = "2px solid red";
     valid = false;
@@ -89,7 +91,9 @@ document.getElementById("form-receta").addEventListener("submit", function (e) {
       valid = false;
       break;
     } else if (!regexGeneral.test(ing.value.trim())) {
-      alert(`Ingrediente ${i + 1} no válido. Solo letras, números, tildes y puntos.`);
+      alert(
+        `Ingrediente ${i + 1} no válido. Solo letras, números, tildes y puntos.`,
+      );
       ing.focus();
       ing.style.border = "2px solid red";
       valid = false;

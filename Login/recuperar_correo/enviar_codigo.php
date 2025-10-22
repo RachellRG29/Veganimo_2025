@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require_once __DIR__ . '/../../misc/phpmailer_config.php';
 require_once __DIR__ . '/../../misc/db_config.php';
@@ -9,8 +10,8 @@ header('Content-Type: application/json');
 $email = $_POST['email'] ?? '';
 if (!$email) {
     echo json_encode([
-        "success" => false,
-        "message" => "Por favor ingresa tu correo electrónico"
+        'success' => false,
+        'message' => 'Por favor ingresa tu correo electrónico',
     ]);
     exit;
 }
@@ -22,8 +23,8 @@ $usuario = current($cursor->toArray());
 
 if (!$usuario) {
     echo json_encode([
-        "success" => false,
-        "message" => "El correo no está registrado"
+        'success' => false,
+        'message' => 'El correo no está registrado',
     ]);
     exit;
 }
@@ -38,13 +39,12 @@ $resultado = enviarCodigoVerificacion($email, $codigo, 'recuperacion');
 
 if ($resultado === true) {
     echo json_encode([
-        "success" => true,
-        "message" => "Hemos enviado un código a tu correo para recuperar tu contraseña."
+        'success' => true,
+        'message' => 'Hemos enviado un código a tu correo para recuperar tu contraseña.',
     ]);
 } else {
     echo json_encode([
-        "success" => false,
-        "message" => "No se pudo enviar el correo: " . $resultado
+        'success' => false,
+        'message' => 'No se pudo enviar el correo: ' . $resultado,
     ]);
 }
-?>

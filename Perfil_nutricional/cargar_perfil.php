@@ -1,12 +1,13 @@
 <?php
+
 require_once __DIR__ . '/../misc/db_config.php';
 
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode([
-        "success" => false,
-        "message" => "⚠️ Sesión no iniciada."
+        'success' => false,
+        'message' => '⚠️ Sesión no iniciada.',
     ]);
     exit;
 }
@@ -19,13 +20,13 @@ $options = ['sort' => ['fecha_creacion' => -1], 'limit' => 1];
 $query = new MongoDB\Driver\Query($filter, $options);
 
 try {
-    $cursor = $cliente->executeQuery("Veganimo.Perfil_nutricional", $query);
+    $cursor = $cliente->executeQuery('Veganimo.Perfil_nutricional', $query);
     $perfil = current($cursor->toArray());
 
     if (!$perfil) {
         echo json_encode([
-            "success" => false,
-            "message" => "No se encontró un perfil nutricional."
+            'success' => false,
+            'message' => 'No se encontró un perfil nutricional.',
         ]);
         exit;
     }
@@ -35,13 +36,12 @@ try {
     $perfil->fecha_creacion = $perfil->fecha_creacion->toDateTime()->format('Y-m-d H:i:s');
 
     echo json_encode([
-        "success" => true,
-        "datos" => $perfil
+        'success' => true,
+        'datos' => $perfil,
     ]);
 } catch (MongoDB\Driver\Exception\Exception $e) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ Error al consultar la base de datos: " . $e->getMessage()
+        'success' => false,
+        'message' => '❌ Error al consultar la base de datos: ' . $e->getMessage(),
     ]);
 }
-?>

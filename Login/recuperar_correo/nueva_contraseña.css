@@ -1,13 +1,11 @@
-
-
 /* Tarjeta del formulario */
 .custom-form-card {
-  background: #ffffff;
+  background: #fff;
   border-radius: 20px;
   padding: 30px;
   max-width: 600px;
   margin: 0 auto;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 35px rgb(0 0 0 / 10%);
   animation: fadeIn 0.6s ease-in-out;
 }
 
@@ -17,6 +15,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -34,13 +33,15 @@
 .form-control {
   border-radius: 12px;
   border: 1px solid #cbd5e1;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
   padding: 10px 14px;
 }
 
 .form-control:focus {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 0.15rem rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 0 0.15rem rgb(59 130 246 / 25%);
 }
 
 /* Etiquetas */
@@ -72,7 +73,7 @@
 }
 
 /* Responsive */
-@media (max-width: 576px) {
+@media (width <= 576px) {
   .custom-form-card {
     padding: 20px;
   }
@@ -82,14 +83,15 @@
   }
 }
 
-  .position-relative .password-toggle-inside {
-      position: absolute;
-      top: 50%;
-      right: 30px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      color: #E99A3C;
-    }
-    .position-relative input {
-      padding-right: 40px;
-    }
+.position-relative .password-toggle-inside {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #e99a3c;
+}
+
+.position-relative input {
+  padding-right: 40px;
+}

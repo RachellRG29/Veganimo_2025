@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../misc/db_config.php';
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -17,7 +18,7 @@ try {
             foreach ($doc->pasos as $paso) {
                 $pasos[] = [
                     'texto' => $paso->texto ?? '',
-                    'imagen' => $paso->imagen ?? ''
+                    'imagen' => $paso->imagen ?? '',
                 ];
             }
         }
@@ -40,7 +41,9 @@ try {
                 $suma += intval($c);
                 $count++;
             }
-            if ($count > 0) $calificacion = round($suma / $count);
+            if ($count > 0) {
+                $calificacion = round($suma / $count);
+            }
         }
 
         // Fecha de creación
@@ -62,22 +65,21 @@ try {
             'ingredientes_array' => $ingredientesArray, // Para edición
             'pasos' => $pasos,
             'calificacion' => $calificacion,
-            'fecha_creacion' => $fecha_creacion
-           
+            'fecha_creacion' => $fecha_creacion,
+
         ];
     }
 
     echo json_encode([
         'success' => true,
         'data' => $recetas,
-        'count' => count($recetas)
+        'count' => count($recetas),
     ]);
 
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'error' => $e->getMessage()
+        'error' => $e->getMessage(),
     ]);
 }
-?>

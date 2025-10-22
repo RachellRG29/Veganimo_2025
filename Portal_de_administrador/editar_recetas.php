@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/../misc/db_config.php';
 header('Content-Type: application/json');
 
@@ -8,9 +9,9 @@ $input = json_decode(file_get_contents('php://input'), true);
 $idReceta = $input['_id'] ?? '';
 if (empty($idReceta)) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ No se proporcionó el ID de la receta.",
-        "icon" => "error"
+        'success' => false,
+        'message' => '❌ No se proporcionó el ID de la receta.',
+        'icon' => 'error',
     ]);
     exit;
 }
@@ -34,15 +35,15 @@ if (
     empty($ingredientes)
 ) {
     echo json_encode([
-        "success" => false,
-        "message" => "⚠️ Faltan datos esenciales del formulario.",
-        "icon" => "warning"
+        'success' => false,
+        'message' => '⚠️ Faltan datos esenciales del formulario.',
+        'icon' => 'warning',
     ]);
     exit;
 }
 
 try {
-    $bulk = new MongoDB\Driver\BulkWrite;
+    $bulk = new MongoDB\Driver\BulkWrite();
     $bulk->update(
         ['_id' => new MongoDB\BSON\ObjectId($idReceta)],
         ['$set' => [
@@ -52,22 +53,21 @@ try {
             'dificultad' => $dificultad,
             'ingredientes' => $ingredientes, // guardamos array
             'categoria' => $categoria,
-            'calificaciones' => [$calificacion] // guardamos array
+            'calificaciones' => [$calificacion], // guardamos array
         ]]
     );
 
-    $cliente->executeBulkWrite("Veganimo.Recetas", $bulk);
+    $cliente->executeBulkWrite('Veganimo.Recetas', $bulk);
 
     echo json_encode([
-        "success" => true,
-        "message" => "✅ Receta actualizada exitosamente.",
-        "icon" => "success"
+        'success' => true,
+        'message' => '✅ Receta actualizada exitosamente.',
+        'icon' => 'success',
     ]);
 } catch (MongoDB\Driver\Exception\Exception $e) {
     echo json_encode([
-        "success" => false,
-        "message" => "❌ Error al actualizar la base de datos: " . $e->getMessage(),
-        "icon" => "error"
+        'success' => false,
+        'message' => '❌ Error al actualizar la base de datos: ' . $e->getMessage(),
+        'icon' => 'error',
     ]);
 }
-?>

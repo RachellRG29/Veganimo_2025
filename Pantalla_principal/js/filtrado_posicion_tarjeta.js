@@ -1,32 +1,53 @@
 function initializeRecipeSearch() {
-  const container = document.querySelector('.grid-container-recetas');
-  const searchInput = document.querySelector('.input_busqueda');
-  const categorySelect = document.querySelector('#categoria-recetas');
+  const container = document.querySelector(".grid-container-recetas");
+  const searchInput = document.querySelector(".input_busqueda");
+  const categorySelect = document.querySelector("#categoria-recetas");
 
-  if (!container || !searchInput || !categorySelect) return;
+  if (!container || !searchInput || !categorySelect) {return;}
 
   const categoriaMapeo = {
     vegano: "vegano",
     vegetariano: "vegetariano",
-    transicionista: "transicionista"
+    transicionista: "transicionista",
   };
 
-  let searchQuery = '';
-  let selectedCategory = 'todos';
+  let searchQuery = "";
+  let selectedCategory = "todos";
 
   function getAllRecipes() {
-    return Array.from(document.querySelectorAll('.tarjeta-receta:not(#modal-receta .tarjeta-receta)')).map(card => ({
+    return Array.from(
+      document.querySelectorAll(
+        ".tarjeta-receta:not(#modal-receta .tarjeta-receta)",
+      ),
+    ).map((card) => ({
       element: card,
-      title: card.querySelector('.title-tarjeta')?.textContent.trim().toLowerCase() || '',
-      description: card.querySelector('.descripcion-tarjeta')?.textContent.trim().toLowerCase() || '',
-      difficulty: card.querySelector('.lbl_dificultad')?.textContent.trim().toLowerCase() || '',
-      category: (card.querySelector('.categoria-tarjeta')?.textContent.replace('Categoría: ', '').trim().toLowerCase() || '')
+      title:
+        card
+          .querySelector(".title-tarjeta")
+          ?.textContent.trim()
+          .toLowerCase() || "",
+      description:
+        card
+          .querySelector(".descripcion-tarjeta")
+          ?.textContent.trim()
+          .toLowerCase() || "",
+      difficulty:
+        card
+          .querySelector(".lbl_dificultad")
+          ?.textContent.trim()
+          .toLowerCase() || "",
+      category:
+        card
+          .querySelector(".categoria-tarjeta")
+          ?.textContent.replace("Categoría: ", "")
+          .trim()
+          .toLowerCase() || "",
     }));
   }
 
   function createDivider() {
-    const divider = document.createElement('div');
-    divider.className = 'divisor-busqueda';
+    const divider = document.createElement("div");
+    divider.className = "divisor-busqueda";
     divider.innerHTML = `
       <div class="linea-divisora"></div>
       <div class="texto-divisor">Resultados</div>
@@ -36,8 +57,8 @@ function initializeRecipeSearch() {
   }
 
   function showNotFoundCard() {
-    const notFoundCard = document.createElement('div');
-    notFoundCard.className = 'tarjeta-recip';
+    const notFoundCard = document.createElement("div");
+    notFoundCard.className = "tarjeta-recip";
     notFoundCard.innerHTML = `
       <div class="imagen-superior">
         <img src="../Images/card_not_found0.jpg" alt="Imagen receta no disponible">
@@ -60,52 +81,59 @@ function initializeRecipeSearch() {
   }
 
   function normalizeText(text) {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    return text
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
   }
 
   function filterRecipes() {
     const query = searchQuery.trim().toLowerCase();
     const category = selectedCategory.trim().toLowerCase();
 
-    document.querySelector('.divisor-busqueda')?.remove();
-    document.querySelector('.tarjeta-recip')?.remove();
+    document.querySelector(".divisor-busqueda")?.remove();
+    document.querySelector(".tarjeta-recip")?.remove();
 
-    let allRecipes = getAllRecipes();
+    const allRecipes = getAllRecipes();
     const queryNorm = normalizeText(query);
-    const searchWords = queryNorm.split(' ').filter(word => word.length > 0);
+    const searchWords = queryNorm.split(" ").filter((word) => word.length > 0);
 
-    let matchedRecipes = [];
-    let unmatchedRecipes = [];
+    const matchedRecipes = [];
+    const unmatchedRecipes = [];
 
     // Ocultar todas
-    allRecipes.forEach(recipe => {
-      recipe.element.style.display = 'none';
-      recipe.element.classList.remove('receta-destacada');
+    allRecipes.forEach((recipe) => {
+      recipe.element.style.display = "none";
+      recipe.element.classList.remove("receta-destacada");
     });
 
     // Caso sin filtros
-    if (query === '' && category === 'todos') {
+    if (query === "" && category === "todos") {
       // Ordenar alfabéticamente por título
       allRecipes.sort((a, b) => a.title.localeCompare(b.title));
-      allRecipes.forEach(recipe => {
-        recipe.element.style.display = '';
+      allRecipes.forEach((recipe) => {
+        recipe.element.style.display = "";
         container.appendChild(recipe.element);
       });
       return;
     }
 
-    allRecipes.forEach(recipe => {
-      const isCategoryMatch = category === 'todos' || recipe.category === categoriaMapeo[category];
+    allRecipes.forEach((recipe) => {
+      const isCategoryMatch =
+        category === "todos" || recipe.category === categoriaMapeo[category];
 
-      if (!isCategoryMatch) return;
+      if (!isCategoryMatch) {return;}
 
-      if (query !== '') {
+      if (query !== "") {
         const titleNorm = normalizeText(recipe.title);
         const descNorm = normalizeText(recipe.description);
         const diffNorm = normalizeText(recipe.difficulty);
 
-        const isTextMatch = searchWords.some(word =>
-          titleNorm.includes(word) || descNorm.includes(word) || diffNorm.includes(word)
+        const isTextMatch = searchWords.some(
+          (word) =>
+            titleNorm.includes(word) ||
+            descNorm.includes(word) ||
+            diffNorm.includes(word),
         );
 
         if (isTextMatch) {
@@ -119,10 +147,10 @@ function initializeRecipeSearch() {
     });
 
     if (matchedRecipes.length > 0) {
-      matchedRecipes.forEach(recipe => {
-        recipe.element.style.display = '';
-        if (query !== '') {
-          recipe.element.classList.add('receta-destacada');
+      matchedRecipes.forEach((recipe) => {
+        recipe.element.style.display = "";
+        if (query !== "") {
+          recipe.element.classList.add("receta-destacada");
         }
         container.appendChild(recipe.element);
       });
@@ -131,8 +159,8 @@ function initializeRecipeSearch() {
         const divider = createDivider();
         container.appendChild(divider);
 
-        unmatchedRecipes.forEach(recipe => {
-          recipe.element.style.display = '';
+        unmatchedRecipes.forEach((recipe) => {
+          recipe.element.style.display = "";
           container.appendChild(recipe.element);
         });
       }
@@ -142,10 +170,11 @@ function initializeRecipeSearch() {
       const divider = createDivider();
       container.appendChild(divider);
 
-      allRecipes.forEach(recipe => {
-        const isCategoryMatch = category === 'todos' || recipe.category === categoriaMapeo[category];
+      allRecipes.forEach((recipe) => {
+        const isCategoryMatch =
+          category === "todos" || recipe.category === categoriaMapeo[category];
         if (isCategoryMatch) {
-          recipe.element.style.display = '';
+          recipe.element.style.display = "";
           container.appendChild(recipe.element);
         }
       });
@@ -153,26 +182,26 @@ function initializeRecipeSearch() {
   }
 
   if (!searchInput.dataset.listenerAttached) {
-    searchInput.addEventListener('input', (e) => {
+    searchInput.addEventListener("input", (e) => {
       searchQuery = e.target.value;
       filterRecipes();
     });
-    searchInput.dataset.listenerAttached = 'true';
+    searchInput.dataset.listenerAttached = "true";
   }
 
   if (!categorySelect.dataset.listenerAttached) {
-    categorySelect.addEventListener('change', (e) => {
-      selectedCategory = e.target.value || 'todos';
+    categorySelect.addEventListener("change", (e) => {
+      selectedCategory = e.target.value || "todos";
       filterRecipes();
     });
-    categorySelect.dataset.listenerAttached = 'true';
+    categorySelect.dataset.listenerAttached = "true";
   }
 
   filterRecipes();
 }
 
 // CSS adicional para estilos dinámicos
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   .divisor-busqueda {
     width: 100%;
