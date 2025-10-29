@@ -25,7 +25,7 @@
                 </p>
 
                 <div class="botones_dieta">
-                    <button class="btn_plan_dieta_vg" onclick="window.location.href = '../Pantalla_principal/contenidos/dieta_vegana/pp_dieta_vegana.php'"> Plan dieta vegana
+                    <button class="btn_plan_dieta_vg" onclick="window.location.href='/Pantalla_principal/contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'"> Plan dieta vegana
                     </button> 
 
                     <button class="btn_plan_dieta_prof"> Plan con nutricionista
@@ -33,7 +33,7 @@
                 </div>
 
 
-            </div>
+            </div> 
         </div>
     </div>
 

@@ -1,22 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dieta vegana automatizada</title>
+    <link rel="website icon" href="/Images/Icono_veganimo.svg">
 
-<!-- IA PARA CREAR EL PLAN NUTRICIONAL POR MEDIO DE DIETAS VEGANAS  -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+      
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <!-- Gloock y Comfortaa fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Gloock&display=swap" rel="stylesheet">
+
+    <!-- Iconos de Phosphor -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.0.3/src/phosphor.css">
+    
+    <!-- css para ia -->
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_pp_dieta_ia.css">
+    <link rel="stylesheet" href="/Pantalla_principal/css/styles_index_pp.css">
+
+</head>
+
+<body>
+    <!-- IA PARA CREAR EL PLAN NUTRICIONAL POR MEDIO DE DIETAS VEGANAS  -->
 <!-- pp_ia_dieta_vegana, css styles_pp_dieta ia  -->
 <section class="section_dieta_ia">
 
-    <div class="lbl_bienvenida_vg_dieta_ia">
-        <h3 class="lbl_dietas_vg" >Dietas Veganas</h3>
-        <h5 class="lbl_subt" >Crea tu plan de dieta vegana</h5>
-    </div>
-    
-
     <!-- SECCIÓN 1: VISUALIZACION DE DATOS PERFIL NUTRICIONAL NO SE MODIFICAN AQUI  -->
     <section class="sect_dieta_ia">
+
+        <div class="lbl_bienvenida_vg_dieta_ia">
+            <h3 class="lbl_dietas_vg" >Dietas Veganas</h3>
+            <h5 class="lbl_subt" >Crea tu plan de dieta vegana</h5>
+        </div>
+
         <!-- suscripcion activa / acabando de pagar o suscribirse  -->
         <div class="contenedor_dieta_ia">
             <div class="tarjeta_vg_dieta_ia">
                 <div class="contenido_tarj_dieta_ia">
                     <div class="circulo_dieta_vg_ia">
-                        <img src="../Images/avatares/sf_predeterminado.png" alt="" class="img_tarj_dieta_ia_pred">
+                        <img src="/Images/avatares/sf_predeterminado.png" alt="" class="img_tarj_dieta_ia_pred">
                     </div>
                     
                     <div class="contenedor_sub_titulo">
@@ -59,7 +83,7 @@
 
 
                     <div class="botones_dieta_ia">
-                        <button class="btn_cancelar_ia"> Cancelar
+                        <button class="btn_cancelar_ia" onclick="window.history.back()"> Cancelar
                         </button> 
 
                         <button class="btn_crear_ia"> Crear dieta vegana
@@ -74,3 +98,6 @@
     </section>
 
 </section>
+    
+</body>
+</html>
