@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . '/../menu_perfil.php'; ?>
+
 <!-- pp_no pro/dietas vegana css: pp_nodietas.css  -->
 <section class="section_no_dieta_vegana">
 
