@@ -81,28 +81,25 @@
 .rating {
   display: flex;
   justify-content: center;
-  flex-direction: row-reverse;
-  gap: 0.5rem;
-  --stroke: #fffbfb;
-  --fill: #ffc73a;
-  margin-top: -2px;
+  gap: 4px;
+  margin: 8px 0;
 }
 
-.rating input {
-  appearance: unset;
+.rating svg.estrella {
+  width: 24px;
+  height: 24px;
+  stroke: #FFD700;
+  stroke-width: 2;
 }
 
-.rating svg {
-  width: 2rem;
-  height: 2rem;
-  overflow: visible;
+.rating svg.estrella.vacia path {
   fill: transparent;
-  stroke: var(--stroke);
-  stroke-linejoin: bevel;
-  stroke-dasharray: 12;
-  animation: idle 4s linear infinite;
-  transition: stroke 0.2s, fill 0.5s;
 }
+
+.rating svg.estrella.llena path {
+  fill: #FFD700;
+}
+
 
 .datos-receta {
   display: flex; justify-content: space-between; align-items: center;
@@ -132,16 +129,15 @@
   margin: 0;
 }
 
-.categoria-tarjeta{
-  color: #F6FFFE;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 10px;
+.categoria-tarjeta {
   background-color: #154734;
+  color: #F6FFFE;
+  font-weight: bold;
   display: inline-block;
   padding: 6px 12px;
   border-radius: 20px;
   text-align: center;
+  margin-top: 10px;
 }
 
 /* Base de la etiqueta */

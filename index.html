@@ -279,182 +279,140 @@
                 <div class="grid-container">
 
                     <!-- Diseño de tarjeta de receta -->
-                    <div class="tarjeta-receta">
-                      <div class="circulo-img">
-                        <img src="Images/img_plato_sf_p1.png" alt="" class="img-plato">
+                  <div class="tarjeta-receta">
+                    <div class="circulo-img">
+                      <img src="Images/img_plato_sf_p1.png" alt="Imagen del plato" class="img-plato">
+                    </div>
+                    <div class="body-tarjeta">
+                      <h2 class="title-tarjeta">Ensalada de vegetales</h2>
+                      <p class="descripcion-tarjeta">
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                      </p>
+
+                      <!-- Categoría -->
+                      <p class="categoria-tarjeta">Categoría: Vegano</p>
+
+                      <!-- Estrellas -->
+                      <div class="rating">
+                        <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M12,17.27L18.18,21L16.54,13.97..." />
+                        </svg></label>
+                        <!-- ... resto de estrellas -->
                       </div>
-                      <div class="body-tarjeta">
-                        <h2 class="title-tarjeta">Ensalada de vegetales</h2>
-                        <p class="descripcion-tarjeta">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                          <!-- Estrellas -->
-                          <div class="rating">
-                            <input type="radio" id="star-1" name="star-radio[]" value="5">
-                            <label for="star-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-2" name="star-radio[]" value="4">
-                            <label for="star-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-3" name="star-radio[]" value="3">
-                            <label for="star-3">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-4" name="star-radio[]" value="2">
-                            <label for="star-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-5" name="star-radio[]" value="1">
-                            <label for="star-5">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
+
+                      <!-- Datos receta -->
+                      <div class="datos-receta">
+                        <div class="tiempo-receta">
+                          <p>Tiempo de preparación</p>
+                          <div class="grupo_tiempo">
+                            <i class="ph ph-timer" style="font-size: 24px;"></i>
+                            <p class="lbl_tiempo_receta">30 min</p>
                           </div>
-                        <!-- Datos receta/ tiempo & dificultad  -->
-                        <div class="datos-receta">
-                            <!-- Tiempo de preparacion -->
-                          <div class="tiempo-receta">
-                            <p>Tiempo de preparación</p>
-                            <div class="grupo_tiempo">                              
-                              <i class="ph ph-timer" style="font-size: 24px;"></i>
-                              <p class="lbl_tiempo_receta">30 min</p>
-                            </div>
-                          </div>
-                          <div class="linea-datos"></div>
-                          <!-- Dificultad de la receta -->
-                          <div class="dificultad-receta">
-                            <p>Dificultad</p>
-                            <div class="grupo_dif">
-                              <i class="ph ph-square-fill" style="font-size: 24px;"></i>
-                              <p class="lbl_dificultad">Fácil</p>
-                            </div>
+                        </div>
+                        <div class="linea-datos"></div>
+                        <div class="dificultad-receta">
+                          <p>Dificultad</p>
+                          <div class="grupo_dif">
+                            <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                            <p class="lbl_dificultad">Fácil</p>
                           </div>
                         </div>
                       </div>
 
+                      <!-- Tipo de receta -->
+                      <span class="etiqueta-tipo etiqueta-desayuno">Desayuno</span>
                     </div>
+                  </div>
 
-                    <!-- Diseño de tarjeta de receta -->
-                    <div class="tarjeta-receta">
-                      <div class="circulo-img">
-                        <img src="Images/img_plato_sf_p2.png" alt="" class="img-plato">
+                  <div class="tarjeta-receta">
+                    <div class="circulo-img">
+                      <img src="Images/img_plato_sf_p1.png" alt="Imagen del plato" class="img-plato">
+                    </div>
+                    <div class="body-tarjeta">
+                      <h2 class="title-tarjeta">Ensalada de vegetales</h2>
+                      <p class="descripcion-tarjeta">
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                      </p>
+
+                      <!-- Categoría -->
+                      <p class="categoria-tarjeta">Categoría: Vegano</p>
+
+                      <!-- Estrellas -->
+                      <div class="rating">
+                        <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M12,17.27L18.18,21L16.54,13.97..." />
+                        </svg></label>
+                        <!-- ... resto de estrellas -->
                       </div>
-                      <div class="body-tarjeta">
-                        <h2 class="title-tarjeta">Ensalada de vegetales</h2>
-                        <p class="descripcion-tarjeta">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                        <!-- Estrellas -->
-                          <div class="rating">
-                            <input type="radio" id="star-1" name="star-radio[]" value="5">
-                            <label for="star-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-2" name="star-radio[]" value="4">
-                            <label for="star-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-3" name="star-radio[]" value="3">
-                            <label for="star-3">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-4" name="star-radio[]" value="2">
-                            <label for="star-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-5" name="star-radio[]" value="1">
-                            <label for="star-5">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
+
+                      <!-- Datos receta -->
+                      <div class="datos-receta">
+                        <div class="tiempo-receta">
+                          <p>Tiempo de preparación</p>
+                          <div class="grupo_tiempo">
+                            <i class="ph ph-timer" style="font-size: 24px;"></i>
+                            <p class="lbl_tiempo_receta">30 min</p>
                           </div>
-                        <!-- Datos receta/ tiempo & dificultad  -->
-                        <div class="datos-receta">
-                            <!-- Tiempo de preparacion -->
-                          <div class="tiempo-receta">
-                            <p>Tiempo de preparación</p>
-                            <div class="grupo_tiempo">
-                              <i class="ph ph-timer" style="font-size: 24px;"></i>
-                              <p class="lbl_tiempo_receta">30 min</p>
-                            </div>
-                          </div>
-                          <div class="linea-datos"></div>
-                          <!-- Dificultad de la receta -->
-                          <div class="dificultad-receta">
-                            <p>Dificultad</p>
-                            <div class="grupo_dif">
-                              <i class="ph ph-square-fill" style="font-size: 24px;"></i>
-                              <p class="lbl_dificultad">Fácil</p>
-                            </div>
+                        </div>
+                        <div class="linea-datos"></div>
+                        <div class="dificultad-receta">
+                          <p>Dificultad</p>
+                          <div class="grupo_dif">
+                            <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                            <p class="lbl_dificultad">Fácil</p>
                           </div>
                         </div>
                       </div>
 
+                      <!-- Tipo de receta -->
+                      <span class="etiqueta-tipo etiqueta-desayuno">Desayuno</span>
                     </div>
+                  </div>
 
-                    <!-- Diseño de tarjeta de receta -->
-                    <div class="tarjeta-receta">
-                      <div class="circulo-img">
-                        <img src="Images/img_plato_sf_p3.png" alt="" class="img-plato">
+                  <div class="tarjeta-receta">
+                    <div class="circulo-img">
+                      <img src="Images/img_plato_sf_p1.png" alt="Imagen del plato" class="img-plato">
+                    </div>
+                    <div class="body-tarjeta">
+                      <h2 class="title-tarjeta">Ensalada de vegetales</h2>
+                      <p class="descripcion-tarjeta">
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit..."
+                      </p>
+
+                      <!-- Categoría -->
+                      <p class="categoria-tarjeta">Categoría: Vegano</p>
+
+                      <!-- Estrellas -->
+                      <div class="rating">
+                        <label><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M12,17.27L18.18,21L16.54,13.97..." />
+                        </svg></label>
+                        <!-- ... resto de estrellas -->
                       </div>
-                      <div class="body-tarjeta">
-                        <h2 class="title-tarjeta">Ensalada de vegetales</h2>
-                        <p class="descripcion-tarjeta">
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                        <!-- Estrellas -->
-                          <div class="rating">
-                            <input type="radio" id="star-1" name="star-radio[]" value="5">
-                            <label for="star-1">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-2" name="star-radio[]" value="4">
-                            <label for="star-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-3" name="star-radio[]" value="3">
-                            <label for="star-3">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-4" name="star-radio[]" value="2">
-                            <label for="star-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
-                            <input type="radio" id="star-5" name="star-radio[]" value="1">
-                            <label for="star-5">
-                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path pathLength="360" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
-                            </label>
+
+                      <!-- Datos receta -->
+                      <div class="datos-receta">
+                        <div class="tiempo-receta">
+                          <p>Tiempo de preparación</p>
+                          <div class="grupo_tiempo">
+                            <i class="ph ph-timer" style="font-size: 24px;"></i>
+                            <p class="lbl_tiempo_receta">30 min</p>
                           </div>
-                        <!-- Datos receta/ tiempo & dificultad  -->
-                        <div class="datos-receta">
-                            <!-- Tiempo de preparacion -->
-                          <div class="tiempo-receta">
-                            <p>Tiempo de preparación</p>
-                            <div class="grupo_tiempo">
-                              <i class="ph ph-timer" style="font-size: 24px;"></i>
-                              <p class="lbl_tiempo_receta">30 min</p>
-                            </div>
-                          </div>
-                          <div class="linea-datos"></div>
-                          <!-- Dificultad de la receta -->
-                          <div class="dificultad-receta">
-                            <p>Dificultad</p>
-                            <div class="grupo_dif">
-                              <i class="ph ph-square-fill" style="font-size: 24px;"></i>
-                              <p class="lbl_dificultad">Fácil</p>
-                            </div>
+                        </div>
+                        <div class="linea-datos"></div>
+                        <div class="dificultad-receta">
+                          <p>Dificultad</p>
+                          <div class="grupo_dif">
+                            <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                            <p class="lbl_dificultad">Fácil</p>
                           </div>
                         </div>
                       </div>
 
+                      <!-- Tipo de receta -->
+                      <span class="etiqueta-tipo etiqueta-desayuno">Desayuno</span>
                     </div>
-                    
+                  </div>
 
                     
                 </div> <!-- fin de grid-container -->
@@ -476,137 +434,145 @@
                 </div>
                           
             </section>
-<script>
-document.addEventListener("DOMContentLoaded", async () => {
-  const contenedor = document.querySelector(".grid-container");
-  if (!contenedor) {
-    console.error("❌ No se encontró el contenedor .grid-container");
-    return;
-  }
 
-  try {
-    // 📥 Llamar al PHP
-    const response = await fetch("/Pantalla_inicio/obtener_recetas.php");
-    const data = await response.json();
+            <script>
+            document.addEventListener("DOMContentLoaded", async () => {
+              const contenedor = document.querySelector(".grid-container");
+              if (!contenedor) {
+                console.error("❌ No se encontró el contenedor .grid-container");
+                return;
+              }
 
-    if (!data.success || !Array.isArray(data.data)) {
-      contenedor.innerHTML = "<p>No se pudieron cargar las recetas.</p>";
-      console.error("Error en datos:", data);
-      return;
-    }
+              try {
+                // Llamar al PHP
+                const response = await fetch("/Pantalla_inicio/obtener_recetas.php");
+                const data = await response.json();
 
-    let recetas = data.data;
+                if (!data.success || !Array.isArray(data.data)) {
+                  contenedor.innerHTML = "<p>No se pudieron cargar las recetas.</p>";
+                  console.error("Error en datos:", data);
+                  return;
+                }
 
-    // 🔀 Mezclar recetas y limitar a 3
-    recetas = recetas.sort(() => Math.random() - 0.5).slice(0, 3);
+                let recetas = data.data;
 
-    // 🧹 Limpiar contenedor
-    contenedor.innerHTML = "";
+                // Mezclar recetas y limitar a 3
+                recetas = recetas.sort(() => Math.random() - 0.5).slice(0, 3);
 
-    // 🧱 Crear tarjetas dinámicamente
-    recetas.forEach((receta) => {
-      const card = document.createElement("div");
-      card.classList.add("tarjeta-receta");
+                // Limpiar contenedor
+                contenedor.innerHTML = "";
 
-      // ⭐ Generar HTML de estrellas
-      const estrellasHTML = generarEstrellas(receta.calificacion);
+                // Crear tarjetas dinámicamente
+                recetas.forEach((receta) => {
+                  const card = document.createElement("div");
+                  card.classList.add("tarjeta-receta");
 
-      // ✂️ Acortar descripción
-      const descripcionCorta =
-        receta.descripcion && receta.descripcion.length > 100
-          ? receta.descripcion.substring(0, 100) + "..."
-          : receta.descripcion || "Sin descripción.";
+                  // ⭐ Generar HTML de estrellas
+                  const estrellasHTML = generarEstrellas(receta.calificacion);
 
-      // 🍳 Lista de ingredientes
-      const ingredientesHTML =
-        receta.ingredientes && receta.ingredientes.length
-          ? `<ul class="lista-ingredientes">${receta.ingredientes
-              .map((ing) => `<li>${ing}</li>`)
-              .join("")}</ul>`
-          : "<p>Sin ingredientes.</p>";
+                  // ✂️ Acortar descripción
+                  const descripcionCorta =
+                    receta.descripcion && receta.descripcion.length > 100
+                      ? receta.descripcion.substring(0, 100) + "..."
+                      : receta.descripcion || "Sin descripción.";
 
-      // 👣 Lista de pasos
-      const pasosHTML =
-        receta.pasos && receta.pasos.length
-          ? `<ol class="lista-pasos">${receta.pasos
-              .map((p) => `<li>${p.texto}</li>`)
-              .join("")}</ol>`
-          : "<p>Sin pasos registrados.</p>";
+                  // Determinar clase de etiqueta según tipo
+                  let tipoClase = "";
+                  switch ((receta.tipo_receta || "").toLowerCase()) {
+                    case "desayuno":
+                      tipoClase = "desayuno";
+                      break;
+                    case "almuerzo":
+                      tipoClase = "almuerzo";
+                      break;
+                    case "cena":
+                      tipoClase = "cena";
+                      break;
+                    default:
+                      tipoClase = "desayuno"; // por defecto
+                  }
 
-      // 🖼️ Tarjeta completa
-      card.innerHTML = `
-        <div class="circulo-img">
-          <img src="${receta.imagen}" alt="${receta.nombre_receta}" class="img-plato">
-        </div>
-        <div class="body-tarjeta">
-          <h2 class="title-tarjeta">${receta.nombre_receta}</h2>
-          <p class="descripcion-tarjeta">${descripcionCorta}</p>
+                  const categorias = {
+                    cat_vegan: "Vegano",
+                    cat_veget: "Vegetariano",
+                    cat_transc: "Transicionista"
+                  };
 
-          <!-- Estrellas -->
-          <div class="rating">${estrellasHTML}</div>
+                  // Detectar color de dificultad
+                  let colorDificultad = "#22B55B"; // Baja por defecto
+                  if (receta.dificultad?.toLowerCase() === "media") colorDificultad = "orange";
+                  else if (receta.dificultad?.toLowerCase() === "alta") colorDificultad = "red";
 
-          <!-- Datos generales -->
-          <div class="datos-receta">
-            <div class="tiempo-receta">
-              <p> Tiempo de preparación:</p>
-              <div class="grupo_tiempo">
-                <i class="ph ph-timer" style="font-size: 24px;"></i>
-                <p class="lbl_tiempo_receta">${receta.tiempo_preparacion || 'N/A'} min</p>
-              </div>
-            </div>
+                  // HTML de la tarjeta
+                  card.innerHTML = `
+                    <div class="circulo-img">
+                      <img src="${receta.imagen}" alt="${receta.nombre_receta}" class="img-plato">
+                    </div>
+                    <div class="body-tarjeta">
+                      <h2 class="title-tarjeta">${receta.nombre_receta}</h2>
+                      <p class="descripcion-tarjeta">${descripcionCorta}</p>
 
-            <div class="linea-datos"></div>
+                      <p class="categoria-tarjeta">
+                        Categoría: ${categorias[receta.categoria] || "General"}
+                      </p>
 
-            <div class="dificultad-receta">
-              <p> Dificultad:</p>
-              <div class="grupo_dif">
-                <i class="ph ph-square-fill" style="font-size: 24px;"></i>
-                <p class="lbl_dificultad">${receta.dificultad || 'Desconocida'}</p>
-              </div>
-            </div>
-          </div>
+                      <div class="rating">${estrellasHTML}</div>
 
-          <div class="extra-datos">
-            <p><strong> Tipo:</strong> ${receta.tipo_receta}</p>
-            <p><strong> Categoría:</strong> ${receta.categoria}</p>
-          </div>
+                      <div class="datos-receta">
+                        <div class="tiempo-receta">
+                          <p>Tiempo de preparación</p>
+                          <div class="grupo_tiempo">
+                            <i class="ph ph-timer" style="font-size: 24px;"></i>
+                            <p class="lbl_tiempo_receta">${receta.tiempo_preparacion || "N/A"} min</p>
+                          </div>
+                        </div>
+                        <div class="linea-datos"></div>
+                        
+                        <div class="dificultad-receta">
+                          <p style="font-weight: bold;">Dificultad</p>
+                          <div class="grupo_dif">
+                            <i class="ph ph-square-fill" 
+                              style="font-size: 24px; color: ${colorDificultad};
+                                      background-color: white; border-radius: 3px;"></i>
+                            <p class="lbl_dificultad">${receta.dificultad || "Desconocida"}</p>
+                          </div>
+                        </div>
+                      </div>
 
-          <div class="ingredientes-container">
-            <h4> Ingredientes:</h4>
-            ${ingredientesHTML}
-          </div>
+                      <span class="etiqueta-tipo ${tipoClase}">${receta.tipo_receta || "Desayuno"}</span>
+                    </div>
+                  `;
 
-      `;
+                  contenedor.appendChild(card);
+                });
 
-      contenedor.appendChild(card);
-    });
+              } catch (error) {
+                console.error("⚠️ Error al obtener recetas:", error);
+                contenedor.innerHTML = "<p>Error al cargar las recetas.</p>";
+              }
 
-  } catch (error) {
-    console.error("⚠️ Error al obtener recetas:", error);
-    contenedor.innerHTML = "<p>Error al cargar las recetas.</p>";
-  }
+              // Función para mostrar calificación visual
+              function generarEstrellas(calificacion) {
+                const total = 5;
+                const llenas = Math.round(calificacion || 0);
+                let html = "";
+                for (let i = 1; i <= total; i++) {
+                  html += `
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="${i <= llenas ? "#FFD700" : "none"}"
+                      stroke="#FFD700" stroke-width="1.5"
+                      width="22" height="22">
+                      <path d="M12,17.27L18.18,21L16.54,13.97
+                              L22,9.24L14.81,8.62L12,2L9.19,8.62
+                              L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+                    </svg>`;
+                }
+                return html;
+              }
+            });
+            </script>
 
-  // ⭐ Función para mostrar calificación visual
-  function generarEstrellas(calificacion) {
-    const total = 5;
-    const llenas = Math.round(calificacion);
-    let html = "";
-    for (let i = 1; i <= total; i++) {
-      html += `
-        <svg xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="${i <= llenas ? "#FFD700" : "none"}"
-          stroke="#FFD700" stroke-width="1.5"
-          width="22" height="22">
-          <path d="M12,17.27L18.18,21L16.54,13.97
-                   L22,9.24L14.81,8.62L12,2L9.19,8.62
-                   L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
-        </svg>`;
-    }
-    return html;
-  }
-});
-</script>
 
 
             <!-- SECTION PROCESO -->
