@@ -1,4 +1,4 @@
-
+<?php include_once __DIR__ . '/../menu_perfil.php'; ?>
 <!-- USUARIO PODRA CANCELAR O MODIFICAR EL PLAN  -->
 <!-- pp_cancelar_plan_dieta, css pp_dietas  -->
 <section class="section_dieta_vegana">

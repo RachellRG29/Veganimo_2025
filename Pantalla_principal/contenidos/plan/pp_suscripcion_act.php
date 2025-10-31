@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . '/../menu_perfil.php'; ?>
+
 
 <!-- pp_mi_plan.html -->
 <section class="section_mi_plan">

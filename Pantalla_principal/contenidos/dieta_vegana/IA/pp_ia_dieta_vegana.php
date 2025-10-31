@@ -98,9 +98,11 @@
     </section>
 
 </section>
-    <script>
+ <script>
 document.addEventListener('DOMContentLoaded', async () => {
     const avatarImg = document.querySelector('.img_tarj_dieta_ia_pred');
+    const avatarCont = document.querySelector('.circulo_dieta_vg_ia');
+
     const pesoSpan = document.getElementById('peso');
     const alturaSpan = document.getElementById('altura');
     const edadSpan = document.getElementById('edad');
@@ -112,24 +114,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     const afeccionesSpan = document.getElementById('afecciones');
     const sintomasSpan = document.getElementById('sintomas');
 
+    // Función para ajustar el avatar dentro del círculo
+    const ajustarAvatar = () => {
+        const size = Math.min(avatarCont.offsetWidth, avatarCont.offsetHeight);
+        avatarImg.style.width = size + 'px';
+        avatarImg.style.height = size + 'px';
+        avatarImg.style.borderRadius = '50%';
+        avatarImg.style.objectFit = 'cover';
+        avatarImg.style.display = 'block';
+    };
+
+    // Ajuste inicial y al cambiar tamaño de ventana
+    ajustarAvatar();
+    window.addEventListener('resize', ajustarAvatar);
+
     try {
         const resp = await fetch('cargar_datos_dieta_ia.php');
         const data = await resp.json();
-
-        if (!data.success) {
-            alert('⚠️ ' + (data.message || 'No se pudieron cargar los datos del perfil.'));
-            return;
-        }
+        if (!data.success) throw new Error(data.message || 'No se pudieron cargar los datos del perfil.');
 
         const usuario = data.usuario;
         const perfil = data.perfil || {};
 
-        // Avatar
-        if (usuario.avatar) {
-            avatarImg.src = '/Images/avatares/' + usuario.avatar;
-        }
+        if (usuario.avatar) avatarImg.src = '/Images/avatares/' + usuario.avatar;
 
-        // Datos generales
         const birthDate = usuario.fecha_nacimiento ? new Date(usuario.fecha_nacimiento) : null;
         const edad = birthDate ? new Date().getFullYear() - birthDate.getFullYear() : 'N/D';
 
@@ -141,7 +149,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         metaFuturaSpan.textContent = perfil.nivel_meta || 'No definido';
         objetivoSpan.textContent = perfil.objetivo || 'Mantener peso';
 
-        // Historia clínica
         const patologicos = Array.isArray(perfil.patologicos) ? perfil.patologicos.join(', ') : (perfil.patologicos || 'Ninguno');
         const familiares = Array.isArray(perfil.familiares) ? perfil.familiares.join(', ') : (perfil.familiares || 'Ninguno');
         const quirurgicos = Array.isArray(perfil.quirurgicos) ? perfil.quirurgicos.join(', ') : (perfil.quirurgicos || 'Ninguno');
@@ -160,26 +167,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// --- Evento para crear la dieta vegana ---
 document.querySelector('.btn_crear_ia').addEventListener('click', async () => {
-    const resultContainer = document.createElement('div');
-    resultContainer.classList.add('resultado_dieta');
-    resultContainer.style.marginTop = '30px';
-    resultContainer.style.padding = '15px';
-    resultContainer.style.background = '#f9f9f9';
-    resultContainer.style.borderRadius = '10px';
-    resultContainer.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+    const contenedor = document.querySelector('.contenido_tarj_dieta_ia');
+    let resultContainer = contenedor.querySelector('.resultado_dieta');
+    if (!resultContainer) {
+        resultContainer = document.createElement('div');
+        resultContainer.classList.add('resultado_dieta');
+        contenedor.appendChild(resultContainer);
+    }
     resultContainer.innerHTML = '<p style="color:#154734;">⌛ Generando tu plan de dieta personalizada...</p>';
-    document.querySelector('.contenido_tarj_dieta_ia').appendChild(resultContainer);
 
     try {
-        const respDatos = await fetch('cargar_datos_dieta_ia.php');
-        const data = await respDatos.json();
-
-        if (!data.success) {
-            resultContainer.innerHTML = `<p style="color:red;">⚠️ ${data.message}</p>`;
-            return;
-        }
+        const resp = await fetch('cargar_datos_dieta_ia.php');
+        const data = await resp.json();
+        if (!data.success) { resultContainer.innerHTML = `<p style="color:red;">❌ ${data.message}</p>`; return; }
 
         const usuario = data.usuario;
         const perfil = data.perfil || {};
@@ -194,7 +195,6 @@ document.querySelector('.btn_crear_ia').addEventListener('click', async () => {
             objetivo: perfil.objetivo || '',
             nivel_meta: perfil.nivel_meta || '',
             descripcion_dieta: perfil.descripcion_dieta || '',
-            plan: perfil.plan || '',
             patologicos: perfil.patologicos || '',
             familiares: perfil.familiares || '',
             quirurgicos: perfil.quirurgicos || '',
@@ -210,22 +210,109 @@ document.querySelector('.btn_crear_ia').addEventListener('click', async () => {
         });
 
         const result = await respDeepSeek.json();
+        if (!result.success) { resultContainer.innerHTML = `<p style="color:red;">❌ ${result.message}</p>`; return; }
 
-        if (result.error) {
-            resultContainer.innerHTML = `<p style="color:red;">❌ ${result.error}</p>`;
-        } else {
-            const plan = result.recomendacion || result.dieta || 'No se generó respuesta.';
-            resultContainer.innerHTML = `
-                <h4 style="color:#154734;">🥗 Tu plan de dieta personalizado:</h4>
-                <p style="white-space:pre-line;">${plan}</p>
+        const plan = result.plan;
+
+        const renderComida = (comida) => {
+            let imgSrc = comida.imagen || '';
+            if(imgSrc && imgSrc[0]!=='/') imgSrc = '/' + imgSrc;
+            return `
+                <div class="comida_item" data-nombre="${comida.nombre}" style="margin-bottom:15px;">
+                    <strong>${comida.nombre}</strong> (${comida.calorias})<br>
+                    <em>Hora sugerida: ${comida.hora}</em><br>
+                    <img src="${imgSrc}" alt="${comida.nombre}" class="img_comida" style="max-width:120px; border-radius:8px; display:block; margin-top:5px; cursor:pointer;">
+                    <p>${comida.explicacion}</p>
+                </div>
             `;
+        };
+
+        // Mostrar análisis antes del plan
+        resultContainer.innerHTML = `
+            <h4 style="color:#154734;">📝 Análisis nutricional:</h4>
+            <p>${result.analisis || 'No se pudo generar el análisis.'}</p>
+
+            <h4 style="color:#154734;">🥗 Plan de dieta personalizado:</h4>
+            <h5 style="color:#154734;">Desayuno:</h5>${renderComida(plan.desayuno)}
+            <h5 style="color:#154734;">Almuerzo:</h5>${renderComida(plan.almuerzo)}
+            <h5 style="color:#154734;">Cena:</h5>${renderComida(plan.cena)}
+        `;
+
+        // --- Modal para receta ---
+        let modal = document.querySelector('.modal_receta');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.classList.add('modal_receta');
+            modal.innerHTML = `
+                <div class="modal_contenido">
+                    <span class="cerrar_modal">&times;</span>
+                    <div class="contenido_modal"></div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            const modalStyle = document.createElement('style');
+            modalStyle.textContent = `
+                .modal_receta { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000; }
+                .modal_contenido { background:white; padding:20px; border-radius:10px; max-width:600px; width:90%; text-align:left; position:relative; box-shadow:0 5px 20px rgba(0,0,0,0.3); overflow-y:auto; max-height:90vh; }
+                .cerrar_modal { position:absolute; top:10px; right:15px; font-size:25px; cursor:pointer; color:#444; }
+                .cerrar_modal:hover { color:red; }
+                .paso-item { margin-bottom:15px; border-left:4px solid #3cb371; padding-left:10px; }
+                .paso-item img { width:100%; max-height:200px; object-fit:cover; border-radius:10px; margin-top:8px; }
+            `;
+            document.head.appendChild(modalStyle);
+
+            modal.querySelector('.cerrar_modal').addEventListener('click', () => modal.style.display='none');
+            modal.addEventListener('click', e => { if(e.target===modal) modal.style.display='none'; });
         }
-    } catch (err) {
+
+        resultContainer.addEventListener('click', async (e) => {
+            if (!e.target.classList.contains('img_comida')) return;
+            const img = e.target;
+            const nombre = img.closest('.comida_item').dataset.nombre;
+
+            try {
+                const respReceta = await fetch('obtener_receta_por_nombre.php', {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({nombre})
+                });
+                const recetaData = await respReceta.json();
+                if (!recetaData.success) { alert('❌ ' + recetaData.message); return; }
+                const receta = recetaData.receta;
+
+                const pasosHTML = (receta.pasos || []).map((p,i)=>`
+                    <div class="paso-item">
+                        <h4>Paso ${i+1}</h4>
+                        <p>${p.texto||''}</p>
+                        ${p.imagen ? `<img src="${p.imagen[0]!=='/'?'/'+p.imagen:p.imagen}" alt="Paso ${i+1}">` : ''}
+                    </div>
+                `).join('');
+
+                const c = modal.querySelector('.contenido_modal');
+                c.innerHTML = `
+                    <h2>${receta.nombre_receta}</h2>
+                    <img src="${receta.imagen[0]!=='/'?'/'+receta.imagen:receta.imagen}" style="width:100%;border-radius:10px;margin:10px 0;">
+                    <p><strong>Descripción:</strong> ${receta.descripcion||'Sin descripción.'}</p>
+                    <p><strong>Tiempo:</strong> ${receta.tiempo_preparacion||'-'} min</p>
+                    <p><strong>Dificultad:</strong> ${receta.dificultad||'-'}</p>
+                    <p><strong>Calificación:</strong> ${receta.calificacion?receta.calificacion.toFixed(1)+' ⭐':'Sin calificación'}</p>
+                    <h3>Ingredientes</h3><ul>${(receta.ingredientes||[]).map(i=>`<li>${i}</li>`).join('')}</ul>
+                    <h3>Pasos</h3>${pasosHTML || '<p>No hay pasos registrados.</p>'}
+                `;
+                modal.style.display='flex';
+
+            } catch(err) { console.error(err); alert('❌ Error al obtener la receta.'); }
+        });
+
+    } catch(err) {
         console.error(err);
         resultContainer.innerHTML = `<p style="color:red;">❌ Error al conectar con la IA.</p>`;
     }
 });
 </script>
+
+
 
 </body>
 </html>

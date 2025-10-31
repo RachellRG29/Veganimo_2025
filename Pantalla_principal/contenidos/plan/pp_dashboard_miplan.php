@@ -1,3 +1,6 @@
+<?php include_once __DIR__ . '/../menu_perfil.php'; ?>
+
+
 <section class="section_mi_plan">
   <div class="lbl_bienvenida_plan_dash">
     <h1 class="lbl_titulo_dash">Mi plan 🌱</h1>

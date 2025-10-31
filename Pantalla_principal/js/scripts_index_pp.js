@@ -63,6 +63,7 @@ function aplicarTema(modo) {
   if (bgTheme) bgTheme.style.left = modo === "dark" ? "50%" : "4px";
 }
 
+// Inicializar tema en DOMContentLoaded (se mantiene separado del init principal)
 document.addEventListener("DOMContentLoaded", inicializarModoTema);
 
 // ======================== EJECUTAR SCRIPTS SEGÚN PÁGINA ========================
@@ -70,10 +71,11 @@ function ejecutarScriptsPagina(pagina) {
   setTimeout(inicializarModoTema, 100); // Siempre actualizar tema
 
   if (pagina === "pp_inicio.php") {
+    // espacio para lógica específica de pp_inicio si la necesitas luego
   }
 
-  if (pagina === "/plan/pp_suscripcion.php") {
-
+  if (pagina === "/plan/pp_suscripcion_act.php") {
+    // espacio para lógica específica de suscripción
   }
 
   if (pagina === "pp_crear_receta.php" || pagina === "pp_crear_recetapro.php") {
@@ -89,9 +91,8 @@ function ejecutarScriptsPagina(pagina) {
   }
 
   if (pagina === "/dieta_vegana/pp_dieta_vegana.php") {
-
+    // espacio para lógica de dieta vegana
   }
-
 }
 
 // ======================== INICIALIZACIÓN PRINCIPAL ========================
@@ -112,22 +113,32 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Items con submenú
   itemsConSubmenu.forEach(item => {
     const trigger = item.querySelector(".nav-trigger");
+    // defensiva: puede que trigger sea null
+    if (!trigger) return;
+
     const menuText = trigger.querySelector("span");
     const arrow = trigger.querySelector(".ph-caret-down");
 
-    menuText.closest('div').addEventListener("click", (e) => {
-      if (e.target !== arrow) {
+    if (menuText) {
+      const closestDiv = menuText.closest('div');
+      if (closestDiv) {
+        closestDiv.addEventListener("click", (e) => {
+          if (e.target !== arrow) {
+            selectItem(item);
+            if (item.hasAttribute("data-page")) cargarContenido(item.getAttribute("data-page"));
+          }
+        });
+      }
+    }
+
+    if (arrow) {
+      arrow.addEventListener("click", (e) => {
+        e.stopPropagation();
+        item.classList.toggle("open-submenu");
         selectItem(item);
         if (item.hasAttribute("data-page")) cargarContenido(item.getAttribute("data-page"));
-      }
-    });
-
-    arrow.addEventListener("click", (e) => {
-      e.stopPropagation();
-      item.classList.toggle("open-submenu");
-      selectItem(item);
-      if (item.hasAttribute("data-page")) cargarContenido(item.getAttribute("data-page"));
-    });
+      });
+    }
   });
 
   // Subitems
@@ -135,6 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     subItem.addEventListener("click", (e) => {
       e.stopPropagation();
       const parentItem = subItem.closest(".has-submenu");
+      if (!parentItem) return;
       selectItem(parentItem);
       subItem.classList.add("active", "highlight");
       parentItem.classList.add("open-submenu");
@@ -178,6 +190,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       paginaInicial = "pp_inicio.php";
       localStorage.setItem('ultimaPaginaCargada', paginaInicial);
     }
+  }
+
+  // 🚀 Verificar si el usuario es PRO antes de cargar la página inicial
+  try {
+    const res = await fetch("./verificar_perfil_pro.php", {
+      method: "GET",
+      headers: { "Cache-Control": "no-cache" }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.pro === true) {
+  console.log("⭐ Usuario PRO detectado → se prioriza /plan/pp_suscripcion_act.php");
+  paginaInicial = "/plan/pp_suscripcion_act.php"; // 🔹 Página principal PRO cuando tiene premiun asi carga primero la plan 
+} else {
+  console.log("👤 Usuario normal → cargando inicio");
+}
+
+    } else {
+      console.warn("⚠️ verificar_perfil_pro.php respondió con status:", res.status);
+    }
+  } catch (err) {
+    console.error("❌ Error al verificar perfil PRO:", err);
   }
 
   const navItem = [...document.querySelectorAll('.nav-item')]
@@ -266,7 +300,8 @@ function manejarAccionPersonalizada(accion) {
           inicializarCrearRecetas();
         });
       break;
-    default: console.warn(`Acción personalizada no reconocida: ${accion}`);
+    default:
+      console.warn(`Acción personalizada no reconocida: ${accion}`);
   }
 }
 
@@ -279,26 +314,108 @@ function verificarActualizacionPerfil() {
 async function verificarPerfilPro() {
   try {
     console.log("🟡 Verificando perfil PRO...");
-    const res = await fetch("./verificar_perfil_pro.php", { method: "GET", headers: { "Cache-Control": "no-cache" } });
+    const res = await fetch("./verificar_perfil_pro.php", {
+      method: "GET",
+      headers: { "Cache-Control": "no-cache" }
+    });
+
     if (!res.ok) throw new Error(`Error HTTP: ${res.status}`);
     const data = await res.json();
 
     const botonPro = document.querySelector('[data-custom="crear-recetas-pro"]');
-    if (!botonPro) return console.warn("⚠️ No se encontró el botón PRO");
+    const contenedorInicio = document.querySelector('#contenido-principal');
+    const itemInicioSidebar = document.querySelector('.nav-item[data-page="pp_inicio.php"]');
+    const itemNoProDieta = document.querySelector('.nav-item[data-page="/dieta_vegana/pp_no_pro_dieta.php"]');
 
+    // 🔹 Ítems solo visibles para usuarios Premium o Standard
+    const itemsSoloPro = [
+      document.querySelector('.nav-item[data-page="/dieta_vegana/pp_cancelar_plan_dieta.php"]'),
+      document.querySelector('.nav-item[data-page="/dieta_vegana/pp_dieta_vegana.php"]'),
+      document.querySelector('.nav-item[data-page="/plan/pp_dashboard_miplan.php"]'),
+      document.querySelector('.nav-item[data-page="/plan/pp_suscripcion_act.php"]')
+    ];
+
+    if (!botonPro) console.warn("⚠️ No se encontró el botón PRO");
+
+    // ========================= SI ES PRO =========================
     if (data.pro === true) {
-      botonPro.style.display = "flex";
-      botonPro.style.alignItems = "center";
-      botonPro.style.gap = "8px";
+      console.log("✅ Usuario PRO detectado");
 
-      botonPro.addEventListener("click", async () => {
-        await cargarContenido("pp_crear_recetapro.php");
+      // Mostrar botón PRO
+      if (botonPro) {
+        botonPro.style.display = "flex";
+        botonPro.style.alignItems = "center";
+        botonPro.style.gap = "8px";
+        botonPro.addEventListener("click", async () => {
+          await cargarContenido("pp_crear_recetapro.php");
+        });
+      }
+
+      // 🔥 Ocultar el ítem "Inicio" de la barra lateral
+      if (itemInicioSidebar) {
+        itemInicioSidebar.style.display = "none";
+        console.log("🚫 Ocultando 'Inicio' del sidebar para usuarios PRO");
+      }
+
+      // 🔥 Ocultar "no pro Dietas veganas"
+      if (itemNoProDieta) {
+        itemNoProDieta.style.display = "none";
+        console.log("🚫 Ocultando 'no pro Dietas veganas' para usuarios PRO");
+      }
+
+      // 🔥 Mostrar los ítems exclusivos de usuarios PRO
+      itemsSoloPro.forEach(item => {
+        if (item) {
+          item.style.display = "flex";
+          item.style.alignItems = "center";
+        }
       });
 
-      console.log("✅ Usuario PRO detectado → mostrando botón");
+      // 🔁 Redirigir si está en inicio o sin página cargada
+      const ultimaPagina = localStorage.getItem("ultimaPaginaCargada");
+      if (!ultimaPagina || ultimaPagina === "pp_inicio.php") {
+        console.log("➡️ Redirigiendo a página principal PRO: /plan/pp_suscripcion_act.php");
+        localStorage.setItem("ultimaPaginaCargada", "/plan/pp_suscripcion_act.php");
+        await cargarContenido("/plan/pp_suscripcion_act.php");
+      }
+
+      // Si el contenedor actual tiene contenido del inicio, también redirigir
+      if (contenedorInicio && contenedorInicio.innerHTML.includes("pp_inicio")) {
+        console.log("🚫 Reemplazando contenido de inicio por suscripción PRO");
+        await cargarContenido("/plan/pp_suscripcion_act.php");
+      }
+
     } else {
-      console.log("ℹ️ Usuario NO PRO → botón sigue oculto");
+      // ========================= SI NO ES PRO =========================
+      console.log("ℹ️ Usuario NO PRO → botón PRO oculto");
+      if (botonPro) botonPro.style.display = "none";
+
+      // Mostrar el ítem "Inicio"
+      if (itemInicioSidebar) {
+        itemInicioSidebar.style.display = "";
+      }
+
+      // 🔥 Mostrar el ítem "no pro Dietas veganas"
+      if (itemNoProDieta) {
+        itemNoProDieta.style.display = "flex";
+        itemNoProDieta.style.alignItems = "center";
+        console.log("✅ Mostrando 'no pro Dietas veganas' para usuarios sin plan");
+      }
+
+      // 🚫 Ocultar los ítems PRO
+      itemsSoloPro.forEach(item => {
+        if (item) item.style.display = "none";
+      });
+
+      // Si el usuario normal estaba en una página PRO, regresar al inicio
+      const ultimaPagina = localStorage.getItem("ultimaPaginaCargada");
+      if (ultimaPagina && ultimaPagina.startsWith("/plan/")) {
+        console.log("↩️ Usuario normal → regresando a inicio");
+        localStorage.setItem("ultimaPaginaCargada", "pp_inicio.php");
+        await cargarContenido("pp_inicio.php");
+      }
     }
+
   } catch (error) {
     console.error("❌ Error verificando perfil PRO:", error);
   }

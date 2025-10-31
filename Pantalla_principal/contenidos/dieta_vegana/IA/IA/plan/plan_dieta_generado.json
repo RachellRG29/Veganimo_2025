@@ -1,0 +1,23 @@
+{
+    "desayuno": {
+        "nombre": "Avena con frutos secos y miel",
+        "imagen": "recetas\/desayuno\/avena_frutos_secos.jpg",
+        "calorias": "450-500 kcal",
+        "hora": "07:30",
+        "explicacion": "Proporciona carbohidratos complejos de liberación lenta y grasas saludables de los frutos secos, ideal para iniciar el día con energía sostenida y contribuir al superávit calórico necesario"
+    },
+    "almuerzo": {
+        "nombre": "Bowl de quinoa con garbanzos y aguacate",
+        "imagen": "recetas\/almuerzo\/quinoa_garbanzos.jpg",
+        "calorias": "600-650 kcal",
+        "hora": "13:00",
+        "explicacion": "Combinación rica en proteínas vegetales completas, fibra y grasas saludables del aguacate, favorece la síntesis muscular y aporta densidad calórica necesaria para el aumento de peso"
+    },
+    "cena": {
+        "nombre": "Lentejas estofadas con verduras y arroz integral",
+        "imagen": "recetas\/cena\/lentejas_arroz.jpg",
+        "calorias": "550-600 kcal",
+        "hora": "19:30",
+        "explicacion": "Las lentejas aportan proteínas y hierro, mientras el arroz integral complementa con aminoácidos esenciales, creando una comida completa que favorece la recuperación muscular nocturna"
+    }
+}
