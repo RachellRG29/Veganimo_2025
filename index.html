@@ -476,6 +476,138 @@
                 </div>
                           
             </section>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const contenedor = document.querySelector(".grid-container");
+  if (!contenedor) {
+    console.error("❌ No se encontró el contenedor .grid-container");
+    return;
+  }
+
+  try {
+    // 📥 Llamar al PHP
+    const response = await fetch("/Pantalla_inicio/obtener_recetas.php");
+    const data = await response.json();
+
+    if (!data.success || !Array.isArray(data.data)) {
+      contenedor.innerHTML = "<p>No se pudieron cargar las recetas.</p>";
+      console.error("Error en datos:", data);
+      return;
+    }
+
+    let recetas = data.data;
+
+    // 🔀 Mezclar recetas y limitar a 3
+    recetas = recetas.sort(() => Math.random() - 0.5).slice(0, 3);
+
+    // 🧹 Limpiar contenedor
+    contenedor.innerHTML = "";
+
+    // 🧱 Crear tarjetas dinámicamente
+    recetas.forEach((receta) => {
+      const card = document.createElement("div");
+      card.classList.add("tarjeta-receta");
+
+      // ⭐ Generar HTML de estrellas
+      const estrellasHTML = generarEstrellas(receta.calificacion);
+
+      // ✂️ Acortar descripción
+      const descripcionCorta =
+        receta.descripcion && receta.descripcion.length > 100
+          ? receta.descripcion.substring(0, 100) + "..."
+          : receta.descripcion || "Sin descripción.";
+
+      // 🍳 Lista de ingredientes
+      const ingredientesHTML =
+        receta.ingredientes && receta.ingredientes.length
+          ? `<ul class="lista-ingredientes">${receta.ingredientes
+              .map((ing) => `<li>${ing}</li>`)
+              .join("")}</ul>`
+          : "<p>Sin ingredientes.</p>";
+
+      // 👣 Lista de pasos
+      const pasosHTML =
+        receta.pasos && receta.pasos.length
+          ? `<ol class="lista-pasos">${receta.pasos
+              .map((p) => `<li>${p.texto}</li>`)
+              .join("")}</ol>`
+          : "<p>Sin pasos registrados.</p>";
+
+      // 🖼️ Tarjeta completa
+      card.innerHTML = `
+        <div class="circulo-img">
+          <img src="${receta.imagen}" alt="${receta.nombre_receta}" class="img-plato">
+        </div>
+        <div class="body-tarjeta">
+          <h2 class="title-tarjeta">${receta.nombre_receta}</h2>
+          <p class="descripcion-tarjeta">${descripcionCorta}</p>
+
+          <!-- Estrellas -->
+          <div class="rating">${estrellasHTML}</div>
+
+          <!-- Datos generales -->
+          <div class="datos-receta">
+            <div class="tiempo-receta">
+              <p> Tiempo de preparación:</p>
+              <div class="grupo_tiempo">
+                <i class="ph ph-timer" style="font-size: 24px;"></i>
+                <p class="lbl_tiempo_receta">${receta.tiempo_preparacion || 'N/A'} min</p>
+              </div>
+            </div>
+
+            <div class="linea-datos"></div>
+
+            <div class="dificultad-receta">
+              <p> Dificultad:</p>
+              <div class="grupo_dif">
+                <i class="ph ph-square-fill" style="font-size: 24px;"></i>
+                <p class="lbl_dificultad">${receta.dificultad || 'Desconocida'}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="extra-datos">
+            <p><strong> Tipo:</strong> ${receta.tipo_receta}</p>
+            <p><strong> Categoría:</strong> ${receta.categoria}</p>
+          </div>
+
+          <div class="ingredientes-container">
+            <h4> Ingredientes:</h4>
+            ${ingredientesHTML}
+          </div>
+
+      `;
+
+      contenedor.appendChild(card);
+    });
+
+  } catch (error) {
+    console.error("⚠️ Error al obtener recetas:", error);
+    contenedor.innerHTML = "<p>Error al cargar las recetas.</p>";
+  }
+
+  // ⭐ Función para mostrar calificación visual
+  function generarEstrellas(calificacion) {
+    const total = 5;
+    const llenas = Math.round(calificacion);
+    let html = "";
+    for (let i = 1; i <= total; i++) {
+      html += `
+        <svg xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="${i <= llenas ? "#FFD700" : "none"}"
+          stroke="#FFD700" stroke-width="1.5"
+          width="22" height="22">
+          <path d="M12,17.27L18.18,21L16.54,13.97
+                   L22,9.24L14.81,8.62L12,2L9.19,8.62
+                   L2,9.24L7.45,13.97L5.82,21L12,17.27Z"/>
+        </svg>`;
+    }
+    return html;
+  }
+});
+</script>
+
 
             <!-- SECTION PROCESO -->
             <section class="section proceso_guia" id="proceso_guia">
