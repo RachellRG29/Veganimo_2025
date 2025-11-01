@@ -23,7 +23,7 @@
                     Para activar todos los beneficios de Vegánimo y comenzar con tu plan, solo necesitas tu suscripción.
                 </p>
 
-                <button class="btn_iniciar_plan" onclick="window.location.href = '../Perfil_nutricional/crear_perfil_nutric.html'"> Suscríbete
+                <button class="btn_iniciar_plan" onclick="window.location.href = '../Perfil_nutricional/crear_perfil_nutric.html'"> Hazte Pro
                     <i class="ph ph-caret-right" 
                     style="font-size: 24px;"></i>
                 </button> 

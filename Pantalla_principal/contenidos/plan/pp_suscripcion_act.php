@@ -27,7 +27,7 @@
                     Solo toca el botón y te llevaremos a dietas veganas para generar tu plan.
                 </p>
 
-                <button class="btn_plan_dieta" data-page="/dieta_vegana/pp_dieta_vegana.php"> Plan dieta vegana
+               <button class="btn_plan_dieta" onclick="window.location.href='/Pantalla_principal/contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'"> Plan dieta vegana
                     <i class="ph ph-caret-right" 
                     style="font-size: 24px;"></i>
                 </button> 

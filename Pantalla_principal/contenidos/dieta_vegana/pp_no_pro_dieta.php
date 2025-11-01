@@ -23,7 +23,7 @@
                     Este contenido forma parte de nuestra versión PRO y requiere una suscripción activa para desbloquearlo.
                 </p>
 
-                <button class="btn_plan_nodieta" onclick="window.location.href = '../Perfil_nutricional/crear_perfil_nutric.html'"> Suscríbete
+                <button class="btn_plan_nodieta" onclick="window.location.href = '../Perfil_nutricional/crear_perfil_nutric.html'"> Hazte Pro
                 </button> 
 
             </div>
