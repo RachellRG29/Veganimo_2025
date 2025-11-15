@@ -1,0 +1,827 @@
+*{
+    outline: 1px solid red;
+}
+
+/* 4K y Pantallas Grandes (>=2560px)            */
+/* ============================================ */
+@media screen and (min-width: 2560px) {
+    .contentdeinicio {
+        max-width: 2560px;
+        padding-top: 4rem;
+        margin: 0 auto;
+    }
+
+    .inicio_logo {
+        width: 1400px;
+        margin-top: 8rem;
+        margin-left: -1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.8rem;
+        max-width: 100%;
+        margin-left: -1rem;
+    }
+
+    .imagen_lado {
+        padding: 0;
+        position: absolute;
+        right: 20px !important;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .imagen_lado img{
+        max-height: 800px;
+    }
+
+    .titulo-proceso {
+        font-size: 48px;
+    }
+
+    .subtitulo-proceso {
+        font-size: 24px;
+    }
+
+    .pasos {
+        gap: 100px;
+    }
+
+    .paso {
+        max-width: 220px;
+    }
+
+    .icono {
+        width: 120px;
+        height: 120px;
+    }
+
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin: 6rem auto;
+        max-width: 1800px;
+    }
+}
+
+/* -------------------------------------------------------------------- */
+/* laptop / destkop                 */
+@media screen and (min-width: 1440px) and (max-width: 2559px) {
+    .contentdeinicio {
+        max-width: 2560px;
+        padding-top: 2rem;
+        margin: 0 auto;
+    }
+
+    .inicio_logo {
+        width: 600px;
+        margin-top: 4rem;
+    }
+
+    .imagen_lado img {
+        max-height: 600px;
+    }
+
+    .slogan_inicio {
+        font-size: 1.3rem;
+        margin-top: -10px;
+    }
+
+    /* SECCIÓN SUSCRIPCIÓN */
+    .cont_susc {
+        position: relative;
+        right: 60px;
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        gap: 20px;
+    }
+
+    .cont_descripcion{
+        max-width: 900px;
+        align-items: stretch; 
+        margin-left: -40px;
+    }
+
+    .planes {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        max-width: 450px;
+        height: 120px;
+    }
+}
+
+/* -------------------------------------------------------------------- */
+/* laptop estandar */
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+    .inicio_logo {
+        width: 450px;
+        margin-top: 3rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+    }
+
+    .btn-descubrir {
+        width: 230px;
+        height: 55px;
+        margin: 30px 0;
+    }
+
+    /* SECCIÓN SUSCRIPCIÓN (tablet default) */
+    .suscripcion {
+        width: 100%;
+        height: 400px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 900px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: -10px;
+        margin: 0;
+    }
+
+    .planes {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        max-width: 650px;
+        height: 160px;
+    }
+
+
+
+}
+
+/* -------------------------------------------------------------------- */
+/*tablet/laptop pequeña*/
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .logo-desc-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inicio_logo {
+        width: 750px;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 800px;
+    }
+
+    .imagen_lado img {
+        max-height: 480px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+
+    /* SECCIÓN SUSCRIPCIÓN (tablet default) */
+    .suscripcion {
+        width: 100%;
+        height: 500px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 800px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_descripcion {
+        font-size: 1rem;
+        max-width: 800px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        margin: 0;
+    }
+
+    .planes {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        max-width: 650px;
+        height: 150px;
+    }
+
+
+    /* SECCIÓN RECETAS E INFÓRMATE */
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 3rem auto;
+    }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------------------------- */
+/*tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+   
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .logo-desc-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inicio_logo {
+        width: 600px;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 750px;
+    }
+
+    .imagen_lado img {
+        max-height: 450px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+
+    /* SECCIÓN SUSCRIPCIÓN (tablet default) */
+    .suscripcion {
+        width: 100%;
+        height: 500px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 400px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_descripcion {
+        font-size: 1rem;
+        max-width: 650px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        margin: 0;
+    }
+
+    .planes {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        max-width: 650px;
+        height: 150px;
+    }
+
+    /* SECCIÓN RECETAS E INFÓRMATE */
+    .lineareceta,
+    .lineainformate {
+        margin: 0 auto;
+        width: 30% !important;
+    }
+
+    #lbl_recetas,
+    #lbl_informate {
+        font-size: 36px;
+        text-align: center;
+        margin-top: 2em;
+    }
+
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 3rem auto;
+    }
+
+    .grid-container{
+        margin: 3.5em 6px 3em 6px;
+        
+    }
+
+    .tarjeta_receta{
+        margin-bottom: -10em;
+    }
+}
+
+/* -------------------------------------------------------------------- */
+/*movil grande*/
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    header {
+        background:#154734;   
+    }
+
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .logo-desc-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inicio_logo {
+        width: 520px;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 750px;
+    }
+
+    .imagen_lado img {
+        max-height: 450px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+    /* SECCIÓN RECETAS E INFÓRMATE */
+    .lineareceta,
+    .lineainformate {
+        margin: 0 auto;
+        width: 30% !important;
+    }
+
+    #lbl_recetas,
+    #lbl_informate {
+        font-size: 36px;
+        text-align: center;
+        margin-top: 2em;
+    }
+
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+     /* SECCIÓN SUSCRIPCIÓN */
+    .suscripcion {
+        width: 100%;
+        height: 500px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 500px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        margin: 0;
+    }
+}
+
+/* Movil mediano */
+@media screen and (min-width: 480px) and (max-width: 599px) {
+    header {
+        background:#154734;   
+    }
+
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .logo-desc-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inicio_logo {
+        width: 480px;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 750px;
+    }
+
+    .imagen_lado img {
+        max-height: 450px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+         /* SECCIÓN SUSCRIPCIÓN */
+    .suscripcion {
+        width: 100%;
+        height: 500px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 450px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        margin: 0;
+    }
+}
+
+/* -------------------------------------------------------------------- */
+/* Movil pequeño           */
+@media screen and (min-width: 360px) and (max-width: 479px) {
+    header {
+        background:#154734;   
+    }
+
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .logo-desc-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inicio_logo {
+        width: 380px;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 750px;
+    }
+
+    .imagen_lado img {
+        max-height: 450px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .planes {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 200px;
+        height: 350px;
+    }
+
+    /* SECCIÓN SUSCRIPCIÓN (tablet default) */
+    .suscripcion {
+        width: 100%;
+        height: 620px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 350px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        margin: 0;
+    }
+}
+
+
+/*telefono extra pequeño*/
+@media screen and (min-width: 240px) and (max-width: 359px) {
+    header {
+        background:#154734;   
+    }
+
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: auto 0;
+    }
+
+    .logo-desc-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .inicio_logo {
+        width: 280px;
+        margin-top: 5rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 750px;
+    }
+
+    .imagen_lado img {
+        max-height: 450px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 10px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+    .planes {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 200px;
+        height: 300px;
+    }
+
+    /* SECCIÓN SUSCRIPCIÓN (tablet default) */
+    .suscripcion {
+        width: 100%;
+        height: 600px !important;
+    }
+
+    .cont_susc {
+        position: relative;
+        left: 10px;
+    }
+
+    .cont_descripcion{
+        max-width: 200px;
+        align-items: stretch; 
+    }
+
+    .overlay{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cont_descripcion {
+        font-size: 1rem;
+        max-width: 250px;
+    }
+
+    .cont_susc .btn-suscribete {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        margin: 0;
+    }
+}

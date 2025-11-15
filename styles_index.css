@@ -334,9 +334,7 @@ footer {
 /* Navbar Responsivo */
 @media (max-width: 660px) {
     /* Ocultar enlaces inicialmente en modo responsivo */
-  header {
-    background:#154734;   
-  }
+
 
   .navbar-links {
     display: none;

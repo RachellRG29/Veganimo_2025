@@ -1,10 +1,8 @@
 /* ------------------ PROCESO ------------------ */
 .proceso_guia {
   background: #fdf6f0;
-  padding: 80px 20px;
+  padding: 100px 20px;
   text-align: center;
-  margin-top: 60px;
-  margin-bottom: 40px;
 }
 
 .titulo-proceso {
@@ -74,9 +72,9 @@
 }
 
 .ph_pasos{
-    color: #e99a3c;
-    fill: #e99a3c;
-    font-size: 40px;
-    justify-content: center;
-    align-items: center;
+  color: #e99a3c;
+  fill: #e99a3c;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
 }

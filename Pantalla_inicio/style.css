@@ -1,0 +1,789 @@
+/* RESPONSIVIDAD - VEGANIMO
+   -------------------------------------------
+   CSS completo y corregido para todos los breakpoints,
+   con FIX definitivo para la sección SUSCRIPCIÓN (proceso_guia / cont_susc)
+*/
+
+/* ---------------------------------------- */
+/* 4K — ULTRA WIDE (2560px a 3840px+)       */
+/* ---------------------------------------- */
+@media screen and (min-width: 2560px) {
+    /* Estilos para 2K, 4K, 5K Monitores grandes */
+}
+
+/* ---------------------------------------- */
+/* DESKTOP GRANDE (1440px a 2559px)         */
+/* ---------------------------------------- */
+@media screen and (min-width: 1440px) and (max-width: 2559px) {
+    /* iMac, pantallas FullHD grandes, laptops gaming */
+}
+
+/* ---------------------------------------- */
+/* DESKTOP ESTÁNDAR (1280px a 1439px)       */
+/* ---------------------------------------- */
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+    /* Laptops normales, monitores pequeños */
+}
+
+/* ---------------------------------------- */
+/* LAPTOP / TABLET HORIZONTAL (1024px–1279px) */
+/* ---------------------------------------- */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+    /* iPad horizontal, Surface tablets, laptops pequeñas */
+}
+
+/* ---------------------------------------- */
+/* TABLET (768px–1023px)                    */
+/* ---------------------------------------- */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    /* Tablets verticales y horizontales */
+}
+
+/* ---------------------------------------- */
+/* MOBILE GRANDE (600px–767px)              */
+/* ---------------------------------------- */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    /* Teléfonos grandes (Pro Max, Ultra, etc.) */
+}
+
+/* ---------------------------------------- */
+/* MOBILE MEDIANO (480px–599px)             */
+/* ---------------------------------------- */
+@media screen and (min-width: 480px) and (max-width: 599px) {
+    /* La mayoría de smartphones estándar */
+}
+
+/* ---------------------------------------- */
+/* MOBILE PEQUEÑO (360px–479px)             */
+/* ---------------------------------------- */
+@media screen and (min-width: 360px) and (max-width: 479px) {
+    /* Samsung A, Motorola, Xiaomi básicos */
+}
+
+/* ---------------------------------------- */
+/* EXTRA SMALL (240px–359px)                */
+/* ---------------------------------------- */
+@media screen and (min-width: 240px) and (max-width: 359px) {
+    /* Teléfonos muy pequeños, pantallas compactas */
+}
+
+/* ============================================ */
+/* 4K y Pantallas Grandes (>=2560px)            */
+/* ============================================ */
+@media screen and (min-width: 2560px) {
+    .contentdeinicio {
+        max-width: 1800px;
+        padding-top: 4rem;
+        margin: 0 auto;
+    }
+
+    .inicio_logo {
+        width: 800px;
+        margin-top: 8rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.8rem;
+        max-width: 90%;
+    }
+
+    .imagen_lado img {
+        max-height: 700px;
+        width: auto;
+        height: auto;
+    }
+
+    .titulo-proceso {
+        font-size: 48px;
+    }
+
+    .subtitulo-proceso {
+        font-size: 24px;
+    }
+
+    .pasos {
+        gap: 100px;
+    }
+
+    .paso {
+        max-width: 220px;
+    }
+
+    .icono {
+        width: 120px;
+        height: 120px;
+    }
+
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin: 6rem auto;
+        max-width: 1800px;
+    }
+}
+
+/* ============================================ */
+/* Laptop y Desktop (<=1440px)                  */
+/* ============================================ */
+@media screen and (max-width: 1440px) {
+    .contentdeinicio {
+        max-width: 1200px;
+        padding-top: 1.5rem;
+        margin: 0 auto;
+    }
+
+    .inicio_logo {
+        width: 500px;
+        margin-top: 4rem;
+    }
+
+    .imagen_lado img {
+        max-height: 450px;
+    }
+
+    .slogan_inicio {
+        font-size: 1.3rem;
+        margin-top: -10px;
+    }
+}
+
+/* Ajuste intermedio (<=1200px) */
+@media screen and (max-width: 1200px) {
+    .inicio_logo {
+        width: 450px;
+        margin-top: 3rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+    }
+
+    .btn-descubrir {
+        width: 220px;
+        height: 55px;
+        margin: 30px 0;
+    }
+}
+
+/* ============================================ */
+/* Tablet (<=1023px)                            */
+/* ============================================ */
+@media screen and (max-width: 1023px) {
+    /* HEADER Y NAVEGACIÓN */
+    .navbar-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #1A1C1C;
+        display: flex;
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .navbar-links.active {
+        right: 0;
+    }
+
+    .navbar-links a {
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(246, 255, 254, 0.1);
+        width: 100%;
+    }
+
+    .botones-login {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .btn-iniciar-sesion,
+    .btn-registrar {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .navbar-toggler {
+        display: block;
+        z-index: 1001;
+    }
+
+    /* SECCIÓN INICIO */
+    .inicio_contenido {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .logo-desc-container {
+        flex: 1 1 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+
+    .inicio_logo {
+        width: 400px;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1.1rem;
+        max-width: 600px;
+    }
+
+    .imagen_lado {
+        flex: 1 1 100%;
+        order: 3;
+        padding-top: 1rem;
+    }
+
+    .imagen_lado img {
+        max-height: 350px;
+        width: auto;
+        height: auto;
+    }
+
+    .slogan_inicio {
+        text-align: center;
+        margin-right: 0;
+        margin-top: 1rem;
+        order: 4;
+    }
+
+    .main__action {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 30px;
+    }
+
+    .leaf-container {
+        width: 100%;
+    }
+
+    /* SECCIÓN PROCESO */
+    .proceso_guia {
+        padding: 60px 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .titulo-proceso {
+        font-size: 32px;
+    }
+
+    .pasos {
+        gap: 40px;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .paso {
+        max-width: 150px;
+    }
+
+    /* SECCIÓN SUSCRIPCIÓN (tablet default) */
+    .cont_susc {
+        padding: 30px 20px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1100px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 24px;
+        box-sizing: border-box;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .cont_descripcion {
+        font-size: 1rem;
+        max-width: 600px;
+    }
+
+    .planes {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        display: flex;
+    }
+
+    .plan-card {
+        flex: 0 1 calc(50% - 20px);
+        min-width: 250px;
+        max-width: 420px;
+        box-sizing: border-box;
+    }
+
+    /* SECCIÓN RECETAS E INFÓRMATE */
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 3rem auto;
+    }
+
+    #lbl_recetas,
+    #lbl_informate {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .lineareceta,
+    .lineainformate {
+        margin: 0 auto;
+        width: 30% !important;
+    }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
+    }
+}
+
+/* ============================================ */
+/* Móvil (<=767px)                              */
+/* ============================================ */
+@media screen and (max-width: 767px) {
+    /* HEADER */
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .logo {
+        width: 35px !important;
+    }
+
+    /* SECCIÓN INICIO */
+    .contentdeinicio {
+        padding: 0 10px;
+    }
+
+    .inicio_logo {
+        width: 300px;
+        margin-top: 1rem;
+    }
+
+    .div_descripcion {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .div_descripcion p:first-child {
+        font-size: 1.3rem;
+    }
+
+    .btn-descubrir {
+        width: 200px;
+        height: 50px;
+        margin: 20px 0;
+        padding-left: 15px;
+        font-size: 0.9rem;
+    }
+
+    .imagen_lado img {
+        max-height: 280px;
+    }
+
+    .slogan_inicio {
+        font-size: 1.1rem;
+        margin-bottom: 40px;
+    }
+
+    .main__action {
+        bottom: 20px;
+    }
+
+    .leaf {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* SECCIÓN PROCESO */
+    .proceso_guia {
+        padding: 40px 15px;
+    }
+
+    .titulo-proceso {
+        font-size: 28px;
+    }
+
+    .subtitulo-proceso {
+        font-size: 16px;
+        padding: 0 10px;
+    }
+
+    .pasos {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .paso {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .icono {
+        width: 80px;
+        height: 80px;
+    }
+
+    .ph_pasos {
+        font-size: 30px;
+    }
+
+    /* SECCIÓN SUSCRIPCIÓN (MÓVIL) - layout por defecto que será sobrescrito por FIX final */
+    .cont_susc {
+        padding: 25px 20px;
+        margin: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .cont_descripcion {
+        font-size: 1rem;
+    }
+
+    .planes {
+        flex-direction: column;
+        align-items: center;
+        display: flex;
+        gap: 16px;
+    }
+
+    .plan-card {
+        flex: 0 1 100%;
+        max-width: 300px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    /* SECCIÓN RECETAS E INFÓRMATE */
+    .grid-container,
+    .grid-informate {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 2rem 10px;
+    }
+
+    #lbl_recetas,
+    #lbl_informate {
+        font-size: 32px;
+        margin: 15px;
+    }
+
+    .lineareceta,
+    .lineainformate {
+        width: 50% !important;
+    }
+
+    .tarjeta-receta,
+    .tarjeta-informate {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .btn-content,
+    .btn-content-inf {
+        font-size: 20px;
+        padding: 8px 25px;
+    }
+
+    /* FOOTER */
+    .ListFooter {
+        padding: 0 15px;
+    }
+
+    .nosotros {
+        font-size: 0.9rem;
+    }
+
+    .afiliados h2 {
+        font-size: 1.2rem;
+    }
+
+    .copyFooter {
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================ */
+/* Móvil Pequeño (<=480px)                      */
+/* ============================================ */
+@media screen and (max-width: 480px) {
+    .inicio_logo {
+        width: 250px;
+    }
+
+    .div_descripcion p:first-child {
+        font-size: 1.2rem;
+    }
+
+    .div_descripcion {
+        font-size: 0.95rem;
+    }
+
+    .btn-descubrir {
+        width: 180px;
+        height: 45px;
+        font-size: 0.85rem;
+    }
+
+    .imagen_lado img {
+        max-height: 220px;
+    }
+
+    .slogan_inicio {
+        font-size: 1rem;
+    }
+
+    .titulo-proceso {
+        font-size: 24px;
+    }
+
+    .tarjeta-receta .body-tarjeta,
+    .tarjeta-informate .body-tarjeta-inf {
+        padding: 15px;
+    }
+
+    .title-tarjeta,
+    .title-tarjeta-inf {
+        font-size: 1.2rem;
+    }
+
+    .descripcion-tarjeta,
+    .descripcion-tarjeta-inf {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================ */
+/* Utilidades para mejorar la experiencia móvil */
+/* ============================================ */
+@media (max-width: 1023px) {
+    /* Mejorar el scrolling suave */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Prevenir zoom en inputs en iOS */
+    input, select, textarea {
+        font-size: 16px;
+    }
+
+    /* Mejorar la legibilidad del texto */
+    body {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+}
+
+/* ============================================ */
+/* Orientación Landscape en móviles (baja altura)*/
+/* ============================================ */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .inicio_contenido {
+        min-height: auto;
+        padding: 20px 0;
+    }
+
+    .inicio_logo {
+        margin-top: 1rem;
+        width: 300px;
+    }
+
+    .imagen_lado img {
+        max-height: 200px;
+    }
+
+    .navbar-links {
+        overflow-y: auto;
+    }
+}
+
+/* ============================================ */
+/* Ajustes para alta densidad de píxeles       */
+/* ============================================ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .inicio_logo svg,
+    .logo svg {
+        shape-rendering: geometricPrecision;
+    }
+}
+
+/* ============================================ */
+/* ======= FIX DEFINITIVO PARA TABLET -> MÓVIL */
+/* Este bloque debe estar al FINAL del fichero  */
+/* Forza el orden: texto -> botón -> tarjetas  */
+/* Hace que las tarjetas sean apiladas y       */
+/* elimina hover/transform solo en <=1023px    */
+/* ============================================ */
+@media screen and (max-width: 1023px) {
+
+    /* Use .proceso_guia como scope para no alterar otras secciones */
+    .proceso_guia {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        padding: 28px 16px !important;
+        background-size: cover !important;
+        background-position: top center !important;
+    }
+
+    /* Contenedor principal de suscripción (puede ser .cont_susc dentro de proceso_guia) */
+    .proceso_guia .cont_susc {
+        order: 2 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        padding: 24px 12px !important;
+        margin: 0 auto !important;
+        background-size: cover !important;
+        background-position: top center !important;
+        height: auto !important;
+    }
+
+    /* 1 - Texto descriptivo: "Accede a un plan diseñado..." */
+    .proceso_guia .cont_descripcion,
+    .cont_susc .cont_descripcion {
+        order: 1 !important;
+        width: 100% !important;
+        max-width: 820px !important;
+        margin: 0 8px 12px !important;
+        font-size: 1.05rem !important;
+        text-align: center !important;
+        line-height: 1.4 !important;
+    }
+
+    /* 2 - Botón Suscribete: debajo del texto */
+    .proceso_guia .btn-suscribete,
+    .proceso_guia .btn-suscribete-primary,
+    .cont_susc .btn-suscribete,
+    .cont_susc .btn-suscribete-primary {
+        order: 2 !important;
+        margin: 12px 0 22px !important;
+        display: inline-flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 230px !important;
+        min-width: 160px !important;
+        height: 52px !important;
+        font-size: 1rem !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3 - Contenedor de tarjetas: columna y apiladas */
+    .proceso_guia .planes,
+    .cont_susc .planes {
+        order: 3 !important;
+        width: 100% !important;
+        max-width: 920px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 18px !important;
+        align-items: center !important;
+        margin: 0 auto !important;
+        padding: 0 8px 12px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 4 - Tarjetas individuales: 100% ancho (limitado por max-width para mantener estética) */
+    .proceso_guia .plan-card,
+    .cont_susc .plan-card {
+        order: 3 !important;
+        width: 100% !important;
+        max-width: 380px !important;
+        margin: 0 auto !important;
+        transform: none !important;
+        transition: none !important;
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+    }
+
+    /* Asegurar que todas las transiciones o transformaciones se inhabiliten en móvil */
+    .proceso_guia .plan-card *,
+    .cont_susc .plan-card * {
+        transition: none !important;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    /* Desactivación de hover/scale en pantallas <=1023 */
+    .proceso_guia .plan-card:hover,
+    .cont_susc .plan-card:hover,
+    .proceso_guia .plan-card:active,
+    .cont_susc .plan-card:active,
+    .proceso_guia .plan-card:focus,
+    .cont_susc .plan-card:focus {
+        transform: none !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+    /* Si usas una imagen de fondo o <img class="bg-img"> dentro de cont_susc, asegurar que suba con el contenido */
+    .proceso_guia .cont_susc .bg-img,
+    .cont_susc .bg-img {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 220px !important;
+        object-fit: cover !important;
+        display: block !important;
+    }
+}
+
+/* ============================================ */
+/* Ajustes extras para móviles pequeños <=767px */
+/* Mantener legibilidad y espacio adicional    */
+/* ============================================ */
+@media screen and (max-width: 767px) {
+    .proceso_guia {
+        padding: 20px 12px !important;
+    }
+
+    .proceso_guia .cont_descripcion,
+    .cont_susc .cont_descripcion {
+        font-size: 1rem !important;
+        margin-bottom: 10px !important;
+        padding: 0 6px !important;
+    }
+
+    .proceso_guia .btn-suscribete,
+    .cont_susc .btn-suscribete {
+        width: 220px !important;
+        height: 48px !important;
+    }
+
+    .proceso_guia .plan-card,
+    .cont_susc .plan-card {
+        max-width: 340px !important;
+        padding: 14px !important;
+    }
+
+    /* Añadir espacio abajo para que el fondo se vea completo */
+    .proceso_guia .cont_susc,
+    .cont_susc {
+        padding-bottom: 40px !important;
+    }
+}
