@@ -21,7 +21,7 @@ body , html{
   margin-left: auto !important;
   padding-right: 0 !important;
   padding-left: 0 !important;
-    right: 0 !important;
+  right: 0 !important;
 }
 
 .contenido {
@@ -166,4 +166,57 @@ body.dark-mode {
 
 #footer-pp .copyFooter {
   font-size: 0.8rem;
+}
+
+/* ----------- Tablets y móviles grandes ( < 992px ) ----------- */
+@media (max-width: 992px) {
+
+  #footer-pp {
+    padding: 20px;            /* el footer ocupa ancho completo */
+    text-align: center;
+  }
+
+  #footer-pp .ListFooter {
+    flex-direction: column;   /* columnas una debajo de otra */
+    align-items: center;
+  }
+
+  #footer-pp .logoarea,
+  #footer-pp .afiliados {
+    text-align: center;
+    min-width: unset;
+    width: 100%;
+  }
+
+  #footer-pp .logoFooter {
+    margin-left: 0 !important;
+  }
+
+  #footer-pp .logoFooter{
+    height: 60px !important;
+  }
+}
+
+/* ----------- Móviles pequeños ( < 600px ) ----------- */
+@media (max-width: 600px) {
+
+  #footer-pp {
+    padding: 18px;
+  }
+
+  #footer-pp .nosotros {
+    font-size: 0.85rem;
+  }
+
+  #footer-pp .afiliados h2 {
+    font-size: 18px;
+  }
+
+  #footer-pp .copyFooter {
+    font-size: 0.75rem;
+  }
+
+  #footer-pp .logoFooter{
+    height: 50px !important;
+  }
 }

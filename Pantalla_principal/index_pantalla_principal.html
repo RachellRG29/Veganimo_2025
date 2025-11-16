@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="../style_tarjeta_receta.css"> <!-- Estilos para las tarjetas de recetas -->
     <link rel="stylesheet" href="../style_perfil_usuario.css"> <!-- Estilos para el perfil de usuario -->
 
+    <link rel="stylesheet" href="/Pantalla_principal/css/style_pp_resp.css"> <!-- Estilos responsivos -->
+
     <link rel="website icon" href="/Images/Icono_veganimo.svg">
 
     <title>Pantalla Principal</title>
@@ -40,7 +42,24 @@
 
 <body>
 
+  <button id="toggle-sidebar" class="btn-hamburger">
+    <div class="menu-toggle">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="cross">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </button>
+
+
   <div class="container">
+
     <!-- Sidebar -->
     <nav class="sidebar">
       <div class="logo">
@@ -213,6 +232,8 @@
     </div>
   </footer>
 
+
+
   <!-- SCRIPTS DE LA PANTALLA PRINCIPAL -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  <!-- SweetAlert -->
   <script src="https://unpkg.com/phosphor-icons"></script> <!-- Iconos -->
@@ -230,11 +251,9 @@
   <script src="../Pantalla_principal/js/validacion_receta.js"></script>  <!-- metodos de interfaz de crear receta -->
   <script src="../Pantalla_principal/js/guardar_recetas.js"></script>  <!-- Guardar recetas -->
   <script src="../Pantalla_principal/js/validacion_crear_receta.js"></script>
-   <!-- scrip de enviar receta de usuario pro la solicitud  -->
-   <script src="../Pantalla_principal/js/guardar_recetaspro.js"></script>
-   
+  <!-- scrip de enviar receta de usuario pro la solicitud  -->
+  <script src="../Pantalla_principal/js/guardar_recetaspro.js"></script>
   
- 
 
   <!-- MENU Y POPUP PERFIL NUTRC + CONFIGURACIÓN -->
   <script src="../perfil_nutric_popup.js"></script>

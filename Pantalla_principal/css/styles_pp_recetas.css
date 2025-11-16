@@ -121,8 +121,6 @@
 }  
 
   
-
-
 .receta-destacada {
   border: 2px solid #E99A3C;
   box-shadow: 0 0 0 4px rgba(233, 154, 60, 0.3);
@@ -133,4 +131,123 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.02); }
   100% { transform: scale(1); }
+}
+
+
+/*REPONSIVIDAD RECETAS PANTALLA PRINCIPAL*/
+
+/* ====================== RESPONSIVE ====================== */
+
+/* 🔵 992px a 901px → La sidebar ya no está, navbar debe ocupar todo */
+@media (max-width: 992px) {
+
+  .busqueda-conteiner {
+    left: 0 !important;      /* Quita el espacio de la sidebar */
+    width: 100% !important;  /* Ocupa todo el ancho */
+    background: var(--backg-blur-light);
+    height: 80px;
+    position: fixed;         /* Sigue fija */
+  }
+
+  /* Buscador y categorías siguen a la par */
+  .busqueda-recetas {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .input-busq-recetas {
+    width: 60% !important;
+    margin-left: 0;
+  }
+
+  .input-busq-categoria select {
+    width: 40% !important;
+  }
+
+  /* Ajustar título */
+  .lbl_title_recetas {
+    margin-top: 100px !important;
+    margin-bottom: 70px;
+  }
+}
+
+
+/* 🔵 900px a 481px → Tablet normal: siguen juntos */
+@media (max-width: 900px) {
+
+  .busqueda-conteiner {
+    left: 0 !important;
+    width: 100% !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    height: auto;
+    padding: 10px 0;
+    position: relative;
+  }
+
+  .busqueda-recetas {
+    display: flex;
+    flex-direction: row; /* Siguen a la par */
+    gap: 12px;
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  .input-busq-recetas {
+    width: 65% !important;
+  }
+
+  .input-busq-categoria select {
+    width: 100% !important;
+  }
+
+  .lbl_title_recetas {
+    margin-top: 15px !important;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section_recetas_pp {
+    margin-top: 50px !important;
+  }
+}
+
+
+/* 🔵 Móvil 480px → AHORA SÍ APILADOS */
+@media (max-width: 480px) {
+
+  .busqueda-recetas {
+    flex-direction: column; /* SE APILAN */
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .input-busq-recetas,
+  .input-busq-categoria select {
+    width: 100% !important;
+  }
+
+  .lbl_title_recetas {
+    font-size: 1.3rem;
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: 100px;
+  }
+}
+
+
+/* 🔵 Extra pequeño 360px */
+@media (max-width: 360px) {
+
+  .lbl_title_recetas {
+    font-size: 1.15rem;
+  }
+
+  .input-busq-categoria select {
+    font-size: 0.9rem;
+  }
 }

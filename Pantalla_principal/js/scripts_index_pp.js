@@ -1,3 +1,13 @@
+// ======================== SIDEBAR PANTALLA PRINCIPAL ======================== 
+  const btn = document.getElementById("toggle-sidebar");
+  const sidebar = document.querySelector(".sidebar");
+  const menuToggle = document.querySelector(".menu-toggle");
+
+  btn.addEventListener("click", () => {
+    sidebar.classList.toggle("sidebar-open");
+    menuToggle.classList.toggle("active");
+  });
+
 // ======================== CARGAR CONTENIDO ========================
 async function cargarContenido(pagina) {
   // Construye la ruta correctamente, admitiendo subcarpetas

@@ -28,7 +28,8 @@ body, html {
 
 .tarjeta_inic_plan{
   width: 90%;
-  height: 530px;
+  height: auto;
+  min-width: 350px;
   padding: 14px;
   border-radius: 01rem;
   overflow: visible;
@@ -47,7 +48,7 @@ body, html {
   width: 100%;
   transform: scale(0.9);
   filter: blur(30px);
-  background: #154734;
+  background: #00784836;
   transition: opacity 0.5s;
  }
 
@@ -60,6 +61,7 @@ body, html {
   display: flex; flex-direction: column;
   gap: 20px;
   align-items: center ; /*alineados centro*/
+  padding-bottom: 2rem;
 }
 
 .tarjeta_inic_plan:hover::after {
@@ -74,29 +76,26 @@ body, html {
   border-radius: 50%;
   background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
   margin-top: 1.6rem;
-  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 0;
 }
 .img_tarj_plan{
-  position: absolute;
-  width: 150px !important;
+  width: 130px;
   height: auto;
-  top: 1rem;
-  object-fit: cover; 
-  justify-content: center;
+  object-fit: cover;
 }
 /*titulo*/
 .titulo_tarj_plan{
   color: #1A1C1C;
+  margin-top: 10px;
+  text-align: center;
 
 }
 /*descripcion tarjeta para iniciar plan*/
 .descripcion_tarj_plan{
   text-wrap: pretty;  font-size: 1.1rem;
-  text-align: center;  padding: 0 1.5rem;
+  align-self: center;  padding: 0 3rem;
   color: #1A1C1C;
 }
 /*Boton para iniciar plan*/
@@ -117,6 +116,7 @@ body, html {
   overflow: hidden;
   font-size: 15px;
   cursor: pointer;
+  margin-bottom: 40px;
 }
 
 .ph-caret-right{
@@ -167,140 +167,96 @@ body, html {
   }
 }
 
-/*-------------------------------------------------------------------------------------------------*/
-/*CONTENEDOR DE LAS RECOMENDACIONES*/
-.contenedor_recomendaciones{
-  background: #F6FFFE;
-  border-radius: 20px;
-  width: 90%;
-  margin: 0 auto; /*centrado importante*/
-  padding-bottom: 0.1rem;
+
+
+@media (max-width: 374px) {
+
+  .lbl_bienvenida_vg {
+    margin-left: 0;
+    text-align: center;
+    margin-top: 4rem;    /* <<< BAJA EL TÍTULO */
+  }
+
+  .tarjeta_inic_plan{
+    width: 95%;
+    min-height: 650px;   /* <<< MÁS LARGA */
+  }
+
+  .descripcion_tarj_plan{
+    padding: 0 1.2rem;
+    font-size: 1rem;
+  }
+
+  .circulo_plan{
+    width: 120px;
+    height: 120px;
+  }
+  .img_tarj_plan{
+    width: 110px;
+  }
 }
 
- /* Grid container */
- .grid-container-recomendaciones {
-  display: grid; justify-items: center;
-  /*grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); Ancho minimo de la tarjeta*/
-  grid-template-columns: repeat(auto-fit, minmax(400px, 2fr));
-  margin: 4rem 5px 4rem 5px; /*top-right-bottom-left*/
-  gap: 2rem;
+/* Móvil pequeño 375–480px */
+@media (min-width: 375px) and (max-width: 480px){
+
+  .lbl_bienvenida_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .tarjeta_inic_plan{
+    width: 95%;
+    min-height: 630px;
+  }
+
+  .descripcion_tarj_plan{
+    padding: 0 2rem;
+  }
 }
 
-.lbl_recomendaciones{
-  margin: 20px 20px; /* Márgenes superior e inferior */
-  padding-top: 1.2rem;
-  color: #1A1C1C;
+/* Móvil mediano 481–600px */
+@media (min-width: 481px) and (max-width: 600px){
+
+  .lbl_bienvenida_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;    
+  }
+
+  .tarjeta_inic_plan{
+    width: 92%;
+    min-height: 590px;
+  }
+
+  .descripcion_tarj_plan{
+    padding: 0 3rem;
+  }
 }
 
-/*RECETAS RECOMENDADAS*/
+/* Tablet 600–900px */
+@media (min-width: 600px) and (max-width: 900px){
+  .lbl_bienvenida_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;    
+  }
 
-/* Tarjeta base */
-.tarjeta-receta {
-  position: relative;
-  background-color: #007848;
-  border-radius: 16px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  max-width: 360px;
-  height: auto;
-  padding-top: 80px; /* espacio para el círculo */
-  box-sizing: border-box;
-  overflow: visible;
-  margin-top: 40px;  
+  .tarjeta_inic_plan{
+    width: 75%;
+  }
 }
 
-/* Círculo contenedor */
-.circulo-img {
-  position: absolute;
-  top: -70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background-color: #E99A3C;
-  border: 4px solid white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  padding: 4px;
-  z-index: 2;
-  margin: auto auto 0.5rem auto; /* centrado horizontal */
-  display: block; /* importante margin auto */
+/* Laptops pequeñas 900–1200px */
+@media (min-width: 900px) and (max-width: 1200px){
+  .tarjeta_inic_plan{
+    width: 65%;
+  }
 
-}
+  .lbl_bienvenida_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;  
+  }
 
-/* Imagen dentro del círculo */
-.img-plato {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  margin: 20px auto-center; /* centrado horizontal */
-    
-}
-
-/* Contenido de la tarjeta */
-.body-tarjeta {
-  padding: 40px 20px 30px 20px;
-  text-align: center;
-}
-
-.title-tarjeta {
-  color: #F6FFFE;
-  font-family: 'Gloock', verdana;
-  font-weight: 400;
-  font-size: 25px;
-  letter-spacing: 1.5px;
-  margin-bottom: 10px;
-}
-
-.descripcion-tarjeta {
-  color: #ffffffd4;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-
-.estrellas_vot {
-  display: flex;
-  color: #F6FFFE;
-  justify-content: center;
-  margin-bottom: 1rem;
-  padding-bottom: 20px;
-  gap: 40px;
-}
-
-.star{
-  transform: rotate(45deg);
-}
-
-.datos-receta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-
-.tiempo-receta, .dificultad-receta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #F6FFFE;
-  font-size: 14px;
-}
-
-.grupo_tiempo, .grupo_dif {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 6px 2px 4px 2px; /*top-right-bottom-left*/
-}
-
-.linea-datos {
-  width: 1px;
-  height: 50px;
-  background-color: #fff;
-}
-
-.lbl_tiempo_receta, .lbl_dificultad {
-  margin: 0;
 }

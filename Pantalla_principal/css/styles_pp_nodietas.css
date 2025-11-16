@@ -26,7 +26,8 @@
 
 .tarjeta_vg_nodieta{
   width: 90%;
-  height: 530px;
+  height: auto;
+  min-width: 350px;
   padding: 14px;
   border-radius: 01rem;
   overflow: visible;
@@ -52,12 +53,13 @@
 .contenido_tarj_nodieta{
   --color: #F6FFFE;
   background: var(--color); color: #1A1C1C;
-  width: 100%; height: 100%;
+  width: 100%; height: auto;
   overflow: visible;
   border-radius: 0.6rem;
   display: flex; flex-direction: column;
   gap: 20px;
   align-items: center ; /*alineados centro*/
+  padding-bottom: 2rem;
 }
 
 .tarjeta_vg_nodieta:hover::after {
@@ -74,15 +76,14 @@
   border-radius: 50%;
   background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
   margin-top: 1.6rem;
+  display: flex;
   justify-content: center;
+  align-items: center;
 }
 .img_tarj_nodieta_pred{
-  position: absolute;
-  width: 135px !important;
+  width: 130px;
   height: auto;
-  top: 1rem;
-  object-fit: cover; 
-  justify-content: center;
+  object-fit: cover;
 }
 
 /**/
@@ -90,6 +91,7 @@
 .titulo_tarj_nodieta_vg{
   color: #1A1C1C;
   margin-top: 10px;
+  text-align: center;
 
 }
 /*descripcion tarjeta para iniciar plan*/
@@ -119,6 +121,7 @@
   overflow: hidden;
   font-size: 15px;
   cursor: pointer;
+  margin-bottom: 40px;
 }
 
 .btn_plan_nodieta:hover {
@@ -155,5 +158,122 @@
 
   to {
     left: 100%;
+  }
+}
+
+
+
+@media (max-width: 374px) {
+
+  .lbl_bienvenida_vg_nodieta h1.lbl_nodietas_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 4rem;    /* <<< BAJA EL TÍTULO */
+  }
+
+  .lbl_nosubt{
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .tarjeta_vg_nodieta{
+    width: 95%;
+    min-height: 650px;   /* <<< MÁS LARGA */
+  }
+
+  .descripcion_tarj_nodieta_vg{
+    padding: 0 1.2rem;
+    font-size: 1rem;
+  }
+
+  .circulo_nodieta_vg{
+    width: 120px;
+    height: 120px;
+  }
+  .img_tarj_nodieta_pred{
+    width: 110px;
+  }
+}
+
+/* Móvil pequeño 375–480px */
+@media (min-width: 375px) and (max-width: 480px){
+
+  .lbl_bienvenida_vg_nodieta h1.lbl_nodietas_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 4rem;
+  }
+  .lbl_nosubt{
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .tarjeta_vg_nodieta{
+    width: 95%;
+    min-height: 630px;
+  }
+
+  .descripcion_tarj_nodieta_vg{
+    padding: 0 2rem;
+  }
+}
+
+/* Móvil mediano 481–600px */
+@media (min-width: 481px) and (max-width: 600px){
+
+  .lbl_bienvenida_vg_nodieta h1.lbl_nodietas_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;    
+  }
+
+  .lbl_nosubt{
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .tarjeta_vg_nodieta{
+    width: 92%;
+    min-height: 590px;
+  }
+
+  .descripcion_tarj_nodieta_vg{
+    padding: 0 3rem;
+  }
+}
+
+/* Tablet 600–900px */
+@media (min-width: 600px) and (max-width: 900px){
+  .lbl_bienvenida_vg_nodieta h1.lbl_nodietas_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;    
+  }
+
+  .lbl_nosubt{
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .tarjeta_vg_nodieta{
+    width: 75%;
+  }
+}
+
+/* Laptops pequeñas 900–1200px */
+@media (min-width: 900px) and (max-width: 1200px){
+  .tarjeta_vg_nodieta{
+    width: 65%;
+  }
+
+  .lbl_bienvenida_vg_nodieta h1.lbl_nodietas_vg{
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;  
+  }
+
+  .lbl_nosubt{
+    margin-left: 0;
+    text-align: center;
   }
 }

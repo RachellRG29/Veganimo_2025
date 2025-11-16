@@ -242,3 +242,96 @@
   font-size: 15px;
   cursor: pointer;
 }
+
+/* =======================
+   RESPONSIVE — TABLET
+   ======================= */
+@media screen and (max-width: 991px) {
+
+  /* mover los títulos hacia abajo */
+  .lbl_dietas_vg,
+  .lbl_subt {
+    margin-left: 20px !important;
+    margin-top: 40px; /* baja los títulos */
+  }
+
+  /* tarjeta se vuelve auto-height */
+  .tarjeta_vg_dieta {
+    height: auto !important;
+  }
+
+  .contenido_tarj_dieta {
+    padding-bottom: 2rem;
+  }
+
+  /* botones más juntos */
+  .botones_dieta {
+    gap: 30px;
+  }
+
+  .descripcion_tarj_dieta_vg {
+    padding: 0 2rem;
+    font-size: 1rem;
+  }
+}
+
+
+/* =======================
+   RESPONSIVE — MÓVIL
+   ======================= */
+@media screen and (max-width: 600px) {
+
+  /* bajar aún más los títulos para que no se tapen */
+  .lbl_dietas_vg,
+  .lbl_subt {
+    margin-left: 15px !important;
+    margin-top: 70px !important; /* baja más */
+  }
+
+  .lbl_dietas_vg {
+    font-size: 24px;
+  }
+
+  .lbl_subt {
+    font-size: 15px;
+  }
+
+  /* tarjeta se adapta completamente */
+  .tarjeta_vg_dieta {
+    width: 95%;
+    height: auto !important;
+    padding: 12px;
+  }
+
+  .contenido_tarj_dieta {
+    gap: 15px;
+  }
+
+  .circulo_dieta_vg {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .img_tarj_dieta_pred {
+    width: 105px !important;
+    top: 0.6rem;
+  }
+
+  .descripcion_tarj_dieta_vg {
+    padding: 0 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* botones uno abajo del otro */
+  .botones_dieta {
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .btn_plan_dieta_vg,
+  .btn_plan_dieta_prof {
+    width: 100%;
+    font-size: 14px;
+  }
+}
