@@ -1,0 +1,363 @@
+
+/* -------------------------------------------------------------------- */
+/* laptop estandar */
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+  .container-fluid {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custom-form-card {
+    width: 70%;
+  }
+
+  .login-image-container {
+    width: 30%;
+  }
+
+  .login-image {
+    min-height: 100%;
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/*tablet/laptop pequeña*/
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+  .container-fluid {
+    flex-direction: row;
+  }
+
+  .custom-form-card {
+    width: 65%;
+  }
+
+  .login-image-container {
+    width: 35%;
+  }
+
+    .login-image {
+    min-height: 100%;
+  }
+
+}
+
+/* -------------------------------------------------------------------- */
+/*tablet*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+   .container-fluid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .custom-form-card {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .login-image-container {
+    display: block !important;
+    width: 90%;
+    height: 400px;
+    margin-top: 20px;
+  }
+
+  .login-image {
+    height: 100%;
+    object-fit: cover;
+  }
+
+    .form-label {
+    padding-left: 0 !important;
+  }
+
+  .input-border {
+    width: 100% !important;
+  }
+
+  /* mensajes debajo de inputs */
+  #fullname-message,
+  #email-message,
+  #password-message,
+  #match-message,
+  #birthdate-message {
+    margin-left: 0 !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  #fechana {
+    margin-left: 0 !important;
+  }
+
+  #birthdate,
+  #gender {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* ------------------------------------------------------- */
+/*  MOVIL GRANDE 600–767px */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+
+  .login-image-container {
+    display: block !important;
+    width: 90%;
+    height: 400px;
+    margin-top: 20px;
+  }
+
+  .login-image {
+    height: 100%;
+    object-fit: cover;
+  }
+  .container-fluid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .custom-form-card {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .form-label {
+    padding-left: 0 !important;
+  }
+
+  .input-border {
+    width: 100% !important;
+  }
+
+  /* mensajes debajo de inputs */
+  #fullname-message,
+  #email-message,
+  #password-message,
+  #match-message,
+  #birthdate-message {
+    margin-left: 0 !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  #fechana {
+    margin-left: 0 !important;
+  }
+
+  #birthdate,
+  #gender {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .login-image-container {
+    width: 95%;
+    height: 350px;
+  }
+
+  .login-image {
+    height: 100%;
+  }
+}
+
+/* ------------------------------------------------------- */
+/*  MOVIL MEDIANO 480–599px */
+@media screen and (min-width: 480px) and (max-width: 599px) {
+
+  .login-image-container {
+    display: block !important;
+    width: 90%;
+    height: 400px;
+    margin-top: 20px;
+  }
+
+  .login-image {
+    height: 100%;
+    object-fit: cover;
+  }
+  .container-fluid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .custom-form-card {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .form-label {
+    padding-left: 0 !important;
+  }
+
+  .input-border {
+    width: 100% !important;
+  }
+
+  /* mensajes debajo de inputs */
+  #fullname-message,
+  #email-message,
+  #password-message,
+  #match-message,
+  #birthdate-message {
+    margin-left: 0 !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  #fechana {
+    margin-left: 0 !important;
+  }
+
+  #birthdate,
+  #gender {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .login-image-container {
+    width: 95%;
+    height: 350px;
+  }
+
+  .login-image {
+    height: 100%;
+  }
+}
+
+/* ------------------------------------------------------- */
+/*  MOVIL PEQUEÑO 360–479px */
+@media screen and (min-width: 360px) and (max-width: 479px) {
+
+  .login-image-container {
+    display: block !important;
+    width: 90%;
+    height: 400px;
+    margin-top: 20px;
+  }
+
+  .login-image {
+    height: 100%;
+    object-fit: cover;
+  }
+  .container-fluid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .custom-form-card {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .form-label {
+    padding-left: 0 !important;
+  }
+
+  .input-border {
+    width: 100% !important;
+  }
+
+  /* mensajes debajo de inputs */
+  #fullname-message,
+  #email-message,
+  #password-message,
+  #match-message,
+  #birthdate-message {
+    margin-left: 0 !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  #fechana {
+    margin-left: 0 !important;
+  }
+
+  #birthdate,
+  #gender {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .login-image-container {
+    width: 95%;
+    height: 350px;
+  }
+
+  .login-image {
+    height: 100%;
+  }
+}
+
+/* ------------------------------------------------------- */
+/*  EXTRA PEQUEÑO 240–359px */
+@media screen and (min-width: 240px) and (max-width: 359px) {
+
+  .login-image-container {
+    display: block !important;
+    width: 90%;
+    height: 400px;
+    margin-top: 20px;
+  }
+
+  .login-image {
+    height: 100%;
+    object-fit: cover;
+  }
+  .container-fluid {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .custom-form-card {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .form-label {
+    padding-left: 0 !important;
+  }
+
+  .input-border {
+    width: 100% !important;
+  }
+
+  /* mensajes debajo de inputs */
+  #fullname-message,
+  #email-message,
+  #password-message,
+  #match-message,
+  #birthdate-message {
+    margin-left: 0 !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  #fechana {
+    margin-left: 0 !important;
+  }
+
+  #birthdate,
+  #gender {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .login-image-container {
+    width: 95%;
+    height: 350px;
+  }
+
+  .login-image {
+    height: 100%;
+  }
+}

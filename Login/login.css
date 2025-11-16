@@ -10,28 +10,51 @@ body {
   background: linear-gradient(to right, #33AD7F, #154734);
 }
 
-/* Contenedor principal - versión corregida para pantalla grande */
-.container {
-  position: relative;
-  min-height: 100vh;
-  padding-left: 40px;
+/* Tarjeta del formulario - versión corregida */
+.login-card {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 25px;
+  width: 100%;
+  max-width: 1400px; 
+
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Cambiado de center a flex-start */
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+
+  margin: auto;
+  overflow: hidden;
+  gap: 30px;
+
+  height: 660px;
 }
 
-/* Tarjeta del formulario - versión corregida */
-.custom-form-card {
-  background-color: #F6FFFE;
-  width: 850px;
-  max-width: 800px;
-  padding: 50px;
-  height: 561px;
-  z-index: 2;
-  left: -100px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  position: relative; /* Añadido para mantener el left: -100px */
+.login-content {
+  flex: 0 0 70%; 
+  padding: 20px 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #F6FFFE; 
+  border-radius: 25px;
+
+  box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+}
+
+.login-image-side {
+  flex: 0 0 30%;
+  height: auto;
+  margin-top: 0;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.15);
+}
+
+.login-image-side img {
+  height: 100%;
+  object-fit: cover;
+  border-radius: 25px;
 }
 
 /* Restauramos el diseño original del título */
@@ -115,35 +138,25 @@ button:active {
   transform: scale(0.98);
 }
 
-/* Imagen derecha - versión corregida */
-.login-image {
-  position: absolute;
-  right: -50px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 430px;
-  height: 561px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  object-fit: cover;
-  transition: all 0.3s ease;
-  z-index: 1;
-}
-
 /* Textos - versión corregida */
 .text-muted {
-  color: #000000 !important;
+  color: #154734 !important;
   margin-top: 24px;
 }
 
 .text-center.mt-3 {
   margin-top: 50px;
-  color: #000000 !important;
+  color: #007848 !important;
 }
 
 .text-center.mt-3 a {
   display: inline;
   margin: 0 5px;
+}
+
+.text-crearc{
+  color: #E99A3C !important;
+  font-weight: bold;
 }
 
 /* Logo - versión corregida */
@@ -158,143 +171,4 @@ button:active {
   max-height: 60px;
   width: 50px;
   fill: #154734;
-}
-
-/* ============================================ */
-/* Media queries para responsividad (mejoradas) */
-/* ============================================ */
-
-@media (max-width: 1200px) {
-  .container {
-    padding-left: 30px;
-  }
-  
-  .custom-form-card {
-    left: -80px;
-    width: 750px;
-    padding: 40px;
-  }
-  
-  .login-image {
-    width: 380px;
-    height: 500px;
-    right: -40px;
-  }
-}
-
-@media (max-width: 992px) {
-  .container {
-    padding-left: 20px;
-    justify-content: center;
-  }
-  
-  .custom-form-card {
-    left: 0;
-    margin-right: 0;
-    width: 90%;
-    max-width: 600px;
-  }
-  
-  .login-image {
-    display: none;
-  }
-  
-  .form-label {
-    padding-left: 10%;
-  }
-  
-  .input-border {
-    width: 80%;
-  }
-  
-  .password-toggle {
-    right: 12%;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 20px;
-  }
-  
-  .custom-form-card {
-    width: 95%;
-    max-width: 500px;
-    padding: 40px 30px;
-    height: auto;
-  }
-  
-  .form-title {
-    font-size: 1.8rem;
-  }
-  
-  .separator {
-    width: 120px;
-  }
-  
-  .form-label {
-    padding-left: 5%;
-    width: 90%;
-  }
-  
-  .input-border {
-    width: 90%;
-    padding: 10px 12px;
-  }
-  
-  .password-toggle {
-    right: 7%;
-    top: 76%;
-  }
-  
-  button {
-    padding: 10px 25px;
-  }
-  
-  .text-center.mt-3 {
-    margin-top: 30px;
-  }
-}
-
-@media (max-width: 576px) {
-  .custom-form-card {
-    padding: 30px 20px;
-  }
-  
-  .form-title {
-    font-size: 1.6rem;
-  }
-  
-  .input-border {
-    padding: 8px 10px;
-    font-size: 0.9rem;
-  }
-  
-  .password-toggle {
-    right: 6%;
-    top: 75%;
-  }
-  
-  .text-center.mt-3 a {
-    display: block;
-    margin: 8px 0;
-  }
-}
-
-@media (max-width: 400px) {
-  .custom-form-card {
-    padding: 25px 15px;
-  }
-  
-  .form-title {
-    font-size: 1.5rem;
-  }
-  
-  .input-border {
-    width: 95%;
-  }
-  
-  .password-toggle {
-    right: 4%;
-  }
 }

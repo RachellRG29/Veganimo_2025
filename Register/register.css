@@ -196,20 +196,19 @@ body {
     margin-left: 165px;
     margin-top: 10px;
     font-weight: bold;
-    font-size: 12px;
-    
+    font-size: 12px; 
   }
 
- 
-  
+  .text-inic{
+    color: #E99A3C !important;
+    font-weight: bold;
+  }
+
    #fechana{
     margin-left: 75px;
-   
   }
   
-  
   #birthdate{
-
     width: 180px;
     margin-right: 20px;
     margin-left:155px;
