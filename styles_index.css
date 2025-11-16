@@ -138,7 +138,7 @@ header.scroll{
 }
 
 /*Boton inicia sesion*/
-.btn-iniciar-sesion {
+.btn-registrar {
   cursor: pointer;
   padding: 0.9em 1.4em;
   font-family: 'Comfortaa';
@@ -157,9 +157,10 @@ header.scroll{
     0px 5px 5px -1px #c8782840,
     inset 4px 4px 8px #ffd2aa80,
     inset -4px -4px 8px #b4641459;
+    transition: 0.5s ease;
 }
 
-.btn-iniciar-sesion:hover {
+.btn-registrar:hover {
   box-shadow:
     0px 0px 20px #e99a3c80,
     0px 20px 30px -6px rgba(233, 154, 60, 0.5),
@@ -168,7 +169,7 @@ header.scroll{
 }
 
 /*Boton de registro*/
-.btn-registrar {
+.btn-iniciar-sesion {
   cursor: pointer;
   padding: 0.9em 1.4em;
   font-family: 'Comfortaa';
@@ -179,7 +180,8 @@ header.scroll{
     #007848 55%,
     #154734 90%
   ), linear-gradient(45deg, #007848, #ffffff);
-  border: 2px solid transparent;
+  
+  border: 2px solid #489d5d42;
   border-radius: 16px;
   box-shadow:
     0px 0px 20px #00784880,
@@ -331,70 +333,128 @@ footer {
   margin-top: 10px;
 }
 
-/* Navbar Responsivo */
+/*RESPONSIVIDAD NABVAR*/
 @media (max-width: 660px) {
-    /* Ocultar enlaces inicialmente en modo responsivo */
 
-
-  .navbar-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 66px;
-    right: 0;
-    left: 0;
-    border-radius: 0 0 5px 5px;
-    padding: 10px 0;
-    gap: 10px;
-    background-color: #154734;
-    z-index: 100;
-  }
-
+  /* Botón hamburguesa visible */
   .navbar-toggler {
-    display: block;
-    margin-left: 5px;
-    color: #F6FFFE;
+    display: flex !important;
+    position: relative;
+    margin-left: 10px;
+    z-index: 20;
   }
-  
-  /* Estilo del menú activado */
+
+  /* Menu links colapsado */
+  .navbar-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #154734;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    gap: 14px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .35s ease, opacity .35s ease;
+    border-radius: 0 0 14px 14px;
+    justify-content: center;
+  }
+
+  /* Cuando se activa */
   .navbar-links.active {
+    max-height: 600px;
+    opacity: 1;
+    padding: 20px !important; /*Top-right-bottom-left*/
+    margin-top: -5px !important;
+  }
+
+  /* Enlaces centrados */
+  .navbar-links a {
+    width: 90%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  /* Botones */
+  .botones-login {
+    position: relative;
+    width: 100%;
+    margin: 10px 50px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
     display: flex;
   }
 
-  .menu {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  .botones-login button {
+    width: 80%;
+    max-width: 200px;
   }
-
-  .botones-login{
-    position: static;
-    flex-direction: column;
-    gap: 10px;
-    margin: 1rem 0;
-    align-items: center;
-    width: 100%;
-  }
-  
 }
 
-/* Footer */
-@media (max-width: 768px) {
-  footer{
-    left: 0 ;
-    right: 0 !important;
+
+/* ============================================================
+   📟📟 TABLET (661–1024px)
+   Menú ocupa 50%, alineado a la IZQUIERDA.
+=============================================================== */
+@media (min-width: 661px) and (max-width: 1024px) {
+
+  /* Botón hamburguesa visible */
+  .navbar-toggler {
+    display: flex !important;
+    position: relative;
+    margin-left: 10px;
+    z-index: 20;
   }
-  .ListFooter {
+
+  /* Panel del menú */
+  .navbar-links {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 50%;
+    background: #154734;
     flex-direction: column;
-    gap: 2rem;
+    align-items: flex-start;
+    padding: 0;
+    gap: 10px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .35s ease, opacity .35s ease;
+    border-radius: 0 0 14px 14px;
   }
-  
-  .logoarea, .afiliados {
+
+  .navbar-links.active {
+    max-height: 620px;
+    opacity: 1;
+    padding: 0 20px 20px 20px; /*Top-right-bottom-left*/
+    margin-top: -5px !important;
+  }
+
+  /* Enlaces alineados izquierda */
+  .navbar-links a {
     width: 100%;
-    text-align: center;
+    padding: 10px 10px;
+    text-align: left;
   }
-  
-  .logo-container {
-    align-self: center;
+
+  /* Botones alineados izquierda DENTRO del menú */
+  .botones-login {
+    position: relative;
+    margin: 14px !important; /*/Top-right-bottom-left*/
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .botones-login button {
+    width: 90%;
+    max-width: 300px;
   }
 }

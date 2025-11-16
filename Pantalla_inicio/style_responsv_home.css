@@ -1,7 +1,3 @@
-*{
-    outline: 1px solid red;
-}
-
 /* 4K y Pantallas Grandes (>=2560px)            */
 /* ============================================ */
 @media screen and (min-width: 2560px) {
@@ -74,8 +70,12 @@
         margin: 0 auto;
     }
 
+    .logo-desc-container {
+        margin-left: 30px;
+    }
+
     .inicio_logo {
-        width: 600px;
+        width: 650px;
         margin-top: 4rem;
     }
 
@@ -118,9 +118,18 @@
 /* -------------------------------------------------------------------- */
 /* laptop estandar */
 @media screen and (min-width: 1280px) and (max-width: 1439px) {
+    .contentdeinicio {
+        max-width: 1440px;
+        padding-top: 2rem;
+        margin: 0 auto;
+    }
+
     .inicio_logo {
-        width: 450px;
+        width: 650px;
         margin-top: 3rem;
+    }
+    .logo-desc-container {
+        margin-left: 30px;
     }
 
     .div_descripcion {
@@ -283,16 +292,24 @@
         margin: 3rem auto;
     }
 
-    /* FOOTER */
+    /*Footer*/
+    footer{
+        left: 0 ;
+        right: 0 !important;
+    }
+
     .ListFooter {
         flex-direction: column;
-        text-align: center;
         gap: 2rem;
     }
 
-    .logoarea,
-    .afiliados {
+    .logoarea, .afiliados {
         width: 100%;
+        text-align: center;
+    }
+    
+    .logo-container {
+        align-self: center;
     }
 }
 
@@ -423,6 +440,18 @@
     .tarjeta_receta{
         margin-bottom: -10em;
     }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
+    }
 }
 
 /* -------------------------------------------------------------------- */
@@ -530,6 +559,18 @@
         right: 30px;
         margin: 0;
     }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
+    }
 }
 
 /* Movil mediano */
@@ -621,6 +662,18 @@
         bottom: 10px;
         right: 30px;
         margin: 0;
+    }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
     }
 }
 
@@ -723,6 +776,18 @@
         right: 30px;
         margin: 0;
     }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
+    }
 }
 
 
@@ -823,5 +888,17 @@
         bottom: 10px;
         right: 30px;
         margin: 0;
+    }
+
+    /* FOOTER */
+    .ListFooter {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .logoarea,
+    .afiliados {
+        width: 100%;
     }
 }
