@@ -1,3 +1,30 @@
+/* Hamburger del portal administrador */
+const btnHamburgerPA = document.getElementById("btnHamburgerPA");
+const sidebarPA = document.querySelector(".sidebar-admin");
+
+// Crear overlay si no existe
+let overlayPA = document.querySelector(".sidebar-overlay-pa");
+if (!overlayPA) {
+  overlayPA = document.createElement("div");
+  overlayPA.classList.add("sidebar-overlay-pa");
+  document.body.appendChild(overlayPA);
+}
+
+// Abrir / Cerrar sidebar
+btnHamburgerPA.addEventListener("click", () => {
+  btnHamburgerPA.querySelector(".menu-toggle-pa").classList.toggle("active");
+  sidebarPA.classList.toggle("sidebar-open-pa");
+  overlayPA.classList.toggle("active");
+});
+
+// Cerrar tocando afuera
+overlayPA.addEventListener("click", () => {
+  btnHamburgerPA.querySelector(".menu-toggle-pa").classList.remove("active");
+  sidebarPA.classList.remove("sidebar-open-pa");
+  overlayPA.classList.remove("active");
+});
+
+/*  */
 document.addEventListener("DOMContentLoaded", () => {
     console.log('🚀 Portal Admin iniciado');
 

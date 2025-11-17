@@ -1,9 +1,9 @@
 
-
-
 .lbl_bienvenida_vg_plan h1{
   font-family: 'Gloock', Verdana;
-  font-weight: 400; font-size: 30px; letter-spacing: 1.5px;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 1.5px;
   color: #F6FFFE;
   background-color: #007848;
   border-radius: 10px;
@@ -11,7 +11,6 @@
   position: relative;
   width: 480px;
   margin-left: 60px;
-
 }
 
 /*-------------------------------------------------------------------------------------------------*/
@@ -87,16 +86,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
   z-index: 0;
 }
 
 /* Imagen encima */
 .img_tarj_plan_pred {
   position: absolute;
-  width: 135px;
+  width: 85%;       /* antes 135px fijo */
   height: auto;
-  top: 1rem;
+  inset: 0;         /* centra top, left, bottom, right */
+  margin: auto;     /* asegura centrado */
   z-index: 2;
 }
 
@@ -118,6 +118,7 @@
   overflow: hidden;
   font-size: 15px;
   cursor: pointer;
+  margin-bottom: 40px !important;
 }
 
 .btn_plan_dieta:hover{
@@ -155,4 +156,167 @@
   to {
     left: 100%;
   }
+}
+
+/* ============================
+   RESPONSIVIDAD
+   ============================ */
+/* ─────────────────────────────────────────────── */
+/* Extra pequeño (0–374px) */
+/* ─────────────────────────────────────────────── */
+@media (max-width: 374px) {
+
+  .lbl_bienvenida_vg_plan h1 {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 22px;
+  }
+
+  .tarjeta_vg_plan{
+    width: 100%;
+    min-height: 800px; /* más larga para que nada se salga */
+    padding-bottom: 2.5rem;
+  }
+
+  .contenido_tarj_plan_vg {
+    gap: 18px;
+    padding: 0 1rem;
+  }
+
+  .descripcion_tarj_plan_vg{
+    padding: 0 1rem;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .circulo_plan_vg{
+    width: 105px;
+    height: 105px;
+  }
+
+  .img_tarj_plan_pred{
+    width: 78%;
+  }
+
+  /* BOTÓN fijo sin romper el layout */
+  .btn_plan_dieta {
+    width: 100%;
+    font-size: 14px;
+    padding: 0.7rem 1rem;
+    margin-top: 10px;
+    margin-bottom: 20px !important;
+    white-space: normal; /* evita que se salga el texto */
+    text-align: center;
+  }
+
+  .section_mi_plan{
+    padding: 0 !important;
+  }
+}
+
+/* ─────────────────────────────────────────────── */
+/* Móvil pequeño (375–480px) */
+/* ─────────────────────────────────────────────── */
+@media (min-width: 375px) and (max-width: 480px){
+
+  .lbl_bienvenida_vg_plan h1{
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .tarjeta_vg_plan{
+    width: 100%;
+    min-height: 680px;
+  }
+
+  .descripcion_tarj_plan_vg{
+    padding: 0 2rem;
+  }
+
+  .circulo_plan_vg{
+    width: 120px;
+    height: 120px;
+  }
+  .img_tarj_plan_pred{
+    width: 82%;
+  }
+
+  .btn_plan_dieta{
+    width: 80%;
+  }
+
+  .section_mi_plan{
+    padding: 0 !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────── */
+/* Móvil mediano (481–600px) */
+/* ─────────────────────────────────────────────── */
+@media (min-width: 481px) and (max-width: 600px){
+
+  .lbl_bienvenida_vg_plan h1{
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .tarjeta_vg_plan{
+    width: 100%;
+    min-height: 590px;
+  }
+
+  .descripcion_tarj_plan_vg{
+    padding: 0 3rem;
+  }
+
+  .section_mi_plan{
+    padding: 0 !important;
+  }
+}
+
+
+@media (max-width: 600px){
+  .lbl_bienvenida_vg_plan h1{
+    width: 100%;
+    margin-left: 0 !important;
+    margin-top: 4rem !important;
+    text-align: center !important;
+  }
+}
+
+/* ─────────────────────────────────────────────── */
+/* Tablet (600–900px) */
+/* ─────────────────────────────────────────────── */
+@media (min-width: 600px) and (max-width: 900px){
+
+  .lbl_bienvenida_vg_plan h1 {
+    width: 60%;
+    margin-left: 0 !important;
+    margin-top: 4rem !important; /* baja el título solo en móvil */
+    text-align: center !important;
+  }
+
+  .tarjeta_vg_plan{
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* ─────────────────────────────────────────────── */
+/* Laptops pequeñas (900–1200px) */
+/* ─────────────────────────────────────────────── */
+@media (min-width: 900px) and (max-width: 1200px){
+  
+  .lbl_bienvenida_vg_plan h1 {
+    margin-top: 4rem !important; /* baja el título solo en móvil */
+  }
+
 }

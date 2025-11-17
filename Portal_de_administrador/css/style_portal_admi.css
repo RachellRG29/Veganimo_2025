@@ -16,6 +16,34 @@ body {
   width: 100%;
 }
 
+/*-----------------------------------------------------------------------------*/
+/* Botón Volver */
+.back-button {
+  position: absolute; /* ahora relativo a .barra_volver */
+  top: 12px;
+  right: 20px;
+  background-color: #E0FFF2;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #1A1C1C;
+  box-shadow: inset 0 0 8px #007848;
+  cursor: pointer;
+  z-index: 200;
+}
+
+.back-button .icon {
+  width: 10px;
+  height: 17px;
+  background-color: #0E9863;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  margin-right: 8px;
+}
+/*-----------------------------------------------------------------------------*/
+
 
 /* Contenedor principal con layout en dos columnas */
 .container-admin {
@@ -138,8 +166,6 @@ body {
   font-size: 1rem;
 }
 
-
-
 /* Logo */
 .logo svg {
   width: 40px;
@@ -147,34 +173,44 @@ body {
   fill: #F6FFFE;
 }
 
-
-/*-----------------------------------------------------------------------------*/
-/* Botón Volver */
-.back-button {
-  position: absolute; /* ahora relativo a .barra_volver */
-  top: 12px;
-  left: 20px;
-  background-color: #E0FFF2;
+/* =========================== */
+/*     BOTÓN HAMBURGUESA PA   */
+/* =========================== */
+.btn-hamburger-pa {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 2001;
+  background: #154734;
   border: none;
-  border-radius: 50px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  color: #1A1C1C;
-  box-shadow: inset 0 0 8px #007848;
+  border-radius: 12px;
+  padding: 10px 12px;
   cursor: pointer;
-  z-index: 200;
+  display: none;
 }
 
-.back-button .icon {
-  width: 10px;
-  height: 17px;
-  background-color: #0E9863;
-  clip-path: polygon(0 50%, 100% 0, 100% 100%);
-  margin-right: 8px;
+/* Líneas del ícono */
+.menu-toggle-pa .line {
+  width: 26px;
+  height: 3px;
+  background: #F6FFFE;
+  display: block;
+  margin: 5px 0;
+  transition: 0.3s ease;
 }
-/*-----------------------------------------------------------------------------*/
+
+/* Animación X */
+.menu-toggle-pa.active .line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.menu-toggle-pa.active .line:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle-pa.active .line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+
 /* Buscador dentro del header */
 .search-bar {
   background-color: white;
@@ -276,20 +312,137 @@ body {
 }
 
 
-
-
-
-
-
-
-/****--------------------------RESPONSIVIDAD---------------------------------------------------*/
-
+/* =========================== */
+/*      RESPONSIVE SIDEBAR PA  */
+/* =========================== */
 @media (max-width: 992px) {
 
+  .btn-hamburger-pa {
+    display: block;
+  }
+
+  .sidebar-admin {
+    position: fixed !important;
+    top: 0;
+    left: -260px;   /* oculto */
+    width: 240px !important;
+    height: 100vh !important;
+    background: #154734;
+    transition: left 0.3s ease;
+    z-index: 2000;
+  }
+
+  .sidebar-admin.sidebar-open-pa {
+    left: 0;        /* visible */
+  }
+
+  /* OSCURO DETRÁS */
+  .sidebar-overlay-pa {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.45);
+    display: none;
+    z-index: 1500;
+  }
+
+  .sidebar-overlay-pa.active {
+    display: block;
+  }
+
+  /* =============================== */
+  /* RESPONSIVIDAD DEL CONTENIDO PA */
+  /* =============================== */
+
+  /* El título centrado solo en móvil */
+  .lbl_dietas_vg,
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
+    text-align: center !important;
+    margin-left: 0 !important;
+    margin-top: 4.2rem !important;
+    width: 100%;
+  }
+
+  /* Tarjeta ajustada al ancho */
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    width: 100%;
+    height: auto !important;
+    padding-bottom: 2.5rem;
+  }
+
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 115px !important;
+    height: 115px !important;
+  }
+
+  .botones_dieta {
+    flex-direction: column !important;
+    width: 100%;
+    gap: 18px;
+  }
+
+  .btn_plan_dieta_vg,
+  .btn_plan_dieta_prof,
+  .btn_plan_dieta,
+  .btn_cancelar_plan,
+  .btn_modificar_plan {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 14px !important;
+  }
+}
+
+/* ============================== */
+/*   EXTRA PEQUEÑOS (≤ 480px)     */
+/* ============================== */
+@media (max-width: 480px){
+
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 95px !important;
+    height: 95px !important;
+  }
+
+  .botones_dieta {
+    gap: 15px !important;
+  }
 
 }
 
-@media (max-width: 576px) {
+/* =============================== */
+/*   RANGO PROBLEMÁTICO (481-559) */
+/* =============================== */
+@media (min-width: 481px) and (max-width: 559px){
 
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  .botones_dieta {
+    gap: 10px !important;        /* ya NO se separan demasiado */
+  }
+
+    .container-admin{
+    display: block;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .container-admin{
+    display: block;
+  }
+  /* El contenedor real del scroll de tablas */
+  .table-responsive {
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+  }
 
 }

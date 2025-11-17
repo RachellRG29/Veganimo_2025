@@ -77,20 +77,24 @@
 /*img*/
 .circulo_dieta_vg{
   position: relative;
-  width: 140px !important;
-  height: 140px !important;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
   margin-top: 1.6rem;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  overflow: visible;
+  z-index: 0;
 }
 .img_tarj_dieta_pred{
   position: absolute;
-  width: 135px !important;
+  width: 85%;       /* antes 135px fijo */
   height: auto;
-  top: 1rem;
-  object-fit: cover; 
-  justify-content: center;
+  inset: 0;         /* centra top, left, bottom, right */
+  margin: auto;     /* asegura centrado */
+  z-index: 2;
 }
 
 /**/
@@ -245,93 +249,287 @@
 
 /* =======================
    RESPONSIVE — TABLET
-   ======================= */
-@media screen and (max-width: 991px) {
 
-  /* mover los títulos hacia abajo */
+/* ---------- Extra pequeño: 0 - 374px ---------- */
+@media (max-width: 374px) {
+
+  /* Títulos centrados y tamaño cómodo */
   .lbl_dietas_vg,
-  .lbl_subt {
-    margin-left: 20px !important;
-    margin-top: 40px; /* baja los títulos */
-  }
-
-  /* tarjeta se vuelve auto-height */
-  .tarjeta_vg_dieta {
-    height: auto !important;
-  }
-
-  .contenido_tarj_dieta {
-    padding-bottom: 2rem;
-  }
-
-  /* botones más juntos */
-  .botones_dieta {
-    gap: 30px;
-  }
-
-  .descripcion_tarj_dieta_vg {
-    padding: 0 2rem;
-    font-size: 1rem;
-  }
-}
-
-
-/* =======================
-   RESPONSIVE — MÓVIL
-   ======================= */
-@media screen and (max-width: 600px) {
-
-  /* bajar aún más los títulos para que no se tapen */
-  .lbl_dietas_vg,
-  .lbl_subt {
-    margin-left: 15px !important;
-    margin-top: 70px !important; /* baja más */
-  }
-
-  .lbl_dietas_vg {
-    font-size: 24px;
-  }
-
-  .lbl_subt {
-    font-size: 15px;
-  }
-
-  /* tarjeta se adapta completamente */
-  .tarjeta_vg_dieta {
-    width: 95%;
-    height: auto !important;
-    padding: 12px;
-  }
-
-  .contenido_tarj_dieta {
-    gap: 15px;
-  }
-
-  .circulo_dieta_vg {
-    width: 110px !important;
-    height: 110px !important;
-  }
-
-  .img_tarj_dieta_pred {
-    width: 105px !important;
-    top: 0.6rem;
-  }
-
-  .descripcion_tarj_dieta_vg {
-    padding: 0 1rem;
-    font-size: 0.95rem;
-  }
-
-  /* botones uno abajo del otro */
-  .botones_dieta {
-    flex-direction: column;
-    gap: 15px;
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
     width: 100%;
+    margin-left: 0 !important;
+    text-align: center;
+    margin-top: 4.2rem !important;
+    font-size: 22px !important;
+  }
+
+  /* Tarjetas */
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    width: 100%;
+    min-height: 780px !important;
+    padding-bottom: 2.6rem;
+  }
+
+  .contenido_tarj_dieta,
+  .contenido_tarj_plan_vg {
+    gap: 16px;
+    padding: 0 1rem;
+  }
+
+  .descripcion_tarj_dieta_vg,
+  .descripcion_tarj_plan_vg {
+    padding: 0 1rem !important;
+    font-size: 0.88rem !important;
+    text-align: center;
+  }
+
+  /* Círculo e imagen: tamaños seguros */
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .img_tarj_dieta_pred,
+  .img_tarj_plan_pred {
+    width: 72% !important;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+  }
+
+  /* Botones apilados y sin gaps enormes */
+  .botones_dieta {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100%;
+    align-items: center;
   }
 
   .btn_plan_dieta_vg,
-  .btn_plan_dieta_prof {
+  .btn_plan_dieta_prof,
+  .btn_plan_dieta,
+  .btn_cancelar_plan,
+  .btn_modificar_plan {
+    width: 100% !important;
+    padding: 0.7rem 1rem !important;
+    font-size: 14px !important;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .section_mi_plan {
+    padding: 0 !important;
+  }
+}
+
+/* ---------- Móvil pequeño: 375 - 480px ---------- */
+@media (min-width: 375px) and (max-width: 480px) {
+
+  .lbl_dietas_vg,
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
     width: 100%;
-    font-size: 14px;
+    margin-left: 0 !important;
+    text-align: center;
+    margin-top: 3.8rem !important;
+    font-size: 24px;
+  }
+
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    width: 100%;
+    min-height: 700px !important;
+  }
+
+  .descripcion_tarj_dieta_vg,
+  .descripcion_tarj_plan_vg {
+    padding: 0 1.6rem !important;
+    font-size: 0.95rem;
+  }
+
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .img_tarj_dieta_pred,
+  .img_tarj_plan_pred {
+    width: 80% !important;
+  }
+
+  .botones_dieta {
+    flex-direction: column !important;
+    gap: 14px !important;
+    align-items: center;
+  }
+
+  .btn_plan_dieta,
+  .btn_plan_dieta_vg {
+    width: 86% !important;
+  }
+}
+
+/* ---------- Móvil mediano dividido: 481 - 559px (FIX principal) ---------- */
+@media (min-width: 481px) and (max-width: 559px) {
+
+  /* Títulos: centro visual y tamaño intermedio */
+  .lbl_dietas_vg,
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
+    width: 100%;
+    margin-left: 0 !important;
+    text-align: center !important;
+    margin-top: 3.6rem !important;
+    font-size: 25px;
+  }
+
+  /* Tarjeta: suficiente alto para evitar apilar contenido */
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    width: 100%;
+    min-height: 660px !important;
+  }
+
+  .descripcion_tarj_dieta_vg,
+  .descripcion_tarj_plan_vg {
+    padding: 0 2rem !important;
+    font-size: 1rem;
+  }
+
+  /* Círculo: evita deformaciones; imagen centrada dentro */
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  .img_tarj_dieta_pred,
+  .img_tarj_plan_pred {
+    width: 78% !important;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+  }
+
+  /* Botones: reduce gap y alínea centrado; apilan si necesitan */
+  .botones_dieta {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    gap: 12px !important;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .btn_plan_dieta,
+  .btn_plan_dieta_vg,
+  .btn_plan_dieta_prof,
+  .btn_cancelar_plan,
+  .btn_modificar_plan {
+    width: 86% !important;
+    font-size: 15px !important;
+    padding: 0.75rem 1rem !important;
+  }
+}
+
+/* ---------- Móvil mediano alto: 560 - 600px ---------- */
+@media (min-width: 560px) and (max-width: 600px) {
+
+  .lbl_dietas_vg,
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
+    width: 100%;
+    margin-left: 0 !important;
+    text-align: center !important;
+    margin-top: 3.2rem !important;
+    font-size: 25px;
+  }
+
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    width: 100%;
+    min-height: 620px !important;
+  }
+
+  .circulo_dieta_vg,
+  .circulo_plan_vg {
+    width: 135px !important;
+    height: 135px !important;
+  }
+
+  .botones_dieta {
+    flex-direction: row !important; /* empiezan a ponerse en fila */
+    gap: 18px !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn_plan_dieta,
+  .btn_plan_dieta_vg {
+    width: auto;
+    min-width: 180px;
+  }
+}
+
+/* ---------- Tablet: 601 - 900px ---------- */
+@media (min-width: 601px) and (max-width: 900px) {
+
+  .lbl_dietas_vg,
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
+    width: 70%;
+    margin-left: 60px !important;
+    text-align: left; /* en tablet/pc título vuelve a la izquierda/derecha según tu layout */
+    margin-top: 3rem !important;
+    font-size: 28px;
+  }
+
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    width: 100%;
+    height: auto !important;
+  }
+
+  .descripcion_tarj_dieta_vg,
+  .descripcion_tarj_plan_vg {
+    padding: 0 3rem !important;
+  }
+
+  /* Botones en fila con gap moderado */
+  .botones_dieta {
+    flex-direction: row !important;
+    gap: 30px !important;
+    justify-content: flex-start;
+  }
+
+  .btn_plan_dieta,
+  .btn_plan_dieta_vg {
+    width: auto;
+    min-width: 160px;
+  }
+}
+
+/* ---------- Laptops pequeñas: 901 - 1200px ---------- */
+@media (min-width: 901px) and (max-width: 1200px) {
+
+  .lbl_dietas_vg,
+  .lbl_plan_user,
+  .lbl_bienvenida_vg_plan h1 {
+    margin-top: 2.6rem !important;
+    text-align: left;
+  }
+
+  .tarjeta_vg_dieta,
+  .tarjeta_vg_plan {
+    height: auto;
+  }
+
+  .botones_dieta {
+    gap: 40px;
   }
 }
