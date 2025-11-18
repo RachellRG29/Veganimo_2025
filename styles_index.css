@@ -238,16 +238,49 @@ header.scroll{
 /* Estilos del botón toggle (Ocultado por defecto en pantallas grandes) */
 .navbar-toggler {
   position: absolute;
-  gap: 10px;
   display: none;
   background: none;
   border: none;
-  font-size: 24px;
   cursor: pointer;
-  left: 4rem;
-  justify-content: center;
-  margin: 1.5rem 2rem 0 0; /*Top-right-bottom-left*/  
+  left: 1.5rem;
+  margin: 1.2rem 2rem 0 0; /*Top-right-bottom-left*/
 }
+
+/* Contenedor del icono */
+.menu-toggle-hp {
+  width: 40px;
+  height: 34px;
+  position: relative;
+}
+
+/* Líneas */
+.menu-toggle-hp span {
+  display: block;
+  width: 34px;
+  height: 3px;
+  background: #F6FFFE;
+  position: absolute;
+  left: 0;
+  transition: transform 300ms ease, opacity 300ms ease;
+}
+
+.menu-toggle-hp span:nth-child(1) { top: 4px; }
+.menu-toggle-hp span:nth-child(2) { top: 15px; }
+.menu-toggle-hp span:nth-child(3) { top: 26px; }
+
+/* ✨ Activación estilo PP — se transforma en X */
+.menu-toggle-hp.active span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+
+.menu-toggle-hp.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle-hp.active span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
 
 /*------------------------------------------------------------------------------------*/
 /*FOOTER*/

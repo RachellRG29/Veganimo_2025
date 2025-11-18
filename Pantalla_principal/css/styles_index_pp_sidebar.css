@@ -97,7 +97,22 @@
   content: '';
   position: absolute;
   width: 6px;
-  left: 5px; /*LINEA MENU*/
+  left: 3px; /*LINEA MENU*/
+  top: 0 !important;
+  bottom: 50%;
+  transform: translateY(50%);
+  height: 100%;
+  background-color: orange;
+  border-radius: 4px;
+}
+
+/*barra para informate pues hay bug de alineación*/
+.nav-informate.highlight::before{
+  content: '';
+  position: absolute;
+  width: 6px;
+  left: 15px !important; /*LINEA MENU INFORMATE*/
+  top: 0 !important;
   bottom: 50%;
   transform: translateY(50%);
   height: 100%;
@@ -134,7 +149,7 @@
 /* Línea naranja específicamente para los que tienen submenús */
 .nav-item.has-submenu.highlight::before,
 .nav-item.active::before {
-  top: 32% !important;
+  top: 15% !important;
   transform: translateX(50%);
 }
 

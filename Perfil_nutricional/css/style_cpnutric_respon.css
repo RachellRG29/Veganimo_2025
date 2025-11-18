@@ -1,0 +1,666 @@
+/* =========================
+   RESPONSIVE: TABLET + MÓVIL
+   ------------------------- */
+@media (max-width: 1024px) {
+  .back-button {
+    margin-bottom: 20px !important;
+  }
+
+  .crear_perfil{
+    margin-top: 50px !important;
+  }
+
+    /* Contenedores: siguen centrados pero SIN wrap */
+  .progress-container,
+  .progress-container2,
+  .barra-progreso,
+  .progress-container4,
+  .progress-container5,
+  .progress-container6,
+  .progress-container7,
+  .progress-container8,
+  .progress-container9 {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-wrap: nowrap !important; /* EVITA QUE BAJEN DE LÍNEA */
+  }
+
+    /* Círculos tamaño original pero un poco menos en tablet */
+  .progress-step,
+  .progress-step2,
+  .paso-progreso,
+  .progress-step4,
+  .progress-step5,
+  .progress-step6,
+  .progress-step7,
+  .progress-step8,
+  .progress-step9 {
+      width: 20px !important;
+      height: 20px !important;
+      min-width: 20px !important;   /* mantiene forma circular */
+      min-height: 20px !important;
+  }
+
+    /* Líneas: MISMA ALTURA y MISMO COLOR — solo más cortas */
+  .progress-line,
+  .progress-line2,
+  .linea-progreso,
+  .progress-line4,
+  .progress-line5,
+  .progress-line6,
+  .progress-line7,
+  .progress-line8,
+  .progress-line9 {
+      height: 2px !important;
+      width: 40px;
+      max-width: 40px !important;  /* Reduce un poco pero NO pierde diseño */
+      flex-grow: 0 !important;     /* evita que se estiren raramente */
+  }
+
+}
+
+@media (max-width: 1023px) {
+  html, body { -webkit-text-size-adjust: 100%; }
+
+  /*padding que trae el html de datos nutricionales seccion 2*/
+  .form-datosnutric{
+    padding-left: 0 !important;
+  }
+
+  /* Asegura que el wrapper principal se centre y no crezca de más */
+  .crear_perfil,
+  .tarjeta-crear-perf {
+    width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* FORM CONTAINER: full width y centrado */
+  .form-container {
+    width: 100% !important;
+    max-width: 920px !important;
+    padding: 18px !important;
+    margin: 0 auto !important;
+  }
+
+  /* PAYMENT CONTAINER: apilar tarjeta + form (tarjeta arriba) */
+  .payment-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+    width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* TARJETA 3D adaptativa */
+  .card-flip {
+    width: 90% !important;
+    max-width: 440px !important;
+    height: auto !important;
+    aspect-ratio: 440 / 290 !important; /* Mantiene proporción EXACTA */
+    margin: 0 auto !important;
+  }
+
+  .credit-card,
+  .credit-card-front,
+  .credit-card-back {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 34px !important;
+    padding: 20px !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+
+  .magnetic-strip {
+    width: 100% !important;
+    height: 42px !important;
+  }
+
+  .card-logo img { max-width: 70px; width: auto; height: auto; }
+
+  .card-chip img { height: 36px; }
+
+  .card-number {
+    font-size: 20px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .card-footer {
+    bottom: 28px !important;
+    font-size: 14px !important;
+  }
+
+  .lbl_titulo_tarjeta {
+    max-width: 240px !important;
+  }
+
+  /* CVV back box se ajusta */
+  .cvv-box {
+    width: 100% !important;
+    max-width: 330px !important;
+    font-size: 15px !important;
+    padding: 6px !important;
+  }
+
+  /* FORM: inputs + selects al 100% */
+  .payment-form,
+  .form-container,
+  .form-group,
+  .form-row,
+  .columns-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .form-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .columns-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .column {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .half-width,
+  .form-input,
+  .form-select,
+  .select-container,
+  .custom-select-container,
+  textarea.form-input {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: block !important;
+  }
+
+  .select-arrow { right: 12px !important; }
+
+  /* custom-select-options: ocupar el ancho del contenedor padre */
+  .custom-select-options {
+    max-width: 100% !important;
+    width: 100% !important;
+    left: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Asegura que labels no queden fuera */
+  .centered-group .form-label { margin-left: 0% !important; }
+
+  /* Botones centrados y anchos */
+  .buttons-container {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  .form-button {
+    flex: 1 1 auto !important;
+    min-width: 120px !important;
+    max-width: 320px !important;
+  }
+
+  #btn_empezar_plan {
+    width: 100% !important;
+    max-width: 420px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  /* Plans: tarjetas apiladas y centradas */
+  .plans-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+
+  .plan-card {
+    width: 100% !important;
+    max-width: 420px !important;
+    padding: 18px !important;
+  }
+
+  /* Ajustes visuales de lista de features */
+  .features { margin-left: 0 !important; padding-left: 0 !important; }
+}
+
+@media (max-width: 768px) {
+    .back-button {
+        margin-bottom: 25px !important;
+    }
+    .crear_perfil{
+        margin-top: 50px !important;
+    }
+
+    .title-decoration {
+        width: 80px;
+        height: 3px;
+        background: #fff;
+        margin: 0 auto !important;          /* centra horizontalmente */
+        margin-top: -22px !important;
+        margin-bottom: 15px !important;
+        border-radius: 4px;
+    }
+
+    .progress-container,
+    .progress-container2,
+    .barra-progreso,
+    .progress-container4,
+    .progress-container5,
+    .progress-container6,
+    .progress-container7,
+    .progress-container8,
+    .progress-container9 {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-wrap: nowrap !important; /* EVITA QUE BAJEN DE LÍNEA */
+    }
+
+    .progress-step,
+    .progress-step2,
+    .paso-progreso,
+    .progress-step4,
+    .progress-step5,
+    .progress-step6,
+    .progress-step7,
+    .progress-step8,
+    .progress-step9 {
+        width: 16px !important;
+        height: 16px !important;
+        min-width: 16px !important;   /* mantiene forma circular */
+        min-height: 16px !important;
+    }
+
+    .progress-line,
+    .progress-line2,
+    .linea-progreso,
+    .progress-line4,
+    .progress-line5,
+    .progress-line6,
+    .progress-line7,
+    .progress-line8,
+    .progress-line9 {
+      height: 2px !important;
+      width: 30px;
+      max-width: 30px !important;  /* Reduce un poco pero NO pierde diseño */
+      flex-grow: 0 !important;  
+    }
+
+    .card-flip {
+        width: 100% !important;
+        max-width: 380px !important;
+        aspect-ratio: 440 / 290 !important;
+    }
+
+    .credit-card {
+        border-radius: 28px !important;
+        padding: 18px !important;
+    }
+
+    .card-number {
+        font-size: 18px !important;
+    }
+
+    .card-chip img {
+        height: 32px !important;
+    }
+
+    .card-logo img {
+        width: 60px !important;
+    }
+
+    .card-footer {
+        bottom: 22px !important;
+        font-size: 13px !important;
+    }
+
+}
+
+/* -------------------------
+   MÓVIL: < 600px
+   ------------------------- */
+@media (max-width: 599px) {
+
+    .payment-container {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        gap: 14px !important;
+    }
+
+    .card-flip {
+        max-width: 330px !important;
+    }
+
+    .credit-card {
+        padding: 14px !important;
+        border-radius: 22px !important;
+    }
+
+    .card-number-group,
+    .card-holder-group,
+    .expiry-group,
+    .cvv-group,
+    .form-group-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    .card-number-group * ,
+    .card-holder-group * ,
+    .expiry-group * ,
+    .cvv-group * {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .lbl_titulo_tarjeta {
+        max-width: 180px !important;
+    }
+
+    .magnetic-strip {
+        height: 36px !important;
+    }
+
+    .cvv-box {
+        max-width: 260px !important;
+        font-size: 14px !important;
+    }
+    
+    /* Evita que expiry y CVV queden en fila */
+    .expiry-group,
+    .cvv-group {
+        flex-wrap: nowrap !important;
+    }
+
+    textarea.form-input {
+        padding: 9px !important;
+        font-size: 14px !important;
+    }
+
+     /* Inputs ajustados */
+    .form-input, .form-select {
+        width: 100% !important;
+        min-height: 40px !important;
+        padding: 10px !important;
+        font-size: 14px !important;
+    }
+
+    /* Separación entre grupos */
+    .form-group{
+        margin-bottom: 10px !important;
+        gap: 10px !important;
+    }
+
+      /* Evita saltos y toques entre ellos */
+    .form-row,
+    .columns-container {
+        gap: 12px !important;
+        margin-bottom: 12px !important;
+    }
+
+      /* Ajuste especial: inputs siempre con buena altura */
+    .form-input,
+    .form-select {
+        min-height: 44px !important;
+        font-size: 15px !important;
+        padding: 10px 12px !important;
+    }
+
+    /* Reduce flechas/ornamentos que puedan solaparse */
+    .select-arrow { font-size: 12px !important; }
+
+    /* Estrellas del botón: esconder en pantallas muy pequeñas */
+    .star-1, .star-2, .star-3, .star-4, .star-5, .star-6 {
+        display: none !important;
+    }
+
+  /* Ajusta botones */
+  .form-button { padding: 10px 12px !important; font-size: 14px !important; }
+  #btn_empezar_plan { padding: 10px 12px !important; font-size: 15px !important; }
+
+  /* Ajuste final para evitar overflow en inputs con long text */
+  input[type="text"], input[type="number"], textarea {
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    margin-bottom: 30px !important;
+  }
+
+  .crear_perfil{
+    margin-top: 50px !important;
+  }
+
+    .title-decoration {
+        width: 80px;
+        height: 3px;
+        background: #fff;
+        margin: 0 auto !important;          /* centra horizontalmente */
+        margin-top: -22px !important;
+        margin-bottom: 15px !important;
+        border-radius: 4px;
+    }
+
+    .progress-container,
+    .progress-container2,
+    .barra-progreso,
+    .progress-container4,
+    .progress-container5,
+    .progress-container6,
+    .progress-container7,
+    .progress-container8,
+    .progress-container9 {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      flex-wrap: nowrap !important; /* EVITA QUE BAJEN DE LÍNEA */
+    }
+
+    
+    .progress-step,
+    .progress-step2,
+    .paso-progreso,
+    .progress-step4,
+    .progress-step5,
+    .progress-step6,
+    .progress-step7,
+    .progress-step8,
+    .progress-step9 {
+        width: 15px !important;
+        height: 15px !important;
+        min-width: 10px !important;   /* mantiene forma circular */
+        min-height: 10px !important;
+    }
+
+    .progress-line,
+    .progress-line2,
+    .linea-progreso,
+    .progress-line4,
+    .progress-line5,
+    .progress-line6,
+    .progress-line7,
+    .progress-line8,
+    .progress-line9 {
+      height: 2px !important;
+      width: 12px;
+      max-width: 12px !important;  /* Reduce un poco pero NO pierde diseño */
+      flex-grow: 0 !important; 
+    }
+
+ /* TARJETA RESPONSIVA REAL */
+    .card-flip {
+        width: 100% !important;
+        max-width: 330px !important;
+        aspect-ratio: 440/290 !important;
+    }
+
+    .credit-card {
+        padding: 12px !important;
+        border-radius: 18px !important;
+    }
+
+    .card-logo img { max-width: 40px !important; margin-top: -25px !important; }
+    .card-chip img { height: 26px !important; }
+
+    .card-number {
+        margin-top: -10px;
+    }
+
+    .card-holder,
+    .card-expiry {
+        font-size: 11px !important;
+    }
+
+    .card-footer {
+        bottom: 14px !important;
+        font-size: 12px !important;
+    }
+
+    .magnetic-strip { height: 30px !important; }
+
+    .cvv-box {
+        font-size: 12px !important;
+        padding: 5px !important;
+        max-width: 220px !important;
+        margin-top: -100px !important;
+    }
+
+    .lbl_t_cvv{
+        top: -50px !important;
+    }
+
+    /* FORMULARIO 100% MOBILE STACK */
+    .payment-container {
+        gap: 12px !important;
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+
+    .form-row,
+    .columns-container {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .form-input,
+    .form-select {
+        width: 100% !important;
+        min-height: 40px !important;
+        padding: 9px !important;
+        font-size: 14px !important;
+    }
+
+    textarea.form-input {
+        font-size: 14px !important;
+        padding: 8px !important;
+    }
+
+    .form-group {
+        margin-bottom: 10px !important;
+    }
+
+    .form-button,
+    #btn_empezar_plan {
+        font-size: 14px !important;
+        padding: 10px 12px !important;
+    }
+
+    /* Evitar cualquier desbordamiento */
+    input,
+    textarea {
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+    }
+
+
+
+}
+
+/* -------------------------
+   Extra pequeño: < 360px
+   ------------------------- */
+@media (max-width: 369px) {
+
+    .card-flip {
+        max-width: 250px !important;
+    }
+
+    .credit-card {
+        padding: 10px !important;
+        border-radius: 15px !important;
+    }
+
+    .card-number {
+        font-size: 12px !important;
+        letter-spacing: 1px !important;
+    }
+
+    .card-footer {
+        font-size: 11px !important;
+        bottom: 14px !important;
+    }
+
+    .cvv-box {
+        max-width: 190px !important;
+        padding: 5px !important;
+    }
+
+    .form-input, .form-label, .form-select, textarea.form-input { font-size: 13px !important; padding: 8px !important; }
+    .buttons-container { gap: 8px !important; }
+    .form-button { font-size: 13px !important; padding: 8px 10px !important; }
+
+    .progress-step,
+    .progress-step2,
+    .paso-progreso,
+    .progress-step4,
+    .progress-step5,
+    .progress-step6,
+    .progress-step7,
+    .progress-step8,
+    .progress-step9 {
+        width: 10px !important;
+        height: 10px !important;
+        min-width: 10px !important;
+        min-height: 10px !important;
+    }
+
+    .progress-line,
+    .progress-line2,
+    .linea-progreso,
+    .progress-line4,
+    .progress-line5,
+    .progress-line6,
+    .progress-line7,
+    .progress-line8,
+    .progress-line9 {
+        max-width: 16px !important;
+    }
+
+}

@@ -188,26 +188,37 @@ body {
   cursor: pointer;
   display: none;
 }
+.menu-toggle-pa {
+  width: 30px;
+  height: 26px;
+  position: relative;
+  cursor: pointer;
+}
 
 /* Líneas del ícono */
 .menu-toggle-pa .line {
-  width: 26px;
+  position: absolute;
+  width: 100%;
   height: 3px;
   background: #F6FFFE;
-  display: block;
-  margin: 5px 0;
-  transition: 0.3s ease;
+  left: 0;
+  transition: transform 300ms ease, opacity 300ms ease;
 }
 
-/* Animación X */
+/* Posiciones iniciales */
+.menu-toggle-pa .line:nth-child(1) { top: 0; }
+.menu-toggle-pa .line:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.menu-toggle-pa .line:nth-child(3) { bottom: 0; }
+
+/* ANIMACIÓN estilo PP – aparece una X */
 .menu-toggle-pa.active .line:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(11px) rotate(45deg);
 }
 .menu-toggle-pa.active .line:nth-child(2) {
   opacity: 0;
 }
 .menu-toggle-pa.active .line:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(-11px) rotate(-45deg);
 }
 
 
