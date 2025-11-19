@@ -173,7 +173,7 @@
 
                       <!-- Contenedor derecho (imagen) -->
                       <div class="imagen_lado">
-                        <img src="Images/Base_Veganimo_portada.png" alt="">
+                        <img id="img-3d" src="Images/Base_Veganimo_portada.png" alt="">
                       </div>
 
                       <!-- Scroll -->
@@ -775,6 +775,78 @@
   document.querySelector('.btn-ver-mas-informate').addEventListener('click', () => {
     window.location.href = '/Pantalla_principal/index_pantalla_principal.html?seccion=informate'; // 👈 importante
   });
+
 </script>
+
+<!-- Animación imagen 3d inicio -->
+<script>
+const img = document.getElementById("img-3d");
+const wrapper = document.querySelector(".imagen_lado");
+
+// valores target del tilt
+let targetX = 0;
+let targetY = 0;
+
+let currentX = 0;
+let currentY = 0;
+
+// flotación
+let t = 0;
+
+function lerp(a, b, n) {
+  return (1 - n) * a + n * b;
+}
+
+wrapper.addEventListener("mousemove", (e) => {
+  const rect = wrapper.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const maxTilt = 4; // un poquito más pro
+
+  targetX = ((x / rect.width) - 0.5) * maxTilt;
+  targetY = ((y / rect.height) - 0.5) * -maxTilt;
+
+  // glossy dinámico
+  wrapper.style.setProperty("--mx", `${x}px`);
+  wrapper.style.setProperty("--my", `${y}px`);
+});
+
+wrapper.addEventListener("mouseleave", () => {
+  targetX = 0;
+  targetY = 0;
+});
+
+function animate() {
+  currentX = lerp(currentX, targetX, 0.06);
+  currentY = lerp(currentY, targetY, 0.06);
+
+  // flotación natural
+  t += 0.025;
+  const floatX = Math.sin(t) * 0.6;
+  const floatY = Math.cos(t * 0.7) * 0.6;
+
+  img.style.transform = `
+    translateX(${floatX}px)
+    translateY(${floatY}px)
+    rotateX(${currentY}deg)
+    rotateY(${currentX}deg)
+    scale(1.035)
+  `;
+
+  // Sombra más pro con glow verde suave
+  img.style.filter = `
+    drop-shadow(${currentX * 1.5}px ${currentY * -1.5}px 25px rgba(0,120,72,0.35))
+    contrast(1.10)
+    brightness(1.07)
+    saturate(1.20)
+  `;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
 
 </html>

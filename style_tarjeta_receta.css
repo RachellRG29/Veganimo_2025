@@ -47,8 +47,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;   
+  border-radius: 50%;
+  transition: transform 0.8s;
 }
 
+.img-plato:hover{
+  transform: rotate(3deg) scale(1.2);
+}
 /* Contenido de la tarjeta */
 .body-tarjeta {
   padding: 40px 20px 30px 20px;
