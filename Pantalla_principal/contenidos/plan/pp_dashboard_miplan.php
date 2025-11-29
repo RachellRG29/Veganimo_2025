@@ -13,26 +13,44 @@
     <div class="div_dash1">
       <div class="header_plan">
         <h2 class="titulo_plan">Plan Nutricionista</h2>
-        <span class="etiqueta_premium">Plan premium</span>
+        <span class="etiqueta_plan">Plan premium/estándar</span>
+
+        <div class="contenedor-racha">
+          <span class="lbl-racha">Racha</span>
+          <div class="racha-space">
+            <img src="../Images/" class="img-racha-veg" alt="">
+          </div>
+        </div>
+
       </div>
 
-      <div class="recetas_contenedor">
+      <span class="lbl-subtitulo-dash">Tu plan de dieta está organizado por horarios</span>
+      <div class="recetas_contenedor">  
         <div class="tarjeta_receta tipo_desay">
           <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
           <span class="etiqueta_letra">D</span>
           <p class="nombre_receta">Desayuno</p>
+            <button class="btn-ver-mas-dash ver-mas">Ver más 
+              <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
+            </button>
         </div>
 
         <div class="tarjeta_receta tipo_almue">
           <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
           <span class="etiqueta_letra">A</span>
           <p class="nombre_receta">Almuerzo</p>
+            <button class="btn-ver-mas-dash ver-mas">Pendiente
+              <i class="ph ph-clock-afternoon" id="estado-receta"></i>
+            </button>
         </div>
 
         <div class="tarjeta_receta tipo_cena">
           <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
           <span class="etiqueta_letra">C</span>
           <p class="nombre_receta">Cena</p>
+            <button class="btn-ver-mas-dash ver-mas">Pendiente 
+              <i class="ph ph-clock-afternoon" id="estado-receta"></i>
+            </button>     
         </div>
       </div>
 
@@ -68,37 +86,69 @@
           <span>29</span><span class="verde_estado">30</span><span>31</span>
         </div>
       </div>
+
+      <div class="btn-guia-container">
+        <button class="btn-guia">Ver guía</button>
+      </div>
+
+      <!-- POPUP DE GUÍA -->
+      <div class="popup_guia" id="popupGuia">
+        <div class="popup_contenido">
+          <h3>Guía de colores</h3>
+
+          <ul class="guia_colores">
+            <li><span class="color_guia amarillo"></span>Receta fácil</li>
+            <li><span class="color_guia verde"></span>Receta saludable</li>
+            <li><span class="color_guia naranja"></span>Receta intermedia</li>
+            <li><span class="color_guia rojo"></span>Receta avanzada</li>
+          </ul>
+
+          <button class="cerrar_popup">Cerrar</button>
+        </div>
+      </div>
     </div>
 
-    <!-- 3️⃣ Contador y frase -->
+    <!-- 3️⃣ Recetas según tus ingredientes -->
     <div class="div_dash3">
+        <div class="contenido_div3">
+            <h3 class="subtitulo_div3">Recetas según tus ingredientes</h3>
+            <p class="texto_tarjeta">“Ingresa lo que tienes en casa y genera recetas”</p>
+            <button class="btn_crear_receta">Crear receta</button>
+        </div>
+    </div>
+
+    <!-- 4️⃣ Ingredientes según tus gustos -->
+    <div class="div_dash4">
+        <div class="contenido_div4">
+            <h3 class="subtitulo_div4">Ingredientes según tus gustos</h3>
+            <p class="texto_tarjeta">“Ingresa los ingredientes de tu preferencia y lo adaptaremos a tus gustos”</p>
+            <button class="btn_ingresar">Ingresar</button>
+        </div>
+    </div>
+
+    <!-- 5️⃣ Contador y frase motivacional -->
+    <div class="div_dash5 nuevo_contador">
       <div class="contador_superior">
         <span class="lbl_contador_titulo">Contador</span>
         <span class="lbl_tiempo">Tiempo restante</span>
         <span class="lbl_dias">230 días</span>
       </div>
+
       <p class="frase_veg">
-        El veganismo no es solo una forma de alimentarse, es un camino hacia la salud, la compasión y un planeta mejor.
+        El veganismo no es solo una forma de alimentarse, es un camino hacia la salud,
+        la compasión y un planeta mejor.
       </p>
     </div>
 
-    <!-- 4️⃣ Guía -->
-    <div class="div_dash4">
-      <ul class="guia_colores">
-        <li><span class="color_guia amarillo"></span> Receta asignada</li>
-        <li><span class="color_guia verde"></span> Receta completada</li>
-        <li><span class="color_guia rojo"></span> Receta no completada</li>
-        <li><span class="color_guia naranja"></span> Receta a media</li>
-      </ul>
-    </div>
-
-    <!-- 5️⃣ Disclaimer -->
-    <div class="div_dash5">
+     <!-- 6️⃣ Disclaimer -->
+    <div class="div_dash6 disclaimer_total_pantalla">
       <span class="lbl_plan_auto">Plan automatizado</span>
+
       <div class="contenido_disclaimer">
         <div class="gif_container">
           <img src="/Images/gif/alerta.gif" alt="Gif vegano" class="gif_disclaimer">
         </div>
+
         <p class="disclaimer">
           Esta aplicación brinda orientación general y no sustituye el consejo médico o nutricional profesional.  
           <br><br>Un estilo de vida vegano equilibrado puede requerir suplementos como Vitamina B12,
