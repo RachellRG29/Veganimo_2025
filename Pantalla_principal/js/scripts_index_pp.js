@@ -26,6 +26,18 @@ async function cargarContenido(pagina) {
     setTimeout(verificarActualizacionPerfil, 300);
     ejecutarScriptsPagina(pagina);
 
+        if (pagina === "/plan/pp_dashboard_miplan.php") {
+      setTimeout(() => {
+        console.log("🚀 Inicializando modales del dashboard...");
+        if (window.inicializarModalesPlan) {
+          window.inicializarModalesPlan();
+        } else {
+          console.warn("⚠️ inicializarModalesPlan no disponible, intentando cargar script...");
+          cargarScriptModales();
+        }
+      }, 500);
+    }
+
     // Guardar la última página cargada
     localStorage.setItem("ultimaPaginaCargada", pagina);
 
@@ -103,6 +115,21 @@ function ejecutarScriptsPagina(pagina) {
   if (pagina === "/dieta_vegana/pp_dieta_vegana.php") {
     // espacio para lógica de dieta vegana
   }
+
+    if (pagina === "/plan/pp_dashboard_miplan.php") {
+    setTimeout(() => {
+      console.log("🏠 Dashboard cargado, inicializando modales...");
+      if (window.inicializarModalesPlan) {
+        window.inicializarModalesPlan();
+      } else {
+        console.error("❌ La función inicializarModalesPlan no está disponible");
+        // Intentar cargar el script manualmente si no está disponible
+        cargarScriptModales();
+      }
+    }, 300);
+  }
+
+
 }
 
 // ======================== INICIALIZACIÓN PRINCIPAL ========================

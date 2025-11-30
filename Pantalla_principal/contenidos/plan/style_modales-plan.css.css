@@ -1,0 +1,325 @@
+/* Modal para recetas del plan */
+.modal-receta-plan {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-receta-plan.oculto {
+  display: none;
+}
+
+.modal-contenido-plan {
+  background: #F6FFFE;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 120, 72, 0.3);
+  border: 3px solid #007848;
+  
+  /* Scroll minimalista */
+  scrollbar-width: thin;
+  scrollbar-color: #007848 transparent;
+}
+
+.modal-contenido-plan::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-contenido-plan::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 0 20px 20px 0;
+}
+
+.modal-contenido-plan::-webkit-scrollbar-thumb {
+  background: #007848;
+  border-radius: 10px;
+  border: 2px solid #F6FFFE;
+}
+
+.modal-contenido-plan::-webkit-scrollbar-thumb:hover {
+  background: #005a35;
+}
+
+/* Efecto sutil de sombra en el thumb */
+.modal-contenido-plan::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+
+/* Header del modal */
+.modal-header-plan {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: linear-gradient(135deg, #007848, #0E9863);
+  border-radius: 17px 17px 0 0;
+}
+
+.modal-header-plan h2 {
+  color: #F6FFFE;
+  font-family: 'Gloock', serif;
+  font-size: 24px;
+  letter-spacing: 0.9px;
+  margin: 0;
+}
+
+.btn-cerrar-modal-plan {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #F6FFFE;
+  font-size: 30px;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-cerrar-modal-plan:hover {
+  background: #18cc8892;
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Cuerpo del modal */
+.modal-body-plan {
+  padding: 30px;
+}
+
+/* Información general de la receta */
+.info-receta-plan {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.imagen-receta-plan {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.imagen-receta-plan img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.badge-tipo-comida {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed;
+  z-index: 10;
+}
+
+.letra-tipo{
+  font-family: 'Gloock', serif !important;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a1c1c;
+}
+
+/* Colores para los tipos de comida */
+.badge-tipo-comida.desayuno {
+  background: #FEED98;
+  border-color: #FF814F;
+}
+
+.badge-tipo-comida.almuerzo {
+  background: #A9F1AF;
+  border-color: #007848;
+}
+
+.badge-tipo-comida.cena {
+  background: #ACFEED;
+  border-color: #1E88E5;
+}
+
+.detalles-receta-plan h3 {
+  font-family: 'Comfortaa', serif;
+  color: #1a1c1c;
+  font-size: 22px;
+  margin: 0 0 15px 0;
+}
+
+.detalles-receta-plan p {
+  color: #2E4437;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.meta-info-plan {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFF6CB;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 2px solid #FEED98;
+  font-size: 14px;
+  color: #1a1c1c;
+}
+
+.meta-item .icono {
+  font-size: 16px;
+}
+
+/* Secciones de ingredientes y preparación */
+.subtitulo-seccion {
+  font-family: 'Comfortaa', serif;
+  color: #007848;
+  font-size: 18px;
+  margin: 25px 0 15px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #E99A3C;
+}
+
+.lista-ingredientes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-ingredientes li {
+  padding: 8px 0;
+  border-bottom: 1px solid #D7F0E0;
+  color: #2E4437;
+  display: flex;
+  align-items: center;
+}
+
+.lista-ingredientes li:before {
+  content: "•";
+  color: #E99A3C;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.lista-pasos {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.lista-pasos li {
+  padding: 12px 0;
+  color: #2E4437;
+  line-height: 1.6;
+  border-bottom: 1px solid #D7F0E0;
+}
+
+.lista-pasos li:last-child {
+  border-bottom: none;
+}
+
+/* Estado de la receta */
+.estado-receta-plan {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #E99A3C;
+}
+
+.badge-estado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.badge-estado.disponible {
+  background: #4AF5B4;
+  color: #007848;
+  border: 2px solid #18CC88;
+}
+
+.badge-estado.pendiente {
+  background: #FFF6CB;
+  color: #E99A3C;
+  border: 2px solid #FEED98;
+}
+
+.btn-empezar-receta {
+  background: linear-gradient(135deg, #E99A3C, #FFB74D);
+  color: #1a1c1c;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(233, 154, 60, 0.3);
+}
+
+.btn-empezar-receta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(233, 154, 60, 0.4);
+}
+
+.btn-empezar-receta:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .info-receta-plan {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .imagen-receta-plan img {
+    height: 150px;
+  }
+  
+  .modal-body-plan {
+    padding: 20px;
+  }
+  
+  .estado-receta-plan {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .btn-empezar-receta {
+    text-align: center;
+  }
+}

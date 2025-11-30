@@ -30,7 +30,7 @@
           <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
           <span class="etiqueta_letra">D</span>
           <p class="nombre_receta">Desayuno</p>
-            <button class="btn-ver-mas-dash ver-mas">Ver más 
+            <button class="btn-ver-mas-dash ver-mas" id="btn-desayuno">Ver más 
               <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
             </button>
         </div>
@@ -39,7 +39,7 @@
           <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
           <span class="etiqueta_letra">A</span>
           <p class="nombre_receta">Almuerzo</p>
-            <button class="btn-ver-mas-dash ver-mas">Pendiente
+            <button class="btn-ver-mas-dash ver-mas" id="btn-almuerzo">Pendiente
               <i class="ph ph-clock-afternoon" id="estado-receta"></i>
             </button>
         </div>
@@ -48,7 +48,7 @@
           <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
           <span class="etiqueta_letra">C</span>
           <p class="nombre_receta">Cena</p>
-            <button class="btn-ver-mas-dash ver-mas">Pendiente 
+            <button class="btn-ver-mas-dash ver-mas" id="btn-cena">Pendiente 
               <i class="ph ph-clock-afternoon" id="estado-receta"></i>
             </button>     
         </div>
@@ -158,4 +158,79 @@
     </div>
 
   </div>
+
+  <!-- Modal de recetas segun desayuno/almuerzo/cena -->
+  <div id="modal-receta-plan" class="modal-receta-plan oculto">
+    <div class="modal-contenido-plan">
+      
+      <!-- Header del modal -->
+      <div class="modal-header-plan">
+        <h2 id="modal-titulo-plan">Recetas del Plan</h2>
+        <button id="cerrar-modal-plan" class="btn-cerrar-modal-plan">×</button>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="modal-body-plan">
+        
+        <!-- Información general -->
+        <div class="info-receta-plan">
+          <div class="imagen-receta-plan">
+            <img id="modal-imagen-plan" src="/Images/fondo_pu_oscuro.png" alt="Imagen receta" />
+              <div class="badge-tipo-comida" id="badge-tipo-comida">
+                <span id="letra-tipo-comida" class="letra-tipo">D</span>
+              </div>
+          </div>
+          
+          <div class="detalles-receta-plan">
+            <h3 id="modal-nombre-receta">Nombre de la Receta</h3>
+            <p id="modal-descripcion-plan">Descripción de la receta...</p>
+            
+            <div class="meta-info-plan">
+              <div class="meta-item">
+                <span class="icono">⏱️</span>
+                <span id="modal-tiempo-plan">15 min</span>
+              </div>
+              <div class="meta-item">
+                <i class="ph ph-fork-knife"></i>
+                <span id="modal-dificultad-plan">Fácil</span>
+              </div>
+              <div class="meta-item">
+                <span class="icono">🔥</span>
+                <span id="modal-calorias-plan">250 cal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ingredientes -->
+        <div class="seccion-ingredientes">
+          <h3 class="subtitulo-seccion">Ingredientes</h3>
+          <ul id="modal-ingredientes-plan" class="lista-ingredientes">
+            <!-- Los ingredientes se cargarán aquí -->
+          </ul>
+        </div>
+
+        <!-- Preparación -->
+        <div class="seccion-preparacion">
+          <h3 class="subtitulo-seccion">Preparación</h3>
+          <ol id="modal-pasos-plan" class="lista-pasos">
+            <!-- Los pasos se cargarán aquí -->
+          </ol>
+        </div>
+
+        <!-- Estado de la receta -->
+        <div class="estado-receta-plan">
+          <div class="badge-estado" id="badge-estado-receta">
+            <i class="ph ph-check-circle"></i>
+            <span>Disponible</span>
+          </div>
+          <button class="btn-empezar-receta" id="btn-empezar-receta">
+            Empezar Receta
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </section>

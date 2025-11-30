@@ -739,3 +739,481 @@
 }
 
 
+/* ==================== RESPONSIVIDAD DASHBOARD ==================== */
+
+/* 🔵 TABLET (1024px - 769px) */
+@media (max-width: 1024px) {
+  .dashboard_plan {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+  
+  .div_dash1 { grid-area: 1 / 1 / 2 / 3; }
+  .div_dash2 { grid-area: 2 / 1 / 3 / 2; }
+  .div_dash3 { grid-area: 2 / 2 / 3 / 3; }
+  .div_dash4 { grid-area: 3 / 1 / 4 / 3; }
+  .div_dash5 { grid-area: 4 / 1 / 5 / 3; }
+  .div_dash6 { grid-area: 5 / 1 / 6 / 3; }
+  
+  .recetas_contenedor {
+    gap: 8px;
+  }
+  
+  .tarjeta_receta {
+    width: 200px;
+    height: 230px;
+  }
+  
+  .lbl_bienvenida_plan_dash {
+    width: 100%;
+    max-width: 480px;
+    margin-top: 3rem !important;
+  }
+  
+  /* CORRECCIÓN COMPLETA PARA CALENDARIO EN 1024px */
+  .div_dash2 {
+    padding: 20px !important;
+  }
+  
+  .calendario {
+    margin-top: 10px;
+  }
+  
+  .dias, .numeros {
+    gap: 4px !important; /* Gap muy reducido */
+    grid-template-columns: repeat(7, 1fr);
+  }
+  
+  .dias span, .numeros span {
+    font-size: 11px !important; /* Texto más pequeño */
+    padding: 3px 1px !important; /* Mínimo padding */
+    min-width: 16px; /* Ancho mínimo reducido */
+    text-align: center;
+    box-sizing: border-box;
+  }
+  
+  .calendario_titulo {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .calendario_titulo h3 {
+    font-size: 14px; /* Título más compacto */
+    margin: 0;
+  }
+  
+  .calendario_nav {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .calendario_nav button {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+    padding: 0;
+  }
+  
+  /* CORRECCIÓN PARA LA RACHA QUE SE SOBRESALE */
+  .header_plan {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .contenedor-racha {
+    order: 3; /* Poner la racha al final */
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .racha-space {
+    width: 80px; /* Reducir el ancho */
+    margin-right: 0 !important;
+  }
+  
+  .btn-guia-container {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 1412px) {
+  .section_mi_plan {
+    padding: 15px;
+  }
+  
+  .dashboard_plan {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 15px;
+  }
+  
+  .div_dash1, .div_dash2, .div_dash3, 
+  .div_dash4, .div_dash5, .div_dash6 {
+    grid-area: auto !important;
+    padding: 20px !important;
+  }
+  
+  .header_plan {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .contenedor-racha {
+    align-self: stretch;
+    order: 0;
+    margin-top: 0;
+  }
+  
+  /* 🔥 CALENDARIO EN TABLET PEQUEÑA - MÁS COMPACTO */
+  .calendario {
+    margin-top: 10px;
+  }
+  
+  .dias, .numeros {
+    gap: 3px !important;
+  }
+  
+  .dias span, .numeros span {
+    font-size: 10px !important;
+    padding: 2px 0 !important;
+    min-width: 14px;
+  }
+  
+  .calendario_titulo h3 {
+    font-size: 13px;
+  }
+  
+  .calendario_nav button {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+}
+/* 🔵 TABLET PEQUEÑA (768px - 601px) */
+@media (max-width: 768px) {
+  .section_mi_plan {
+    padding: 15px;
+  }
+  
+  .dashboard_plan {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 15px;
+  }
+  
+  .div_dash1, .div_dash2, .div_dash3, 
+  .div_dash4, .div_dash5, .div_dash6 {
+    grid-area: auto !important;
+    padding: 20px !important;
+  }
+  
+  .header_plan {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .contenedor-racha {
+    align-self: flex-end;
+  }
+  
+  .recetas_contenedor {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .tarjeta_receta {
+    width: 100%;
+    max-width: 280px;
+    height: 250px;
+  }
+  
+  .calendario {
+    margin-top: 10px;
+  }
+  
+  .dias, .numeros {
+    gap: 10px;
+  }
+  
+  .lbl_bienvenida_plan_dash {
+    width: 100%;
+    padding: 15px;
+    margin-top: 4rem !important;
+  }
+  
+  .lbl_titulo_dash {
+    font-size: 26px;
+  }
+  
+  .lbl_user_nivel {
+    font-size: 16px;
+  }
+}
+
+/* 🔵 MÓVIL (600px - 481px) */
+@media (max-width: 600px) {
+  .section_mi_plan {
+    padding: 10px;
+  }
+  
+  .dashboard_plan {
+    gap: 12px;
+  }
+  
+  .div_dash1, .div_dash2, .div_dash3, 
+  .div_dash4, .div_dash5, .div_dash6 {
+    padding: 15px !important;
+  }
+  
+  .header_plan {
+    gap: 12px;
+  }
+  
+  .titulo_plan {
+    font-size: 18px;
+    padding: 6px 14px;
+  }
+  
+  .etiqueta_plan {
+    font-size: 12px;
+    padding: 3px 10px;
+  }
+  
+  .contenedor-racha {
+    padding: 8px 15px;
+  }
+  
+  .lbl-racha {
+    font-size: 13px;
+  }
+  
+  .racha-space {
+    width: 80px;
+    height: 35px;
+  }
+  
+  .lbl-subtitulo-dash {
+    font-size: 16px;
+  }
+  
+  .recetas_contenedor {
+    gap: 12px;
+  }
+  
+  .tarjeta_receta {
+    max-width: 100%;
+    height: 240px;
+  }
+  
+  .calendario_titulo {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .calendario_nav {
+    align-self: flex-end;
+  }
+  
+  .dias, .numeros {
+    gap: 8px;
+  }
+  
+  .dias span, .numeros span {
+    font-size: 12px;
+    padding: 4px;
+  }
+  
+  .contenido_div3, .contenido_div4 {
+    padding: 20px;
+    height: auto;
+    min-height: 250px;
+  }
+  
+  .subtitulo_div3, .subtitulo_div4 {
+    position: relative;
+    top: 0;
+    left: 0 !important;
+    margin-bottom: 15px;
+  }
+  
+  .texto_tarjeta {
+    margin-top: 20px !important;
+    font-size: 16px;
+  }
+  
+  .btn_crear_receta, .btn_ingresar {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin: 15px 0 0 0 !important;
+    width: 100%;
+  }
+  
+  .contador_superior {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin-bottom: 15px;
+  }
+  
+  .frase_veg {
+    position: relative;
+    bottom: 0;
+    margin: 15px 0 0 0;
+  }
+  
+  .contenido_disclaimer {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .gif_container {
+    align-self: center;
+  }
+  
+  .lbl_plan_auto {
+    position: relative;
+    right: 0;
+    margin: 0 0 10px 0;
+    align-self: flex-end;
+  }
+}
+
+/* 🔵 MÓVIL PEQUEÑO (480px - 320px) */
+@media (max-width: 480px) {
+  .section_mi_plan {
+    padding: 8px;
+  }
+  
+  .dashboard_plan {
+    gap: 10px;
+  }
+  
+  .div_dash1, .div_dash2, .div_dash3, 
+  .div_dash4, .div_dash5, .div_dash6 {
+    padding: 12px !important;
+  }
+  
+  .lbl_bienvenida_plan_dash {
+    padding: 12px 15px;
+  }
+  
+  .lbl_titulo_dash {
+    font-size: 22px;
+  }
+  
+  .lbl_user_nivel {
+    font-size: 14px;
+  }
+  
+  .tarjeta_receta {
+    height: 220px;
+  }
+  
+  .img_receta {
+    height: 130px;
+  }
+  
+  .nombre_receta {
+    top: 150px !important;
+    font-size: 13px;
+  }
+  
+  .btn-ver-mas-dash {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+  
+  .barra_y_calorias {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .barra_contenedor {
+    width: 100%;
+  }
+  
+  .calorias {
+    align-self: flex-end;
+  }
+  
+  .dias, .numeros {
+    gap: 6px;
+  }
+  
+  .dias span, .numeros span {
+    font-size: 11px;
+    padding: 3px;
+  }
+  
+  .contenido_div3, .contenido_div4 {
+    padding: 15px;
+  }
+  
+  .subtitulo_div3, .subtitulo_div4 {
+    font-size: 18px;
+    padding: 8px 15px;
+  }
+  
+  .texto_tarjeta {
+    font-size: 15px;
+    margin-top: 15px !important;
+  }
+  
+  .btn_crear_receta, .btn_ingresar {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+  
+  .frase_veg {
+    font-size: 13px;
+    padding: 15px 8px;
+  }
+  
+  .disclaimer {
+    font-size: 12px;
+    padding: 15px;
+  }
+}
+
+/* 🔵 MÓVIL MUY PEQUEÑO (320px) */
+@media (max-width: 320px) {
+  .section_mi_plan {
+    padding: 5px;
+  }
+  
+  .tarjeta_receta {
+    height: 200px;
+  }
+  
+  .img_receta {
+    height: 110px;
+  }
+  
+  .nombre_receta {
+    top: 130px !important;
+  }
+  
+  .etiqueta_letra {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  
+  .calendario_titulo h3 {
+    font-size: 16px;
+  }
+  
+  .calendario_nav button {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+}
