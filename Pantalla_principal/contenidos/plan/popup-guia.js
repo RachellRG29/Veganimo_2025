@@ -1,73 +1,96 @@
-(function () {
-  // esperar a que el DOM esté listo
-  function ready(fn) {
-    if (document.readyState !== 'loading') {
-      fn();
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
-    }
+// 🆕 FUNCIÓN PARA INICIALIZAR EL POPUP DE GUÍA
+function inicializarPopupGuia() {
+  const btn_guia = document.querySelector('.btn-guia');
+  const popup = document.getElementById('popupGuia');
+  
+  if (!btn_guia || !popup) {
+    console.log('🔄 Popup de guía no encontrado en esta página');
+    return;
   }
 
-  ready(function () {
-    const btn = document.querySelector('.btn-guia');
-    const popup = document.getElementById('popupGuia');
-    const closeBtn = popup ? popup.querySelector('.cerrar_popup') : null;
+  console.log('🎯 Inicializando popup de guía...');
+  
+  const closeBtn = popup.querySelector('.cerrar_popup_x');
+  const popupContenido = popup.querySelector('.popup_contenido');
 
-    if (!btn) {
-      console.warn('btn-guia no encontrado');
-      return;
+  // Posicionar el popup encima del botón en el lado derecho
+  function posicionarPopup() {
+    const btnRect = btn_guia.getBoundingClientRect();
+    const popupRect = popupContenido.getBoundingClientRect();
+    
+    // Posicionar verticalmente alineado con el botón
+    let top = btnRect.top + window.scrollY;
+    
+    // Ajustar si el popup se sale de la pantalla en la parte inferior
+    if (top + popupRect.height > window.innerHeight) {
+      top = window.innerHeight - popupRect.height - 20;
     }
-    if (!popup) {
-      console.warn('popupGuia no encontrado');
-      return;
+    
+    // Ajustar si el popup se sale de la pantalla en la parte superior
+    if (top < 100) {
+      top = 100;
     }
-    if (!closeBtn) {
-      console.warn('cerrar_popup no encontrado dentro del popup');
-    }
+    
+    popupContenido.style.top = top + 'px';
+    popupContenido.style.right = '45px';
+  }
 
-    // abrir / cerrar mediante toggling de clase (más seguro que manipular style directamente)
-    function openPopup() {
-      popup.classList.add('open');
-      // foco accesible: poner focus en botón de cerrar
-      if (closeBtn) closeBtn.focus();
-      // bloquear scroll del body opcional
-      document.documentElement.style.overflow = 'hidden';
-      document.body.style.overflow = 'hidden';
-    }
+  // abrir / cerrar mediante toggling de clase
+  function openPopup() {
+    posicionarPopup();
+    popup.classList.add('open');
+    if (closeBtn) closeBtn.focus();
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
 
-    function closePopup() {
-      popup.classList.remove('open');
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
-      // devolver foco al botón
-      btn.focus();
-    }
+  function closePopup() {
+    popup.classList.remove('open');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    btn_guia.focus();
+  }
 
-    // listeners
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      openPopup();
-    });
+  // Remover event listeners previos para evitar duplicados
+  btn_guia.replaceWith(btn_guia.cloneNode(true));
+  if (closeBtn) closeBtn.replaceWith(closeBtn.cloneNode(true));
+  
+  // Obtener referencias frescas después del clone
+  const newBtnGuia = document.querySelector('.btn-guia');
+  const newCloseBtn = popup.querySelector('.cerrar_popup_x');
+  const newPopup = document.getElementById('popupGuia');
 
-    if (closeBtn) {
-      closeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        closePopup();
-      });
-    }
-
-    // cerrar haciendo click fuera del contenido
-    popup.addEventListener('click', (e) => {
-      if (e.target === popup) {
-        closePopup();
-      }
-    });
-
-    // cerrar con Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && popup.classList.contains('open')) {
-        closePopup();
-      }
-    });
+  // listeners
+  newBtnGuia.addEventListener('click', (e) => {
+    e.preventDefault();
+    openPopup();
   });
-})();
+
+  if (newCloseBtn) {
+    newCloseBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePopup();
+    });
+  }
+
+  // cerrar haciendo click fuera del contenido
+  newPopup.addEventListener('click', (e) => {
+    if (e.target === newPopup) {
+      closePopup();
+    }
+  });
+
+  // cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && newPopup.classList.contains('open')) {
+      closePopup();
+    }
+  });
+
+  // Reposicionar en resize de ventana
+  window.addEventListener('resize', () => {
+    if (newPopup.classList.contains('open')) {
+      posicionarPopup();
+    }
+  });
+}

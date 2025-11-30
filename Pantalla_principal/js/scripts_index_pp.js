@@ -126,9 +126,12 @@ function ejecutarScriptsPagina(pagina) {
         // Intentar cargar el script manualmente si no está disponible
         cargarScriptModales();
       }
+       inicializarPopupGuia();
+       inicializarModalIngredientes();
+       inicializarModalPreferencias();
     }, 300);
   }
-
+  setTimeout(inicializarPopupGuia, 200);
 
 }
 

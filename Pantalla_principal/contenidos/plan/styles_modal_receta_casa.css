@@ -1,0 +1,372 @@
+/* ---------------------------------------------------------------------------------------------------- */
+/* MODAL INGREDIENTES SEGÚN CASA - LAYOUT HORIZONTAL */
+.modal-ingredientes-casa {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.modal-ingredientes-casa:not(.oculto) {
+  display: flex !important;
+}
+
+.modal-contenido-ingredientes {
+    background: 
+    linear-gradient(#f6fffe) padding-box,
+    linear-gradient(#007848) border-box;
+    border: 6px solid transparent;
+  border-radius: 23px;
+  padding: 25px 25px 0 25px;
+  color: #1A1C1C;
+  position: relative;
+  width: 90%;
+  max-width: 900px; /* Más ancho para las dos columnas */
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Header del modal */
+.modal-header-ingredientes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #E99A3C;
+  padding-bottom: 8px;
+}
+
+.modal-header-ingredientes h2 {
+  margin: 0;
+  color: #154734;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Gloock', sans-serif;
+  letter-spacing: 0.9px;
+}
+
+.btn-cerrar-modal-ingredientes {
+  background: #007848c9;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: #f6fffe;
+  border-radius: 12px;
+  width: 32px;
+  height: 32px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-cerrar-modal-ingredientes:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* Instrucción */
+.instruccion-ingredientes {
+  margin-bottom: 25px;
+  font-weight: 500;
+  color: #154734;
+}
+
+/* Layout de dos columnas */
+.contenedor-columnas {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Lista más ancha, seleccionados más estrecha */
+  gap: 25px;
+  align-items: start;
+  min-height: 400px;
+}
+
+/* Columna izquierda - Categorías */
+.columna-categorias {
+  height: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
+.categoria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  margin-bottom: 0;
+  transition: all 0.3s ease;
+}
+
+.categoria-header:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.categoria-flecha {
+  transition: transform 0.3s ease;
+}
+
+.categoria-flecha svg {
+  width: 20px;
+  height: 20px;
+  fill: #E99A3C;
+}
+
+.categoria-grupo.cerrada .categoria-flecha {
+  transform: rotate(-90deg);
+}
+
+.categoria-grupo.cerrada .lista-ingredientes-checkbox {
+  display: none;
+}
+
+/* Estado inicial - todas las categorías cerradas */
+.categoria-grupo {
+  transition: all 0.3s ease;
+}
+
+.categoria-grupo.cerrada {
+  padding-bottom: 8px;
+}
+
+
+/* Estado inicial - todas las categorías cerradas */
+.categoria-grupo {
+  transition: all 0.3s ease;
+}
+
+.categoria-grupo.cerrada {
+  padding-bottom: 8px;
+}
+
+.categorias-ingredientes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.categoria-grupo {
+  background: radial-gradient(ellipse at bottom left, #E99A3C 0%, #f6fffee7 40%);
+  border-radius: 15px;
+  padding: 15px;
+  border: 2px solid rgba(233, 154, 60, 0.3);
+}
+
+.titulo-categoria {
+  color: #1A1C1C;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  border-left: 4px solid #E99A3C;
+  padding-left: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* Checkboxes */
+.lista-ingredientes-checkbox {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #f6fffeb3;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.checkbox-item:hover {
+  background: #f6fffee6;
+  transform: translateY(-1px);
+}
+
+.checkbox-item input[type="checkbox"] {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #E99A3C;
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-item input[type="checkbox"]:checked + .checkmark {
+  background: #E99A3C;
+  border-color: #E99A3C;
+}
+
+.checkbox-item input[type="checkbox"]:checked + .checkmark::after {
+  content: "✓";
+  position: absolute;
+  color: #f6fffe;
+  font-size: 12px;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Columna derecha - Ingredientes seleccionados */
+.columna-seleccionados {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredientes-seleccionados {
+  background: #f6fffe80;
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px solid rgba(233, 154, 60, 0.3);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-seleccionados {
+  color: #1A1C1C;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.lista-seleccionados {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 2px dashed #E99A3C;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Mensaje cuando no hay seleccionados */
+.lista-seleccionados:empty::before {
+  content: "No hay ingredientes seleccionados";
+  color: #666;
+  text-align: center;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.9rem;
+}
+
+.ingrediente-seleccionado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #007848;
+  color: #f6fffe;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-eliminar-ingrediente {
+  background: none;
+  border: none;
+  color: #f6fffe;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.btn-eliminar-ingrediente:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Botón guardar en footer fijo */
+.acciones-modal-ingredientes {
+  position: sticky;
+  bottom: 0 !important;
+  background: #f6fffe;
+  text-align: center;
+  z-index: 10;
+}
+
+.btn-guardar-ingredientes {
+  background: #E99A3C;
+  color: #f6fffe;
+  border: none;
+  padding: 12px 40px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  box-shadow: 0 4px 15px rgba(233, 154, 60, 0.3);
+}
+
+.btn-guardar-ingredientes:hover {
+  background: #faa032;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(233, 154, 60, 0.4);
+}
+
+/* Estado oculto */
+.oculto {
+  display: none !important;
+}
+
+/* Scrollbar personalizado */
+.columna-categorias::-webkit-scrollbar,
+.lista-seleccionados::-webkit-scrollbar {
+  width: 6px;
+}
+
+.columna-categorias::-webkit-scrollbar-track,
+.lista-seleccionados::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.columna-categorias::-webkit-scrollbar-thumb,
+.lista-seleccionados::-webkit-scrollbar-thumb {
+  background: #E99A3C;
+  border-radius: 3px;
+}

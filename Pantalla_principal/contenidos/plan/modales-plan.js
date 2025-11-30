@@ -58,13 +58,13 @@ function abrirModalReceta(tipoComida) {
   document.getElementById('modal-dificultad-plan').textContent = receta.dificultad;
   document.getElementById('modal-calorias-plan').textContent = receta.calorias;
   
-  // 🔥 CORREGIDO: Actualizar badge del tipo de comida
+  // Actualizar badge del tipo de comida
   const badgeTipo = document.getElementById('badge-tipo-comida');
   badgeTipo.className = 'badge-tipo-comida ' + receta.tipo;
   document.getElementById('letra-tipo-comida').textContent = 
     receta.tipo === 'desayuno' ? 'D' : receta.tipo === 'almuerzo' ? 'A' : 'C';
   
-  // 🔥 NUEVO: Actualizar ingredientes
+  // Actualizar ingredientes
   const listaIngredientes = document.getElementById('modal-ingredientes-plan');
   listaIngredientes.innerHTML = '';
   receta.ingredientes.forEach(ingrediente => {
@@ -73,7 +73,7 @@ function abrirModalReceta(tipoComida) {
     listaIngredientes.appendChild(li);
   });
   
-  // 🔥 NUEVO: Actualizar pasos
+  // Actualizar pasos
   const listaPasos = document.getElementById('modal-pasos-plan');
   listaPasos.innerHTML = '';
   receta.pasos.forEach((paso, index) => {
@@ -82,14 +82,14 @@ function abrirModalReceta(tipoComida) {
     listaPasos.appendChild(li);
   });
   
-  // 🔥 NUEVO: Actualizar estado
+  // NUEVO: Actualizar estado
   const badgeEstado = document.getElementById('badge-estado-receta');
   badgeEstado.className = 'badge-estado ' + receta.estado;
   badgeEstado.innerHTML = receta.estado === 'disponible' ? 
     '<i class="ph ph-check-circle"></i><span>Disponible</span>' :
     '<i class="ph ph-clock"></i><span>Pendiente</span>';
   
-  // 🔥 NUEVO: Configurar botón de empezar receta
+  //  NUEVO: Configurar botón de empezar receta
   const btnEmpezarReceta = document.getElementById('btn-empezar-receta');
   if (receta.estado === 'disponible') {
     btnEmpezarReceta.disabled = false;
@@ -176,4 +176,4 @@ window.abrirModalReceta = abrirModalReceta;
 window.cerrarModalPlan = cerrarModalPlan;
 window.inicializarModalesPlan = inicializarModalesPlan;
 
-console.log("✅ modales-plan.js inicializado correctamente");
+/*console.log("✅ modales-plan.js inicializado correctamente");*/

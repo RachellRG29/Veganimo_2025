@@ -7,6 +7,7 @@
     <p class="lbl_user_nivel">Nivel: Transicionista</p>
   </div>
 
+  <!-- ----------------------------------------------------------------------------- -->
   <div class="dashboard_plan">
 
     <!-- 1️⃣ Plan Nutricionista -->
@@ -94,6 +95,9 @@
       <!-- POPUP DE GUÍA -->
       <div class="popup_guia" id="popupGuia">
         <div class="popup_contenido">
+          <!-- Botón cerrar en esquina superior derecha -->
+          <button class="cerrar_popup_x">×</button>
+          
           <h3>Guía de colores</h3>
 
           <ul class="guia_colores">
@@ -102,13 +106,11 @@
             <li><span class="color_guia naranja"></span>Receta intermedia</li>
             <li><span class="color_guia rojo"></span>Receta avanzada</li>
           </ul>
-
-          <button class="cerrar_popup">Cerrar</button>
         </div>
       </div>
     </div>
-
-    <!-- 3️⃣ Recetas según tus ingredientes -->
+    
+     <!-- 3️⃣ Recetas según tus ingredientes -->
     <div class="div_dash3">
         <div class="contenido_div3">
             <h3 class="subtitulo_div3">Recetas según tus ingredientes</h3>
@@ -122,7 +124,7 @@
         <div class="contenido_div4">
             <h3 class="subtitulo_div4">Ingredientes según tus gustos</h3>
             <p class="texto_tarjeta">“Ingresa los ingredientes de tu preferencia y lo adaptaremos a tus gustos”</p>
-            <button class="btn_ingresar">Ingresar</button>
+            <button class="btn_ingresar_gustos">Ingresar</button>
         </div>
     </div>
 
@@ -159,6 +161,9 @@
 
   </div>
 
+
+  <!-- MODALES -->
+  <!-- ----------------------------------------------------------------------------- -->
   <!-- Modal de recetas segun desayuno/almuerzo/cena -->
   <div id="modal-receta-plan" class="modal-receta-plan oculto">
     <div class="modal-contenido-plan">
@@ -226,6 +231,675 @@
           </div>
           <button class="btn-empezar-receta" id="btn-empezar-receta">
             Empezar Receta
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ----------------------------------------------------------------------------- -->
+  <!-- Modal de ingredientes según casa -->
+  <div id="modal-ingredientes-casa" class="modal-ingredientes-casa oculto">
+    <div class="modal-contenido-ingredientes">
+      
+      <!-- Header del modal -->
+      <div class="modal-header-ingredientes">
+        <h2>Recetas según tus ingredientes</h2>
+        <button id="cerrar-modal-ingredientes" class="btn-cerrar-modal-ingredientes">×</button>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="modal-body-ingredientes">
+        
+        <!-- Instrucción -->
+        <p class="instruccion-ingredientes">Selecciona los ingredientes que tienes en casa</p>
+
+        <!-- Layout de dos columnas -->
+        <div class="contenedor-columnas">
+          
+          <!-- Columna izquierda - Categorías -->
+          <div class="columna-categorias">
+            <div class="categorias-ingredientes">
+              
+              <!-- Vegetales -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Vegetales</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="tomate"><span class="checkmark"></span>Tomate</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="lechuga"><span class="checkmark"></span>Lechuga</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="zanahoria"><span class="checkmark"></span>Zanahoria</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="cebolla"><span class="checkmark"></span>Cebolla</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="pimiento"><span class="checkmark"></span>Pimiento</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="brocoli"><span class="checkmark"></span>Brócoli</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="espinaca"><span class="checkmark"></span>Espinaca</label>
+                </div>
+              </div>
+
+              <!-- Frutas -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Frutas</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="pera"><span class="checkmark"></span>Pera</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="mango"><span class="checkmark"></span>Mango</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="platano"><span class="checkmark"></span>Plátano</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="manzana"><span class="checkmark"></span>Manzana</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="naranja"><span class="checkmark"></span>Naranja</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="fresa"><span class="checkmark"></span>Fresa</label>
+                </div>
+              </div>
+
+              <!-- Legumbres -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Legumbres</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="lentejas"><span class="checkmark"></span>Lentejas</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="garbanzos"><span class="checkmark"></span>Garbanzos</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="frijoles"><span class="checkmark"></span>Frijoles</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="soja"><span class="checkmark"></span>Soja</label>
+                </div>
+              </div>
+
+              <!-- Cereales y Granos -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Cereales y Granos</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="arroz"><span class="checkmark"></span>Arroz</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="avena"><span class="checkmark"></span>Avena</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="quinoa"><span class="checkmark"></span>Quinoa</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="trigo"><span class="checkmark"></span>Trigo</label>
+                </div>
+              </div>
+
+              <!-- Semillas y Nueces -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Semillas y Nueces</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="almendras"><span class="checkmark"></span>Almendras</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="nueces"><span class="checkmark"></span>Nueces</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="chia"><span class="checkmark"></span>Chía</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="linaza"><span class="checkmark"></span>Linaza</label>
+                </div>
+              </div>
+
+              <!-- Proteínas Vegetales -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Proteínas Vegetales</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="tofu"><span class="checkmark"></span>Tofu</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="tempeh"><span class="checkmark"></span>Tempeh</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="seitan"><span class="checkmark"></span>Seitán</label>
+                </div>
+              </div>
+
+              <!-- Carnes Vegetales -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Carnes Vegetales</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="hamburguesa_vegana"><span class="checkmark"></span>Hamburguesa Vegana</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="salchicha_vegana"><span class="checkmark"></span>Salchicha Vegana</label>
+                </div>
+              </div>
+
+              <!-- Lácteos Veganos -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Lácteos Veganos</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="leche_almendras"><span class="checkmark"></span>Leche de Almendras</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="leche_soja"><span class="checkmark"></span>Leche de Soja</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="yogur_vegano"><span class="checkmark"></span>Yogur Vegano</label>
+                </div>
+              </div>
+
+              <!-- Condimentos y Salsas -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Condimentos y Salsas</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="salsa_soja"><span class="checkmark"></span>Salsa de Soja</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="vinagre"><span class="checkmark"></span>Vinagre</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="aceite_oliva"><span class="checkmark"></span>Aceite de Oliva</label>
+                </div>
+              </div>
+
+              <!-- Tubérculos -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Tubérculos</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="papa"><span class="checkmark"></span>Papa</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="camote"><span class="checkmark"></span>Camote</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="yuca"><span class="checkmark"></span>Yuca</label>
+                </div>
+              </div>
+
+              <!-- Panes y Harinas -->
+              <div class="categoria-grupo">
+                <div class="categoria-header">
+                  <h3 class="titulo-categoria">Panes y Harinas</h3>
+                  <span class="categoria-flecha">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-checkbox">
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="pan_integral"><span class="checkmark"></span>Pan Integral</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="harina_avena"><span class="checkmark"></span>Harina de Avena</label>
+                  <label class="checkbox-item"><input type="checkbox" name="ingrediente" value="harina_almendra"><span class="checkmark"></span>Harina de Almendra</label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Columna derecha - Ingredientes seleccionados -->
+          <div class="columna-seleccionados">
+            <div class="ingredientes-seleccionados">
+              <h3 class="titulo-seleccionados">Seleccionados</h3>
+              <div id="lista-seleccionados" class="lista-seleccionados">
+                <!-- Los ingredientes seleccionados aparecerán aquí -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botón de acción EN FOOTER FIJO -->
+        <div class="acciones-modal-ingredientes">
+          <button class="btn-guardar-ingredientes" id="btn-guardar-ingredientes">
+            Guardar
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ----------------------------------------------------------------------------- -->
+  <!-- Modal de preferencias de ingredientes -->
+  <div id="modal-preferencias-ingredientes" class="modal-preferencias-ingredientes oculto">
+    <div class="modal-contenido-preferencias">
+      
+      <!-- Header del modal -->
+      <div class="modal-header-preferencias">
+        <h2>Preferencias de Ingredientes</h2>
+        <button id="cerrar-modal-preferencias" class="btn-cerrar-modal-preferencias">×</button>
+      </div>
+
+      <!-- Contenido principal -->
+      <div class="modal-body-preferencias">
+        
+        <!-- Instrucción -->
+        <p class="instruccion-preferencias">Selecciona qué ingredientes te gustan o no te gustan</p>
+
+        <!-- Layout de dos columnas -->
+        <div class="contenedor-columnas-preferencias">
+          
+          <!-- Columna izquierda - Categorías -->
+          <div class="columna-categorias-preferencias">
+            <div class="categorias-preferencias">
+              
+              <!-- Vegetales -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Vegetales</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="tomate">
+                    <span class="nombre-ingrediente">Tomate</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="lechuga">
+                    <span class="nombre-ingrediente">Lechuga</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="zanahoria">
+                    <span class="nombre-ingrediente">Zanahoria</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="cebolla">
+                    <span class="nombre-ingrediente">Cebolla</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="pimiento">
+                    <span class="nombre-ingrediente">Pimiento</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Frutas -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Frutas</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="fresa">
+                    <span class="nombre-ingrediente">Fresa</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="kiwi">
+                    <span class="nombre-ingrediente">Kiwi</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="guinea">
+                    <span class="nombre-ingrediente">Guinea</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="manzana">
+                    <span class="nombre-ingrediente">Manzana</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="naranja">
+                    <span class="nombre-ingrediente">Naranja</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Legumbres -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Legumbres</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="lentejas">
+                    <span class="nombre-ingrediente">Lentejas</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="garbanzos">
+                    <span class="nombre-ingrediente">Garbanzos</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="frijoles">
+                    <span class="nombre-ingrediente">Frijoles</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cereales y Granos -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Cereales y Granos</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="arroz">
+                    <span class="nombre-ingrediente">Arroz</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="avena">
+                    <span class="nombre-ingrediente">Avena</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="quinoa">
+                    <span class="nombre-ingrediente">Quinoa</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Semillas y Nueces -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Semillas y Nueces</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="almendras">
+                    <span class="nombre-ingrediente">Almendras</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="nueces">
+                    <span class="nombre-ingrediente">Nueces</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="chia">
+                    <span class="nombre-ingrediente">Chía</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Proteínas Vegetales -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Proteínas Vegetales</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="tofu">
+                    <span class="nombre-ingrediente">Tofu</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="tempeh">
+                    <span class="nombre-ingrediente">Tempeh</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="seitan">
+                    <span class="nombre-ingrediente">Seitán</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Carnes Vegetales -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Carnes Vegetales</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="hamburguesa_vegana">
+                    <span class="nombre-ingrediente">Hamburguesa Vegana</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="salchicha_vegana">
+                    <span class="nombre-ingrediente">Salchicha Vegana</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lácteos Veganos -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Lácteos Veganos</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="leche_almendras">
+                    <span class="nombre-ingrediente">Leche de Almendras</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="leche_soja">
+                    <span class="nombre-ingrediente">Leche de Soja</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="yogur_vegano">
+                    <span class="nombre-ingrediente">Yogur Vegano</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Condimentos y Salsas -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Condimentos y Salsas</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="salsa_soja">
+                    <span class="nombre-ingrediente">Salsa de Soja</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="vinagre">
+                    <span class="nombre-ingrediente">Vinagre</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="aceite_oliva">
+                    <span class="nombre-ingrediente">Aceite de Oliva</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tubérculos -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Tubérculos</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="papa">
+                    <span class="nombre-ingrediente">Papa</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="camote">
+                    <span class="nombre-ingrediente">Camote</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="yuca">
+                    <span class="nombre-ingrediente">Yuca</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Panes y Harinas -->
+              <div class="categoria-grupo-preferencias">
+                <div class="categoria-header-preferencias">
+                  <h3 class="titulo-categoria-preferencias">Panes y Harinas</h3>
+                  <span class="categoria-flecha-preferencias">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#000000" viewBox="0 0 256 256"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+                  </span>
+                </div>
+                <div class="lista-ingredientes-preferencias">
+                  <div class="ingrediente-item" data-ingrediente="pan_integral">
+                    <span class="nombre-ingrediente">Pan Integral</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="harina_avena">
+                    <span class="nombre-ingrediente">Harina de Avena</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                  <div class="ingrediente-item" data-ingrediente="harina_almendra">
+                    <span class="nombre-ingrediente">Harina de Almendra</span>
+                    <div class="botones-preferencia">
+                      <button class="btn-preferencia btn-like" data-preferencia="like">👍</button>
+                      <button class="btn-preferencia btn-dislike" data-preferencia="dislike">👎</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Columna derecha - Resumen de preferencias -->
+          <div class="columna-resumen-preferencias">
+            <div class="resumen-preferencias">
+              <h3 class="titulo-resumen">Tus Preferencias</h3>
+              <div class="contenedor-resumen">
+                <div class="resumen-gustos">
+                  <h4 class="subtitulo-resumen">Me gustan</h4>
+                  <div id="lista-gustos" class="lista-resumen">
+                    <!-- Los ingredientes que gustan aparecerán aquí -->
+                  </div>
+                </div>
+                <div class="resumen-disgustos">
+                  <h4 class="subtitulo-resumen">No me gustan</h4>
+                  <div id="lista-disgustos" class="lista-resumen">
+                    <!-- Los ingredientes que no gustan aparecerán aquí -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Botón de acción EN FOOTER FIJO -->
+        <div class="acciones-modal-preferencias">
+          <button class="btn-guardar-preferencias" id="btn-guardar-preferencias">
+            Guardar
           </button>
         </div>
 
