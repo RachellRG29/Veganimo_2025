@@ -1,49 +1,114 @@
 <?php
 require_once __DIR__ . '/../../../misc/db_config.php';
 include_once __DIR__ . '/../menu_perfil.php';
+session_start();
 
 // ================================================
-//  FUNCIÓN OBTENER PLANES DE DIETA
+//  OBTENER PLAN IA DEL USUARIO (NUEVA LÓGICA)
 // ================================================
-$arrayPlanesDieta = [];
-$planIdSeleccionado = $_GET['plan_id'] ?? null;
+$tienePlan = false;
+$recetas = [];
+$planData = [];
 
 try {
-
-    if (!isset($cliente) || !$cliente instanceof MongoDB\Driver\Manager) {
-        throw new Exception("Conexión a MongoDB no válida.");
+    $userId = $_SESSION['user_id'] ?? null;
+    $planIdSeleccionado = $_GET['plan_id'] ?? null;
+    
+    if ($userId && isset($cliente) && $cliente instanceof MongoDB\Driver\Manager) {
+        
+        // Construir filtro
+        if ($planIdSeleccionado && preg_match('/^[a-f\d]{24}$/i', $planIdSeleccionado)) {
+            // Buscar por ID específico
+            $filtro = ['_id' => new MongoDB\BSON\ObjectId($planIdSeleccionado)];
+        } else {
+            // Buscar el plan IA más reciente del usuario
+            $filtro = [
+                'user_id' => $userId,
+                'estado' => 'activo',
+                'tipo' => 'ia_personalizado'
+            ];
+        }
+        
+        $options = ['sort' => ['fecha_generacion' => -1], 'limit' => 1];
+        $query = new MongoDB\Driver\Query($filtro, $options);
+        $cursor = $cliente->executeQuery("Veganimo.Planes_Dieta", $query);
+        $plan = current($cursor->toArray());
+        
+        if ($plan) {
+            $tienePlan = true;
+            
+            // Extraer recetas
+            $recetas = [
+                'desayuno' => isset($plan->recetas->desayuno) ? 
+                    (array)$plan->recetas->desayuno : [],
+                'almuerzo' => isset($plan->recetas->almuerzo) ? 
+                    (array)$plan->recetas->almuerzo : [],
+                'cena' => isset($plan->recetas->cena) ? 
+                    (array)$plan->recetas->cena : []
+            ];
+            
+            // Asegurar que las imágenes tengan ruta correcta
+            foreach ($recetas as &$receta) {
+                if (isset($receta['imagen']) && $receta['imagen']) {
+                    $img = $receta['imagen'];
+                    if (!str_starts_with($img, '/') && !str_starts_with($img, 'http')) {
+                        $receta['imagen'] = '/' . ltrim($img, '/');
+                    }
+                } else {
+                    $receta['imagen'] = '/Images/fondo_pu_oscuro.png';
+                }
+                
+                // Asegurar otros campos
+                $receta['nombre'] = $receta['nombre'] ?? 'Receta del plan';
+                $receta['calorias'] = $receta['calorias'] ?? 'N/A';
+                $receta['explicacion'] = $receta['explicacion'] ?? 'Receta personalizada según tu perfil';
+            }
+            
+            // Datos del plan
+            $planData = [
+                'id' => (string)$plan->_id,
+                'completadas' => isset($plan->completadas) ? 
+                    (array)$plan->completadas : ['desayuno' => false, 'almuerzo' => false, 'cena' => false],
+                'analisis' => $plan->analisis ?? 'Análisis nutricional personalizado',
+                'fecha' => isset($plan->fecha_generacion) ? 
+                    $plan->fecha_generacion->toDateTime()->format('d/m/Y H:i') : 'Fecha no disponible'
+            ];
+        }
     }
-
-    // Filtro seguro
-    if ($planIdSeleccionado) {
-        $filtro = ['_id' => new MongoDB\BSON\ObjectId($planIdSeleccionado)];
-    } else {
-        $filtro = []; // Obtener todos
-    }
-
-    $query = new MongoDB\Driver\Query($filtro);
-    $cursor = $cliente->executeQuery("Veganimo.Planes_Dieta", $query);
-
-    $planesDieta = [];
-
-    foreach ($cursor as $documento) {
-        $planesDieta[] = [
-            "id" => isset($documento->_id) ? (string) $documento->_id : '',
-            "nombre" => $documento->nombre ?? '',
-            "tipo" => $documento->tipo ?? '',
-            "calorias" => $documento->calorias ?? 0,
-            "fecha_creacion" => $documento->fecha_creacion ?? '',
-            "duracion_dias" => $documento->duracion_dias ?? 0
-        ];
-    }
-
-    // Usar solo el primero si existen
-    if (!empty($planesDieta)) {
-        $arrayPlanesDieta = [$planesDieta[0]];
-    }
-
 } catch (Exception $e) {
-    // Evitar romper el dashboard
+    error_log("Error cargando plan IA: " . $e->getMessage());
+    $tienePlan = false;
+}
+
+// ================================================
+//  OBTENER PLANES DE DIETA (código original - mantener si lo necesitas)
+// ================================================
+$arrayPlanesDieta = [];
+
+try {
+    if (isset($planIdSeleccionado) && $planIdSeleccionado) {
+        $filtroPlan = ['_id' => new MongoDB\BSON\ObjectId($planIdSeleccionado)];
+        $queryPlan = new MongoDB\Driver\Query($filtroPlan);
+        $cursorPlan = $cliente->executeQuery("Veganimo.Planes_Dieta", $queryPlan);
+        
+        $planesDieta = [];
+        foreach ($cursorPlan as $documento) {
+            $planesDieta[] = [
+                "id" => (string)$documento->_id,
+                "nombre" => $documento->nombre ?? 'Plan IA',
+                "tipo" => $documento->tipo ?? 'ia_personalizado',
+                "calorias" => $documento->calorias ?? 0,
+                "fecha_creacion" => isset($documento->fecha_generacion) ? 
+                    $documento->fecha_generacion->toDateTime()->format('d/m/Y') : '',
+                "duracion_dias" => $documento->duracion_dias ?? 7
+            ];
+        }
+        
+        if (!empty($planesDieta)) {
+            $arrayPlanesDieta = [$planesDieta[0]];
+        }
+    }
+} catch (Exception $e) {
     $arrayPlanesDieta = [];
 }
 
@@ -54,8 +119,8 @@ if (empty($arrayPlanesDieta)) {
     $arrayPlanesDieta = [
         [
             "id" => "sin-id",
-            "nombre" => "Sin plan",
-            "tipo" => "N/A",
+            "nombre" => $tienePlan ? "Plan IA Personalizado" : "Sin plan",
+            "tipo" => $tienePlan ? "ia_personalizado" : "N/A",
             "calorias" => 0,
             "fecha_creacion" => "",
             "duracion_dias" => 0
@@ -82,7 +147,7 @@ if (empty($arrayPlanesDieta)) {
         <div class="contenedor-racha">
           <span class="lbl-racha">Racha</span>
           <div class="racha-space">
-            <img src="/Images/" class="img-racha-veg" alt="">
+            <img src="/Images/vegan_leaf.png" class="img-racha-veg" alt="Ícono vegano">
           </div>
         </div>
       </div>
@@ -96,7 +161,9 @@ if (empty($arrayPlanesDieta)) {
             <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
             <span class="etiqueta_letra">D</span>
             <p class="nombre_receta">Desayuno</p>
-            <button class="btn-ver-mas-dash ver-mas" id="btn-desayuno">Crear plan 
+            <button class="btn-ver-mas-dash ver-mas" id="btn-desayuno" 
+                    onclick="window.location.href='/Pantalla_principal/contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'">
+              Crear plan 
               <i class="ph ph-magic-wand" id="estado-receta"></i>
             </button>
           </div>
@@ -105,7 +172,9 @@ if (empty($arrayPlanesDieta)) {
             <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
             <span class="etiqueta_letra">A</span>
             <p class="nombre_receta">Almuerzo</p>
-            <button class="btn-ver-mas-dash ver-mas" id="btn-almuerzo">Pendiente
+            <button class="btn-ver-mas-dash ver-mas" id="btn-almuerzo"
+                    onclick="window.location.href='/Pantalla_principal/contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'">
+              Pendiente
               <i class="ph ph-clock-afternoon" id="estado-receta"></i>
             </button>
           </div>
@@ -114,7 +183,9 @@ if (empty($arrayPlanesDieta)) {
             <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
             <span class="etiqueta_letra">C</span>
             <p class="nombre_receta">Cena</p>
-            <button class="btn-ver-mas-dash ver-mas" id="btn-cena">Pendiente 
+            <button class="btn-ver-mas-dash ver-mas" id="btn-cena"
+                    onclick="window.location.href='/Pantalla_principal/contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'">
+              Pendiente 
               <i class="ph ph-clock-afternoon" id="estado-receta"></i>
             </button>     
           </div>
@@ -124,45 +195,57 @@ if (empty($arrayPlanesDieta)) {
         <div class="recetas_contenedor" id="recetas-contenedor">
           <!-- Desayuno -->
           <div class="tarjeta_receta tipo_desay" data-receta="desayuno">
-            <?php if (isset($recetas['desayuno']['imagen']) && $recetas['desayuno']['imagen']): ?>
-              <img src="<?php echo htmlspecialchars($recetas['desayuno']['imagen']); ?>" alt="<?php echo htmlspecialchars($recetas['desayuno']['nombre'] ?? 'Desayuno'); ?>" class="img_receta">
+            <?php if (!empty($recetas['desayuno']['imagen'])): ?>
+              <img src="<?php echo htmlspecialchars($recetas['desayuno']['imagen']); ?>" 
+                   alt="<?php echo htmlspecialchars($recetas['desayuno']['nombre']); ?>" 
+                   class="img_receta">
             <?php else: ?>
               <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
             <?php endif; ?>
             <span class="etiqueta_letra">D</span>
-            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['desayuno']['nombre'] ?? 'Desayuno'); ?></p>
-            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" data-tipo="desayuno" data-receta='<?php echo json_encode($recetas['desayuno'] ?? []); ?>'>
-              <?php echo ($planData['completadas']['desayuno'] ?? false) ? 'Completado' : 'Ver más'; ?>
+            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['desayuno']['nombre']); ?></p>
+            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" 
+                    data-tipo="desayuno" 
+                    data-receta='<?php echo htmlspecialchars(json_encode($recetas['desayuno']), ENT_QUOTES, 'UTF-8'); ?>'>
+              <?php echo ($planData['completadas']['desayuno'] ?? false) ? 'Completado ✓' : 'Ver más'; ?>
               <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
             </button>
           </div>
 
           <!-- Almuerzo -->
           <div class="tarjeta_receta tipo_almue" data-receta="almuerzo">
-            <?php if (isset($recetas['almuerzo']['imagen']) && $recetas['almuerzo']['imagen']): ?>
-              <img src="<?php echo htmlspecialchars($recetas['almuerzo']['imagen']); ?>" alt="<?php echo htmlspecialchars($recetas['almuerzo']['nombre'] ?? 'Almuerzo'); ?>" class="img_receta">
+            <?php if (!empty($recetas['almuerzo']['imagen'])): ?>
+              <img src="<?php echo htmlspecialchars($recetas['almuerzo']['imagen']); ?>" 
+                   alt="<?php echo htmlspecialchars($recetas['almuerzo']['nombre']); ?>" 
+                   class="img_receta">
             <?php else: ?>
               <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
             <?php endif; ?>
             <span class="etiqueta_letra">A</span>
-            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['almuerzo']['nombre'] ?? 'Almuerzo'); ?></p>
-            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" data-tipo="almuerzo" data-receta='<?php echo json_encode($recetas['almuerzo'] ?? []); ?>'>
-              <?php echo ($planData['completadas']['almuerzo'] ?? false) ? 'Completado' : 'Ver más'; ?>
+            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['almuerzo']['nombre']); ?></p>
+            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" 
+                    data-tipo="almuerzo" 
+                    data-receta='<?php echo htmlspecialchars(json_encode($recetas['almuerzo']), ENT_QUOTES, 'UTF-8'); ?>'>
+              <?php echo ($planData['completadas']['almuerzo'] ?? false) ? 'Completado ✓' : 'Ver más'; ?>
               <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
             </button>
           </div>
 
           <!-- Cena -->
           <div class="tarjeta_receta tipo_cena" data-receta="cena">
-            <?php if (isset($recetas['cena']['imagen']) && $recetas['cena']['imagen']): ?>
-              <img src="<?php echo htmlspecialchars($recetas['cena']['imagen']); ?>" alt="<?php echo htmlspecialchars($recetas['cena']['nombre'] ?? 'Cena'); ?>" class="img_receta">
+            <?php if (!empty($recetas['cena']['imagen'])): ?>
+              <img src="<?php echo htmlspecialchars($recetas['cena']['imagen']); ?>" 
+                   alt="<?php echo htmlspecialchars($recetas['cena']['nombre']); ?>" 
+                   class="img_receta">
             <?php else: ?>
               <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
             <?php endif; ?>
             <span class="etiqueta_letra">C</span>
-            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['cena']['nombre'] ?? 'Cena'); ?></p>
-            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" data-tipo="cena" data-receta='<?php echo json_encode($recetas['cena'] ?? []); ?>'>
-              <?php echo ($planData['completadas']['cena'] ?? false) ? 'Completado' : 'Ver más'; ?>
+            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['cena']['nombre']); ?></p>
+            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" 
+                    data-tipo="cena" 
+                    data-receta='<?php echo htmlspecialchars(json_encode($recetas['cena']), ENT_QUOTES, 'UTF-8'); ?>'>
+              <?php echo ($planData['completadas']['cena'] ?? false) ? 'Completado ✓' : 'Ver más'; ?>
               <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
             </button>
           </div>
@@ -187,12 +270,34 @@ if (empty($arrayPlanesDieta)) {
           <span class="porcentaje"><?php echo round($porcentaje); ?>%</span>
           <span class="calorias">Progreso diario</span>
         </div>
+        
+        <!-- Mostrar análisis si existe -->
+        <?php if (!empty($planData['analisis'])): ?>
+        <div class="analisis-plan" style="
+            margin-top: 20px;
+            padding: 15px;
+            background: #F0F9F4;
+            border-radius: 10px;
+            border-left: 4px solid #007848;
+        ">
+          <h4 style="color: #154734; margin-bottom: 10px; font-size: 16px;">
+            <i class="ph ph-chart-line-up"></i> Análisis Nutricional
+          </h4>
+          <p style="color: #555; font-size: 14px; line-height: 1.5;">
+            <?php echo htmlspecialchars($planData['analisis']); ?>
+          </p>
+          <p style="color: #777; font-size: 12px; margin-top: 10px; font-style: italic;">
+            Plan creado: <?php echo $planData['fecha']; ?>
+          </p>
+        </div>
+        <?php endif; ?>
+        
       <?php else: ?>
         <div class="sin-plan" style="text-align: center; margin-top: 20px; padding: 20px; background: #F5F7FA; border-radius: 15px;">
           <h3 style="color: #007848;">¡No tienes un plan activo!</h3>
           <p style="color: #555;">Crea tu plan personalizado con IA para comenzar.</p>
-          <button onclick="window.location.href='contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'" 
-                  style="background: #007848; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; margin-top: 10px;">
+          <button onclick="window.location.href='/Pantalla_principal/contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'" 
+                  style="background: #007848; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; margin-top: 10px; font-family: 'Comfortaa', sans-serif;">
             <i class="ph ph-magic-wand"></i> Crear Plan con IA
           </button>
         </div>
@@ -1042,3 +1147,342 @@ if (empty($arrayPlanesDieta)) {
   </div>
 
 </section>
+
+<script>
+// ================================================
+//  SCRIPT PARA MANEJAR EL MODAL DE RECETAS
+// ================================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurar botones "Ver más" para abrir el modal
+    const botonesVerMas = document.querySelectorAll('.btn-ver-receta');
+    
+    botonesVerMas.forEach(boton => {
+        boton.addEventListener('click', function() {
+            const tipo = this.getAttribute('data-tipo');
+            const recetaData = JSON.parse(this.getAttribute('data-receta') || '{}');
+            const planId = '<?php echo $planData["id"] ?? ""; ?>';
+            
+            abrirModalReceta(tipo, recetaData, planId);
+        });
+    });
+    
+    // Configurar botón de cerrar modal
+    const btnCerrarModal = document.getElementById('cerrar-modal-plan');
+    if (btnCerrarModal) {
+        btnCerrarModal.addEventListener('click', cerrarModalReceta);
+    }
+    
+    // Cerrar modal al hacer clic fuera
+    const modal = document.getElementById('modal-receta-plan');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                cerrarModalReceta();
+            }
+        });
+    }
+    
+    // Configurar botón "Marcar como Completada"
+    const btnCompletar = document.getElementById('btn-empezar-receta');
+    if (btnCompletar) {
+        btnCompletar.addEventListener('click', marcarRecetaComoCompletada);
+    }
+});
+
+// Función para abrir el modal con los datos de la receta
+function abrirModalReceta(tipo, recetaData, planId) {
+    console.log('Abriendo modal para:', tipo, recetaData);
+    
+    const modal = document.getElementById('modal-receta-plan');
+    if (!modal) {
+        console.error('Modal no encontrado');
+        return;
+    }
+    
+    // Traducir tipo a texto
+    const tipoTexto = {
+        'desayuno': 'Desayuno',
+        'almuerzo': 'Almuerzo', 
+        'cena': 'Cena'
+    }[tipo] || tipo;
+    
+    // Actualizar título
+    const tituloModal = document.getElementById('modal-titulo-plan');
+    if (tituloModal) {
+        tituloModal.textContent = `Receta de ${tipoTexto}`;
+    }
+    
+    // Actualizar letra del tipo
+    const letraTipo = document.getElementById('letra-tipo-comida');
+    if (letraTipo) {
+        letraTipo.textContent = tipo.charAt(0).toUpperCase();
+    }
+    
+    // Actualizar imagen
+    const imagenModal = document.getElementById('modal-imagen-plan');
+    if (imagenModal) {
+        imagenModal.src = recetaData.imagen || '/Images/fondo_pu_oscuro.png';
+        imagenModal.alt = recetaData.nombre || tipoTexto;
+    }
+    
+    // Actualizar nombre de la receta
+    const nombreReceta = document.getElementById('modal-nombre-receta');
+    if (nombreReceta) {
+        nombreReceta.textContent = recetaData.nombre || `Receta de ${tipoTexto}`;
+    }
+    
+    // Actualizar descripción
+    const descripcion = document.getElementById('modal-descripcion-plan');
+    if (descripcion) {
+        descripcion.textContent = recetaData.explicacion || 
+            `Esta receta ha sido seleccionada especialmente para ti basada en tu perfil nutricional.`;
+    }
+    
+    // Actualizar tiempo (si está disponible)
+    const tiempo = document.getElementById('modal-tiempo-plan');
+    if (tiempo) {
+        tiempo.textContent = recetaData.tiempo_preparacion || '15-20 min';
+    }
+    
+    // Actualizar dificultad (si está disponible)
+    const dificultad = document.getElementById('modal-dificultad-plan');
+    if (dificultad) {
+        dificultad.textContent = recetaData.dificultad || 'Media';
+    }
+    
+    // Actualizar calorías
+    const calorias = document.getElementById('modal-calorias-plan');
+    if (calorias) {
+        calorias.textContent = recetaData.calorias || 'Calorías no especificadas';
+    }
+    
+    // Actualizar ingredientes
+    const ingredientesList = document.getElementById('modal-ingredientes-plan');
+    if (ingredientesList) {
+        ingredientesList.innerHTML = '';
+        
+        if (recetaData.ingredientes && Array.isArray(recetaData.ingredientes)) {
+            recetaData.ingredientes.forEach(ingrediente => {
+                const li = document.createElement('li');
+                li.textContent = ingrediente;
+                ingredientesList.appendChild(li);
+            });
+        } else if (recetaData.ingredientes && typeof recetaData.ingredientes === 'string') {
+            const li = document.createElement('li');
+            li.textContent = recetaData.ingredientes;
+            ingredientesList.appendChild(li);
+        } else {
+            const li = document.createElement('li');
+            li.textContent = 'Los ingredientes no están disponibles para esta receta.';
+            ingredientesList.appendChild(li);
+        }
+    }
+    
+    // Actualizar pasos de preparación
+    const pasosList = document.getElementById('modal-pasos-plan');
+    if (pasosList) {
+        pasosList.innerHTML = '';
+        
+        if (recetaData.pasos && Array.isArray(recetaData.pasos)) {
+            recetaData.pasos.forEach((paso, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<strong>Paso ${index + 1}:</strong> ${paso.texto || paso}`;
+                pasosList.appendChild(li);
+            });
+        } else if (recetaData.preparacion) {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>Preparación:</strong> ${recetaData.preparacion}`;
+            pasosList.appendChild(li);
+        } else {
+            const li = document.createElement('li');
+            li.innerHTML = '<strong>Instrucciones:</strong> Prepara siguiendo las indicaciones básicas de cocina vegana.';
+            pasosList.appendChild(li);
+        }
+    }
+    
+    // Actualizar estado de la receta
+    const badgeEstado = document.getElementById('badge-estado-receta');
+    const btnCompletarReceta = document.getElementById('btn-empezar-receta');
+    
+    if (badgeEstado && btnCompletarReceta) {
+        const completada = <?php echo json_encode($planData['completadas'][$tipo] ?? false); ?>;
+        
+        if (completada) {
+            badgeEstado.innerHTML = '<i class="ph ph-check-circle"></i><span>Completada</span>';
+            badgeEstado.style.background = '#28a745';
+            btnCompletarReceta.textContent = 'Ya Completada';
+            btnCompletarReceta.disabled = true;
+            btnCompletarReceta.style.background = '#6c757d';
+        } else {
+            badgeEstado.innerHTML = '<i class="ph ph-clock"></i><span>Pendiente</span>';
+            badgeEstado.style.background = '#ffc107';
+            btnCompletarReceta.textContent = 'Marcar como Completada';
+            btnCompletarReceta.disabled = false;
+            btnCompletarReceta.style.background = '#007848';
+            
+            // Guardar datos para el botón de completar
+            btnCompletarReceta.dataset.tipo = tipo;
+            btnCompletarReceta.dataset.planId = planId;
+        }
+    }
+    
+    // Mostrar el modal
+    modal.classList.remove('oculto');
+    document.body.style.overflow = 'hidden';
+}
+
+// Función para cerrar el modal
+function cerrarModalReceta() {
+    const modal = document.getElementById('modal-receta-plan');
+    if (modal) {
+        modal.classList.add('oculto');
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Función para marcar receta como completada
+async function marcarRecetaComoCompletada() {
+    const btn = document.getElementById('btn-empezar-receta');
+    const tipo = btn.dataset.tipo;
+    const planId = btn.dataset.planId;
+    
+    if (!tipo || !planId) {
+        alert('❌ Error: No se puede identificar la receta.');
+        return;
+    }
+    
+    try {
+        console.log(`Marcando receta ${tipo} como completada...`);
+        
+        // Deshabilitar botón mientras se procesa
+        btn.disabled = true;
+        btn.innerHTML = '<i class="ph ph-circle-notch ph-spin"></i> Procesando...';
+        
+        // Enviar solicitud al servidor
+        const respuesta = await fetch('actualizar_estado_receta.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                plan_id: planId,
+                tipo_comida: tipo,
+                completada: true
+            })
+        });
+        
+        const resultado = await respuesta.json();
+        
+        if (resultado.success) {
+            // Actualizar UI
+            const badgeEstado = document.getElementById('badge-estado-receta');
+            if (badgeEstado) {
+                badgeEstado.innerHTML = '<i class="ph ph-check-circle"></i><span>Completada</span>';
+                badgeEstado.style.background = '#28a745';
+            }
+            
+            btn.textContent = 'Ya Completada';
+            btn.style.background = '#6c757d';
+            
+            // Mostrar mensaje de éxito
+            mostrarNotificacion('✅ Receta marcada como completada!', 'success');
+            
+            // Actualizar el botón en la tarjeta principal
+            const btnTarjeta = document.querySelector(`[data-tipo="${tipo}"]`);
+            if (btnTarjeta) {
+                btnTarjeta.innerHTML = 'Completado ✓ <i class="ph ph-arrow-circle-right" id="estado-receta"></i>';
+            }
+            
+            // Recargar después de 2 segundos para actualizar progreso
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+            
+        } else {
+            throw new Error(resultado.message || 'Error desconocido');
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        mostrarNotificacion('❌ Error al actualizar el estado: ' + error.message, 'error');
+        
+        // Rehabilitar botón
+        btn.disabled = false;
+        btn.textContent = 'Marcar como Completada';
+        btn.style.background = '#007848';
+    }
+}
+
+// Función para mostrar notificaciones
+function mostrarNotificacion(mensaje, tipo = 'info') {
+    // Crear contenedor de notificaciones si no existe
+    let contenedor = document.getElementById('notificaciones-container');
+    if (!contenedor) {
+        contenedor = document.createElement('div');
+        contenedor.id = 'notificaciones-container';
+        contenedor.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+        `;
+        document.body.appendChild(contenedor);
+    }
+    
+    // Crear notificación
+    const notificacion = document.createElement('div');
+    notificacion.style.cssText = `
+        background: ${tipo === 'success' ? '#28a745' : '#dc3545'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        animation: slideInRight 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 300px;
+        max-width: 400px;
+    `;
+    
+    notificacion.innerHTML = `
+        <i class="ph ${tipo === 'success' ? 'ph-check-circle' : 'ph-warning-circle'}"></i>
+        <span>${mensaje}</span>
+    `;
+    
+    contenedor.appendChild(notificacion);
+    
+    // Remover después de 5 segundos
+    setTimeout(() => {
+        notificacion.style.animation = 'slideOutRight 0.3s ease';
+        setTimeout(() => {
+            if (notificacion.parentNode) {
+                notificacion.parentNode.removeChild(notificacion);
+            }
+        }, 300);
+    }, 5000);
+}
+
+// Agregar estilos de animación si no existen
+if (!document.querySelector('#animaciones-notificaciones')) {
+    const style = document.createElement('style');
+    style.id = 'animaciones-notificaciones';
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Hacer funciones disponibles globalmente
+window.abrirModalReceta = abrirModalReceta;
+window.cerrarModalReceta = cerrarModalReceta;
+</script>

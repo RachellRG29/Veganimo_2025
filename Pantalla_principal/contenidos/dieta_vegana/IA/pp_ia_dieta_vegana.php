@@ -234,8 +234,29 @@
         document.getElementById('sintomas').textContent = sintomas;
     }
 
+    // Función auxiliar para calcular edad
+    function calcularEdadDesdeFecha(fechaNac) {
+        if (!fechaNac) return '';
+        const nacimiento = new Date(fechaNac);
+        const hoy = new Date();
+        let edad = hoy.getFullYear() - nacimiento.getFullYear();
+        const mes = hoy.getMonth() - nacimiento.getMonth();
+        if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
+            edad--;
+        }
+        return edad.toString();
+    }
+    
+    // Función auxiliar para formatear arrays
+    function formatArrayParaIA(arr) {
+        if (!arr) return '';
+        if (Array.isArray(arr)) {
+            return arr.join(', ');
+        }
+        return arr;
+    }
+
     // Botón para generar dieta
-    // Botón para generar dieta - Versión alternativa
     document.getElementById('btn_crear_dieta').addEventListener('click', async () => {
         if (!datosUsuario || !datosPerfil) {
             alert('❌ Primero deben cargarse los datos del usuario.');
@@ -266,113 +287,174 @@
                 sintomas: formatArrayParaIA(datosPerfil.sintomas)
             };
             
-            function calcularEdadDesdeFecha(fechaNac) {
-                if (!fechaNac) return '';
-                const nacimiento = new Date(fechaNac);
-                const hoy = new Date();
-                let edad = hoy.getFullYear() - nacimiento.getFullYear();
-                const mes = hoy.getMonth() - nacimiento.getMonth();
-                if (mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())) {
-                    edad--;
-                }
-                return edad.toString();
-            }
-            
-            function formatArrayParaIA(arr) {
-                if (!arr) return '';
-                if (Array.isArray(arr)) {
-                    return arr.join(', ');
-                }
-                return arr;
-            }
+            console.log('Enviando datos a IA:', datosParaIA);
             
             // Llamar a la IA
             const respuestaIA = await fetch('deepseek_ia.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(datosParaIA)
             });
 
+            if (!respuestaIA.ok) {
+                throw new Error(`Error HTTP: ${respuestaIA.status}`);
+            }
+
             const resultadoIA = await respuestaIA.json();
+            console.log('Respuesta de IA:', resultadoIA);
 
             if (!resultadoIA.success) {
                 throw new Error(resultadoIA.message || 'Error al generar el plan');
             }
 
-            // Guardar el plan en la base de datos
-            const guardado = await guardarPlanEnDB(resultadoIA.plan, resultadoIA.analisis);
-            // Mostrar los datos en pantalla antes de guardar
-                renderizarRecetas(resultadoIA.plan);
-                document.getElementById('analisis_usuario').textContent = resultadoIA.analisis;
-
-                // Mostrar sección de resultados
-                document.getElementById('seccion_loading').style.display = 'none';
-                document.getElementById('seccion_recetas').style.display = 'block';
-
-                if (guardado) {
-                    console.log('✅ Plan guardado en BD exitosamente');
-
-                    // pasar planId al dashboard para que lo cargue directamente
-                    localStorage.setItem('planRecienCreado', 'true');
-                    localStorage.setItem('planCreadoFecha', new Date().toISOString());
-                    localStorage.setItem('planIdReciente', guardado);
-
-                const destino = '/Pantalla_principal/contenidos/plan/pp_dashboard_miplan.php?plan_id=' 
-                                + encodeURIComponent(guardado);
-
-                // Si existe cargarContenido() → navegar dentro del contenedor principal
-                if (window.parent && typeof window.parent.cargarContenido === 'function') {
-                    window.parent.cargarContenido(destino);
-
-                // Si está dentro de un iframe pero sin cargarContenido → usar postMessage
-                } else if (window !== window.parent) {
-                    window.parent.postMessage({
-                        type: 'NAVIGATE',
-                        page: destino,
-                        plan_id: guardado
-                    }, '*');
-
-                // Si no está en iframe → redirigir normalmente
-                } else {
-                    window.location.href = destino;
-                }
-
-                }
-
+            // Guardar el plan en MongoDB
+            const planId = await guardarPlanEnMongoDB(resultadoIA.plan, resultadoIA.analisis);
             
+            if (!planId) {
+                throw new Error('No se pudo guardar el plan en la base de datos');
+            }
+
+            // Mostrar los datos en pantalla
+            renderizarRecetas(resultadoIA.plan);
+            document.getElementById('analisis_usuario').textContent = resultadoIA.analisis;
+
+            // Mostrar sección de resultados
+            document.getElementById('seccion_loading').style.display = 'none';
+            document.getElementById('seccion_recetas').style.display = 'block';
+
+            // Mostrar mensaje de éxito con redirección automática
+            mostrarMensajeExito(planId);
+            
+            // Redirigir automáticamente después de 3 segundos
+            setTimeout(() => {
+                redirigirAlDashboard(planId);
+            }, 3000);
+
         } catch (error) {
             console.error('Error al generar dieta:', error);
-            alert('❌ Error al generar el plan: ' + error.message);
+            alert('❌ Error: ' + error.message);
             
             // Regresar a la sección de perfil
             document.getElementById('seccion_perfil').style.display = 'block';
             document.getElementById('seccion_loading').style.display = 'none';
         }
     });
-    // Función para guardar el plan en la base de datos
-    async function guardarPlanEnDB(plan, analisis) {
+
+    // Función para guardar el plan en MongoDB
+    async function guardarPlanEnMongoDB(plan, analisis) {
         try {
-            const respuesta = await fetch('guardar_plan_ia.php', {
+            console.log('Guardando plan en MongoDB...', plan);
+            
+            const respuesta = await fetch('guardar_plan_mongo.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ plan: plan, analisis: analisis })
+                body: JSON.stringify({ 
+                    plan: plan, 
+                    analisis: analisis 
+                })
             });
 
             const resultado = await respuesta.json();
+            console.log('Respuesta de guardado:', resultado);
+            
             if (resultado.success && resultado.plan_id) {
-                return resultado.plan_id; // devolver id
+                // Guardar en localStorage para el dashboard
+                localStorage.setItem('planRecienCreado', 'true');
+                localStorage.setItem('planIdReciente', resultado.plan_id);
+                localStorage.setItem('ultimaPlanId', resultado.plan_id);
+                
+                return resultado.plan_id;
             } else {
-                console.warn('Plan no guardado:', resultado);
-                return false;
+                throw new Error(resultado.message || 'Error al guardar en MongoDB');
             }
         } catch (error) {
-            console.error('Error al guardar plan:', error);
-            return false;
+            console.error('Error al guardar plan en MongoDB:', error);
+            throw error;
         }
     }
 
+    // Función para mostrar mensaje de éxito
+    function mostrarMensajeExito(planId) {
+        const mensajeHTML = `
+            <div id="mensaje-exito" style="
+                background: linear-gradient(135deg, #007848, #00A86B);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                text-align: center;
+                animation: fadeIn 0.5s ease;
+            ">
+                <h4 style="margin: 0 0 10px 0;">
+                    <i class="ph ph-check-circle"></i> ¡Plan creado exitosamente!
+                </h4>
+                <p style="margin: 0 0 15px 0;">
+                    Plan ID: <strong>${planId.substring(0, 8)}...</strong><br>
+                    Serás redirigido al dashboard en 3 segundos...
+                </p>
+                <div style="background: rgba(255,255,255,0.3); height: 5px; border-radius: 3px; overflow: hidden;">
+                    <div id="barra-progreso" style="width: 0%; height: 100%; background: white; transition: width 3s linear;"></div>
+                </div>
+                <button onclick="redirigirAlDashboard('${planId}')" style="
+                    margin-top: 15px;
+                    background: white;
+                    color: #007848;
+                    border: none;
+                    padding: 10px 25px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-family: 'Comfortaa', sans-serif;
+                    transition: all 0.3s;
+                " onmouseover="this.style.transform='scale(1.05)'" 
+                   onmouseout="this.style.transform='scale(1)'">
+                    <i class="ph ph-arrow-right"></i> Ir ahora al Dashboard
+                </button>
+            </div>
+            
+            <style>
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+        `;
+        
+        // Insertar mensaje antes del contenedor de recetas
+        const contenedorRecetas = document.getElementById('contenedor_recetas');
+        contenedorRecetas.insertAdjacentHTML('beforebegin', mensajeHTML);
+        
+        // Animar barra de progreso
+        setTimeout(() => {
+            const barra = document.getElementById('barra-progreso');
+            if (barra) barra.style.width = '100%';
+        }, 100);
+    }
+
+    // Función para redirigir al dashboard
+    function redirigirAlDashboard(planId) {
+        const destino = '/Pantalla_principal/contenidos/plan/pp_dashboard_miplan.php?plan_id=' 
+                        + encodeURIComponent(planId) + '&plan_creado=true';
+        
+        console.log('Redirigiendo a:', destino);
+        
+        // Método 1: Si existe cargarContenido
+        if (window.parent && typeof window.parent.cargarContenido === 'function') {
+            window.parent.cargarContenido(destino);
+        }
+        // Método 2: Si está en iframe
+        else if (window !== window.parent) {
+            window.parent.postMessage({
+                type: 'NAVIGATE',
+                page: destino,
+                plan_id: planId
+            }, '*');
+        }
+        // Método 3: Navegación normal
+        else {
+            window.location.href = destino;
+        }
+    }
 
     // Función para renderizar las 3 recetas
     function renderizarRecetas(plan) {
@@ -405,7 +487,7 @@
         
         // Crear tarjeta para cada comida
         comidas.forEach(comida => {
-            const receta = plan[comida.key];
+            const receta = plan[comida.key] || {};
             
             // Asegurar que la ruta de la imagen sea correcta
             let imagenSrc = receta.imagen || '/Images/default_food.png';
@@ -413,18 +495,23 @@
                 imagenSrc = '/' + imagenSrc;
             }
             
+            // Escapar comillas simples en el nombre para evitar errores
+            const nombreEscapado = receta.nombre ? 
+                receta.nombre.replace(/'/g, "\\'").replace(/"/g, '&quot;') : 
+                comida.label;
+            
             const tarjetaHTML = `
                 <div class="tarjeta-receta">
                     <div class="circulo-img">
                         <img src="${imagenSrc}" 
-                             alt="${receta.nombre}" 
+                             alt="${receta.nombre || comida.label}" 
                              class="img-plato"
-                             onclick="verDetallesReceta('${receta.nombre.replace(/'/g, "\\'")}')"
+                             onclick="verDetallesReceta('${nombreEscapado}')"
                              style="cursor: pointer;">
                     </div>
                     
                     <div class="body-tarjeta">
-                        <h3 class="title-tarjeta">${receta.nombre}</h3>
+                        <h3 class="title-tarjeta">${receta.nombre || comida.label}</h3>
                         
                         <div class="detalles-receta">
                             <div class="tiempo-receta">
@@ -471,9 +558,7 @@
         try {
             const respuesta = await fetch('obtener_receta_por_nombre.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nombre: nombreReceta })
             });
             
@@ -564,24 +649,21 @@
         }
     }
 
+    // Botón "Ir al Dashboard" manual
     document.getElementById('btn_ir_dashboard').addEventListener('click', () => {
-    const planId = localStorage.getItem('planIdReciente');
+        const planId = localStorage.getItem('planIdReciente') || localStorage.getItem('ultimaPlanId');
+        
+        if (!planId) {
+            alert("Primero debes generar un plan. Haz clic en 'Crear dieta vegana'.");
+            return;
+        }
+        
+        redirigirAlDashboard(planId);
+    });
 
-    if (!planId) {
-        alert("No se encontró el plan generado.");
-        return;
-    }
-
-    const destino = '/Pantalla_principal/contenidos/plan/pp_dashboard_miplan.php?plan_id='
-                    + encodeURIComponent(planId);
-
-    if (window.parent && typeof window.parent.cargarContenido === 'function') {
-        window.parent.cargarContenido(destino);
-    } else {
-        window.location.href = destino;
-    }
-});
-
+    // Hacer funciones disponibles globalmente
+    window.redirigirAlDashboard = redirigirAlDashboard;
+    window.verDetallesReceta = verDetallesReceta;
 </script>
 
     <!-- Bootstrap JS -->
