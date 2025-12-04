@@ -4,15 +4,27 @@ function inicializarCategoriasDesplegablesPreferencias() {
   
   categorias.forEach(categoria => {
     const header = categoria.querySelector('.categoria-header-preferencias');
-    
-    // Inicializar todas cerradas
-    categoria.classList.add('cerrada');
-    
+
+    // Evita añadir listeners duplicados
+    if (categoria.dataset.preferenciasInit === "1") {
+      return; // Ya está inicializado, no hacer nada
+    }
+
+    categoria.dataset.preferenciasInit = "1";
+
+    // Iniciar cerrado solo la primera vez
+    if (!categoria.classList.contains('abierta')) {
+      categoria.classList.add('cerrada');
+    }
+
     header.addEventListener('click', () => {
       categoria.classList.toggle('cerrada');
+      categoria.classList.toggle('abierta');
     });
   });
 }
+
+
 
 // Función para inicializar el modal de preferencias
 function inicializarModalPreferencias() {

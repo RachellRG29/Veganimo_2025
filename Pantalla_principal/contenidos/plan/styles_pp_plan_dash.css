@@ -417,14 +417,17 @@
 /* POPUP DE GUÍA */
 .popup_guia {
   position: fixed;
+  inset: 0;                 /* top:0 left:0 right:0 bottom:0 */
   background: rgba(0,0,0,0.6);
   display: none;
   z-index: 9999;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .popup_guia.open {
-  display: block !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end; /* popup al lado derecho */
+  padding-right: 45px;
 }
 
 /* Posicionamiento cerca del botón */
@@ -572,7 +575,7 @@
 .div_dash4 {
   background: url(/Images/img_inf_conceptos2.jpg) center/cover no-repeat;
   border-radius: 15px;
-  overflow: hidden;
+
   display: flex;
   flex-direction: column;
   justify-content: center;

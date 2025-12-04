@@ -1,18 +1,33 @@
 // Función para inicializar categorías desplegables
 function inicializarCategoriasDesplegables() {
   const categorias = document.querySelectorAll('.categoria-grupo');
-  
+
   categorias.forEach(categoria => {
     const header = categoria.querySelector('.categoria-header');
-    
-    // Inicializar todas cerradas
-    categoria.classList.add('cerrada');
-    
-    header.addEventListener('click', () => {
+
+    // Si ya fue inicializada, no volver a añadir listeners
+    if (categoria.dataset.categorInitialized === '1') {
+      return;
+    }
+
+    // Marcar como inicializada
+    categoria.dataset.categorInitialized = '1';
+
+    // Asegurar estado inicial cerrado (solo la primera vez)
+    if (!categoria.classList.contains('abierta')) {
+      categoria.classList.add('cerrada');
+    }
+
+    // Añadir listener único y estable
+    header.addEventListener('click', (e) => {
+      e.preventDefault();
+      // alterna clases 'cerrada' / 'abierta'
       categoria.classList.toggle('cerrada');
+      categoria.classList.toggle('abierta');
     });
   });
 }
+
 
 // Función para inicializar el modal de ingredientes
 function inicializarModalIngredientes() {
