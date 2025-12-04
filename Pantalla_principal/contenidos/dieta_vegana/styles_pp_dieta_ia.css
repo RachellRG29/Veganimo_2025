@@ -1,0 +1,521 @@
+
+.lbl_bienvenida_vg_dieta_ia{
+  margin-left: 5rem;
+  margin-top: 30px;
+  margin-bottom: -10px;
+}
+
+/*titulos */
+.lbl_dietas_vg{
+  font-family: 'Gloock', Verdana;
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+  color: var(--text-light) !important;
+}
+
+/*texto subtitulos*/
+.lbl_subt{
+  font-family: 'Comfortaa', Verdana;
+  color: var(--text-light) !important;
+}
+
+.contenedor_sub_titulo{
+  align-items: center;
+  text-align: center;
+}
+
+/*-------------------------------------------------------------------------------------------------*/
+/*CONTENEDOR DE DIETAS VEGANAS*/
+.contenedor_dieta_ia{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 20px 0; /*top-right-bottom-left*/
+}
+
+.tarjeta_vg_dieta_ia{
+  width: 90%;
+  /* altura flexible */
+  min-height: 530px; 
+  padding: 14px;
+  border-radius: 1rem;
+  overflow: visible;
+  background: var(--backg-tarjetaplan);
+  position: relative;
+  z-index: 1;
+} 
+.contenido_tarj_dieta_ia{
+  --color: #F6FFFE;
+  background: var(--color);
+  color: #1A1C1C;
+  width: 100%;
+  /* altura automática según contenido */
+  min-height: 100%;
+  overflow: visible;
+  border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 20px; /* espacio debajo de los botones */
+}
+
+.contenido_tarj_dieta_ia{
+  --color: #F6FFFE;
+  background: var(--color); color: #1A1C1C;
+  width: 100%; height: 100%;
+  overflow: visible;
+  border-radius: 0.6rem;
+  display: flex; flex-direction: column;
+  gap: 20px;
+  align-items: center ; /*alineados centro*/
+}
+
+.tarjeta_vg_dieta_ia:hover::after {
+  opacity: 0;
+}
+
+/**/
+
+/*img*/
+.circulo_dieta_vg_ia{
+  position: relative;
+  width: 140px !important;
+  height: 140px !important;
+  border-radius: 50%;
+  background: linear-gradient(30deg, #007848 0%, #E99A3C 100%);
+  margin-top: 1.6rem;
+  justify-content: center;
+}
+.img_tarj_dieta_ia_pred{
+  position: absolute;
+  width: 135px !important;
+  height: auto;
+  top: 1rem;
+  object-fit: cover; 
+  justify-content: center;
+}
+
+
+.botones_dieta_ia{
+  display: flex;
+  gap: 100px;
+}
+
+
+/*Boton cancelar */
+.btn_cancelar_ia{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f2f;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #BEBEBE;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+/*Boton para crear el plan con ia*/
+.btn_crear_ia{
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px #ffe24f90;
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: #E99A3C;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  color: #1A1C1C;
+  gap: 10px;
+  font-weight: bold; font-family: 'Comfortaa', Verdana;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn_crear_ia::before{
+    content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    65.28% 65.28% at 50% 100%,
+    #FFE24Fcc 0%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 0;
+}
+
+
+.btn_crear_ia:hover::before {
+   opacity: 1;
+  animation: pulse512 1.5s infinite;
+}
+
+.btn_crear_ia > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pulse512 {
+ 0% {
+  box-shadow: 0 0 0 0 #fabd729f;
+ }
+
+ 70% {
+  box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+ }
+
+ 100% {
+  box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+ }
+}
+
+/*------------------------------------------------------------------------------------------------------*/
+/*Datos de perfil nutricional*/
+.datos_dieta_ia {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.seccion_referencia {
+  width: 100%; /* igual que seccion_historia */
+  background: #F3FDF9;
+  border: 2px solid #BEBEBE;
+  border-radius: 0.5rem;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  grid-template-rows: auto auto; /* 2 filas */
+  gap: 10px 20px; /* espacio entre filas y columnas */
+}
+
+/* Si quieres centrar el texto dentro de cada celda */
+.seccion_referencia p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Para que la sección de historia se ajuste al espacio */
+.seccion_historia {
+  width: 100%; /* igual que seccion_referencia */
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-wrap: wrap; /* permite que se muevan a otra línea si no caben */
+}
+
+.seccion_historia div {
+  flex: 1 1 30%; /* flexible y responsivo */
+  min-width: 150px;
+  background: #F3FDF9;
+  padding: 10px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px #0000000b;
+  border: 2px solid #BEBEBE;
+}
+
+
+  
+    /* LOADING STYLES */
+    .loading-section {
+        display: none;
+        text-align: center;
+        padding: 60px 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        margin: 40px auto;
+        max-width: 800px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .loader {
+        width: 80px;
+        height: 50px;
+        position: relative;
+        margin: 0 auto 30px;
+    }
+    
+    .loader-text {
+        position: absolute;
+        top: 0;
+        padding: 0;
+        margin: 0;
+        color: #007848;
+        animation: text_713 3.5s ease both infinite;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        font-family: 'Comfortaa', sans-serif;
+    }
+    
+    .load {
+        background-color: #E99A3C;
+        border-radius: 50px;
+        display: block;
+        height: 16px;
+        width: 16px;
+        bottom: 0;
+        position: absolute;
+        transform: translateX(64px);
+        animation: loading_713 3.5s ease both infinite;
+    }
+    
+    .load::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: #FFD166;
+        border-radius: inherit;
+        animation: loading2_713 3.5s ease both infinite;
+    }
+    
+    @keyframes text_713 {
+        0% { letter-spacing: 1px; transform: translateX(0px); }
+        40% { letter-spacing: 2px; transform: translateX(26px); }
+        80% { letter-spacing: 1px; transform: translateX(32px); }
+        90% { letter-spacing: 2px; transform: translateX(0px); }
+        100% { letter-spacing: 1px; transform: translateX(0px); }
+    }
+    
+    @keyframes loading_713 {
+        0% { width: 16px; transform: translateX(0px); }
+        40% { width: 100%; transform: translateX(0px); }
+        80% { width: 16px; transform: translateX(64px); }
+        90% { width: 100%; transform: translateX(0px); }
+        100% { width: 16px; transform: translateX(0px); }
+    }
+    
+    @keyframes loading2_713 {
+        0% { transform: translateX(0px); width: 16px; }
+        40% { transform: translateX(0%); width: 80%; }
+        80% { width: 100%; transform: translateX(0px); }
+        90% { width: 80%; transform: translateX(15px); }
+        100% { transform: translateX(0px); width: 16px; }
+    }
+    
+    .loading-message {
+        font-family: 'Comfortaa', sans-serif;
+        color: #154734;
+        margin-top: 20px;
+        font-size: 1.1rem;
+    }
+    
+    /* SECCIÓN RECETAS */
+    .recetas-section {
+        display: none;
+        padding: 30px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+    }
+    
+    .section-title {
+        text-align: center;
+        color: #154734;
+        font-family: 'Gloock', serif;
+        margin-bottom: 40px;
+        font-size: 2.2rem;
+    }
+    
+    /* TARJETAS DE RECETAS */
+    .grid-container-recetas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 40px;
+        padding: 20px;
+        justify-content: center;
+    }
+    
+    .tarjeta-receta {
+        position: relative;
+        background: linear-gradient(135deg, #007848 0%, #00A86B 100%);
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        padding-top: 100px;
+        overflow: visible;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .tarjeta-receta:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+    
+    .circulo-img {
+        position: absolute;
+        top: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: #E99A3C;
+        border: 8px solid white;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        z-index: 2;
+    }
+    
+    .img-plato {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: transform 0.5s ease;
+    }
+    
+    .img-plato:hover {
+        transform: scale(1.1) rotate(5deg);
+    }
+    
+    .body-tarjeta {
+        padding: 50px 25px 35px;
+        text-align: center;
+    }
+    
+    .title-tarjeta {
+        color: #FFFFFF;
+        font-family: 'Gloock', serif;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+    
+    .descripcion-tarjeta {
+        color: rgba(255, 255, 255, 0.85);
+        font-family: 'Comfortaa', sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        min-height: 60px;
+    }
+    
+    .detalles-receta {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 25px 0;
+        padding: 15px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .tiempo-receta, .dificultad-receta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #FFFFFF;
+        font-family: 'Comfortaa', sans-serif;
+    }
+    
+    .tiempo-receta i, .dificultad-receta i {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+        color: #FFD166;
+    }
+    
+    .info-extra {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .calorias {
+        background: #154734;
+        color: #FFFFFF;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-family: 'Comfortaa', sans-serif;
+        font-size: 0.9rem;
+    }
+    
+    .hora-sugerida {
+        color: #FFFFFF;
+        font-family: 'Comfortaa', sans-serif;
+        font-size: 0.95rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+    
+    .etiqueta-tipo {
+        position: absolute;
+        bottom: -15px;
+        right: 20px;
+        color: #1A1C1C;
+        padding: 10px 22px;
+        border-radius: 20px;
+        font-family: 'Gloock', serif;
+        font-weight: bold;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        z-index: 3;
+    }
+    
+    .etiqueta-tipo.desayuno {
+      background-color: #FEED98;
+      border: 2px dashed #FF814F;
+      box-shadow: 0 0 0 4px #FEED98, 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .etiqueta-tipo.almuerzo {
+      background-color: #A9F1AF;
+      border: 2px dashed #007848;
+      box-shadow: 0 0 0 4px #A9F1AF, 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .etiqueta-tipo.cena {
+      background-color: #ACFEED;
+      border: 2px dashed #1E88E5;
+      box-shadow: 0 0 0 4px #ACFEED, 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .explicacion-receta {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+        font-family: 'Comfortaa', sans-serif;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .grid-container-recetas {
+            grid-template-columns: 1fr;
+            gap: 80px;
+        }
+        
+        .tarjeta-receta {
+            max-width: 340px;
+        }
+        
+        .circulo-img {
+            width: 160px;
+            height: 160px;
+            top: -70px;
+        }
+    }

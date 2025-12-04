@@ -752,6 +752,33 @@
   position: relative;
 }
 
+/***/
+/* Estilos adicionales para el dashboard */
+.mensaje-cargando {
+    text-align: center;
+    padding: 40px;
+    color: #007848;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.sin-plan {
+    padding: 40px;
+    text-align: center;
+    background: #F5F7FA;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.sin-plan h3 {
+    color: #007848;
+    margin-bottom: 15px;
+}
+
+.sin-plan p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
 
 /* ==================== RESPONSIVIDAD DASHBOARD ==================== */
 

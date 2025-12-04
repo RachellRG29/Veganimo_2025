@@ -8,38 +8,54 @@
     menuToggle.classList.toggle("active");
   });
 
+  // ======================== COMUNICACIÓN ENTRE IFRAMES ========================
+window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'NAVIGATE' && event.data.page) {
+        console.log('📨 Mensaje recibido para navegar a:', event.data.page);
+        cargarContenido(event.data.page);
+    }
+});
+
 // ======================== CARGAR CONTENIDO ========================
 async function cargarContenido(pagina) {
-  // Construye la ruta correctamente, admitiendo subcarpetas
-  const ruta = `/Pantalla_principal/contenidos/${pagina}`;
-  console.log("📥 Solicitando:", ruta);
+  // Normalizar entrada: puede venir "pp_xxx.php", "/plan/pp_xxx.php",
+  // "plan/pp_xxx.php" o incluso "contenidos/..." ya completa.
+  let paginaNormalized = String(pagina || '').trim();
+
+  // Si viene con un query string, lo preservamos
+  const [pathOnly, query] = paginaNormalized.split('?');
+
+  // Si ya incluye "Pantalla_principal/contenidos", no prefijamos
+  if (pathOnly.startsWith('/Pantalla_principal/contenidos/')) {
+    paginaNormalized = pathOnly + (query ? '?' + query : '');
+  } else {
+    // eliminar barra inicial si existe
+    const withoutLeading = pathOnly.startsWith('/') ? pathOnly.slice(1) : pathOnly;
+
+    // si el path ya comienza por "plan/" o "dieta_vegana/" etc, lo concatenamos a contenidos
+    paginaNormalized = '/Pantalla_principal/contenidos/' + withoutLeading + (query ? '?' + query : '');
+  }
+
+  console.log("📥 Solicitando:", paginaNormalized);
 
   try {
-    const response = await fetch(ruta);
+    const response = await fetch(paginaNormalized, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
     const data = await response.text();
     document.getElementById("contenido-principal").innerHTML = data;
 
     // Actualizaciones de perfil y scripts
     await actualizarPerfilUsuario();
     setTimeout(verificarActualizacionPerfil, 300);
-    ejecutarScriptsPagina(pagina);
+    ejecutarScriptsPagina(pathOnly); // pasar solo el path original para decidir scripts
 
-        if (pagina === "/plan/pp_dashboard_miplan.php") {
-      setTimeout(() => {
-        console.log("🚀 Inicializando modales del dashboard...");
-        if (window.inicializarModalesPlan) {
-          window.inicializarModalesPlan();
-        } else {
-          console.warn("⚠️ inicializarModalesPlan no disponible, intentando cargar script...");
-          cargarScriptModales();
-        }
-      }, 500);
-    }
+    // Si el URL trae plan_id, guardarlo para usarlo
+    const url = new URL(window.location.href);
+    const planIdFromQuery = new URLSearchParams(paginaNormalized.split('?')[1] || '').get('plan_id');
+    if (planIdFromQuery) localStorage.setItem('ultimaPlanId', planIdFromQuery);
 
     // Guardar la última página cargada
-    localStorage.setItem("ultimaPaginaCargada", pagina);
+    localStorage.setItem("ultimaPaginaCargada", pathOnly);
 
     return true;
   } catch (error) {
@@ -48,6 +64,7 @@ async function cargarContenido(pagina) {
     return false;
   }
 }
+
 
 // ======================== MODO CLARO / OSCURO ========================
 function inicializarModoTema() {

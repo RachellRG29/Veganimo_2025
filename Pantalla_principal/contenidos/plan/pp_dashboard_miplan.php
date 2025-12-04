@@ -1,5 +1,68 @@
-<?php include_once __DIR__ . '/../menu_perfil.php'; ?>
+<?php
+require_once __DIR__ . '/../../../misc/db_config.php';
+include_once __DIR__ . '/../menu_perfil.php';
 
+// ================================================
+//  FUNCIÓN OBTENER PLANES DE DIETA
+// ================================================
+$arrayPlanesDieta = [];
+$planIdSeleccionado = $_GET['plan_id'] ?? null;
+
+try {
+
+    if (!isset($cliente) || !$cliente instanceof MongoDB\Driver\Manager) {
+        throw new Exception("Conexión a MongoDB no válida.");
+    }
+
+    // Filtro seguro
+    if ($planIdSeleccionado) {
+        $filtro = ['_id' => new MongoDB\BSON\ObjectId($planIdSeleccionado)];
+    } else {
+        $filtro = []; // Obtener todos
+    }
+
+    $query = new MongoDB\Driver\Query($filtro);
+    $cursor = $cliente->executeQuery("Veganimo.Planes_Dieta", $query);
+
+    $planesDieta = [];
+
+    foreach ($cursor as $documento) {
+        $planesDieta[] = [
+            "id" => isset($documento->_id) ? (string) $documento->_id : '',
+            "nombre" => $documento->nombre ?? '',
+            "tipo" => $documento->tipo ?? '',
+            "calorias" => $documento->calorias ?? 0,
+            "fecha_creacion" => $documento->fecha_creacion ?? '',
+            "duracion_dias" => $documento->duracion_dias ?? 0
+        ];
+    }
+
+    // Usar solo el primero si existen
+    if (!empty($planesDieta)) {
+        $arrayPlanesDieta = [$planesDieta[0]];
+    }
+
+} catch (Exception $e) {
+    // Evitar romper el dashboard
+    $arrayPlanesDieta = [];
+}
+
+// ================================================
+//  FALLBACK SI NO HAY PLANES
+// ================================================
+if (empty($arrayPlanesDieta)) {
+    $arrayPlanesDieta = [
+        [
+            "id" => "sin-id",
+            "nombre" => "Sin plan",
+            "tipo" => "N/A",
+            "calorias" => 0,
+            "fecha_creacion" => "",
+            "duracion_dias" => 0
+        ]
+    ];
+}
+?>
 
 <section class="section_mi_plan">
   <div class="lbl_bienvenida_plan_dash">
@@ -14,55 +77,126 @@
     <div class="div_dash1">
       <div class="header_plan">
         <h2 class="titulo_plan">Plan Nutricionista</h2>
-        <span class="etiqueta_plan">Plan premium/estándar</span>
+        <span class="etiqueta_plan"><?php echo $tienePlan ? 'Plan IA Personalizado' : 'Plan premium/estándar'; ?></span>
 
         <div class="contenedor-racha">
           <span class="lbl-racha">Racha</span>
           <div class="racha-space">
-            <img src="../Images/" class="img-racha-veg" alt="">
+            <img src="/Images/" class="img-racha-veg" alt="">
           </div>
         </div>
-
       </div>
 
       <span class="lbl-subtitulo-dash">Tu plan de dieta está organizado por horarios</span>
-      <div class="recetas_contenedor">  
-        <div class="tarjeta_receta tipo_desay">
-          <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
-          <span class="etiqueta_letra">D</span>
-          <p class="nombre_receta">Desayuno</p>
-            <button class="btn-ver-mas-dash ver-mas" id="btn-desayuno">Ver más 
-              <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
+      
+      <?php if (!$tienePlan): ?>
+        <!-- Sin plan - Mostrar estado por defecto -->
+        <div class="recetas_contenedor">  
+          <div class="tarjeta_receta tipo_desay">
+            <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
+            <span class="etiqueta_letra">D</span>
+            <p class="nombre_receta">Desayuno</p>
+            <button class="btn-ver-mas-dash ver-mas" id="btn-desayuno">Crear plan 
+              <i class="ph ph-magic-wand" id="estado-receta"></i>
             </button>
-        </div>
+          </div>
 
-        <div class="tarjeta_receta tipo_almue">
-          <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
-          <span class="etiqueta_letra">A</span>
-          <p class="nombre_receta">Almuerzo</p>
+          <div class="tarjeta_receta tipo_almue">
+            <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
+            <span class="etiqueta_letra">A</span>
+            <p class="nombre_receta">Almuerzo</p>
             <button class="btn-ver-mas-dash ver-mas" id="btn-almuerzo">Pendiente
               <i class="ph ph-clock-afternoon" id="estado-receta"></i>
             </button>
-        </div>
+          </div>
 
-        <div class="tarjeta_receta tipo_cena">
-          <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
-          <span class="etiqueta_letra">C</span>
-          <p class="nombre_receta">Cena</p>
+          <div class="tarjeta_receta tipo_cena">
+            <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
+            <span class="etiqueta_letra">C</span>
+            <p class="nombre_receta">Cena</p>
             <button class="btn-ver-mas-dash ver-mas" id="btn-cena">Pendiente 
               <i class="ph ph-clock-afternoon" id="estado-receta"></i>
             </button>     
+          </div>
         </div>
-      </div>
+      <?php else: ?>
+        <!-- Con plan - Mostrar recetas generadas por IA -->
+        <div class="recetas_contenedor" id="recetas-contenedor">
+          <!-- Desayuno -->
+          <div class="tarjeta_receta tipo_desay" data-receta="desayuno">
+            <?php if (isset($recetas['desayuno']['imagen']) && $recetas['desayuno']['imagen']): ?>
+              <img src="<?php echo htmlspecialchars($recetas['desayuno']['imagen']); ?>" alt="<?php echo htmlspecialchars($recetas['desayuno']['nombre'] ?? 'Desayuno'); ?>" class="img_receta">
+            <?php else: ?>
+              <img src="/Images/fondo_pu_oscuro.png" alt="Desayuno" class="img_receta">
+            <?php endif; ?>
+            <span class="etiqueta_letra">D</span>
+            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['desayuno']['nombre'] ?? 'Desayuno'); ?></p>
+            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" data-tipo="desayuno" data-receta='<?php echo json_encode($recetas['desayuno'] ?? []); ?>'>
+              <?php echo ($planData['completadas']['desayuno'] ?? false) ? 'Completado' : 'Ver más'; ?>
+              <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
+            </button>
+          </div>
 
+          <!-- Almuerzo -->
+          <div class="tarjeta_receta tipo_almue" data-receta="almuerzo">
+            <?php if (isset($recetas['almuerzo']['imagen']) && $recetas['almuerzo']['imagen']): ?>
+              <img src="<?php echo htmlspecialchars($recetas['almuerzo']['imagen']); ?>" alt="<?php echo htmlspecialchars($recetas['almuerzo']['nombre'] ?? 'Almuerzo'); ?>" class="img_receta">
+            <?php else: ?>
+              <img src="/Images/fondo_pu_oscuro.png" alt="Almuerzo" class="img_receta">
+            <?php endif; ?>
+            <span class="etiqueta_letra">A</span>
+            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['almuerzo']['nombre'] ?? 'Almuerzo'); ?></p>
+            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" data-tipo="almuerzo" data-receta='<?php echo json_encode($recetas['almuerzo'] ?? []); ?>'>
+              <?php echo ($planData['completadas']['almuerzo'] ?? false) ? 'Completado' : 'Ver más'; ?>
+              <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
+            </button>
+          </div>
+
+          <!-- Cena -->
+          <div class="tarjeta_receta tipo_cena" data-receta="cena">
+            <?php if (isset($recetas['cena']['imagen']) && $recetas['cena']['imagen']): ?>
+              <img src="<?php echo htmlspecialchars($recetas['cena']['imagen']); ?>" alt="<?php echo htmlspecialchars($recetas['cena']['nombre'] ?? 'Cena'); ?>" class="img_receta">
+            <?php else: ?>
+              <img src="/Images/fondo_pu_oscuro.png" alt="Cena" class="img_receta">
+            <?php endif; ?>
+            <span class="etiqueta_letra">C</span>
+            <p class="nombre_receta"><?php echo htmlspecialchars($recetas['cena']['nombre'] ?? 'Cena'); ?></p>
+            <button class="btn-ver-mas-dash ver-mas btn-ver-receta" data-tipo="cena" data-receta='<?php echo json_encode($recetas['cena'] ?? []); ?>'>
+              <?php echo ($planData['completadas']['cena'] ?? false) ? 'Completado' : 'Ver más'; ?>
+              <i class="ph ph-arrow-circle-right" id="estado-receta"></i>
+            </button>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <?php if ($tienePlan): ?>
         <div class="barra_y_calorias">
-            <div class="barra_contenedor">
-            <div class="barra_progreso" style="width:66%;"></div>
-            </div>
-            <span class="porcentaje">66%</span>
-            <span class="calorias">150 Calorías</span>
+          <div class="barra_contenedor">
+            <?php 
+              $totalComidas = 3;
+              $completadas = 0;
+              if (isset($planData['completadas'])) {
+                foreach ($planData['completadas'] as $completa) {
+                  if ($completa) $completadas++;
+                }
+              }
+              $porcentaje = ($completadas / $totalComidas) * 100;
+            ?>
+            <div class="barra_progreso" style="width:<?php echo $porcentaje; ?>%;"></div>
+          </div>
+          <span class="porcentaje"><?php echo round($porcentaje); ?>%</span>
+          <span class="calorias">Progreso diario</span>
         </div>
-
+      <?php else: ?>
+        <div class="sin-plan" style="text-align: center; margin-top: 20px; padding: 20px; background: #F5F7FA; border-radius: 15px;">
+          <h3 style="color: #007848;">¡No tienes un plan activo!</h3>
+          <p style="color: #555;">Crea tu plan personalizado con IA para comenzar.</p>
+          <button onclick="window.location.href='contenidos/dieta_vegana/IA/pp_ia_dieta_vegana.php'" 
+                  style="background: #007848; color: white; border: none; padding: 12px 30px; border-radius: 25px; cursor: pointer; margin-top: 10px;">
+            <i class="ph ph-magic-wand"></i> Crear Plan con IA
+          </button>
+        </div>
+      <?php endif; ?>
     </div>
 
     <!-- 2️⃣ Calendario -->
@@ -230,7 +364,7 @@
             <span>Disponible</span>
           </div>
           <button class="btn-empezar-receta" id="btn-empezar-receta">
-            Empezar Receta
+            Marcar como Completada
           </button>
         </div>
 

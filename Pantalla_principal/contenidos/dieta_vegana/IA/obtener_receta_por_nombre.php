@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../../../../misc/db_config.php';
+require_once __DIR__ . '/../../misc/db_config.php';
+
+
 header('Content-Type: application/json');
 
 try {
