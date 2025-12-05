@@ -133,20 +133,34 @@ function ejecutarScriptsPagina(pagina) {
     // espacio para lógica de dieta vegana
   }
 
-    if (pagina === "/plan/pp_dashboard_miplan.php") {
-    setTimeout(() => {
-      console.log("🏠 Dashboard cargado, inicializando modales...");
-      if (window.inicializarModalesPlan) {
-        window.inicializarModalesPlan();
-      } else {
-        console.error("❌ La función inicializarModalesPlan no está disponible");
-        // Intentar cargar el script manualmente si no está disponible
-        cargarScriptModales();
-      }
-       inicializarPopupGuia();
-       inicializarModalIngredientes();
-       inicializarModalPreferencias();
-    }, 300);
+  if (pagina === "/plan/pp_dashboard_miplan.php") {
+      setTimeout(() => {
+          console.log("🏠 Dashboard cargado, inicializando modales...");
+          
+          // Asegurar que los datos estén disponibles globalmente
+          if (window.recetasDataDashboard) {
+              console.log('📊 Datos de recetas disponibles:', Object.keys(window.recetasDataDashboard));
+          }
+          
+          // Inicializar modales del plan
+          if (window.inicializarModalesPlan) {
+              window.inicializarModalesPlan();
+          } else {
+              console.warn('⚠️ inicializarModalesPlan no disponible aún, esperando...');
+              // Intentar de nuevo en 500ms
+              setTimeout(() => {
+                  if (window.inicializarModalesPlan) {
+                      window.inicializarModalesPlan();
+                  } else {
+                      console.error('❌ No se pudo cargar modales-plan.js');
+                  }
+              }, 500);
+          }
+          
+          inicializarPopupGuia();
+          inicializarModalIngredientes();
+          inicializarModalPreferencias();
+      }, 500); // Aumentar delay para asegurar carga
   }
   setTimeout(inicializarPopupGuia, 200);
 
